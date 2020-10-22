@@ -1,2 +1,4 @@
-package com.dcm.Controller;public class userController {
+package com.dcm.controller;
+
+public class userController {
 }
