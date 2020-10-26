@@ -20,7 +20,7 @@ class DcmApplicationTests {
 		User user = new User();
 		user.setAddress("test");
 		user.setGender("test");
-		user.setId("test");
+		user.setEmail("test");
 		user.setNickname("test");
 		user.setName("test");
 		System.out.println(user.toString());

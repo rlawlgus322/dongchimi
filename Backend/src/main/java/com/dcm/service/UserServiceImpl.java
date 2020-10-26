@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService{
 //            loop = isUid(uid.toString()) ? true : false;
             loop = false;
         }
-        user.setUid(uid.toString());
+        user.setId(uid.toString());
+        System.out.println(user.toString());
         userDao.save(user);
         return false;
     }
