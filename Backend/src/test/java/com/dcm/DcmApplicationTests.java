@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 @SpringBootTest
 class DcmApplicationTests {
 	@Autowired
@@ -14,8 +17,17 @@ class DcmApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+	static {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Test
+<<<<<<< HEAD
 	void jointest(){
 		User user = new User();
 		user.setAddress("test");
@@ -28,4 +40,18 @@ class DcmApplicationTests {
 
 	}
 
+=======
+	public void testConnection() {
+		try(Connection con =
+					DriverManager.getConnection(
+							"jdbc:oracle:thin:@localhost:1521:DCM",
+							"system",
+							"root")){
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+>>>>>>> 19ac0148f00a5d160a54df0ea3a9c9322453f728
 }
