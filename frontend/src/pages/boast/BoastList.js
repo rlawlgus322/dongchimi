@@ -2,7 +2,7 @@ import React from 'react';
 
 function BoastList() {
   return (
-    <div className="App">
+    <div>
       자랑하기
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 
 function RecommendList() {
   return (
-    <div className="App">
+    <div>
       Recommend
     </div>
   );

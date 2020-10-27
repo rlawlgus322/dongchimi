@@ -2,7 +2,7 @@ import React from 'react';
 
 function PartyList() {
   return (
-    <div className="App">
+    <div>
       Party
     </div>
   );

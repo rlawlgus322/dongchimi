@@ -2,7 +2,7 @@ import React from 'react';
 
 function LoginModal() {
   return (
-    <div className="App">
+    <div>
       Login Modal
     </div>
   );
