@@ -12,8 +12,7 @@ public class ChimiServiceImpl implements ChimiService{
 	ChimiRepository chimiRepository;
 
 	@Override
-	public boolean save(Chimi chimi) {
-		chimiRepository.save(chimi);
-		return true;
+	public Chimi save(Chimi chimi) {
+		return chimiRepository.save(chimi);
 	}
 }
