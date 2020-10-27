@@ -27,6 +27,49 @@ const Ul = styled.ul`
       color: #fff;
     }
   }
+
+  .drop-down ul {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 3.4rem;
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    padding: 10px 0;
+    background: #fff;
+    box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+    transition: ease all 0.3s;
+    list-style: none;
+  }
+
+  .drop-down:hover > ul {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .drop-down li {
+    min-width: 180px;
+    position: relative;
+  }
+
+  .drop-down ul a {
+    padding: 10px 20px;
+    font-size: 13px;
+    color: #004289;
+  }
+
+  .drop-down ul a:hover,
+  .drop-down ul .active > a,
+  .drop-down ul li:hover > a {
+    color: #007bff;
+  }
+
+  .drop-down > a:after {
+    content: "\f107";
+    font-family: FontAwesome;
+    padding-left: 10px;
+  }
 `;
 
 const RightNav = ({ open }) => {
@@ -36,7 +79,15 @@ const RightNav = ({ open }) => {
       <li><NavLink to="/party">Party</NavLink></li>
       <li><NavLink to="/recommend">추천</NavLink></li>
       <li><NavLink to="/boast">자랑게시판</NavLink></li>
-      <li><NavLink to="/mypage">MyPage</NavLink></li>
+      <li>로그인</li>
+      <li className="drop-down">
+        <NavLink to="/mypage">MyPage</NavLink>
+        <ul>
+          <li>프로필 설정</li>
+          <li>로그아웃</li>
+        </ul>
+      </li>
+
     </Ul>
   )
 }

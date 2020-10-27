@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Burger from './Burger';
+import { NavLink } from 'react-router-dom';
 
 const Nav = styled.nav`
   width: 100%;
@@ -19,7 +20,7 @@ const Navbar = () => {
   return (
     <Nav>
       <div className="logo">
-        동취미
+        <NavLink to="/">동취미</NavLink>
       </div>
       <Burger />
     </Nav>
