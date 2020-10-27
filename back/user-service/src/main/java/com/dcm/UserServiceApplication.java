@@ -1,12 +1,13 @@
-package com.example;
+package com.dcm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootJpaSecurityLoginApplication {
+public class UserServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootJpaSecurityLoginApplication.class, args);
+		SpringApplication.run(UserServiceApplication.class, args);
 	}
+
 }
