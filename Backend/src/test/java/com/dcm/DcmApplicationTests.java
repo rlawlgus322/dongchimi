@@ -27,7 +27,6 @@ class DcmApplicationTests {
 	}
 
 	@Test
-<<<<<<< HEAD
 	void jointest(){
 		User user = new User();
 		user.setAddress("test");
@@ -40,18 +39,4 @@ class DcmApplicationTests {
 
 	}
 
-=======
-	public void testConnection() {
-		try(Connection con =
-					DriverManager.getConnection(
-							"jdbc:oracle:thin:@localhost:1521:DCM",
-							"system",
-							"root")){
-
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
->>>>>>> 19ac0148f00a5d160a54df0ea3a9c9322453f728
 }

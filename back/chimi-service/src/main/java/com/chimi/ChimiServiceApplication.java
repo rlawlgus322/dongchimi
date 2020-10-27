@@ -1,4 +1,4 @@
-package com.dcm;
+package com.chimi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
