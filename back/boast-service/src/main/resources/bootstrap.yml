@@ -1,6 +1,6 @@
 spring:
   application:
-    name: zuul
+    name: boastservice
   profiles:
     active:
       default
