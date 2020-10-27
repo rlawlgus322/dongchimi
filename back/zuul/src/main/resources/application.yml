@@ -22,14 +22,15 @@ eureka:
     serviceUrl:
         defaultZone: http://localhost:8761/eureka/
 
-#
-#
-#  debug:
-#    request: true
-#
+
+
+#debug:
+#  request: true
+
 # 이곳에  bootstrap.yml에 지정한 service 이름 적고 주소 적기
 zuul:
   prefix:  /api
   routes:
-    organizationservice: /organization/**
-    licensingservice: /licensing/**
+    boastservice:
+      path: /boast/**
+#      url: http://localhost:7777 유레카 통해서 갈거면 필요없다.
