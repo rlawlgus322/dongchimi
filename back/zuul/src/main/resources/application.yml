@@ -27,8 +27,9 @@ eureka:
 #  debug:
 #    request: true
 #
-#zuul:
-#  prefix:  /api
-#  routes:
-#    organizationservice: /organization/**
-#    licensingservice: /licensing/**
+# 이곳에  bootstrap.yml에 지정한 service 이름 적고 주소 적기
+zuul:
+  prefix:  /api
+  routes:
+    organizationservice: /organization/**
+    licensingservice: /licensing/**
