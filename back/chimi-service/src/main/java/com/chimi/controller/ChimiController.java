@@ -1,10 +1,7 @@
 package com.chimi.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -55,7 +52,7 @@ public class ChimiController {
 	}
 	
 	@GetMapping
-	@ApiOperation(value = "모든 취미 파티 조회")	// ?page=0&size=20&sort=hid,asc
+	@ApiOperation(value = "모든 취미 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
 	public ResponseEntity<Page<Chimi>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable){
 		
 		Page<Chimi> list = chimiService.findAll(pageable);
@@ -68,7 +65,14 @@ public class ChimiController {
 	@ApiOperation(value = "취미 파티 상세조회")
 	public ResponseEntity<Chimi> search(@PathVariable Long hid){
 		Chimi newChimi = chimiService.findById(hid).get();
+
+		// 조회수 증가
+		newChimi.setViews(newChimi.getViews()+1);
+		newChimi = chimiService.save(newChimi);
+		
 		if(newChimi != null)	return new ResponseEntity<>(newChimi, HttpStatus.OK);
 		else					return new ResponseEntity<>(newChimi, HttpStatus.BAD_REQUEST);
 	}
+
+
 }
