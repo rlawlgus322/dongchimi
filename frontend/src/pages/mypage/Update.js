@@ -3,7 +3,7 @@ import React from 'react';
 import RegisterForm from '../../containers/auth/RegisterForm';
 import styled from 'styled-components';
 
-const RegisterBlock = styled.div`
+const UpdateBlock = styled.div`
   width: 50%;
   margin: auto;
   position: absolute;
@@ -17,13 +17,13 @@ const RegisterBlock = styled.div`
   align-items: center;
 `;
 
-const Register = () => {
+const Update = () => {
   return (
-    <RegisterBlock>
-      <h1>회원가입</h1>
+    <UpdateBlock>
+      <h1>회원정보수정</h1>
       <RegisterForm />
-    </RegisterBlock>
+    </UpdateBlock>
   );
 };
 
-export default Register;
+export default Update;
