@@ -27,7 +27,7 @@ public class Boast {
     private Long pid;
 
     @NotBlank
-    private String id;   // 자랑 유저 id
+    private String uid;   // 자랑 유저 id
     
     @NotBlank
     private Long hid;   // 취미 id
@@ -37,7 +37,7 @@ public class Boast {
     private String title;   // 취미 이름
     
     @Size(max = 1000)
-    private String post_img;   // 간략소개
+    private String postImg;   // 간략소개
     
     @Size(max = 10000)
     private String contents;   // 소개
@@ -49,5 +49,32 @@ public class Boast {
     private int views;   // 조회수
 
 
+    public Boast toEntity() {
+      return Boast.builder()
+          .pid(pid)
+          .uid(uid)
+          .hid(hid)
+          .title(title)
+          .postImg(postImg)
+          .contents(contents)
+          .createdate(createdate)
+          .stars(stars)
+          .views(views)
+          .build();
+    }
+    
+    public Boast(Boast boast) {
+      this.pid = boast.getPid();
+      this.uid = boast.getUid();
+      this.hid = boast.getHid();
+      this.title = boast.getTitle();
+      this.postImg = boast.getPostImg();
+      this.contents = boast.getContents();
+      this.createdate = boast.getCreatedate();
+      this.stars = boast.getStars();
+      this.views = boast.getViews();
+    }
+  
+  
 
 }

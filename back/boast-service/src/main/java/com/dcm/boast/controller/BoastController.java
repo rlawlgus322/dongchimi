@@ -21,13 +21,20 @@ public class BoastController {
 	private BoastService boastService;
 	
 	@GetMapping("/boast/all")
-    public ResponseEntity<?> findAllCourses(){
+    public ResponseEntity<?> findAll(){
+        ResponseEntity<?> entity = null;
+		
+		try {
+			entity = new ResponseEntity<Boast>(boastService.allBoasts(), HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
         return ResponseEntity.ok(boastService.allBoasts());
     }
 
     @PostMapping("/boast")
     public ResponseEntity<?> saveTransaction(@RequestBody Boast boast) {
-		return null;
+        
 //        transaction.setDateOfIssue(LocalDateTime.now());
 //        transaction.setCourse(courseService.findCourseById(transaction.getCourse().getId()));
 //        return new ResponseEntity<>(boastService.saveTransaction(transaction), HttpStatus.CREATED);
