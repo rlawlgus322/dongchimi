@@ -19,7 +19,7 @@ class ChimiServiceApplicationTests {
 	@Test
 	void jointest(){
 		Chimi chimi = new Chimi();
-		chimi.setId("12345567");
+		chimi.setId(1L);
 		chimi.setName("TestChimi");
 		
 		System.out.println(chimiService.save(chimi));

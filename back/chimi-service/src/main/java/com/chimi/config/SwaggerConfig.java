@@ -21,13 +21,13 @@ public class SwaggerConfig {
 				.apiInfo(apiInfo())
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.chimi.controller"))
-				.paths(PathSelectors.ant("/api/**"))
+				.paths(PathSelectors.ant("/chimi/**"))
 				.build();
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("GunReview API")
-				.description("GunReview API Reference for Developers")
+		return new ApiInfoBuilder().title("Chimi API")
+				.description("Chimi API Reference for Developers")
 				.termsOfServiceUrl("https://edu.ssafy.com")
 				.license("MND License")
 				.licenseUrl("ssafy@ssafy.com").version("1.0").build();

@@ -1,5 +1,7 @@
 package com.chimi.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,10 @@ public class ChimiServiceImpl implements ChimiService{
 	@Override
 	public Chimi save(Chimi chimi) {
 		return chimiRepository.save(chimi);
+	}
+
+	@Override
+	public Optional<Chimi> findById(Long hid) {
+		return chimiRepository.findById(hid);
 	}
 }
