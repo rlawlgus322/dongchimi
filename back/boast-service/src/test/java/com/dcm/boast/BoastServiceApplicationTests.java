@@ -14,7 +14,7 @@ class BoastServiceApplicationTests {
 	BoastDao boastDao;
 	@Test
 	void contextLoads() {
-		Boast boast = new Boast();
+//		Boast boast = new Boast();
 		
 	}
 

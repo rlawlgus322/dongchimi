@@ -3,7 +3,6 @@ package com.dcm.boast.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -49,19 +48,22 @@ public class Boast {
     private int views;   // 조회수
 
 
-    public Boast toEntity() {
-      return Boast.builder()
-          .pid(pid)
-          .uid(uid)
-          .hid(hid)
-          .title(title)
-          .postImg(postImg)
-          .contents(contents)
-          .createdate(createdate)
-          .stars(stars)
-          .views(views)
-          .build();
-    }
+    @Builder
+	private Boast(long pid, String uid,long hid,String title, String postImg, String contents, 
+			LocalDateTime createdate, int stars, int views) {
+    	 this.pid = pid;
+         this.uid = uid;
+         this.hid = hid;
+         this.title = title;
+         this.postImg = postImg;
+         this.contents = contents;
+         this.createdate = createdate;
+         this.stars = stars;
+         this.views = views;
+	}
+
+
+
     
     public Boast(Boast boast) {
       this.pid = boast.getPid();

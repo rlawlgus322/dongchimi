@@ -8,6 +8,6 @@ public interface BoastService {
 	List<Boast> allBoasts();
   Boast findBoastById(long boastId);
   void delete(long boastId);
-  void insert(Boast boast);
-  void update(Boast boast, long id);
+  Boast insert(Boast boast);
+  Boast update(Boast boast, long id);
 }
