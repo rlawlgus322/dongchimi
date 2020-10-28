@@ -1,13 +1,13 @@
-package com.dcm;
+package com.bezkoder.springjwt;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UserServiceApplication {
+public class SpringBootSecurityJwtApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UserServiceApplication.class, args);
+		SpringApplication.run(SpringBootSecurityJwtApplication.class, args);
 	}
 
 }
