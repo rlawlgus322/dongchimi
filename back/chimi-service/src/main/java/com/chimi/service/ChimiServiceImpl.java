@@ -1,6 +1,11 @@
 package com.chimi.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.chimi.model.Chimi;
@@ -12,8 +17,17 @@ public class ChimiServiceImpl implements ChimiService{
 	ChimiRepository chimiRepository;
 
 	@Override
-	public boolean save(Chimi chimi) {
-		chimiRepository.save(chimi);
-		return true;
+	public Chimi save(Chimi chimi) {
+		return chimiRepository.save(chimi);
+	}
+
+	@Override
+	public Optional<Chimi> findById(Long hid) {
+		return chimiRepository.findById(hid);
+	}
+
+	@Override
+	public Page<Chimi> findAll(Pageable pageable) {
+		return chimiRepository.findAll(pageable);
 	}
 }

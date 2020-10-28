@@ -33,4 +33,6 @@ zuul:
   routes:
     boastservice:
       path: /boast/**
+    userservice:
+      path: /auth/**
 #      url: http://localhost:7777 유레카 통해서 갈거면 필요없다.

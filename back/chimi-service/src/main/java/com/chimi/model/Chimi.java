@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,8 +19,8 @@ public class Chimi {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long hid;
 	
-	@NotBlank
-	private String id;	// 방장 id
+	@NotNull
+	private Long id;	// 방장 id
 	
 	@NotBlank
 	@Size(max = 100)
