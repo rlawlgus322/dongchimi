@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import LoginModal from '../LoginModal';
 
 const Ul = styled.ul`
   list-style: none;
@@ -79,11 +80,11 @@ const RightNav = ({ open }) => {
       <li><NavLink to="/party">Party</NavLink></li>
       <li><NavLink to="/recommend">추천</NavLink></li>
       <li><NavLink to="/boast">자랑게시판</NavLink></li>
-      <li>로그인</li>
+      <li><LoginModal></LoginModal></li>
       <li className="drop-down">
         <NavLink to="/mypage">MyPage</NavLink>
         <ul>
-          <li>프로필 설정</li>
+          <li><NavLink to="/update">프로필 설정</NavLink></li>
           <li>로그아웃</li>
         </ul>
       </li>
