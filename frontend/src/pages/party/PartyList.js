@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Parties from '../../components/Party/Parties';
+import Parties from '../../components/Party/List/Parties';
 
 const data = [
   { id: '1', bangjang: 'a', name: '뜨개질', desc: '뜨개질하자', total: '1', stars: '6', views: '1', imgSrc: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/3960e6fd2eed33ded85590499d95b729/7FB9DDA2-C9B7-473B-BD78-282A33AA084F-9716-000009E931E8FB4C_file.jpg', },

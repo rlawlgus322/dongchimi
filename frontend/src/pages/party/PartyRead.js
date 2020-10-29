@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PartyInfo from '../../components/Party/PartyInfo';
-import PartyOpener from '../../components/Party/PartyOpener';
-import PartyPlan from '../../components/Party/PartyPlan';
-import PartyComment from '../../components/Party/PartyComment';
+import PartyInfo from '../../components/Party/Read/PartyInfo';
+import PartyOpener from '../../components/Party/Read/PartyOpener';
+import PartyPlan from '../../components/Party/Read/PartyPlan';
+import PartyComment from '../../components/Party/Read/PartyComment';
 
 class PartyRead extends Component {
 

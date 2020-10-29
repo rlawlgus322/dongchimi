@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import '../../styles/partycard.css';
+import '../../../styles/partycard.css';
 
 class Party extends Component {
   render() {
