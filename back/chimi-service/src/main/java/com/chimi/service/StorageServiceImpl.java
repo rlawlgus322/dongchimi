@@ -1,5 +1,8 @@
 package com.chimi.service;
 
+import java.util.Optional;
+
+import com.chimi.model.PKSet;
 import com.chimi.model.Storage;
 import com.chimi.repository.StorageRepository;
 
@@ -15,6 +18,16 @@ public class StorageServiceImpl implements StorageService {
   @Override
   public Storage save(Storage storage) {
     return storageRepository.save(storage);
+  }
+
+  @Override
+  public void deleteById(PKSet pk) {
+    storageRepository.deleteById(pk);
+  }
+
+  @Override
+  public Optional<Storage> findById(PKSet pk) {
+    return storageRepository.findById(pk);
   }
   
 }

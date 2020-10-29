@@ -92,6 +92,7 @@ public class ChimiController {
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
 	}
+
 	@PostMapping("/storage")
 	@ApiOperation(value = "보관함에 저장")
 	public ResponseEntity<String> insertStorage(String email, Long hid) {
@@ -102,4 +103,16 @@ public class ChimiController {
 		else										return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 	}
 
+	@DeleteMapping("/storage")
+	@ApiOperation(value = "보관함 삭제")
+	public ResponseEntity<String> deleteStorage(String email, Long hid) {
+		PKSet pk = new PKSet(email, hid);
+
+		if(storageService.findById(pk).get()!= null){
+			storageService.deleteById(pk);
+			return new ResponseEntity<>("success", HttpStatus.OK);
+		} else{
+			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+		}
+	}
 }
