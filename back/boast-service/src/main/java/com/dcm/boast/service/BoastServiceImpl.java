@@ -3,10 +3,10 @@ package com.dcm.boast.service;
 import com.dcm.boast.dao.BoastDao;
 import com.dcm.boast.model.Boast;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Random;
 
 @Service
 public class BoastServiceImpl implements BoastService {
@@ -15,18 +15,11 @@ public class BoastServiceImpl implements BoastService {
 	private BoastDao boastDao;
 
 	@Override
-	public List<Boast> allBoasts() {
-		return (List<Boast>) boastDao.findAll();
+	public Page<Boast> allBoasts(Pageable pageable) {
+		return boastDao.findAll(pageable);
 	}
 
 	// 페이지 구성시 https://blog.naver.com/anytimedebug/221345293638
-	public Boast list(Boast model) throws Exception {
-	Page<Boast> page = boastDao.findAll(model.toSpecification(), model.toPage());
-	model.setList(page.getContent());
-	model.setTotalCount(page.getTotalElements());
-
-	return model;
-	}
 
 	@Override
 	public Boast findBoastById(long boastId) {
@@ -46,12 +39,19 @@ public class BoastServiceImpl implements BoastService {
 		nboast.setPostImg(boast.getPostImg());
 		Boast rboast = boastDao.save(nboast);
 
-		return new Boast(rboast);
+		return rboast;
 	}
-
+	@Override
 	public void delete(long id) {
-		this.findBoastById(id);
 		boastDao.deleteById(id);
+	}
+	
+	@Override
+	public Boast view(long id) {
+		Boast nboast = this.findBoastById(id);
+		nboast.setViews(nboast.getViews()+1);
+		Boast rboast = boastDao.save(nboast);
+		return rboast;
 	}
 
 }

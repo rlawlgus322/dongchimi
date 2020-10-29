@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,16 +19,17 @@ import lombok.*;
 @Entity
 @Data
 @Table(name = "BOAST")
+@NoArgsConstructor
 public class Boast {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long pid;
+    @GeneratedValue
+    private Long bid;
 
     @NotBlank
-    private String uid;   // 자랑 유저 id
+    private String userId;   // 자랑 유저 id
     
-    @NotBlank
+    @NotNull
     private Long hid;   // 취미 id
     
     @NotBlank
@@ -42,22 +43,25 @@ public class Boast {
     private String contents;   // 소개
 
     @CreationTimestamp
-     private LocalDateTime createdate;   // 생성일
+    private LocalDateTime createdate;   // 생성일
+    
+    private String category;
     
     private int stars;   // 추천수
     private int views;   // 조회수
 
 
     @Builder
-	private Boast(long pid, String uid,long hid,String title, String postImg, String contents, 
-			LocalDateTime createdate, int stars, int views) {
-    	 this.pid = pid;
-         this.uid = uid;
+	private Boast(long bid, String uid,long hid,String title, String postImg, String contents, 
+			String category, LocalDateTime createdate, int stars, int views) {
+    	 this.bid = bid;
+         this.userId = uid;
          this.hid = hid;
          this.title = title;
          this.postImg = postImg;
          this.contents = contents;
          this.createdate = createdate;
+         this.category = category;
          this.stars = stars;
          this.views = views;
 	}
@@ -66,13 +70,14 @@ public class Boast {
 
     
     public Boast(Boast boast) {
-      this.pid = boast.getPid();
-      this.uid = boast.getUid();
+      this.bid = boast.getBid();
+      this.userId = boast.getUserId();
       this.hid = boast.getHid();
       this.title = boast.getTitle();
       this.postImg = boast.getPostImg();
       this.contents = boast.getContents();
       this.createdate = boast.getCreatedate();
+      this.category = boast.getCategory();
       this.stars = boast.getStars();
       this.views = boast.getViews();
     }
