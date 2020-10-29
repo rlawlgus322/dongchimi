@@ -20,13 +20,13 @@ public class BoastServiceImpl implements BoastService {
 	}
 
 	// 페이지 구성시 https://blog.naver.com/anytimedebug/221345293638
-	// public BoardListDTO list(Boast model) throws Exception {
-	// Page<Boast> page = boastDao.findAll(model.toSpecification(), model.toPage());
-	// model.setList(page.getContent());
-	// model.setTotalCount(page.getTotalElements());
+	public Boast list(Boast model) throws Exception {
+	Page<Boast> page = boastDao.findAll(model.toSpecification(), model.toPage());
+	model.setList(page.getContent());
+	model.setTotalCount(page.getTotalElements());
 
-	// return model;
-	// }
+	return model;
+	}
 
 	@Override
 	public Boast findBoastById(long boastId) {
