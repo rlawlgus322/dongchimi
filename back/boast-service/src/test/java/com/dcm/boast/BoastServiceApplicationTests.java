@@ -10,12 +10,12 @@ import com.dcm.boast.model.Boast;
 @SpringBootTest
 class BoastServiceApplicationTests {
 
-	@Autowired
-	BoastDao boastDao;
-	@Test
-	void contextLoads() {
-//		Boast boast = new Boast();
+	// @Autowired
+	// BoastDao boastDao;
+	// @Test
+	// void contextLoads() {
+	// 	Boast boast = new Boast();
 		
-	}
+	// }
 
 }
