@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 import com.chimi.model.Chimi;
 import com.chimi.model.PKSet;
+import com.chimi.model.Star;
 import com.chimi.model.Storage;
 import com.chimi.service.ChimiService;
+import com.chimi.service.StarService;
 import com.chimi.service.StorageService;
 
 import io.swagger.annotations.ApiOperation;
@@ -34,9 +37,10 @@ import io.swagger.annotations.ApiOperation;
 public class ChimiController {
 	@Autowired
 	ChimiService chimiService;
-	
 	@Autowired
 	StorageService storageService;
+	@Autowired
+	StarService starService;
 
 	@PostMapping
 	@ApiOperation(value = "새 취미 파티 게시 ")
@@ -65,7 +69,7 @@ public class ChimiController {
 	public ResponseEntity<Page<Chimi>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable){
 		
 		Page<Chimi> list = chimiService.findAll(pageable);
-	
+		
 		if(list != null)		return new ResponseEntity<>(list, HttpStatus.OK);
 		else					return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
 	}
@@ -87,11 +91,48 @@ public class ChimiController {
 	@ApiOperation(value = "취미 파티 삭제")
 	public ResponseEntity<String> delete(Long hid) {
 
-		if(chimiService.findById(hid)!= null){
+		if(chimiService.findById(hid).isPresent()){
 			chimiService.deleteById(hid);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@PutMapping("/recommend")
+	@ApiOperation(value = "추천하기")
+	public ResponseEntity<String> recommend(@RequestParam(required = true) Long hid, @RequestParam(required = true) String email) {
+		Chimi newChimi  = chimiService.findById(hid).get();
+
+		if(newChimi != null){
+			newChimi.setStars(newChimi.getStars()+1);
+			chimiService.save(newChimi);
+
+			Star star = new Star(new PKSet(email, hid));
+			starService.save(star);
+			return new ResponseEntity<>("success", HttpStatus.OK);
+		
+		} else{
+			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
+		}
+	}
+	@PutMapping("/unrecommend")
+	@ApiOperation(value = "추천취소하기")
+	public ResponseEntity<String> unrecommend(@RequestParam(required = true) Long hid, @RequestParam(required = true) String email) {
+		Chimi newChimi  = chimiService.findById(hid).get();
+
+		if(newChimi != null){
+			newChimi.setStars(newChimi.getStars()>0? newChimi.getStars()-1 : 0);
+			chimiService.save(newChimi);
+
+			PKSet pk = new PKSet(email,hid);
+			if(starService.findById(pk).isPresent()){
+				starService.deleteById(pk);
+			}
+			
+			return new ResponseEntity<>("success", HttpStatus.OK);
+		} else{
+			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
 		}
 	}
 
