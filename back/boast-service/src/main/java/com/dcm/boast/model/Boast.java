@@ -47,13 +47,13 @@ public class Boast {
     
     private String category;
     
-    private int stars;   // 추천수
+    private int likes;   // 추천수
     private int views;   // 조회수
 
 
     @Builder
 	private Boast(long bid, String uid,long hid,String title, String postImg, String contents, 
-			String category, LocalDateTime createdate, int stars, int views) {
+			String category, LocalDateTime createdate, int likes, int views) {
     	 this.bid = bid;
          this.userId = uid;
          this.hid = hid;
@@ -62,7 +62,7 @@ public class Boast {
          this.contents = contents;
          this.createdate = createdate;
          this.category = category;
-         this.stars = stars;
+         this.likes = likes;
          this.views = views;
 	}
 
@@ -78,7 +78,7 @@ public class Boast {
       this.contents = boast.getContents();
       this.createdate = boast.getCreatedate();
       this.category = boast.getCategory();
-      this.stars = boast.getStars();
+      this.likes = boast.getLikes();
       this.views = boast.getViews();
     }
   

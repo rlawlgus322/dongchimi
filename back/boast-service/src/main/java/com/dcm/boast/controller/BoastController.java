@@ -1,5 +1,8 @@
 package com.dcm.boast.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dcm.boast.model.Boast;
+import com.dcm.boast.model.BoastResponse;
+import com.dcm.boast.model.BoastStar;
 import com.dcm.boast.service.BoastService;
 
 import io.swagger.annotations.ApiOperation;
@@ -30,10 +35,16 @@ public class BoastController {
 
 	@GetMapping("/all")
 	@ApiOperation(value = "모든 자랑게시물 반환")
-	public ResponseEntity<?> findAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable) {
-		Page<Boast> list = boastService.allBoasts(pageable);
-		if(list != null)		return new ResponseEntity<>(list, HttpStatus.OK);
-		else					return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+	public ResponseEntity<List<BoastResponse>> findAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable) {
+		Page<Boast> boastlist = boastService.allBoasts(pageable);
+		List<BoastResponse> list = new ArrayList<>();
+		for (Boast bst : boastlist) {
+			BoastResponse boastResponse = new BoastResponse(bst);
+			if(boastService.isLike(bst.getBid())) boastResponse.setLiked(true); //내가 좋아요 누른 게시물인지
+			list.add(boastResponse);
+		}
+		if(list != null) return new ResponseEntity<>(list, HttpStatus.OK);
+		else	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@PostMapping("/")
@@ -70,11 +81,14 @@ public class BoastController {
 
 	@GetMapping("/b/{boastId}")
 	@ApiOperation(value = "해당 id값 게시물 가져오기")
-	public ResponseEntity<?> find(@PathVariable long boastId) {
-		ResponseEntity<?> entity = null;
+	public ResponseEntity<BoastResponse> find(@PathVariable long boastId) {
+		ResponseEntity<BoastResponse> entity = null;
 
 		try {
-			entity = new ResponseEntity<Boast>(boastService.findBoastById(boastId), HttpStatus.OK);
+			Boast bst = boastService.findBoastById(boastId);
+			BoastResponse boastResponse = new BoastResponse(bst);
+			if(boastService.isLike(bst.getBid())) boastResponse.setLiked(true); //내가 좋아요 누른 게시물인지
+			entity = new ResponseEntity<BoastResponse>(boastResponse, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -116,5 +130,35 @@ public class BoastController {
 		return entity;
 	}
 	
+	@PutMapping("/like")
+	@ApiOperation(value = "좋아요 올리기")
+	public ResponseEntity<?> like(@RequestBody BoastStar boastStar) {
+
+		ResponseEntity<?> entity = null;
+
+		try {
+			entity = new ResponseEntity<Boast>(boastService.like(boastStar), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
 	
+	@PutMapping("/dislike")
+	@ApiOperation(value = "좋아요 취소")
+	public ResponseEntity<?> dislike(@RequestBody BoastStar boastStar) {
+
+		ResponseEntity<?> entity = null;
+
+		try {
+			entity = new ResponseEntity<Boast>(boastService.dislike(boastStar), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
 }
