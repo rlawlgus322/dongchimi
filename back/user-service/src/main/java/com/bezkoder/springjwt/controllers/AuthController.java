@@ -34,7 +34,7 @@ import com.bezkoder.springjwt.security.services.UserDetailsImpl;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-//@RequestMapping("/api/auth")
+//@RequestMapping("/api/auth/")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -72,6 +72,7 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+		System.out.println(signUpRequest.toString());
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
@@ -84,6 +85,7 @@ public class AuthController {
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
 
+		
 		// Create new user's account
 		User user = new User(signUpRequest.getUsername(), 
 							 signUpRequest.getEmail(),
