@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Party from './Party';
-import '../../styles/partycard.css';
 
 class Parties extends Component {
   state = {
