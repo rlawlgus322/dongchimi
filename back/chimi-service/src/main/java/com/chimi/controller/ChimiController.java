@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chimi.model.Chimi;
+import com.chimi.model.PKSet;
+import com.chimi.model.Storage;
 import com.chimi.service.ChimiService;
+import com.chimi.service.StorageService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -29,6 +32,9 @@ public class ChimiController {
 	@Autowired
 	ChimiService chimiService;
 	
+	@Autowired
+	StorageService storageService;
+
 	@PostMapping
 	@ApiOperation(value = "새 취미 파티 게시 ")
 	public ResponseEntity<String> insert(@RequestBody Chimi chimi) {
@@ -74,5 +80,14 @@ public class ChimiController {
 		else					return new ResponseEntity<>(newChimi, HttpStatus.BAD_REQUEST);
 	}
 
+	@PostMapping("/storage")
+	@ApiOperation(value = "보관함에 저장")
+	public ResponseEntity<String> insertStorage(String email, Long hid) {
+		Storage newStorage = new Storage(new PKSet(email, hid));
+		newStorage = storageService.save(newStorage);
+
+		if(newStorage != null)	return new ResponseEntity<>("success", HttpStatus.OK);
+		else										return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+	}
 
 }
