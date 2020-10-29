@@ -29,4 +29,9 @@ public class ChimiServiceImpl implements ChimiService{
 	public Page<Chimi> findAll(Pageable pageable) {
 		return chimiRepository.findAll(pageable);
 	}
+
+	@Override
+	public void deleteById(Long hid) {
+		chimiRepository.deleteById(hid);
+	}
 }

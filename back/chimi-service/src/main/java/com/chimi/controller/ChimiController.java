@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,6 +81,17 @@ public class ChimiController {
 		else					return new ResponseEntity<>(newChimi, HttpStatus.BAD_REQUEST);
 	}
 
+	@DeleteMapping
+	@ApiOperation(value = "취미 파티 삭제")
+	public ResponseEntity<String> delete(Long hid) {
+
+		if(chimiService.findById(hid)!= null){
+			chimiService.deleteById(hid);
+			return new ResponseEntity<>("success", HttpStatus.OK);
+		} else{
+			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+		}
+	}
 	@PostMapping("/storage")
 	@ApiOperation(value = "보관함에 저장")
 	public ResponseEntity<String> insertStorage(String email, Long hid) {
