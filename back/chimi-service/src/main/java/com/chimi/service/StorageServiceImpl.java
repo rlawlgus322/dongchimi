@@ -1,5 +1,6 @@
 package com.chimi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.chimi.model.PKSet;
@@ -28,6 +29,11 @@ public class StorageServiceImpl implements StorageService {
   @Override
   public Optional<Storage> findById(PKSet pk) {
     return storageRepository.findById(pk);
+  }
+
+  @Override
+  public List<Storage> findByStoragePKEmail(String email) {
+    return storageRepository.findByStoragePKEmailOrderByCreatedateDesc(email);
   }
   
 }

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import com.chimi.model.Chimi;
 import com.chimi.model.PKSet;
 import com.chimi.model.Storage;
@@ -104,15 +106,15 @@ public class ChimiController {
 	}
 	
 	@GetMapping("/storage")
-	@ApiOperation(value = "보관함 상세조회")
-	public ResponseEntity<Storage> searchStorage(String email, Long hid) {
-		PKSet pk = new PKSet(email, hid);
-		Storage newStorage = storageService.findById(pk).get();
+	@ApiOperation(value = "사용자의 보관함 조회")
+	public ResponseEntity<List<Storage>> searchStorage(String email) {
+		
+		List<Storage> list = storageService.findByStoragePKEmail(email);
 
-		if(newStorage != null){
-			return new ResponseEntity<>(newStorage, HttpStatus.OK);
+		if(list != null){
+			return new ResponseEntity<>(list, HttpStatus.OK);
 		} else{
-			return new ResponseEntity<>(newStorage, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
 		}
 	}
 
