@@ -102,6 +102,19 @@ public class ChimiController {
 		if(newStorage != null)	return new ResponseEntity<>("success", HttpStatus.OK);
 		else										return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 	}
+	
+	@GetMapping("/storage")
+	@ApiOperation(value = "보관함 상세조회")
+	public ResponseEntity<Storage> searchStorage(String email, Long hid) {
+		PKSet pk = new PKSet(email, hid);
+		Storage newStorage = storageService.findById(pk).get();
+
+		if(newStorage != null){
+			return new ResponseEntity<>(newStorage, HttpStatus.OK);
+		} else{
+			return new ResponseEntity<>(newStorage, HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	@DeleteMapping("/storage")
 	@ApiOperation(value = "보관함 삭제")
