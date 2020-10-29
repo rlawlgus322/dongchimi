@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.chimi.model.Chimi;
+import com.chimi.model.ChimiList;
 import com.chimi.model.PKSet;
 import com.chimi.model.Star;
 import com.chimi.model.Storage;
+import com.chimi.repository.StarRepository;
 import com.chimi.service.ChimiService;
 import com.chimi.service.StarService;
 import com.chimi.service.StorageService;
@@ -66,12 +69,15 @@ public class ChimiController {
 	
 	@GetMapping
 	@ApiOperation(value = "모든 취미 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
-	public ResponseEntity<Page<Chimi>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable){
+	public ResponseEntity<List<ChimiList>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable, String email){
 		
-		Page<Chimi> list = chimiService.findAll(pageable);
-		
-		if(list != null)		return new ResponseEntity<>(list, HttpStatus.OK);
-		else					return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+		Page<Chimi> chimiPage = chimiService.findAll(pageable);
+		List<ChimiList> chimiList = new ArrayList<ChimiList> ();
+		for(Chimi chimi : chimiPage){
+			chimiList.add(new ChimiList(chimi, starService.findById(new PKSet(email, chimi.getHid())).isPresent()));
+		}
+		if(!chimiList.isEmpty())		return new ResponseEntity<>(chimiList, HttpStatus.OK);
+		else												return new ResponseEntity<>(chimiList, HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/{hid}")
@@ -164,7 +170,7 @@ public class ChimiController {
 	public ResponseEntity<String> deleteStorage(String email, Long hid) {
 		PKSet pk = new PKSet(email, hid);
 
-		if(storageService.findById(pk).get()!= null){
+		if(storageService.findById(pk).isPresent()){
 			storageService.deleteById(pk);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
