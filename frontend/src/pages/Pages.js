@@ -7,6 +7,7 @@ import MyPage from './mypage/MyPage';
 import Register from './mypage/Register';
 import Update from './mypage/Update';
 import PartyList from './party/PartyList';
+import PartyRead from './party/PartyRead';
 import RecommendList from './recommend/RecommendList';
 import Navbar from '../components/Nav/Navbar';
 
@@ -15,7 +16,8 @@ function Pages() {
     <div>
       <Navbar></Navbar>
       <Route exact path="/" component={Main} />
-      <Route path="/party" component={PartyList} />
+      <Route exact path="/party" component={PartyList} />
+      <Route path="/party/:id" component={PartyRead} />
       <Route path="/recommend" component={RecommendList} />
       <Route path="/boast" component={BoastList} />
       <Route path="/mypage" component={MyPage} />
