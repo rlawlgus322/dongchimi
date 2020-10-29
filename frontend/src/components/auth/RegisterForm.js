@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, register } from '../../modules/auth';
-import AuthForm from '../../components/auth/AuthForm';
+import AuthForm from './AuthForm';
 import { check } from '../../modules/user';
 import { withRouter } from 'react-router-dom';
 
@@ -27,9 +27,9 @@ const RegisterForm = ({ history }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    const { username, password, passwordConfirm } = form;
+    const { username, nickname, password, passwordConfirm } = form;
     // 하나라도 비어 있다면
-    if ([username, password, passwordConfirm].includes('')) {
+    if ([username, nickname, password, passwordConfirm].includes('')) {
       setError('빈 칸을 모두 입력하세요')
       return;
     }
@@ -40,7 +40,7 @@ const RegisterForm = ({ history }) => {
       dispatch(changeField({ form: 'register', key: 'passwordConfirm', value: ''}));
       return;
     }
-    dispatch(register({ username, password }));
+    dispatch(register({ username, nickname, password }));
   };
 
   // 컴포넌트가 처음 렌더링될 때 form 초기화

@@ -13,7 +13,7 @@ const AuthFormBlock = styled.div`
 `;
 
 const StyledInput = styled.input`
-  font-size: 1rem;
+  font-size: 1.25rem;
   border: none;
   border-bottom: 1px solid ${palette.gray[5]};
   padding-bottom: 0.5rem
@@ -69,6 +69,15 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           onChange={onChange}
           value={form.username}
         />
+        {type === 'register' && (
+          <StyledInput
+            autoComplete="nickname"
+            name="nicknmae"
+            placeholder="닉네임"
+            onChange={onChange}
+          value={form.nickname}
+          />
+        )}
         <StyledInput
           autoComplete="new-password"
           name="password"

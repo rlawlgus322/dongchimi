@@ -1,6 +1,6 @@
 import React from 'react';
 // import AuthTemplate from '../../components/auth/AuthTemplate';
-import RegisterForm from '../../containers/auth/RegisterForm';
+import RegisterForm from '../../components/auth/RegisterForm';
 import styled from 'styled-components';
 
 const UpdateBlock = styled.div`

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
-import LoginForm from '../containers/auth/LoginForm';
+import LoginForm from './auth/LoginForm';
 import ModalButton from '../components/common/Button';
 
 function LoginModal() {
