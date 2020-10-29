@@ -2,6 +2,7 @@
 server:
   port: 8761
 
+
 eureka:
   client:
     registerWithEureka: false
@@ -16,4 +17,4 @@ logging:
   level:
     com.netflix: WARN
     org.springframework.web: WARN
-    com.thoughtmechanix: DEBUG
+    com.dcm: DEBUG
