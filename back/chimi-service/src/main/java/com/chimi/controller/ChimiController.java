@@ -50,7 +50,7 @@ public class ChimiController {
 	public ResponseEntity<String> insert(@RequestBody Chimi chimi) {
 		Chimi newChimi = chimiService.save(chimi);	// 취미 파티 저장
 		if(newChimi != null)	return new ResponseEntity<>("success", HttpStatus.OK);
-		else					return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+		else									return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 	}
 	
 	@PutMapping
@@ -64,7 +64,7 @@ public class ChimiController {
 			newChimi = chimiService.save(newChimi);
 		}
 		if(newChimi != null)	return new ResponseEntity<>("success", HttpStatus.OK);
-		else					return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+		else									return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping
@@ -90,7 +90,7 @@ public class ChimiController {
 		newChimi = chimiService.save(newChimi);
 		
 		if(newChimi != null)	return new ResponseEntity<>(newChimi, HttpStatus.OK);
-		else					return new ResponseEntity<>(newChimi, HttpStatus.BAD_REQUEST);
+		else									return new ResponseEntity<>(newChimi, HttpStatus.BAD_REQUEST);
 	}
 
 	@DeleteMapping
@@ -99,6 +99,10 @@ public class ChimiController {
 
 		if(chimiService.findById(hid).isPresent()){
 			chimiService.deleteById(hid);
+			// 추천 목록 삭제
+			if(!starService.findByStarPKHid(hid).isEmpty()){
+				starService.deleteByStarPKHid(hid);
+			}
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);

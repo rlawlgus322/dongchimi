@@ -1,5 +1,6 @@
 package com.chimi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.chimi.model.PKSet;
@@ -28,6 +29,16 @@ public class StarServiceImpl implements StarService {
   @Override
   public Optional<Star> findById(PKSet pk) {
     return starRepository.findById(pk);
+  }
+
+  @Override
+  public List<Star> findByStarPKHid(Long hid) {
+    return starRepository.findByStarPKHid(hid);
+  }
+
+  @Override
+  public Long deleteByStarPKHid(Long hid) {
+    return starRepository.deleteByStarPKHid(hid);
   }
   
 }
