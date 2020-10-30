@@ -20,6 +20,8 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
 
+    private String nickname;
+
     private String address;
 
     private int gender;
@@ -43,7 +45,15 @@ public class SignupRequest {
     public String getPassword() {
         return password;
     }
- 
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -72,4 +82,6 @@ public class SignupRequest {
     public void setGender(int gender) {
         this.gender = gender;
     }
+
+
 }
