@@ -1,7 +1,12 @@
 package com.dcm.boast.service;
 
-import com.dcm.boast.dao.BoastDao;
+import com.dcm.boast.dao.BoastRepository;
+import com.dcm.boast.dao.BoastStarRepository;
 import com.dcm.boast.model.Boast;
+import com.dcm.boast.model.BoastStar;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,22 +17,25 @@ import org.springframework.stereotype.Service;
 public class BoastServiceImpl implements BoastService {
 
 	@Autowired
-	private BoastDao boastDao;
+	private BoastRepository boastRepository;
+	
+	@Autowired
+	private BoastStarRepository boastStarRepository;
 
 	@Override
 	public Page<Boast> allBoasts(Pageable pageable) {
-		return boastDao.findAll(pageable);
+		return boastRepository.findAll(pageable);
 	}
 
 	// 페이지 구성시 https://blog.naver.com/anytimedebug/221345293638
 
 	@Override
 	public Boast findBoastById(long boastId) {
-		return boastDao.findById(boastId).orElse(null);
+		return boastRepository.findById(boastId).orElse(null);
 	}
 	@Override
 	public Boast insert(Boast boast) {
-		Boast cboast = boastDao.save(boast);
+		Boast cboast = boastRepository.save(boast);
 		return new Boast(cboast);
 	}
 	@Override
@@ -37,21 +45,42 @@ public class BoastServiceImpl implements BoastService {
 		nboast.setTitle(boast.getTitle());
 		nboast.setContents(boast.getContents());
 		nboast.setPostImg(boast.getPostImg());
-		Boast rboast = boastDao.save(nboast);
+		Boast rboast = boastRepository.save(nboast);
 
 		return rboast;
 	}
 	@Override
 	public void delete(long id) {
-		boastDao.deleteById(id);
+		boastRepository.deleteById(id);
 	}
 	
 	@Override
 	public Boast view(long id) {
 		Boast nboast = this.findBoastById(id);
 		nboast.setViews(nboast.getViews()+1);
-		Boast rboast = boastDao.save(nboast);
-		return rboast;
+		return boastRepository.save(nboast);
+	}
+
+	@Override
+	public Boast like(BoastStar boastStar) {
+		Boast nboast = this.findBoastById(boastStar.getBid());
+		nboast.setLikes(nboast.getLikes()+1);
+		boastStarRepository.save(boastStar); //좋아요 테이블에 추가
+		return boastRepository.save(nboast);
+	}
+
+	@Override
+	public Boast dislike(BoastStar boastStar) {
+		Boast nboast = this.findBoastById(boastStar.getBid());
+		nboast.setLikes(nboast.getLikes()-1);
+		boastStarRepository.delete(boastStar); //좋아요 테이블에 추가
+		return boastRepository.save(nboast);
+	}
+	@Override
+	public boolean isLike(long id) {
+		Optional<BoastStar> boastStar = boastStarRepository.findById(id);
+		if(boastStar.isPresent()) return true;
+		else return false;
 	}
 
 }

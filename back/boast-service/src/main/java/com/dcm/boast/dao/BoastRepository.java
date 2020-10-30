@@ -4,5 +4,5 @@ import com.dcm.boast.model.Boast;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BoastDao extends JpaRepository<Boast, Long> {
+public interface BoastRepository extends JpaRepository<Boast, Long> {
 }
