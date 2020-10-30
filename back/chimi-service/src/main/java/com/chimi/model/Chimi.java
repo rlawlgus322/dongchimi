@@ -37,6 +37,7 @@ public class Chimi {
 	
 	private int stars;	// 추천수
 	private int views;	// 조회수
-	
+	private int totalnum;		// 총 모집인원
+	private int curnum;			// 현재 인원
 	
 }
