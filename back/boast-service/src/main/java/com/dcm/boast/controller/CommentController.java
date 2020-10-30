@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dcm.boast.intercomm.UserClient;
@@ -29,6 +31,7 @@ public class CommentController {
 	private CommentService commentService;
 	@Autowired
     private UserClient userClient;
+	
 	@GetMapping("/all/{boastId}")
 	@ApiOperation(value = "해당 자랑게시물의 모든 댓글 반환")
 	public ResponseEntity<List<CommentResponse>> findAll(@PathVariable long boastId,@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable) {
@@ -43,5 +46,21 @@ public class CommentController {
 		}
 		if(list != null) return new ResponseEntity<>(list, HttpStatus.OK);
 		else	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@PutMapping("/{commentId}")
+	@ApiOperation(value = "수정하기")
+	public ResponseEntity<?> update(@PathVariable long commentId, @RequestBody Comment comment) {
+
+		ResponseEntity<?> entity = null;
+
+		try {
+			entity = new ResponseEntity<Comment>(commentService.update(comment,commentId), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return entity;
 	}
 }
