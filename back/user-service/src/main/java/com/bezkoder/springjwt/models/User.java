@@ -34,6 +34,8 @@ public class User {
     @Size(max = 120)
     private String password;
 
+    private String nickname;
+
     private String address;
 
     private int gender;
@@ -50,10 +52,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String address, int gender) {
+    public User(String username, String email, String password,String nickname, String address, int gender) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
         this.address = address;
         this.gender = gender;
     }
@@ -121,5 +124,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
