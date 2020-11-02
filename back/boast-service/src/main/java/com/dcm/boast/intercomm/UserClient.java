@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UserClient {
 //    @RequestMapping(method = RequestMethod.POST, value = "/", consumes = "application/json")
 	@GetMapping("/userinfo/name/{Id}")
-    String getUserName(@PathVariable String Id); //아직 안만들어짐
+    String getUserName(@PathVariable Long Id); //아직 안만들어짐
 }

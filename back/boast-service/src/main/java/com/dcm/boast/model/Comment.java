@@ -25,7 +25,7 @@ public class Comment {
 	@NotNull
 	private Long bid; //게시물 id
 	@NotBlank
-	private String userId;
+	private Long userId;
 	@NotBlank
 	private String content;
 	@CreationTimestamp

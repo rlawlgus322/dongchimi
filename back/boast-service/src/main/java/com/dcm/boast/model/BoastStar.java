@@ -20,10 +20,10 @@ public class BoastStar {
 	@NotNull
 	private Long bid;
 	@NotBlank
-	private String userId;
+	private Long userId;
 	
 	
-	public BoastStar(@NotBlank String userId, @NotNull Long bid) {
+	public BoastStar(@NotBlank Long userId, @NotNull Long bid) {
 		this.userId = userId;
 		this.bid = bid;
 	}
