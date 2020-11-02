@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.dcm.boast.dao.BoastCommentRepository;
 import com.dcm.boast.dao.BoastCommentStarRepository;
-import com.dcm.boast.model.Boast;
-import com.dcm.boast.model.BoastStar;
 import com.dcm.boast.model.Comment;
 import com.dcm.boast.model.CommentStar;
 
+@Service
 public class CommentServiceImpl implements CommentService{
 	@Autowired
 	BoastCommentRepository boastCommentRepository;
@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public Comment update(Comment comment, long id){
 		Comment ncomment = this.findCommentById(id);
-		ncomment.setComment(comment.getComment());
+		ncomment.setContent(comment.getContent());
 		return boastCommentRepository.save(ncomment);
 	}
 	@Override
@@ -58,7 +58,7 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public Comment like(CommentStar commentStar) {
 		Comment ncomment = this.findCommentById(commentStar.getCmtId());
-		ncomment.setLike(ncomment.getLike()+1);
+		ncomment.setLikes(ncomment.getLikes()+1);
 		boastCommentStarRepository.save(commentStar); //좋아요 테이블에 추가
 		return boastCommentRepository.save(ncomment);
 	}
@@ -66,7 +66,7 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public Comment dislike(CommentStar commentStar) {
 		Comment comment = this.findCommentById(commentStar.getCmtId());
-		comment.setLike(comment.getLike()-1);
+		comment.setLikes(comment.getLikes()-1);
 		boastCommentStarRepository.delete(commentStar); //좋아요 테이블에 삭제
 		return boastCommentRepository.save(comment);
 	}

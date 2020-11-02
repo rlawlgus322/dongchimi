@@ -90,6 +90,7 @@ public class BoastController {
 
 		try {
 			Boast bst = boastService.findBoastById(boastId);
+			boastService.view(boastId); // 상세보기 누르면 조회수도같이 올리기
 			BoastDetailResponse boastDetailResponse = new BoastDetailResponse(bst,userClient.getUserName(bst.getUserId()));
 			//TODO comment 가져오기
 			

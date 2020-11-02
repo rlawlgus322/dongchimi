@@ -9,6 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients
 public class SpringBootSecurityJwtApplication {
 
 	public static void main(String[] args) {
