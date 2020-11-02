@@ -27,8 +27,8 @@ public class Comment {
 	@NotBlank
 	private String userId;
 	@NotBlank
-	private String comment;
+	private String content;
 	@CreationTimestamp
 	private LocalDateTime createdate;
-	private int like;
+	private int likes=0;
 }
