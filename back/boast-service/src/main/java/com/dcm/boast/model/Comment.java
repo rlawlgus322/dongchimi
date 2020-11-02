@@ -24,8 +24,8 @@ public class Comment {
 	private Long reId;//내가 대댓글 단 댓글의 id
 	@NotNull
 	private Long bid; //게시물 id
-	@NotBlank
-	private String userId;
+	@NotNull
+	private Long userId;
 	@NotBlank
 	private String content;
 	@CreationTimestamp
