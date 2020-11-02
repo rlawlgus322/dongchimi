@@ -99,12 +99,12 @@ public class ChimiController {
 		if(chimiService.findById(hid).isPresent()){
 			chimiService.deleteById(hid);
 			// 추천 목록 삭제
-			if(!starService.findByStarPKHid(hid).isEmpty()){
-				starService.deleteByStarPKHid(hid);
+			if(!starService.findByStarPKId(hid).isEmpty()){
+				starService.deleteByStarPKId(hid);
 			}
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
-			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("파티가 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -122,7 +122,7 @@ public class ChimiController {
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		
 		} else{
-			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
 	}
 	@PutMapping("/unrecommend")
@@ -141,7 +141,7 @@ public class ChimiController {
 			
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
-			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>("댓글이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
 		}
 	}
 

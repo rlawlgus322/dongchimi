@@ -13,7 +13,8 @@ public class ChimiList {
 	private String name;	// 취미 이름
 	private String summary;	// 간략소개
 	private String description;	// 소개
-  private LocalDateTime createdate;	// 생성일
+	private LocalDateTime createdate;	// 생성일
+	private String image;		// 대표이미지
 	private int stars;	// 추천수
 	private int views;	// 조회수
 	private int totalnum;		// 총 모집인원
@@ -31,6 +32,7 @@ public class ChimiList {
 		this.summary = chimi.getSummary();
 		this.description = chimi.getDescription();
 		this.createdate = chimi.getCreatedate();
+		this.image = chimi.getImage();
 		this.stars = chimi.getStars();
 		this.views = chimi.getViews();
 		this.totalnum = chimi.getTotalnum();

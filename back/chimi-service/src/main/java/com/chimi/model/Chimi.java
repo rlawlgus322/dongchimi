@@ -35,8 +35,9 @@ public class Chimi {
 	@CreationTimestamp
     private LocalDateTime createdate;	// 생성일
 	
-	private int stars;	// 추천수
-	private int views;	// 조회수
+	private String image;		// 대표이미지
+	private int stars;			// 추천수
+	private int views;			// 조회수
 	private int totalnum;		// 총 모집인원
 	private int curnum;			// 현재 인원
 	

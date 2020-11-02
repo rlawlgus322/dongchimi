@@ -18,5 +18,5 @@ public class PKSet implements Serializable{
     private String email;
 
     @NotBlank
-    private Long hid;
+    private Long id;
 }
