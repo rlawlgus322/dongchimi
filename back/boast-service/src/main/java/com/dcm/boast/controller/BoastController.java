@@ -47,7 +47,7 @@ public class BoastController {
 			if(boastService.isLike(bst.getBid())) boastResponse.setLiked(true); //내가 좋아요 누른 게시물인지
 			list.add(boastResponse);
 		}
-		if(list != null) return new ResponseEntity<>(list, HttpStatus.OK);
+		if(list != null) return new ResponseEntity<List<BoastResponse>>(list, HttpStatus.OK);
 		else	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 

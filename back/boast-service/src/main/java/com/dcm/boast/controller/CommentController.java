@@ -11,8 +11,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dcm.boast.intercomm.UserClient;
 import com.dcm.boast.model.Comment;
 import com.dcm.boast.model.CommentResponse;
+import com.dcm.boast.model.CommentStar;
 import com.dcm.boast.service.CommentService;
 
 import io.swagger.annotations.ApiOperation;
@@ -47,7 +50,21 @@ public class CommentController {
 		if(list != null) return new ResponseEntity<>(list, HttpStatus.OK);
 		else	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
+	@PostMapping()
+	@ApiOperation(value = "자랑게시물 댓글작성")
+	public ResponseEntity<?> insert(@RequestBody Comment comment) {
+
+		ResponseEntity<?> entity = null;
+
+		try {
+			entity = new ResponseEntity<Comment>(commentService.insert(comment), HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
 	@PutMapping("/{commentId}")
 	@ApiOperation(value = "수정하기")
 	public ResponseEntity<?> update(@PathVariable long commentId, @RequestBody Comment comment) {
@@ -59,6 +76,50 @@ public class CommentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return entity;
+	}
+	
+	@DeleteMapping("/{commentId}")
+	@ApiOperation(value = "해당 id값 삭제")
+	public ResponseEntity<?> delete(@PathVariable long commentId) {
+		if(commentService.findCommentById(commentId)!= null){
+			commentService.delete(commentId);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else{
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	@PutMapping("/like")
+	@ApiOperation(value = "좋아요 올리기")
+	public ResponseEntity<?> like(@RequestBody CommentStar commentStar) {
+
+		ResponseEntity<?> entity = null;
+
+		try {
+			entity = new ResponseEntity<Comment>(commentService.like(commentStar), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+	
+	@PutMapping("/dislike")
+	@ApiOperation(value = "좋아요 취소")
+	public ResponseEntity<?> dislike(@RequestBody CommentStar commentStar) {
+
+		ResponseEntity<?> entity = null;
+
+		try {
+			entity = new ResponseEntity<Comment>(commentService.dislike(commentStar), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return entity;
