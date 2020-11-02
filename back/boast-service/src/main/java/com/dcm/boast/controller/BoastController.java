@@ -40,6 +40,7 @@ public class BoastController {
 	@GetMapping("/all")
 	@ApiOperation(value = "모든 자랑게시물 반환")
 	public ResponseEntity<List<BoastResponse>> findAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable) {
+		
 		Page<Boast> boastlist = boastService.allBoasts(pageable);
 		List<BoastResponse> list = new ArrayList<>();
 		for (Boast bst : boastlist) {
