@@ -19,7 +19,7 @@ public class BoastStar {
 	@Id
 	@NotNull
 	private Long bid;
-	@NotBlank
+	@NotNull
 	private Long userId;
 	
 	

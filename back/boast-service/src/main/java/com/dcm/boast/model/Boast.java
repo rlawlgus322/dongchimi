@@ -25,7 +25,7 @@ public class Boast {
     @GeneratedValue
     private Long bid;
 
-    @NotBlank
+    @NotNull
     private Long userId;   // 자랑 유저 id
     
     @NotNull
