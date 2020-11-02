@@ -3,6 +3,7 @@ package com.bezkoder.springjwt.controllers;
 import com.bezkoder.springjwt.models.User;
 import com.bezkoder.springjwt.repository.UserRepository;
 import com.bezkoder.springjwt.response.userinfoResponse;
+import com.bezkoder.springjwt.security.jwt.JwtUtils;
 import com.bezkoder.springjwt.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import javax.validation.constraints.Email;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class UserController {
+
+    @Autowired
+    JwtUtils jwtUtils;
 
     @Autowired
     UserService userService;
@@ -35,13 +39,14 @@ public class UserController {
         return entity;
     }
 
-    @GetMapping("/userinfo/{email}")
+    @GetMapping(value = "/userinfo/{email}")
     @ApiOperation(value = "유저정보 보내주기")
-    public ResponseEntity<?> getuserinfo(@PathVariable String email) {
+    public ResponseEntity<?> getuserinfo(@PathVariable String email, @RequestHeader("accessToken") String access) {
 
         ResponseEntity<?> entity = null;
 
         try {
+            String userEmail = jwtUtils.getUserNameFromJwtToken(access);
             User user = userService.findUserinfoByEmail(email);
             userinfoResponse userinfoResponse = new userinfoResponse();
             userinfoResponse.address = user.getAddress();
