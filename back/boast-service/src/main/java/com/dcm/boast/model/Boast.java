@@ -15,9 +15,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.*;
 
-
-@Entity
 @Data
+@Entity
 @Table(name = "BOAST")
 @NoArgsConstructor
 public class Boast {
@@ -47,8 +46,8 @@ public class Boast {
     
     private String category;
     
-    private int likes;   // 추천수
-    private int views;   // 조회수
+    private int likes=0;   // 추천수
+    private int views=0;   // 조회수
 
 
     @Builder

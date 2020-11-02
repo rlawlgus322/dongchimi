@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dcm.boast.intercomm.UserClient;
 import com.dcm.boast.model.Boast;
+import com.dcm.boast.model.BoastDetailResponse;
 import com.dcm.boast.model.BoastResponse;
 import com.dcm.boast.model.BoastStar;
 import com.dcm.boast.service.BoastService;
@@ -32,6 +34,8 @@ import io.swagger.annotations.ApiOperation;
 public class BoastController {
 	@Autowired
 	private BoastService boastService;
+	@Autowired
+    private UserClient userClient;
 
 	@GetMapping("/all")
 	@ApiOperation(value = "모든 자랑게시물 반환")
@@ -39,11 +43,11 @@ public class BoastController {
 		Page<Boast> boastlist = boastService.allBoasts(pageable);
 		List<BoastResponse> list = new ArrayList<>();
 		for (Boast bst : boastlist) {
-			BoastResponse boastResponse = new BoastResponse(bst);
+			BoastResponse boastResponse = new BoastResponse(bst,userClient.getUserName(bst.getUserId()));
 			if(boastService.isLike(bst.getBid())) boastResponse.setLiked(true); //내가 좋아요 누른 게시물인지
 			list.add(boastResponse);
 		}
-		if(list != null) return new ResponseEntity<>(list, HttpStatus.OK);
+		if(list != null) return new ResponseEntity<List<BoastResponse>>(list, HttpStatus.OK);
 		else	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
@@ -81,14 +85,17 @@ public class BoastController {
 
 	@GetMapping("/b/{boastId}")
 	@ApiOperation(value = "해당 id값 게시물 가져오기")
-	public ResponseEntity<BoastResponse> find(@PathVariable long boastId) {
-		ResponseEntity<BoastResponse> entity = null;
+	public ResponseEntity<BoastDetailResponse> find(@PathVariable long boastId) {
+		ResponseEntity<BoastDetailResponse> entity = null;
 
 		try {
 			Boast bst = boastService.findBoastById(boastId);
-			BoastResponse boastResponse = new BoastResponse(bst);
-			if(boastService.isLike(bst.getBid())) boastResponse.setLiked(true); //내가 좋아요 누른 게시물인지
-			entity = new ResponseEntity<BoastResponse>(boastResponse, HttpStatus.OK);
+			boastService.view(boastId); // 상세보기 누르면 조회수도같이 올리기
+			BoastDetailResponse boastDetailResponse = new BoastDetailResponse(bst,userClient.getUserName(bst.getUserId()));
+			//TODO comment 가져오기
+			
+			if(boastService.isLike(bst.getBid())) boastDetailResponse.setLiked(true); //내가 좋아요 누른 게시물인지
+			entity = new ResponseEntity<BoastDetailResponse>(boastDetailResponse, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
