@@ -3,6 +3,7 @@ package com.bezkoder.springjwt.controllers;
 import com.bezkoder.springjwt.models.User;
 import com.bezkoder.springjwt.repository.UserRepository;
 import com.bezkoder.springjwt.response.userinfoResponse;
+import com.bezkoder.springjwt.security.jwt.JwtUtils;
 import com.bezkoder.springjwt.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,12 @@ import javax.validation.constraints.Email;
 public class UserController {
 
     @Autowired
+    JwtUtils jwtUtils;
+
+    @Autowired
     UserService userService;
 
-    @GetMapping("/userinfo/name/{Id}")
+    @GetMapping("/api/userinfo/name/{Id}")
     @ApiOperation(value = "유저이름 보내주기")
     public ResponseEntity<?> getusername(@PathVariable long Id) {
 
@@ -35,13 +39,14 @@ public class UserController {
         return entity;
     }
 
-    @GetMapping("/userinfo/{email}")
+    @GetMapping(value = "/api/userinfo/{email}")
     @ApiOperation(value = "유저정보 보내주기")
-    public ResponseEntity<?> getuserinfo(@PathVariable String email) {
+    public ResponseEntity<?> getuserinfo(@PathVariable String email, @RequestHeader("accessToken") String access) {
 
         ResponseEntity<?> entity = null;
 
         try {
+            String userEmail = jwtUtils.getUserNameFromJwtToken(access);
             User user = userService.findUserinfoByEmail(email);
             userinfoResponse userinfoResponse = new userinfoResponse();
             userinfoResponse.address = user.getAddress();
@@ -58,13 +63,14 @@ public class UserController {
         return entity;
     }
 
-    @GetMapping("/userinfo/isemail/{email}")
+    @GetMapping("/api/userinfo/isemail/{email}")
     @ApiOperation(value = "이메일중복체크")
-    public ResponseEntity<?> duplicateCheckEmail(@PathVariable String email) {
+    public ResponseEntity<?> duplicateCheckEmail(@PathVariable String email, @RequestHeader("accessToken") String access) {
 
         ResponseEntity<?> entity = null;
 
         try {
+            String userEmail = jwtUtils.getUserNameFromJwtToken(access);
             entity = new ResponseEntity<>(userService.duplicateCheckEmail(email), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,13 +79,14 @@ public class UserController {
 
         return entity;
     }
-    @GetMapping("/userinfo/isnick/{nickname}")
+    @GetMapping("/api/userinfo/isnick/{nickname}")
     @ApiOperation(value = "닉네임중복체크")
-    public ResponseEntity<?> duplicateCheckNickname(@PathVariable String nickname) {
+    public ResponseEntity<?> duplicateCheckNickname(@PathVariable String nickname, @RequestHeader("accessToken") String access) {
 
         ResponseEntity<?> entity = null;
 
         try {
+            String userEmail = jwtUtils.getUserNameFromJwtToken(access);
             entity = new ResponseEntity<>(userService.duplicateCheckNickname(nickname), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,14 +96,19 @@ public class UserController {
         return entity;
     }
 
-    @PutMapping("/userinfo/{email}")
+    @PutMapping("/api/userinfo/{email}")
     @ApiOperation(value = "수정하기")
-    public ResponseEntity<?> update(@PathVariable String email, @RequestBody User user) {
+    public ResponseEntity<?> update(@PathVariable String email, @RequestBody User user ,@RequestHeader("accessToken") String access) {
 
         ResponseEntity<?> entity = null;
 
         try {
-            entity = new ResponseEntity<User>(userService.update(user), HttpStatus.OK);
+            String userEmail = jwtUtils.getUserNameFromJwtToken(access);
+            User newuser = userService.update(user);
+            userinfoResponse userinfo = new userinfoResponse();
+            userinfo.nickname = newuser.getNickname();
+
+            entity = new ResponseEntity<>(userinfo, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             entity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -105,7 +117,7 @@ public class UserController {
         return entity;
     }
 
-    @DeleteMapping("/userinfo/{email}")
+    @DeleteMapping("/api/userinfo/{email}")
     @ApiOperation(value = "회원탈퇴")
     public ResponseEntity<?> delete(@PathVariable String email) {
         if(userService.findUserinfoByEmail(email)!= null){
