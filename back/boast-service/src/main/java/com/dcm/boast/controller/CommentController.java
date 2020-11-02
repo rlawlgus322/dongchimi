@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dcm.boast.intercomm.UserClient;
@@ -28,7 +29,8 @@ import com.dcm.boast.service.CommentService;
 import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController("/comment")
+@RestController
+@RequestMapping("/comment")
 public class CommentController {
 	@Autowired
 	private CommentService commentService;
