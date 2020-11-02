@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import '../../../styles/partycard.css';
+import './party.css';
 
 class Party extends Component {
   render() {
@@ -13,9 +13,9 @@ class Party extends Component {
       >
         <div className="box" style={backgroundImage}>
           <div className="cover">
-            <h3 className="name">{this.props.party.name}</h3>
-            <p className="title">파티장 : {this.props.party.bangjang}</p>
-            <p className="title">모집인원 : {this.props.party.total}</p>
+            <h2 className="title">{this.props.party.name}</h2>
+            <p className="content">파티장 : {this.props.party.bangjang}</p>
+            <p className="content">모집인원 : {this.props.party.total}</p>
           </div>
         </div>
       </div>
