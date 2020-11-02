@@ -15,9 +15,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.*;
 
-
-@Entity
 @Data
+@Entity
 @Table(name = "BOAST")
 @NoArgsConstructor
 public class Boast {
