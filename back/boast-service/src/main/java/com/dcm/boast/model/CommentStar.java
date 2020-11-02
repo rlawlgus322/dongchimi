@@ -18,10 +18,10 @@ public class CommentStar {
 	@NotNull
 	private Long cmtId;
 	@NotBlank
-	private String userId;
+	private Long userId;
 	
 	
-	public CommentStar(@NotBlank String userId, @NotNull Long cmtId) {
+	public CommentStar(@NotBlank Long userId, @NotNull Long cmtId) {
 		this.userId = userId;
 		this.cmtId = cmtId;
 	}
