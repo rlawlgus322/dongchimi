@@ -21,15 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.chimi.model.Application;
 import com.chimi.model.Chimi;
-import com.chimi.model.ChimiList;
 import com.chimi.model.PKSet;
 import com.chimi.model.Star;
-import com.chimi.model.Storage;
-import com.chimi.repository.StarRepository;
+import com.chimi.payload.response.ChimiList;
+import com.chimi.service.ApplicationService;
 import com.chimi.service.ChimiService;
 import com.chimi.service.StarService;
-import com.chimi.service.StorageService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -41,12 +40,12 @@ public class ChimiController {
 	@Autowired
 	ChimiService chimiService;
 	@Autowired
-	StorageService storageService;
-	@Autowired
 	StarService starService;
+	@Autowired
+	ApplicationService applicationService;
 
 	@PostMapping
-	@ApiOperation(value = "새 취미 파티 게시 ")
+	@ApiOperation(value = "새 파티 게시 ")
 	public ResponseEntity<String> insert(@RequestBody Chimi chimi) {
 		Chimi newChimi = chimiService.save(chimi);	// 취미 파티 저장
 		if(newChimi != null)	return new ResponseEntity<>("success", HttpStatus.OK);
@@ -54,7 +53,7 @@ public class ChimiController {
 	}
 	
 	@PutMapping
-	@ApiOperation(value = "취미 파티 수정")
+	@ApiOperation(value = "파티 수정")
 	public ResponseEntity<String> update(@RequestBody Chimi chimi) {
 		Chimi newChimi = chimiService.findById(chimi.getHid()).get();
 		if(newChimi != null) {
@@ -68,7 +67,7 @@ public class ChimiController {
 	}
 	
 	@GetMapping
-	@ApiOperation(value = "모든 취미 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
+	@ApiOperation(value = "모든 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
 	public ResponseEntity<List<ChimiList>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable, String email){
 		
 		Page<Chimi> chimiPage = chimiService.findAll(pageable);
@@ -81,7 +80,7 @@ public class ChimiController {
 	}
 	
 	@GetMapping("/{hid}")
-	@ApiOperation(value = "취미 파티 상세조회")
+	@ApiOperation(value = "파티 상세조회")
 	public ResponseEntity<Chimi> search(@PathVariable Long hid){
 		Chimi newChimi = chimiService.findById(hid).get();
 
@@ -94,18 +93,18 @@ public class ChimiController {
 	}
 
 	@DeleteMapping
-	@ApiOperation(value = "취미 파티 삭제")
+	@ApiOperation(value = "파티 삭제")
 	public ResponseEntity<String> delete(Long hid) {
 
 		if(chimiService.findById(hid).isPresent()){
 			chimiService.deleteById(hid);
 			// 추천 목록 삭제
-			if(!starService.findByStarPKHid(hid).isEmpty()){
-				starService.deleteByStarPKHid(hid);
+			if(!starService.findByStarPKId(hid).isEmpty()){
+				starService.deleteByStarPKId(hid);
 			}
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
-			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("파티가 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -123,7 +122,7 @@ public class ChimiController {
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		
 		} else{
-			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
 	}
 	@PutMapping("/unrecommend")
@@ -142,40 +141,34 @@ public class ChimiController {
 			
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
-			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>("댓글이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	@PostMapping("/storage")
-	@ApiOperation(value = "보관함에 저장")
-	public ResponseEntity<String> insertStorage(String email, Long hid) {
-		Storage newStorage = new Storage(new PKSet(email, hid));
-		newStorage = storageService.save(newStorage);
+	@PostMapping("/apply")
+	@ApiOperation(value = "파티 신청")
+	public ResponseEntity<String> apply(String email, Long hid) {
+		Application newApplication = new Application(new PKSet(email, hid));
+		newApplication = applicationService.save(newApplication);
 
-		if(newStorage != null)	return new ResponseEntity<>("success", HttpStatus.OK);
-		else										return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+		if(newApplication != null)	return new ResponseEntity<>("success", HttpStatus.OK);
+		else												return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 	}
-	
-	@GetMapping("/storage")
-	@ApiOperation(value = "사용자의 보관함 조회")
-	public ResponseEntity<List<Storage>> searchStorage(String email) {
+	@GetMapping("/apply")
+	@ApiOperation(value = "사용자의 파티 신청 조회")
+	public ResponseEntity<List<Application>> searchApplication(String email) {
 		
-		List<Storage> list = storageService.findByStoragePKEmail(email);
+		List<Application> list = applicationService.findByApplicationPKEmail(email);
 
-		if(list != null){
-			return new ResponseEntity<>(list, HttpStatus.OK);
-		} else{
-			return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
-		}
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-
-	@DeleteMapping("/storage")
-	@ApiOperation(value = "보관함 삭제")
-	public ResponseEntity<String> deleteStorage(String email, Long hid) {
+	@DeleteMapping("/apply")
+	@ApiOperation(value = "파티 신청 취소")
+	public ResponseEntity<String> disapply(String email, Long hid) {
 		PKSet pk = new PKSet(email, hid);
 
-		if(storageService.findById(pk).isPresent()){
-			storageService.deleteById(pk);
+		if(applicationService.findById(pk).isPresent()){
+			applicationService.deleteById(pk);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
