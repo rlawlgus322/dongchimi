@@ -1,7 +1,6 @@
 package com.bezkoder.springjwt.controllers;
 
 import com.bezkoder.springjwt.models.User;
-import com.bezkoder.springjwt.repository.UserRepository;
 import com.bezkoder.springjwt.response.userinfoResponse;
 import com.bezkoder.springjwt.security.jwt.JwtUtils;
 import com.bezkoder.springjwt.service.UserService;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.Email;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -23,7 +20,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/api/userinfo/name/{Id}")
+    @GetMapping("/userinfo/name/{Id}")
     @ApiOperation(value = "유저이름 보내주기")
     public ResponseEntity<?> getusername(@PathVariable long Id) {
 
@@ -39,7 +36,7 @@ public class UserController {
         return entity;
     }
 
-    @GetMapping(value = "/api/userinfo/{email}")
+    @GetMapping(value = "/userinfo/{email}")
     @ApiOperation(value = "유저정보 보내주기")
     public ResponseEntity<?> getuserinfo(@PathVariable String email, @RequestHeader("accessToken") String access) {
 
@@ -63,7 +60,7 @@ public class UserController {
         return entity;
     }
 
-    @GetMapping("/api/userinfo/isemail/{email}")
+    @GetMapping("/userinfo/isemail/{email}")
     @ApiOperation(value = "이메일중복체크")
     public ResponseEntity<?> duplicateCheckEmail(@PathVariable String email, @RequestHeader("accessToken") String access) {
 
@@ -79,7 +76,7 @@ public class UserController {
 
         return entity;
     }
-    @GetMapping("/api/userinfo/isnick/{nickname}")
+    @GetMapping("/userinfo/isnick/{nickname}")
     @ApiOperation(value = "닉네임중복체크")
     public ResponseEntity<?> duplicateCheckNickname(@PathVariable String nickname, @RequestHeader("accessToken") String access) {
 
