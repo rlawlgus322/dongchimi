@@ -12,7 +12,7 @@ class PartyRead extends Component {
     console.log(this.props.match.params.id);
 
     return (
-      <div className='container'>
+      <>
         <PartyInfo
           type={1}
           data={data}
@@ -26,7 +26,7 @@ class PartyRead extends Component {
             <PartyComment></PartyComment>
           </div>
         </div>
-      </div >
+      </>
     )
   }
 }

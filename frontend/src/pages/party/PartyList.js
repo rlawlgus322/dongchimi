@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import Parties from '../../components/Party/List/Parties';
 
 const data = [
@@ -11,7 +12,7 @@ const data = [
   { id: '7', bangjang: 'g', name: '뜨개질', desc: '뜨개질하자', total: '6', stars: '2', views: '7', imgSrc: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/f5d5e8813f66f1b203a43d24cdeaad2e/DA87FE56-B1CD-454E-9B25-21795C025FA1-65880-000045972081C515_file.jpg', },
 ]
 
-function PartyList() {
+function PartyList({ history }) {
   // 요청 상태 관리
   const [parties, setParties] = useState(data);
 
@@ -21,21 +22,24 @@ function PartyList() {
     setParties(data);
   })
   return (
-    <div className="container">
+    <>
       {/** 검색창 */}
       검색창 <br></br>
       {/** 카테고리 */}
       카테고리 <br></br>
       {/** 정렬 기준, 파티 개설하기 */}
       정렬 기준, 파티 개설 <br></br>
+      <button
+        onClick={() => history.push('/party/write')}
+      >파티 만들기</button>
       {/** 카드 */}
       <Parties
         parties={parties}
       ></Parties>
       {/** 페이지네이션 */}
       페이지네이션
-    </div>
+    </>
   );
 }
 
-export default PartyList;
+export default withRouter(PartyList);
