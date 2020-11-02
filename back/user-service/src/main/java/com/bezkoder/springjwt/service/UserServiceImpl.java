@@ -55,4 +55,17 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.getUserByEmail(email);
         userRepository.delete(user);
     }
+
+    @Override
+    public User getUserbyemail(String email) {
+        User user = userRepository.getUserByEmail(email);
+        return user;
+    }
+
+    @Override
+    public long getidByEmail(String email) {
+        User user = userRepository.getUserByEmail(email);
+        long id = user.getId();
+        return id;
+    }
 }

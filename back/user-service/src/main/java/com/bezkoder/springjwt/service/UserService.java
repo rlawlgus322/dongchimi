@@ -10,5 +10,7 @@ public interface UserService {
     boolean duplicateCheckNickname(String nickname);
     User update(User user);
     void delete(String email);
+    User getUserbyemail(String email);
+    long getidByEmail(String email);
 
 }
