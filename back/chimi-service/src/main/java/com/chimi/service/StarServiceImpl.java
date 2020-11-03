@@ -32,13 +32,13 @@ public class StarServiceImpl implements StarService {
   }
 
   @Override
-  public List<Star> findByStarPKHid(Long hid) {
-    return starRepository.findByStarPKHid(hid);
+  public List<Star> findByStarPKId(Long hid) {
+    return starRepository.findByStarPKId(hid);
   }
 
   @Override
-  public Long deleteByStarPKHid(Long hid) {
-    return starRepository.deleteByStarPKHid(hid);
+  public Long deleteByStarPKId(Long hid) {
+    return starRepository.deleteByStarPKId(hid);
   }
   
 }

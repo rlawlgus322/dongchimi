@@ -21,7 +21,7 @@ public class SwaggerConfig {
 				.apiInfo(apiInfo())
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.chimi.controller"))
-				.paths(PathSelectors.ant("/chimi/**"))
+				.paths(PathSelectors.ant("/**"))
 				.build();
 	}
 

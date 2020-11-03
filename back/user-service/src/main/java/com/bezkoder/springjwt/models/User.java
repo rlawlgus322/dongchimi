@@ -36,9 +36,10 @@ public class User {
 
     private String nickname;
 
-    private String address;
 
     private int gender;
+
+    private String profileimage;
 
 
     private LocalDateTime create_at;
@@ -50,15 +51,17 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     public User() {
+
     }
 
-    public User(String username, String email, String password,String nickname, String address, int gender) {
+    public User(String username, String email, String password,String nickname, int gender, String profileimage) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        this.address = address;
         this.gender = gender;
+        this.profileimage = profileimage;
+
     }
 
     public Long getId() {
@@ -69,14 +72,6 @@ public class User {
         this.id = id;
     }
 
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public int getGender() {
         return gender;
@@ -132,5 +127,13 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getProfileimage() {
+        return profileimage;
+    }
+
+    public void setProfileimage(String profileimage) {
+        this.profileimage = profileimage;
     }
 }

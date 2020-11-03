@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User user) {
         User exuser = userRepository.getUserByEmail(user.getEmail());
-        exuser.setAddress(user.getAddress());
         exuser.setNickname(user.getNickname());
         userRepository.save(exuser);
         return exuser;
@@ -67,5 +66,12 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.getUserByEmail(email);
         long id = user.getId();
         return id;
+    }
+
+    @Override
+    public void updateProfileImage(String email, String path) {
+        User user = userRepository.getUserByEmail(email);
+        user.setProfileimage(path);
+        userRepository.save(user);
     }
 }
