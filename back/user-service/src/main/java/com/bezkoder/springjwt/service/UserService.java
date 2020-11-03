@@ -12,5 +12,6 @@ public interface UserService {
     void delete(String email);
     User getUserbyemail(String email);
     long getidByEmail(String email);
+    void updateProfileImage(String email, String path);
 
 }
