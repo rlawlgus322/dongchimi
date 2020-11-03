@@ -22,11 +22,12 @@ public class Chimi {
 	
 	@NotNull
 	private Long id;	// 방장 id
+	
 	@NotBlank
 	@Size(max = 100)
 	private String name;	// 취미 이름
 	
-	private String imgUrl;
+
 	
 	@Size(max = 1000)
 	private String summary;	// 간략소개

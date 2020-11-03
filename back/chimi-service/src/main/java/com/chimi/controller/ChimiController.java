@@ -51,17 +51,18 @@ public class ChimiController {
 	ApplicationService applicationService;
 	@Autowired
 	FileService fileService;
-
+	@Autowired
     UserClient userClient;
 	
 	@PostMapping
 	@ApiOperation(value = "새 파티 게시 ")
 	public ResponseEntity<String> insert(@RequestHeader("accessToken") String access,@RequestBody Chimi chimi) {
 		HashMap<String,Object> userinfo = userClient.getUserInfo(access);
-		Chimi newChimi = chimiService.save(chimi);	// 취미 파티 저장
-		
-		if(newChimi != null && userinfo!=null)	{
-			newChimi.setId((Long) userinfo.get("id"));//user id 저장
+
+		if(chimi != null && userinfo!=null)	{
+
+			chimi.setId((Long) userinfo.get("id"));//user id 저장
+			chimiService.save(chimi);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		}
 		else	return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
@@ -170,35 +171,6 @@ public class ChimiController {
 	
 	
 
-	@PostMapping("/apply")
-	@ApiOperation(value = "파티 신청")
-	public ResponseEntity<String> apply(String email, Long hid) {
-		Application newApplication = new Application(new PKSet(email, hid));
-		newApplication = applicationService.save(newApplication);
-
-		if(newApplication != null)	return new ResponseEntity<>("success", HttpStatus.OK);
-		else												return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
-	}
-	@GetMapping("/apply")
-	@ApiOperation(value = "사용자의 파티 신청 조회")
-	public ResponseEntity<List<Application>> searchApplication(String email) {
-		
-		List<Application> list = applicationService.findByApplicationPKEmail(email);
-
-		return new ResponseEntity<>(list, HttpStatus.OK);
-	}
-	@DeleteMapping("/apply")
-	@ApiOperation(value = "파티 신청 취소")
-	public ResponseEntity<String> disapply(String email, Long hid) {
-		PKSet pk = new PKSet(email, hid);
-
-		if(applicationService.findById(pk).isPresent()){
-			applicationService.deleteById(pk);
-			return new ResponseEntity<>("success", HttpStatus.OK);
-		} else{
-			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
-		}
-	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/image", produces = "application/json")
 	@ApiOperation(value = "이미지 업로드")
