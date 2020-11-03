@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import Parties from '../../components/Party/List/Parties';
+import Pagination from 'react-js-pagination';
 
 const data = [
   { id: '1', bangjang: 'a', name: '뜨개질', desc: '뜨개질하자', total: '1', stars: '6', views: '1', imgSrc: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/3960e6fd2eed33ded85590499d95b729/7FB9DDA2-C9B7-473B-BD78-282A33AA084F-9716-000009E931E8FB4C_file.jpg', },
@@ -11,9 +13,10 @@ const data = [
   { id: '7', bangjang: 'g', name: '뜨개질', desc: '뜨개질하자', total: '6', stars: '2', views: '7', imgSrc: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/f5d5e8813f66f1b203a43d24cdeaad2e/DA87FE56-B1CD-454E-9B25-21795C025FA1-65880-000045972081C515_file.jpg', },
 ]
 
-function PartyList() {
+function PartyList({ history }) {
   // 요청 상태 관리
   const [parties, setParties] = useState(data);
+  const [keyword, setKeyword] = useState(null);
 
   // 요청 작업
   useEffect(() => {
@@ -21,21 +24,44 @@ function PartyList() {
     setParties(data);
   })
   return (
-    <div className="container">
-      {/** 검색창 */}
-      검색창 <br></br>
+    <>
       {/** 카테고리 */}
-      카테고리 <br></br>
-      {/** 정렬 기준, 파티 개설하기 */}
-      정렬 기준, 파티 개설 <br></br>
+      <div style={{ textAlign: "center" }}>
+        카테고리 <br></br>
+      </div>
+      <div style={{ textAlign: "right" }}>
+        {/** 검색창 */}
+        <input type="text" placeholder="search" />
+        <button>검색</button>
+        <br></br>
+        {/** 정렬 기준 */}
+        정렬 기준
+        <select>
+          <option>최신순</option>
+        </select>
+        <button
+          onClick={() => history.push('/party/write')}
+        >파티 만들기</button>
+      </div>
       {/** 카드 */}
       <Parties
         parties={parties}
       ></Parties>
       {/** 페이지네이션 */}
-      페이지네이션
-    </div>
+      <div style={{ textAlign: "center" }}>
+        <Pagination
+          hideDisabled
+          activePage={1}
+          itemsCountPerPage={12}
+          totalItemsCount={5}
+          pageRangeDisplayed={5}
+          itemClass="page-item"
+          linkClass="page-link"
+          onChange={function () { console.log('onChange') }}
+        />
+      </div>
+    </>
   );
 }
 
-export default PartyList;
+export default withRouter(PartyList);
