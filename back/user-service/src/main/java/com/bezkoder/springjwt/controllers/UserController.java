@@ -130,7 +130,7 @@ public class UserController {
         return entity;
     }
 
-    @PutMapping("/api/userinfo/{email}")
+    @PutMapping("/userinfo/{email}")
     @ApiOperation(value = "수정하기")
     public ResponseEntity<?> update(@PathVariable String email, @RequestBody User user ,@RequestHeader("accessToken") String access) {
 
@@ -151,7 +151,7 @@ public class UserController {
         return entity;
     }
 
-    @DeleteMapping("/api/userinfo/{email}")
+    @DeleteMapping("/userinfo/{email}")
     @ApiOperation(value = "회원탈퇴")
     public ResponseEntity<?> delete(@PathVariable String email) {
         if(userService.findUserinfoByEmail(email)!= null){
