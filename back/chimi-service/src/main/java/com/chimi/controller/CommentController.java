@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.chimi.model.ChimiComment;
-import com.chimi.model.Like;
+import com.chimi.model.CommentLike;
 import com.chimi.model.PKSet;
 import com.chimi.payload.response.ChimiCommentList;
 import com.chimi.service.CommentService;
@@ -97,7 +97,7 @@ public class CommentController {
             newComment.setLikes(newComment.getLikes()+1);
             commentService.save(newComment);
 
-            Like like = new Like(new PKSet(email, cid));
+            CommentLike like = new CommentLike(new PKSet(email, cid));
             likeService.save(like);
             return new ResponseEntity<>("success", HttpStatus.OK);
         } else{

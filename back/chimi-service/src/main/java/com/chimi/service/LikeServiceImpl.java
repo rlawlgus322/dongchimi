@@ -3,7 +3,7 @@ package com.chimi.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.chimi.model.Like;
+import com.chimi.model.CommentLike;
 import com.chimi.model.PKSet;
 import com.chimi.repository.LikeRepository;
 
@@ -17,7 +17,7 @@ public class LikeServiceImpl implements LikeService {
   LikeRepository likeRepository;
 
   @Override
-  public Like save(Like like) {
+  public CommentLike save(CommentLike like) {
     return likeRepository.save(like);
   }
 
@@ -27,12 +27,12 @@ public class LikeServiceImpl implements LikeService {
   }
 
   @Override
-  public Optional<Like> findById(PKSet pk) {
+  public Optional<CommentLike> findById(PKSet pk) {
     return likeRepository.findById(pk);
   }
 
   @Override
-  public List<Like> findByLikePKId(Long cid) {
+  public List<CommentLike> findByLikePKId(Long cid) {
     return likeRepository.findByLikePKId(cid);
   }
 

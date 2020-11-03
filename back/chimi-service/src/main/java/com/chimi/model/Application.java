@@ -14,13 +14,14 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name = "APPLICATION")
 public class Application {
-  @EmbeddedId
-    private PKSet applicationPK;
-    
-    @CreationTimestamp
-    private LocalDateTime createdate;
-    
-    public Application(PKSet applicationPK){
-        this.applicationPK = applicationPK;
-    }
+	@EmbeddedId
+	private PKSet applicationPK; // 신청한 사람 id, 취미 id
+	private long roomUserId; // 파티 연 방장 id
+	@CreationTimestamp
+	private LocalDateTime createdate;
+
+	public Application(PKSet applicationPK, long roomUserId) {
+		this.applicationPK = applicationPK;
+		this.roomUserId = roomUserId;
+	}
 }
