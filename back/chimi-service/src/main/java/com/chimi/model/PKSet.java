@@ -3,7 +3,7 @@ package com.chimi.model;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PKSet implements Serializable{
-    @NotBlank
-    private String email;
+    @NotNull
+    private long userId;
 
-    @NotBlank
-    private Long id;
+    @NotNull
+    private long chimiId;
 }

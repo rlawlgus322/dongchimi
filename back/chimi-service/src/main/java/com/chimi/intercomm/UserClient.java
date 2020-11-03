@@ -1,4 +1,4 @@
-package com.dcm.boast.intercomm;
+package com.chimi.intercomm;
 
 import java.util.HashMap;
 
@@ -11,4 +11,7 @@ public interface UserClient {
 //    @RequestMapping(method = RequestMethod.POST, value = "/", consumes = "application/json")
 	@GetMapping("/userinfo/token/{token}")
 	HashMap<String,Object> getUserInfo(@PathVariable String token);
+	
+	@GetMapping("/userinfo/name/{Id}")
+	HashMap<String,Object> getusername(@PathVariable long Id);
 }

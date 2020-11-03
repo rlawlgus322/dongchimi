@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import com.chimi.model.PKSet;
-import com.chimi.model.Star;
+import com.chimi.model.ChimiStar;
 
 public interface StarService {
-  Star save(Star star);
+  ChimiStar save(ChimiStar star);
   void deleteById(PKSet pk);
-  Optional<Star> findById(PKSet pk);
-  List<Star> findByStarPKId(Long hid);     // 취미파티를 추천 목록 찾기
+  Optional<ChimiStar> findById(PKSet pk);
+  List<ChimiStar> findByStarPKId(Long hid);     // 취미파티를 추천 목록 찾기
   Long deleteByStarPKId(Long hid);        // 취미파티의 추천 목록 삭제
 }

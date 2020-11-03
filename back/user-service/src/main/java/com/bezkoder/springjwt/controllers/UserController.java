@@ -38,7 +38,7 @@ public class UserController {
 
     @GetMapping("/userinfo/token/{token}")
     @ApiOperation(value = "유저이름 보내주기")
-    public ResponseEntity<?> getutoken(@PathVariable String token) {
+    public ResponseEntity<?> getUserInfo(@PathVariable String token) {
 
         ResponseEntity<?> entity = null;
 

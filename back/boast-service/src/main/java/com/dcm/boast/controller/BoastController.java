@@ -92,7 +92,7 @@ public class BoastController {
 		try {
 			Boast bst = boastService.findBoastById(boastId);
 			boastService.view(boastId); // 상세보기 누르면 조회수도같이 올리기
-			BoastDetailResponse boastDetailResponse = new BoastDetailResponse(bst,userClient.getUserName(bst.getUserId()));
+			BoastDetailResponse boastDetailResponse = new BoastDetailResponse(bst,userClient.getUserInfo(bst.getUserId()));
 			//TODO comment 가져오기
 			
 			if(boastService.isLike(bst.getBid())) boastDetailResponse.setLiked(true); //내가 좋아요 누른 게시물인지
