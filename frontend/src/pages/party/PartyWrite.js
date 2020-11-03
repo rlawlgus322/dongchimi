@@ -44,7 +44,8 @@ class PartyWrite extends Component {
           {/** 글쓰기 에디터 */}
           <Editor getContents={this.getContents.bind(this)} />
           <input type="submit" value="등록하기" />
-          <input type="reset" value="취소하기" />
+          <input type="reset" value="취소하기"
+            onClick={() => this.props.history.push('/party')} />
         </form>
       </>
     )
