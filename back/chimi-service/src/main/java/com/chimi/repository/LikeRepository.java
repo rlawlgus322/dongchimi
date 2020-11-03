@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.chimi.model.Like;
 import com.chimi.model.PKSet;
-import com.chimi.model.Star;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface StarRepository extends CrudRepository<Star, PKSet> {
-  List<Star> findByStarPKId(Long cid);
+public interface LikeRepository extends CrudRepository<Like, PKSet> {
+  List<Like> findByLikePKId(Long hid);
 
   @Transactional
-  Long deleteByStarPKId(Long cid);
+  Long deleteByLikePKId(Long hid);
 }
