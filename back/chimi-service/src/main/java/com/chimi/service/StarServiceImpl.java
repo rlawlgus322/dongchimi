@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.chimi.model.PKSet;
-import com.chimi.model.Star;
+import com.chimi.model.ChimiStar;
 import com.chimi.repository.StarRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class StarServiceImpl implements StarService {
   StarRepository starRepository;
 
   @Override
-  public Star save(Star star) {
+  public ChimiStar save(ChimiStar star) {
     return starRepository.save(star);
   }
 
@@ -27,12 +27,12 @@ public class StarServiceImpl implements StarService {
   }
 
   @Override
-  public Optional<Star> findById(PKSet pk) {
+  public Optional<ChimiStar> findById(PKSet pk) {
     return starRepository.findById(pk);
   }
 
   @Override
-  public List<Star> findByStarPKId(Long hid) {
+  public List<ChimiStar> findByStarPKId(Long hid) {
     return starRepository.findByStarPKId(hid);
   }
 
