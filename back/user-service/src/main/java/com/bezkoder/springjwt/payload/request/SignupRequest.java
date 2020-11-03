@@ -22,7 +22,6 @@ public class SignupRequest {
 
     private String nickname;
 
-    private String address;
 
     private int gender;
   
@@ -67,13 +66,7 @@ public class SignupRequest {
     }
 
 
-    public String getAddress() {
-        return address;
-    }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public int getGender() {
         return gender;
