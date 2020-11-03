@@ -80,7 +80,6 @@ class Editor extends Component {
         value={this.state.text}
         onChange={this.handleChange.bind(this)}
       >
-        <div className="my-editing-area" />
       </ReactQuill>
     );
   }
