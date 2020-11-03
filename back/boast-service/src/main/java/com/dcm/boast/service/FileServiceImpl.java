@@ -1,4 +1,5 @@
-package com.bezkoder.springjwt.service;
+package com.dcm.boast.service;
+
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
