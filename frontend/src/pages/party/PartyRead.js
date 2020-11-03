@@ -17,6 +17,9 @@ class PartyRead extends Component {
           type={1}
           data={data}
         ></PartyInfo>
+        <button
+          onClick={() => this.props.history.push('/party/update')}
+        >수정</button>
         <div className='row'>
           <div className='col-6'>
             <PartyOpener></PartyOpener>
