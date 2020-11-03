@@ -1,5 +1,8 @@
 package com.chimi.controller;
 
+import com.chimi.service.FileService;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,16 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +25,7 @@ import com.chimi.service.ChimiService;
 import com.chimi.service.StarService;
 
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.multipart.MultipartFile;
 
 //http://localhost:8080/swagger-ui.html
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -43,6 +38,8 @@ public class ChimiController {
 	StarService starService;
 	@Autowired
 	ApplicationService applicationService;
+	@Autowired
+	FileService fileService;
 
 	@PostMapping
 	@ApiOperation(value = "새 파티 게시 ")
@@ -174,4 +171,26 @@ public class ChimiController {
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
 	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/image", produces = "application/json")
+	@ApiOperation(value = "이미지 업로드")
+	@ApiResponses({
+			@ApiResponse(code = 201, message = "이미지 업로드 성공"),
+			@ApiResponse(code = 400, message = "잘못된 요청입니다"),
+			@ApiResponse(code = 401, message = "로그인 후 이용해 주세요"),
+			@ApiResponse(code = 403, message = "권한이 없습니다"),
+			@ApiResponse(code = 404, message = "이미지 업로드 실패")
+	})
+	private ResponseEntity<?> create(@RequestParam(value = "file") MultipartFile image) {
+		ResponseEntity<?> entity = null;
+		try {
+			String path = fileService.image(image);
+			entity = new ResponseEntity<>(fileService.image(image), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
 }
