@@ -87,7 +87,7 @@ public class ChimiController {
 	
 	@GetMapping
 	@ApiOperation(value = "모든 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
-	public ResponseEntity<List<ChimiResponse>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable, String email){
+	public ResponseEntity<List<ChimiResponse>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable){
 		Page<Chimi> chimiPage = chimiService.findAll(pageable);		
 		List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
 		for(Chimi chimi : chimiPage){
@@ -96,7 +96,7 @@ public class ChimiController {
 					starService.findById(new PKSet(chimi.getId(), chimi.getHid())).isPresent()));
 		}
 		if(!chimiList.isEmpty())		return new ResponseEntity<>(chimiList, HttpStatus.OK);
-		else												return new ResponseEntity<>(chimiList, HttpStatus.BAD_REQUEST);
+		else												return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/{hid}")
@@ -128,7 +128,7 @@ public class ChimiController {
 			}
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
-			return new ResponseEntity<>("파티가 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -165,7 +165,7 @@ public class ChimiController {
 			
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
-			return new ResponseEntity<>("댓글이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
 	}
 	
