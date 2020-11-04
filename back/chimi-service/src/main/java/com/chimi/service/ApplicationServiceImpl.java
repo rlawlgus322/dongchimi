@@ -44,7 +44,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	@Override
 	public Optional<Application> findByHidAndRoomUserId(Long hid, long id) {
-		return applicationRepository.findByApplicationPKHidAndfindByRoomUserId(hid,id);
+		return applicationRepository.findByApplicationPK_ChimiIdAndRoomUserId(hid,id);
 	}
 
 }

@@ -32,8 +32,8 @@ public class StorageServiceImpl implements StorageService {
   }
 
   @Override
-  public List<Storage> findByStoragePKEmail(String email) {
-    return storageRepository.findByStoragePKEmailOrderByCreatedateDesc(email);
+  public List<Storage> findByStoragePKUserId(long id) {
+    return storageRepository.findByStoragePK_UserIdOrderByCreatedateDesc(id);
   }
   
 }

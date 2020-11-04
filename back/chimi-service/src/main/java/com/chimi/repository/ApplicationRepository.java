@@ -13,5 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface ApplicationRepository extends CrudRepository<Application, PKSet> {
 	List<Application> findAllByApplicationPKUserIdOrderByCreatedateDesc(long userId);
 	List<Application> findAllByRoomUserIdOrderByCreatedateDesc(long id);
-	Optional<Application> findByApplicationPKHidAndfindByRoomUserId(long hid,long userId);
+    Optional<Application> findByApplicationPK_ChimiIdAndRoomUserId(long hid,long userId);
 }

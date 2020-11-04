@@ -9,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface StorageRepository extends CrudRepository<Storage, PKSet>{
-  List<Storage> findByStoragePKEmailOrderByCreatedateDesc(String email);
+  List<Storage> findByStoragePK_UserIdOrderByCreatedateDesc(long id);
 }
