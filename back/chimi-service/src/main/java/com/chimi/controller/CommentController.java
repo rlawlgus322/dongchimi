@@ -95,15 +95,16 @@ public class CommentController {
         }
     }
     
-    @PutMapping("/like")
+    @PutMapping("/like/{cid}")
 	@ApiOperation(value = "댓글 좋아요")
-	public ResponseEntity<String> like(@RequestParam(required = true) Long cid, @RequestParam(required = true) String email) {
+	public ResponseEntity<String> like(@RequestHeader("accessToken") String access,@PathVariable Long cid) {
+    	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
         ChimiComment newComment = commentService.findById(cid).get();
         if(newComment != null){
             newComment.setLikes(newComment.getLikes()+1);
             commentService.save(newComment);
 
-            CommentLike like = new CommentLike(new PKSet(email, cid));
+            CommentLike like = new CommentLike(new PKSet((long) userinfo.get("id"), cid));
             likeService.save(like);
             return new ResponseEntity<>("success", HttpStatus.OK);
         } else{
@@ -111,15 +112,16 @@ public class CommentController {
         }
     }
     
-    @PutMapping("/dislike")
+    @PutMapping("/dislike/{cid}")
 	@ApiOperation(value = "댓글 좋아요 취소")
-	public ResponseEntity<String> dislike(@RequestParam(required = true) Long cid, @RequestParam(required = true) String email) {
-        ChimiComment newComment = commentService.findById(cid).get();
+	public ResponseEntity<String> dislike(@RequestHeader("accessToken") String access,@PathVariable Long cid) {
+    	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
+    	ChimiComment newComment = commentService.findById(cid).get();
         if(newComment != null){
             newComment.setLikes(newComment.getLikes()>0? newComment.getLikes()-1 : 0);
             commentService.save(newComment);
 
-            PKSet pk = new PKSet(email,cid);
+            PKSet pk = new PKSet((long) userinfo.get("id"),cid);
             if(likeService.findById(pk).isPresent()){
                 likeService.deleteById(pk);
             }

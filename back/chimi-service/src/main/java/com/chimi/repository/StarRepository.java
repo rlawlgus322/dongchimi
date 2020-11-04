@@ -11,8 +11,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface StarRepository extends CrudRepository<ChimiStar, PKSet> {
-  List<ChimiStar> findByStarPKId(Long cid);
+  List<ChimiStar> findByStarPK_ChimiId(Long cid);
 
   @Transactional
-  Long deleteByStarPKId(Long cid);
+  Long deleteByStarPK_ChimiId(Long cid);
 }

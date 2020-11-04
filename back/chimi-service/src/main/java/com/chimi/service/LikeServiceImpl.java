@@ -33,12 +33,12 @@ public class LikeServiceImpl implements LikeService {
 
   @Override
   public List<CommentLike> findByLikePKId(Long cid) {
-    return likeRepository.findByLikePKId(cid);
+    return likeRepository.findAllByLikePKChimiId(cid);
   }
 
   @Override
-  public Long deleteByLikePKId(Long cid) {
-    return likeRepository.deleteByLikePKId(cid);
+  public void deleteByLikePKId(Long cid) {
+    likeRepository.deleteByLikePK_ChimiId(cid);
   }
   
 }
