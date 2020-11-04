@@ -2,6 +2,7 @@ package com.dcm.boast.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,15 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.dcm.boast.intercomm.UserClient;
 import com.dcm.boast.model.Comment;
@@ -43,7 +36,8 @@ public class CommentController {
 		Page<Comment> commentlist = commentService.allComments(boastId,pageable);
 		List<CommentResponse> list = new ArrayList<>();
 		for (Comment comment : commentlist) {
-			CommentResponse commentResponse = new CommentResponse(comment,userClient.getUserName(comment.getUserId()));
+			Map<String, Object>map = userClient.getUsername(comment.getUserId());
+			CommentResponse commentResponse = new CommentResponse(comment,(String)map.get("nickname"));
 			if(commentService.isLike(comment.getId())) commentResponse.setIslike(true); //내가 좋아요 누른 댓글인지
 			List<Comment> reclist = commentService.findReCommentById(comment.getId()); //대댓글 리스트
 			commentResponse.setRecomment(reclist);
@@ -54,11 +48,12 @@ public class CommentController {
 	}
 	@PostMapping()
 	@ApiOperation(value = "자랑게시물 댓글작성")
-	public ResponseEntity<?> insert(@RequestBody Comment comment) {
+	public ResponseEntity<?> insert(@RequestBody Comment comment, @RequestHeader("accessToken") String access) {
 
 		ResponseEntity<?> entity = null;
 
 		try {
+			Map<String, Object>map = userClient.getUserInfo(access);
 			entity = new ResponseEntity<Comment>(commentService.insert(comment), HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,11 +64,12 @@ public class CommentController {
 	}
 	@PutMapping("/{commentId}")
 	@ApiOperation(value = "수정하기")
-	public ResponseEntity<?> update(@PathVariable long commentId, @RequestBody Comment comment) {
+	public ResponseEntity<?> update(@PathVariable long commentId, @RequestBody Comment comment, @RequestHeader("accessToken") String access) {
 
 		ResponseEntity<?> entity = null;
 
 		try {
+			Map<String, Object>map = userClient.getUserInfo(access);
 			entity = new ResponseEntity<Comment>(commentService.update(comment,commentId), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +81,7 @@ public class CommentController {
 	
 	@DeleteMapping("/{commentId}")
 	@ApiOperation(value = "해당 id값 삭제")
-	public ResponseEntity<?> delete(@PathVariable long commentId) {
+	public ResponseEntity<?> delete(@PathVariable long commentId, @RequestHeader("accessToken") String access) {
 		if(commentService.findCommentById(commentId)!= null){
 			commentService.delete(commentId);
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -97,11 +93,12 @@ public class CommentController {
 	
 	@PutMapping("/like")
 	@ApiOperation(value = "좋아요 올리기")
-	public ResponseEntity<?> like(@RequestBody CommentStar commentStar) {
+	public ResponseEntity<?> like(@RequestBody CommentStar commentStar, @RequestHeader("accessToken") String access) {
 
 		ResponseEntity<?> entity = null;
 
 		try {
+			Map<String, Object>map = userClient.getUserInfo(access);
 			entity = new ResponseEntity<Comment>(commentService.like(commentStar), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,11 +110,12 @@ public class CommentController {
 	
 	@PutMapping("/dislike")
 	@ApiOperation(value = "좋아요 취소")
-	public ResponseEntity<?> dislike(@RequestBody CommentStar commentStar) {
+	public ResponseEntity<?> dislike(@RequestBody CommentStar commentStar, @RequestHeader("accessToken") String access) {
 
 		ResponseEntity<?> entity = null;
 
 		try {
+			Map<String, Object>map = userClient.getUserInfo(access);
 			entity = new ResponseEntity<Comment>(commentService.dislike(commentStar), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
