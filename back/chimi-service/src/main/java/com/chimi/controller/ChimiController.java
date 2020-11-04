@@ -42,6 +42,7 @@ import org.springframework.web.multipart.MultipartFile;
 //http://localhost:8080/swagger-ui.html
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequestMapping("/chimi")
 public class ChimiController {
 	@Autowired
 	ChimiService chimiService;

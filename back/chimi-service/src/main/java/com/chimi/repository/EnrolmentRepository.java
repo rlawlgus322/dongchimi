@@ -13,6 +13,6 @@ public interface EnrolmentRepository extends CrudRepository<Enrolment, PKSet> {
 
 	List<Enrolment> findAllByRoomUserIdOrderByCreatedateDesc(long id);
 
-	List<Enrolment> findAllByApplicationPKHid(Long hid);
+	List<Enrolment> findAllByEnrolmentPKChimiId(Long hid);
 
 }
