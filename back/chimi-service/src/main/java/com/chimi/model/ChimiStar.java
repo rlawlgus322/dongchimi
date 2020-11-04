@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "LIKECOMMENT")
-public class Like {
+@Table(name = "CHIMI_STAR")
+public class ChimiStar {
    
     @EmbeddedId
-    private PKSet likePK;
+    private PKSet starPK;
     
-    public Like(PKSet likePK){
-        this.likePK = likePK;
+    public ChimiStar(PKSet starPK){
+        this.starPK = starPK;
     }
 }

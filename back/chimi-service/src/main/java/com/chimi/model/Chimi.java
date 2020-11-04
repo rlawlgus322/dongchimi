@@ -13,6 +13,7 @@ import lombok.*;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table( name = "CHIMI")
 public class Chimi {
 	@Id
@@ -25,6 +26,8 @@ public class Chimi {
 	@NotBlank
 	@Size(max = 100)
 	private String name;	// 취미 이름
+	
+
 	
 	@Size(max = 1000)
 	private String summary;	// 간략소개
