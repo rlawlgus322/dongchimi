@@ -29,7 +29,7 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 
 	@Override
 	public List<Enrolment> findAllByHid(Long hid) {
-		return enrolmentRepository.findAllByApplicationPKHid(hid);
+		return enrolmentRepository.findAllByEnrolmentPKChimiId(hid);
 	}
 
 	@Override
