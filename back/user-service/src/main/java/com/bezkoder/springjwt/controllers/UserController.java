@@ -99,12 +99,11 @@ public class UserController {
 
     @GetMapping("/userinfo/isemail/{email}")
     @ApiOperation(value = "이메일중복체크")
-    public ResponseEntity<?> duplicateCheckEmail(@PathVariable String email, @RequestHeader("accessToken") String access) {
+    public ResponseEntity<?> duplicateCheckEmail(@PathVariable String email) {
 
         ResponseEntity<?> entity = null;
 
         try {
-            String userEmail = jwtUtils.getUserNameFromJwtToken(access);
             entity = new ResponseEntity<>(userService.duplicateCheckEmail(email), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,12 +114,11 @@ public class UserController {
     }
     @GetMapping("/userinfo/isnick/{nickname}")
     @ApiOperation(value = "닉네임중복체크")
-    public ResponseEntity<?> duplicateCheckNickname(@PathVariable String nickname, @RequestHeader("accessToken") String access) {
+    public ResponseEntity<?> duplicateCheckNickname(@PathVariable String nickname) {
 
         ResponseEntity<?> entity = null;
 
         try {
-            String userEmail = jwtUtils.getUserNameFromJwtToken(access);
             entity = new ResponseEntity<>(userService.duplicateCheckNickname(nickname), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

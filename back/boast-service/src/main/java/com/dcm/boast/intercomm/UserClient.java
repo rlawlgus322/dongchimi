@@ -11,4 +11,7 @@ public interface UserClient {
 //    @RequestMapping(method = RequestMethod.POST, value = "/", consumes = "application/json")
 	@GetMapping("/userinfo/token/{token}")
 	HashMap<String,Object> getUserInfo(@PathVariable String token);
+
+	@GetMapping("/userinfo/name/{Id}")
+	HashMap<String,Object> getUsername(@PathVariable long Id);
 }
