@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 public class CommentResponse {
 	private Comment comment;
 	private List<Comment> recomment; //내 댓글에 리플 단 댓글들 리스트
-	private String username;
+	private String nickname;
 	private boolean islike = false;
-	public CommentResponse(Comment comment, String username) {
+	public CommentResponse(Comment comment, String nickname) {
 		this.comment = comment;
-		this.username = username;
+		this.nickname = nickname;
 	} 
 	
 	

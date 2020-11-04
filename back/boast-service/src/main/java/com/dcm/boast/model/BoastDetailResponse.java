@@ -9,19 +9,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoastDetailResponse {
 	private Boast boast;
-	private String username;
-	private List<CommentResponse> comments;
+	private String nicknname;
     private boolean isLiked = false;
 
-    public BoastDetailResponse(Boast boast, String username) {
+    public BoastDetailResponse(Boast boast, String nicknname) {
 		this.boast = boast;
-		this.username = username;
+		this.nicknname = nicknname;
 	}
     
-	public BoastDetailResponse(Boast boast, String username, List<CommentResponse> comments, boolean isLiked) {
+	public BoastDetailResponse(Boast boast, String nicknname, boolean isLiked) {
 		this.boast = boast;
-		this.username = username;
-		this.comments = comments;
+		this.nicknname = nicknname;
 		this.isLiked = isLiked;
 	}
     
