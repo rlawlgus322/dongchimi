@@ -1,9 +1,14 @@
 from flask import Flask
-
+from pandas import DataFrame
+import connect
 app = Flask(__name__)
 
 
 @app.route('/')
+def itemRecommend(request):
+    user_hobby_rating = pd.d
+    hobby_user_rating = 
+
 def detailrecommendstore(request):
     storeid = request.GET['store']
     detailReviews = DetailReview.objects.filter(store=storeid) # 이 가게를 방문한 사람들의 리뷰
@@ -55,3 +60,15 @@ def detailrecommendstore(request):
 
     dump = json.dumps(temp)
     return HttpResponse(dump, content_type='application/json')
+
+if __name__ == '__main__':
+# 디비 연결
+    connection = connect.connection()
+    
+
+
+
+# df = DataFrame(resoverall.fetchall())
+# df.columns = resoverall.keys()
+
+# 디비 해제
