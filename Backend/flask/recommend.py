@@ -75,7 +75,7 @@ if __name__ == '__main__':
     print(df.loc[1,"공예"])
     df.loc[1:3,"공예":"자수"] = 1
     print(df.loc[1:3,"공예":"자수"])
-
+    print(df)
     # 찜하기, 좋아요
     for user in userlist :
         category = connect.getUserStorage(cursor,user)
