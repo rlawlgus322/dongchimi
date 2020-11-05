@@ -16,7 +16,7 @@ public class ZuulApplication {
 	 public WebMvcConfigurer corsConfigurer () {
 	     return  new WebMvcConfigurer () {
 	         public  void addCorsMappings (CorsRegistry registry) {
-	            registry.addMapping ( "/ **" )
+	            registry.addMapping ( "/**" )
 	                    .allowedOrigins ( "*" )
 	                    .allowedMethods ( "GET" , "POST", "DELETE", "PUT" );
 	        }
