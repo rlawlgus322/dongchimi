@@ -1,6 +1,8 @@
 package com.bezkoder.springjwt.models;
 
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,7 +43,11 @@ public class User {
 
     private String profileimage;
 
+    private double star;
 
+    private double num;
+
+    @CreationTimestamp
     private LocalDateTime create_at;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -54,15 +60,20 @@ public class User {
 
     }
 
-    public User(String username, String email, String password,String nickname, int gender, String profileimage) {
+    public User(String username, String email, String password,String nickname, int gender, String profileimage, double star, double num) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.gender = gender;
         this.profileimage = profileimage;
+        this.star = star;
+        this.num = num;
+
 
     }
+
+
 
     public Long getId() {
         return id;
@@ -135,5 +146,21 @@ public class User {
 
     public void setProfileimage(String profileimage) {
         this.profileimage = profileimage;
+    }
+
+    public double getStar() {
+        return star;
+    }
+
+    public void setStar(double star) {
+        this.star = star;
+    }
+
+    public double getNum() {
+        return num;
+    }
+
+    public void setNum(double num) {
+        this.num = num;
     }
 }
