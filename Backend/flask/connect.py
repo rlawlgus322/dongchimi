@@ -24,7 +24,7 @@ def getUserStorage(cursor, id):
     """
         select category from chimi
         where hid in (
-        SELECT chimiId
+        SELECT chimi_Id
         FROM storage
         where id = :userid)
     """
@@ -37,7 +37,7 @@ def getUserLike(cursor, id):
     """
         select category from chimi
         where hid in (
-        SELECT chimiId
+        SELECT chimi_Id
         FROM chimi_star
         where id = :userid
         )

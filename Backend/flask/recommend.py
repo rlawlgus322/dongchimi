@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def itemRecommend(request):
-    user_hobby_rating = pd.d
-    hobby_user_rating = 
+    user_hobby_rating = DataFrame()
+    # hobby_user_rating = 
 
 def detailrecommendstore(request):
     storeid = request.GET['store']
@@ -63,8 +63,35 @@ def detailrecommendstore(request):
 
 if __name__ == '__main__':
 # 디비 연결
-    connection = connect.connection()
-    
+    conn, cursor = connect.connect()
+    result = connect.getUserName(cursor)
+    # df = DataFrame(result.fetchall())
+    userlist = [row[0] for row in result.fetchall()]
+    df = DataFrame(index = userlist,
+                #   columns = [desc[0] for desc in cursor.description]
+                  columns = ["공예", "뜨개질", "자수"]
+                  )
+    df.fillna(0,inplace = True)
+    print(df.loc[1,"공예"])
+    df.loc[1:3,"공예":"자수"] = 1
+    print(df.loc[1:3,"공예":"자수"])
+    print(df)
+    # 찜하기, 좋아요
+    for user in userlist :
+        category = connect.getUserStorage(cursor,user)
+        likes = connect.getUserLike(cursor,user)
+        categorylist = [row[0] for row in category.fetchall()]
+        for catg in categorylist:
+            df.loc[user,catg[0]] += 5 #찜일시 5점 추가
+        likelist = [row[0] for row in likes.fetchall()]
+        for like in likelist:
+            df.loc[user,like[0]] +=3
+
+
+    # print(df)
+    # result = connect.getUserName(cursor)
+    # df.columns = result.va
+    print(df)
 
 
 
