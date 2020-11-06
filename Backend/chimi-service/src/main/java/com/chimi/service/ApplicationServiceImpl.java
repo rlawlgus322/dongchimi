@@ -43,7 +43,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public Optional<Application> findByHidAndRoomUserId(Long hid, long id) {
+	public Optional<Application> findByHidAndRoomUserId(long hid, long id) {
 		return applicationRepository.findByApplicationPK_ChimiIdAndRoomUserId(hid,id);
 	}
 

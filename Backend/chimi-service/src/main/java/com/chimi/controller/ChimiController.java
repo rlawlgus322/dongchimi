@@ -59,8 +59,9 @@ public class ChimiController {
 		HashMap<String,Object> userinfo = userClient.getUserInfo(access);
 
 		if(chimi != null && userinfo!=null)	{
-
-			chimi.setId((long) userinfo.get("id"));//user id 저장
+			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
+			System.out.println("id : " + id);
+			chimi.setId(id);//user id 저장
 			chimiService.save(chimi);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		}
@@ -91,7 +92,7 @@ public class ChimiController {
 			List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
 			for(Chimi chimi : chimiPage){
 				HashMap<String,Object> userinfo = userClient.getusername(chimi.getId());
-				chimiList.add(new ChimiResponse(chimi,(String)userinfo.get("nickname"),(String)userinfo.get("profileImage"),
+				chimiList.add(new ChimiResponse(chimi,String.valueOf(userinfo.get("nickname")),String.valueOf(userinfo.get("profileImage")),
 						starService.findById(new PKSet(chimi.getId(), chimi.getHid())).isPresent()));
 			}
 			return new ResponseEntity<>(chimiList, HttpStatus.OK);
@@ -110,7 +111,7 @@ public class ChimiController {
 		newChimi.setViews(newChimi.getViews()+1);
 		newChimi = chimiService.save(newChimi);
 		
-		ChimiResponse chimiResponse = new ChimiResponse(newChimi,(String)userinfo.get("nickname"),(String)userinfo.get("profileImage"),
+		ChimiResponse chimiResponse = new ChimiResponse(newChimi,String.valueOf(userinfo.get("nickname")),String.valueOf(userinfo.get("profileImage")),
 				starService.findById(new PKSet(newChimi.getId(), newChimi.getHid())).isPresent());
 		
 		if(newChimi != null)	return new ResponseEntity<>(chimiResponse, HttpStatus.OK);
@@ -122,7 +123,7 @@ public class ChimiController {
 	public ResponseEntity<String> delete(@RequestHeader("accessToken") String access,@PathVariable long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		Chimi chimi = chimiService.findById(hid).get();
-		if(chimi!=null && userinfo!=null && chimi.getId()==((long)userinfo.get("id")) ){ //해당 취미가개설되어 있고 id가 일치하는지
+		if(chimi!=null && userinfo!=null && chimi.getId()==Long.parseLong(String.valueOf(userinfo.get("id"))) ){ //해당 취미가개설되어 있고 id가 일치하는지
 			chimiService.deleteById(hid);
 			// 추천 목록 삭제
 			if(!starService.findByStarPKId(hid).isEmpty()){
@@ -143,7 +144,7 @@ public class ChimiController {
 			newChimi.setStars(newChimi.getStars()+1);
 			chimiService.save(newChimi);
 
-			ChimiStar star = new ChimiStar(new PKSet((long) userinfo.get("id"), hid));
+			ChimiStar star = new ChimiStar(new PKSet(Long.parseLong(String.valueOf(userinfo.get("id"))), hid));
 			starService.save(star);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		
@@ -160,7 +161,7 @@ public class ChimiController {
 			newChimi.setStars(newChimi.getStars()>0? newChimi.getStars()-1 : 0);
 			chimiService.save(newChimi);
 
-			PKSet pk = new PKSet((long) userinfo.get("id"),hid);
+			PKSet pk = new PKSet(Long.parseLong(String.valueOf(userinfo.get("id"))),hid);
 			if(starService.findById(pk).isPresent()){
 				starService.deleteById(pk);
 			}

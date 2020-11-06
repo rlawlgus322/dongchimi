@@ -1,6 +1,5 @@
 package com.chimi.service;
 
-import com.chimi.model.Application;
 import com.chimi.model.Enrolment;
 import com.chimi.model.PKSet;
 import com.chimi.repository.EnrolmentRepository;

@@ -23,13 +23,13 @@ public class Boast {
 
     @Id
     @GeneratedValue
-    private Long bid;
+    private long bid;
 
     @NotNull
-    private Long userId;   // 자랑 유저 id
+    private long userId;   // 자랑 유저 id
     
     @NotNull
-    private Long hid;   // 취미 id
+    private long hid;   // 취미 id
     
     @NotBlank
     @Size(max = 100)
@@ -51,7 +51,7 @@ public class Boast {
 
 
     @Builder
-	private Boast(long bid, Long uid,long hid,String title, String postImg, String contents, 
+	private Boast(long bid, long uid,long hid,String title, String postImg, String contents, 
 			String category, LocalDateTime createdate, int likes, int views) {
     	 this.bid = bid;
          this.userId = uid;
