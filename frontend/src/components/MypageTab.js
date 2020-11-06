@@ -24,7 +24,7 @@ class MypageTab extends Component {
   }
   render() {
     return (
-      <Nav class="wrapper">
+      <Nav className="wrapper">
         <Nav variant="tabs">
           <Nav.Item>
             <Nav.Link onClick={() => this.clickHandler(0)}>내가 연 파티</Nav.Link>
@@ -39,7 +39,7 @@ class MypageTab extends Component {
             <Nav.Link onClick={() => this.clickHandler(3)}>찜한 파티</Nav.Link>
           </Nav.Item>
         </Nav>
-        <div class="contents">{obj[this.state.activeTab]}</div>
+        <div className="contents">{obj[this.state.activeTab]}</div>
       </Nav>
     );
   }
