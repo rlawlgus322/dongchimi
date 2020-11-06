@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 class Main extends Component {
@@ -25,3 +25,4 @@ class Main extends Component {
 }
 
 export default Main;
+

@@ -73,3 +73,4 @@ function PartyList({ history }) {
 }
 
 export default withRouter(PartyList);
+
