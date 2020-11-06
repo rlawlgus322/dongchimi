@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "roles")
 public class Role {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue
 	private Integer id;
 
 	@Enumerated(EnumType.STRING)

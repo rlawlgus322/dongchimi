@@ -13,24 +13,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SpringBootSecurityJwtApplicationTests {
 
-	// @Autowired
-	// RoleRepository roleRepository;
-
-	// @Test
-	// public void contextLoads() {
-	// }
-
-	// @Test
-	// public void roles(){
-	// 	Role role = new Role();
-	// 	Role role2 = new Role();
-	// 	Role role3 = new Role();
-	// 	role.setName(ERole.ROLE_ADMIN);
-	// 	roleRepository.save(role);
-	// 	role2.setName(ERole.ROLE_MODERATOR);
-	// 	roleRepository.save(role2);
-	// 	role3.setName(ERole.ROLE_USER);
-	// 	roleRepository.save(role3);
-	// }
+//	 @Autowired
+//	 RoleRepository roleRepository;
+//
+//	 @Test
+//	 public void contextLoads() {
+//	 }
+//
+//	 @Test
+//	 public void roles(){
+//	 	Role role = new Role(1,ERole.ROLE_ADMIN);
+//	 	Role role2 = new Role(2,ERole.ROLE_USER);
+//	 	Role role3 = new Role(3,ERole.ROLE_MODERATOR);
+//	 	roleRepository.save(role);
+//	 	roleRepository.save(role2);
+//	 	roleRepository.save(role3);
+//	 }
 
 }

@@ -13,7 +13,7 @@ def connect():
 def getUserName(cursor):
     resoverall = cursor.execute(
     """
-        SELECT id
+        SELECT id,prefer1,prefer2,prefer3
         FROM users
     """
     )
