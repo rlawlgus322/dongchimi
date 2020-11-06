@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Service
 public class FileServiceImpl implements FileService {
-    private static final String PATH = "/file/";
+    private static final String PATH = "/home/ubuntu/deploy/build/file/";
 //    private static final String PATH = "C:/Users/multicampus/IdeaProjects/s03p31a409/back/user-service/file/";
 
 
