@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Boasts from '../../components/Boast/Boasts';
+import Boasts from '../../components/Boast/List/Boasts';
 // import { withRouter } from 'react-router-dom';
 
 const data = [
