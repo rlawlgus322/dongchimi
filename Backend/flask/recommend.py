@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request,jsonify
 from pandas import DataFrame
 from sklearn.metrics.pairwise import cosine_similarity
 import connect
@@ -19,31 +19,25 @@ chimi_category_dict ={"미술":["유화","수채화","파스텔"],
                     "운동":["헬스","홈트레이닝","다이어트"]}
 chimi_sub_category = ["유화","수채화","파스텔","가죽","뜨개질","비즈","일러스트","이모티콘","편집","촬영"
                         ,"한식","양식","일식","중식","세계음식","기타","작곡","작사","타악기","현악기","관악기","댄스",
-                        "헬스","홈트레이닝","다이어트"]       
-    #     return similarity
-# 미술   공예       디지털드로잉       사진       영상       요리       음악     운동
-#유화   가죽       일러스트           편집       촬영       한식       작곡     헬스
-#수채화   뜨개질   이모티콘           촬영       편집       양식     작사       홈트레이닝
-#파스텔   비즈                                     일식       타악기   다이어트
-#                                           중식     현악기
-#                                           세계음식   관악기
-#                                                  기타(etc)
-#
-#
+                        "헬스","홈트레이닝","다이어트"]   
+chimi_sub_dict = {"유화":0,"수채화": 0, "파스텔": 0, "가죽": 0, "뜨개질": 0, "비즈": 0, "일러스트": 0, "이모티콘": 0, "편집": 0, 
+                    "촬영": 0, "한식": 0, "양식": 0, "일식": 0, "중식": 0, "세계음식": 0, "기타": 0, "작곡": 0, "작사": 0, "타악기": 0, 
+                    "현악기": 0, "관악기": 0, "댄스": 0, "헬스": 0, "홈트레이닝": 0, "다이어트":0}    #사용자 선호도 조사할때  
 
 
 @app.route('/item',methods=['GET'])
 def itemRecommend():
+    useremail = request.GET['email'] #내가 분석할 유저
     conn, cursor = connect.connect() 
     result = connect.getUserName(cursor)
-    # df = DataFrame(result.fetchall())
-    userlist = []
-    preferlist = [] #사용자 선호도
-    for row in result.fetchall():
-        userlist.append(row[0])
-        preferlist=[row[1],row[2],row[3]]
-        
-    userlist = [row[0] for row in result.fetchall()] # 모든 유저를 list로 받아옴
+    userlist = [row[0] for row in result.fetchall()] 
+
+    userInfo = connect.getUserPrefer(cursor,useremail)
+    userid = 0
+    preferlist=[]
+    for row in userInfo.fetchall():
+        userid = row[0]
+        preferlist = [row[1],row[2],row[3]] #사용자 선호도        
     
     df = DataFrame(
                     columns = userlist,
@@ -57,8 +51,9 @@ def itemRecommend():
     df.loc["뜨개질":"자수",9:15] =3
     print(df.loc["공예":"자수",1:3])
     print(df)
+
     # 찜하기, 좋아요 
-    
+    # 전체사용자 기반 선호도 분석
     for user in userlist :
         category = connect.getUserStorage(cursor,user)
         likes = connect.getUserLike(cursor,user)
@@ -73,13 +68,39 @@ def itemRecommend():
     print(item_based_collabor)
     item_based_collabor = DataFrame(data = item_based_collabor, index = df.index, columns=df.index)
     print(item_based_collabor)
-    chimi = "자수"
-    # 비슷한거 추천 위에서 2개까지
-    print(item_based_collabor[chimi].sort_values(ascending=False)[:2])
+
+    #사용자의 선호도
+    category = connect.getUserStorage(cursor,userid)
+    categorylist = [row[0] for row in category.fetchall()]
+    for catg in categorylist:
+        chimi_sub_dict[catg] += 2
+    likes = connect.getUserLike(cursor,userid)
+    likelist = [row[0] for row in likes.fetchall()]
+    for like in likelist:
+        chimi_sub_dict[catg] += 1
+
+    #1순위,2순위,3순위
+    chimi_sub_dict[preferlist[0]] +=3
+    chimi_sub_dict[preferlist[1]]+=2
+    chimi_sub_dict[preferlist[2]]+=1
+
+    # 사용자의 찜, 좋아요와 1-3순위다 더해서 가중치 분석
+    chimi_weight_val = sorted(chimi_sub_dict.items(), reverse=True,  key = lambda item: item[1])
+
+    recommendSet = {}
+    flag = 2 # 몇개까지 볼건지
+    for key, value in chimi_weight_val:
+        if flag == 0 : break
+        # 비슷한거 추천 위에서 2개까지
+        recommendSet.update(item_based_collabor[key].sort_values(ascending=False)[:2])
+        flag -= 1
+    recommendList = list(recommendSet)
 
     # 디비 해제
     cursor.close()
     conn.close()
+
+    return jsonify({'recommendlist': recommendList})
 
 def detailrecommendstore(request):
     storeid = request.GET['store']
