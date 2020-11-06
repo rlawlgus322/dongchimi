@@ -21,22 +21,22 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<ChimiComment> findByHid(Long hid) {
+    public List<ChimiComment> findByHid(long hid) {
         return commentRopository.findByHid(hid);
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(long id) {
         commentRopository.deleteById(id);
     }
 
     @Override
-    public void deleteByHid(Long hid) {
+    public void deleteByHid(long hid) {
         commentRopository.deleteByHid(hid);
     }
 
     @Override
-    public Optional<ChimiComment> findById(Long cid) {
+    public Optional<ChimiComment> findById(long cid) {
         return commentRopository.findById(cid);
     }
 

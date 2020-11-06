@@ -32,12 +32,12 @@ public class StarServiceImpl implements StarService {
   }
 
   @Override
-  public List<ChimiStar> findByStarPKId(Long hid) {
+  public List<ChimiStar> findByStarPKId(long hid) {
     return starRepository.findByStarPK_ChimiId(hid);
   }
 
   @Override
-  public Long deleteByStarPKId(Long hid) {
+  public long deleteByStarPKId(long hid) {
     return starRepository.deleteByStarPK_ChimiId(hid);
   }
   

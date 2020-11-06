@@ -10,6 +10,6 @@ public interface LikeService {
   CommentLike save(CommentLike Like);
   void deleteById(PKSet pk);
   Optional<CommentLike> findById(PKSet pk);
-  List<CommentLike> findByLikePKId(Long cid);     // 댓글을 좋아하는 목록 찾기
-  void deleteByLikePKId(Long cid);        // 댓글 좋아요 목록 삭제
+  List<CommentLike> findByLikePKId(long cid);     // 댓글을 좋아하는 목록 찾기
+  void deleteByLikePKId(long cid);        // 댓글 좋아요 목록 삭제
 }

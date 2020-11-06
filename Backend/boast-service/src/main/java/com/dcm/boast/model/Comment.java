@@ -20,12 +20,12 @@ import lombok.NoArgsConstructor;
 public class Comment {
 	@Id
 	@GeneratedValue
-	private Long id;
-	private Long reId;//내가 대댓글 단 댓글의 id
+	private long id;
+	private long reId;//내가 대댓글 단 댓글의 id
 	@NotNull
-	private Long bid; //게시물 id
+	private long bid; //게시물 id
 	@NotNull
-	private Long userId;
+	private long userId;
 	@NotBlank
 	private String content;
 	@CreationTimestamp

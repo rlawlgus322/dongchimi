@@ -33,7 +33,7 @@ public class StorageController {
     UserClient userClient;
 	@PostMapping("/{hid}")
 	@ApiOperation(value = "보관함에 저장")
-	public ResponseEntity<String> insertStorage(@RequestHeader("accessToken") String access,@PathVariable Long hid) {
+	public ResponseEntity<String> insertStorage(@RequestHeader("accessToken") String access,@PathVariable long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		Storage newStorage = new Storage(new PKSet((long)userinfo.get("id"),hid));
 		newStorage = storageService.save(newStorage);
@@ -57,7 +57,7 @@ public class StorageController {
 
 	@DeleteMapping
 	@ApiOperation(value = "보관함 삭제")
-	public ResponseEntity<String> deleteStorage(@RequestHeader("accessToken") String access, Long hid) {
+	public ResponseEntity<String> deleteStorage(@RequestHeader("accessToken") String access, long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		PKSet pk = new PKSet((long)userinfo.get("id"), hid);
 
