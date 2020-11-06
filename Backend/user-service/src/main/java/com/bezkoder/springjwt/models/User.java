@@ -50,9 +50,9 @@ public class User {
 
     private String profileimage;
 
-    private double star;
+    private float star =0f;
 
-    private double num;
+    private int num =0;
 
     private String prefer1;
     private String prefer2;
@@ -68,7 +68,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
 
-    public User(String username, String email, String password,String nickname, int gender, String profileimage, double star, double num) {
+    public User(String username, String email, String password,String nickname, int gender, String profileimage, float star, int num) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -79,7 +79,7 @@ public class User {
         this.num = num;
 
     }
-    public User(String username, String email, String password,String nickname, int gender, String profileimage, double star, double num, String prefer1,String prefer2,String prefer3) {
+    public User(String username, String email, String password,String nickname, int gender, String profileimage, float star, int num, String prefer1,String prefer2,String prefer3) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -94,93 +94,13 @@ public class User {
     }
 
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-
-    public LocalDateTime getCreate_at() {
-        return create_at;
-    }
-
-    public void setCreate_at(LocalDateTime create_at) {
-        this.create_at = create_at;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getProfileimage() {
-        return profileimage;
-    }
-
-    public void setProfileimage(String profileimage) {
-        this.profileimage = profileimage;
-    }
-
-    public double getStar() {
-        return star;
-    }
-
-    public void setStar(double star) {
-        this.star = star;
-    }
-
-    public double getNum() {
-        return num;
-    }
-
-    public void setNum(double num) {
-        this.num = num;
-    }
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
+				+ ", nickname=" + nickname + ", gender=" + gender + ", profileimage=" + profileimage + ", star=" + star
+				+ ", num=" + num + ", prefer1=" + prefer1 + ", prefer2=" + prefer2 + ", prefer3=" + prefer3
+				+ ", create_at=" + create_at + ", roles=" + roles + "]";
+	}
+    
+    
 }
