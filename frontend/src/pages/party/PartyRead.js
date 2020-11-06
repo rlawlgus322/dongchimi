@@ -12,11 +12,14 @@ class PartyRead extends Component {
     console.log(this.props.match.params.id);
 
     return (
-      <div className='container'>
+      <>
         <PartyInfo
           type={1}
           data={data}
         ></PartyInfo>
+        <button
+          onClick={() => this.props.history.push('/party/update')}
+        >수정</button>
         <div className='row'>
           <div className='col-6'>
             <PartyOpener></PartyOpener>
@@ -26,7 +29,7 @@ class PartyRead extends Component {
             <PartyComment></PartyComment>
           </div>
         </div>
-      </div >
+      </>
     )
   }
 }
