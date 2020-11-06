@@ -47,6 +47,10 @@ public class User {
 
     private double num;
 
+    private String prefer1;
+    private String prefer2;
+    private String prefer3;
+
     @CreationTimestamp
     private LocalDateTime create_at;
 
@@ -70,7 +74,19 @@ public class User {
         this.star = star;
         this.num = num;
 
-
+    }
+    public User(String username, String email, String password,String nickname, int gender, String profileimage, double star, double num, String prefer1,String prefer2,String prefer3) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.profileimage = profileimage;
+        this.star = star;
+        this.num = num;
+        this.prefer1 = prefer1;
+        this.prefer2 = prefer2;
+        this.prefer3 = prefer3;
     }
 
 
