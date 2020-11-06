@@ -86,7 +86,10 @@ public class CommentController {
 	@DeleteMapping("/{commentId}")
 	@ApiOperation(value = "해당 id값 삭제")
 	public ResponseEntity<?> delete(@PathVariable long commentId, @RequestHeader("accessToken") String access) {
-		if(commentService.findCommentById(commentId)!= null){
+		Map<String, Object>userinfo = userClient.getUserInfo(access);
+		long id = Long.parseLong(String.valueOf(userinfo.get("id")));
+		Comment comment = commentService.findCommentById(commentId);
+		if(comment != null && id==comment.getUserId()){
 			commentService.delete(commentId);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else{
@@ -100,9 +103,10 @@ public class CommentController {
 	public ResponseEntity<?> like(@RequestBody CommentStar commentStar, @RequestHeader("accessToken") String access) {
 
 		ResponseEntity<?> entity = null;
-
 		try {
-			Map<String, Object>map = userClient.getUserInfo(access);
+			Map<String, Object>userinfo = userClient.getUserInfo(access);
+			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
+			commentStar.setUserId(id);
 			entity = new ResponseEntity<Comment>(commentService.like(commentStar), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,7 +123,9 @@ public class CommentController {
 		ResponseEntity<?> entity = null;
 
 		try {
-			Map<String, Object>map = userClient.getUserInfo(access);
+			Map<String, Object>userinfo = userClient.getUserInfo(access);
+			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
+			commentStar.setUserId(id);
 			entity = new ResponseEntity<Comment>(commentService.dislike(commentStar), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

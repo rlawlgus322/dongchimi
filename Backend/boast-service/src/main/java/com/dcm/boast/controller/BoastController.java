@@ -73,7 +73,7 @@ public class BoastController {
 
 		return entity;
 	}
-	@PutMapping("/b/{boastId}")
+	@PutMapping("/{boastId}")
 	@ApiOperation(value = "수정하기")
 	public ResponseEntity<?> update(@PathVariable long boastId, @RequestBody Boast boast, @RequestHeader("accessToken") String access) {
 
@@ -93,7 +93,7 @@ public class BoastController {
 	}
 	
 
-	@GetMapping("/b/{boastId}")
+	@GetMapping("/{boastId}")
 	@ApiOperation(value = "해당 id값 게시물 가져오기")
 	public ResponseEntity<BoastDetailResponse> find(@PathVariable long boastId, @RequestHeader("accessToken") String access) {
 		ResponseEntity<BoastDetailResponse> entity = null;
@@ -113,7 +113,7 @@ public class BoastController {
 
 		return entity;
 	}
-	@DeleteMapping("/b/{boastId}")
+	@DeleteMapping("/{boastId}")
 	@ApiOperation(value = "해당 id값 삭제")
 	public ResponseEntity<?> delete(@PathVariable long boastId, @RequestHeader("accessToken") String access) {
 		Map<String, Object>userinfo = userClient.getUserInfo(access);
