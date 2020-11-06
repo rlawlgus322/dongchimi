@@ -42,7 +42,7 @@ public class EnrolmentController {
 	public ResponseEntity<String> agreeApply(@RequestHeader("accessToken") String access,@RequestBody PKSet pk) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		Optional<Application> application = applicationService.findById(pk);
-		if((long) userinfo.get("id") == application.get().getRoomUserId() //승낙하려는 사용자 id와 취미에 등록된 id정보같나 확인
+		if(Long.parseLong(String.valueOf(userinfo.get("id"))) == application.get().getRoomUserId() //승낙하려는 사용자 id와 취미에 등록된 id정보같나 확인
 				&& application.isPresent()){
 			applicationService.deleteById(pk); //신청완료되면 기존거 지우고 등록으로 추가
 			enrolmentService.save(new Enrolment(application.get().getApplicationPK(),application.get().getRoomUserId())); //등록 추가
@@ -64,7 +64,7 @@ public class EnrolmentController {
 	@ApiOperation(value = "나에게 등록된 사람 보기")
 	public ResponseEntity<List<Enrolment>> selectAll(@RequestHeader("accessToken") String access) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		List<Enrolment> list = enrolmentService.findAllByRoomUserId((long) userinfo.get("id"));
+		List<Enrolment> list = enrolmentService.findAllByRoomUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
 		if(list == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		else return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -73,7 +73,7 @@ public class EnrolmentController {
 	@ApiOperation(value = "등록된 파티 사람 지우기")
 	public ResponseEntity<String> delete(@RequestHeader("accessToken") String access,@RequestBody PKSet pk) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		if(enrolmentService.findById(pk).get().getRoomUserId() == ((long) userinfo.get("id"))) { //내가 등록한 사람이면
+		if(enrolmentService.findById(pk).get().getRoomUserId() == (Long.parseLong(String.valueOf(userinfo.get("id"))))) { //내가 등록한 사람이면
 			enrolmentService.delete(pk);//지운다
 			return new ResponseEntity<>("success",HttpStatus.OK);
 		}

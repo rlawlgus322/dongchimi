@@ -44,7 +44,7 @@ public class ApplicationContorller {
 			return new ResponseEntity<>("full", HttpStatus.NOT_ACCEPTABLE);
 
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		Application newApplication = new Application(new PKSet((long) userinfo.get("id"), hid), chimi.getId());
+		Application newApplication = new Application(new PKSet(Long.parseLong(String.valueOf(userinfo.get("id"))), hid), chimi.getId());
 		newApplication = applicationService.save(newApplication);
 
 		if (newApplication != null)
@@ -57,7 +57,7 @@ public class ApplicationContorller {
 	@ApiOperation(value = "내가 신청한 파티 신청 조회")
 	public ResponseEntity<List<Application>> searchApplication(@RequestHeader("accessToken") String access) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		List<Application> list = applicationService.findByApplicationPKUserId((long) userinfo.get("id"));
+		List<Application> list = applicationService.findByApplicationPKUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
 		if (list == null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		else
@@ -68,7 +68,7 @@ public class ApplicationContorller {
 	@ApiOperation(value = "파티 신청 취소")
 	public ResponseEntity<String> disapply(@RequestHeader("accessToken") String access, @PathVariable long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		PKSet pk = new PKSet((long) userinfo.get("id"), hid);
+		PKSet pk = new PKSet(Long.parseLong(String.valueOf(userinfo.get("id"))), hid);
 
 		if (applicationService.findById(pk).isPresent()) {
 			applicationService.deleteById(pk);
@@ -81,7 +81,7 @@ public class ApplicationContorller {
 	@ApiOperation(value = "나에게 온 신청 거부")
 	public ResponseEntity<String> disagree(@RequestHeader("accessToken") String access, @PathVariable long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		Application application = applicationService.findByHidAndRoomUserId(hid,(long) userinfo.get("id")).get();
+		Application application = applicationService.findByHidAndRoomUserId(hid,Long.parseLong(String.valueOf(userinfo.get("id")))).get();
 		if (application!=null) {
 			applicationService.deleteById(application.getApplicationPK());
 			return new ResponseEntity<>("success", HttpStatus.OK);
@@ -95,7 +95,7 @@ public class ApplicationContorller {
 	@ApiOperation(value = "나에게 온 파티 신청 보여주기")
 	public ResponseEntity<List<Application>> selectallApply(@RequestHeader("accessToken") String access) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		List<Application> list = applicationService.findAllByRoomUserId((long) userinfo.get("id"));
+		List<Application> list = applicationService.findAllByRoomUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
 		if(list == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		else return new ResponseEntity<>(list, HttpStatus.OK);
 	}

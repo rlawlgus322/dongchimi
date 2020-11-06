@@ -15,7 +15,7 @@ public interface ApplicationService {
 
 	void deleteById(PKSet pk); // 보관함 삭제
 
-	List<Application> findAllByRoomUserId(long l);
+	List<Application> findAllByRoomUserId(long id);
 
-	Optional<Application> findByHidAndRoomUserId(Long hid, long l);
+	Optional<Application> findByHidAndRoomUserId(long hid, long id);
 }

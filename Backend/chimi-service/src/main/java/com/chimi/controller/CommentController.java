@@ -46,7 +46,7 @@ public class CommentController {
     @ApiOperation(value = "새 댓글 쓰기")
     public ResponseEntity<String> insert(@RequestHeader("accessToken") String access,@RequestBody ChimiComment comment) {
     	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-    	comment.setUserId((long) userinfo.get("id"));
+    	comment.setUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
         ChimiComment newComment = commentService.save(comment);     // 댓글 저장
 
         if(newComment != null)	return new ResponseEntity<>("success", HttpStatus.OK);
@@ -70,7 +70,7 @@ public class CommentController {
 	public ResponseEntity<String> modifyComment(@RequestHeader("accessToken") String access,@RequestBody ChimiComment comment) {
     	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
         ChimiComment newComment = commentService.findById(comment.getCid()).get();
-        if(newComment != null && newComment.getUserId()==((long) userinfo.get("id"))){
+        if(newComment != null && newComment.getUserId()==(Long.parseLong(String.valueOf(userinfo.get("id"))))){
             newComment.setContent(comment.getContent());
             newComment = commentService.save(newComment);
         }
@@ -83,7 +83,7 @@ public class CommentController {
 	@ApiOperation(value = "댓글 삭제")
 	public ResponseEntity<String> deleteComment(@RequestHeader("accessToken") String access,@PathVariable long cid) {
     	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-        if(commentService.findById(cid).isPresent() && commentService.findById(cid).get().getUserId()==((long) userinfo.get("id"))){
+        if(commentService.findById(cid).isPresent() && commentService.findById(cid).get().getUserId()==Long.parseLong(String.valueOf(userinfo.get("id")))){
             commentService.deleteById(cid);
 
             if(!likeService.findByLikePKId(cid).isEmpty()){
@@ -104,7 +104,7 @@ public class CommentController {
             newComment.setLikes(newComment.getLikes()+1);
             commentService.save(newComment);
 
-            CommentLike like = new CommentLike(new PKSet((long) userinfo.get("id"), cid));
+            CommentLike like = new CommentLike(new PKSet(Long.parseLong(String.valueOf(userinfo.get("id"))), cid));
             likeService.save(like);
             return new ResponseEntity<>("success", HttpStatus.OK);
         } else{
@@ -121,7 +121,7 @@ public class CommentController {
             newComment.setLikes(newComment.getLikes()>0? newComment.getLikes()-1 : 0);
             commentService.save(newComment);
 
-            PKSet pk = new PKSet((long) userinfo.get("id"),cid);
+            PKSet pk = new PKSet(Long.parseLong(String.valueOf(userinfo.get("id"))),cid);
             if(likeService.findById(pk).isPresent()){
                 likeService.deleteById(pk);
             }

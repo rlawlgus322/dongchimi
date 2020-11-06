@@ -51,9 +51,11 @@ public class CommentController {
 	public ResponseEntity<?> insert(@RequestBody Comment comment, @RequestHeader("accessToken") String access) {
 
 		ResponseEntity<?> entity = null;
-
+		
 		try {
-			Map<String, Object>map = userClient.getUserInfo(access);
+			Map<String, Object>userinfo = userClient.getUserInfo(access);
+			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
+			comment.setUserId(id);
 			entity = new ResponseEntity<Comment>(commentService.insert(comment), HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,7 +71,9 @@ public class CommentController {
 		ResponseEntity<?> entity = null;
 
 		try {
-			Map<String, Object>map = userClient.getUserInfo(access);
+			Map<String, Object>userinfo = userClient.getUserInfo(access);
+			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
+			comment.setUserId(id);
 			entity = new ResponseEntity<Comment>(commentService.update(comment,commentId), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
