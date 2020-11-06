@@ -46,4 +46,3 @@ class Boast extends Component {
 }
 
 export default withRouter(Boast);
-

@@ -43,7 +43,7 @@ const StyledInput = styled.input`
 
 
 const Register = () => {
-  
+
   const signin = (e) => {
     e.preventDefault();
     console.log('signin', e);
@@ -75,92 +75,92 @@ const Register = () => {
       <h1>회원가입</h1>
       {/* <RegisterForm /> */}
       <AuthFormBlock>
-      <form onSubmit={signin}>
-        <StyledInput type="text" name="email" placeholder="email" />
-        <StyledInput type="text" name="password" placeholder="password" />
-        <StyledInput type="text" name="passwordConfirm" placeholder="password Confirm" />
-        <StyledInput type="text" name="name" placeholder="name" />
-        <StyledInput type="text" name="nickname" placeholder="nickname" />
-        <label>
-          <input type="radio" name="gender" value="1" defaultChecked />
+        <form onSubmit={signin}>
+          <StyledInput type="text" name="email" placeholder="email" />
+          <StyledInput type="text" name="password" placeholder="password" />
+          <StyledInput type="text" name="passwordConfirm" placeholder="password Confirm" />
+          <StyledInput type="text" name="name" placeholder="name" />
+          <StyledInput type="text" name="nickname" placeholder="nickname" />
+          <label>
+            <input type="radio" name="gender" value="1" defaultChecked />
           여자
         </label>
-        <label>
-          <input type="radio" name="gender" value="2" />
+          <label>
+            <input type="radio" name="gender" value="2" />
           남자
         </label>
-        <select name="category1">
-          <option value="유화">유화</option>
-          <option value="수채화">수채화</option>
-          <option value="파스텔">파스텔</option>
-          <option value="가죽">가죽</option>
-          <option value="뜨개질">뜨개질</option>
-          <option value="비즈">비즈</option>
-          <option value="일러스트">일러스트</option>
-          <option value="이모티콘">이모티콘</option>
-          <option value="편집">편집</option>
-          <option value="촬영">촬영</option>
-          <option value="한식">한식</option>
-          <option value="양식">양식</option>
-          <option value="일식">일식</option>
-          <option value="중식">중식</option>
-          <option value="세계음식">세계음식</option>
-          <option value="작곡">작곡</option>
-          <option value="작사">작사</option>
-          <option value="타악기">타악기</option>
-          <option value="현악기">현악기</option>
-          <option value="관악기">관악기</option>
-          <option value="댄스">댄스</option>
-        </select>
-        <select name="category2">
-          <option value="유화">유화</option>
-          <option value="수채화">수채화</option>
-          <option value="파스텔">파스텔</option>
-          <option value="가죽">가죽</option>
-          <option value="뜨개질">뜨개질</option>
-          <option value="비즈">비즈</option>
-          <option value="일러스트">일러스트</option>
-          <option value="이모티콘">이모티콘</option>
-          <option value="편집">편집</option>
-          <option value="촬영">촬영</option>
-          <option value="한식">한식</option>
-          <option value="양식">양식</option>
-          <option value="일식">일식</option>
-          <option value="중식">중식</option>
-          <option value="세계음식">세계음식</option>
-          <option value="작곡">작곡</option>
-          <option value="작사">작사</option>
-          <option value="타악기">타악기</option>
-          <option value="현악기">현악기</option>
-          <option value="관악기">관악기</option>
-          <option value="댄스">댄스</option>
-        </select>
-        <select name="category3">
-          <option value="유화">유화</option>
-          <option value="수채화">수채화</option>
-          <option value="파스텔">파스텔</option>
-          <option value="가죽">가죽</option>
-          <option value="뜨개질">뜨개질</option>
-          <option value="비즈">비즈</option>
-          <option value="일러스트">일러스트</option>
-          <option value="이모티콘">이모티콘</option>
-          <option value="편집">편집</option>
-          <option value="촬영">촬영</option>
-          <option value="한식">한식</option>
-          <option value="양식">양식</option>
-          <option value="일식">일식</option>
-          <option value="중식">중식</option>
-          <option value="세계음식">세계음식</option>
-          <option value="작곡">작곡</option>
-          <option value="작사">작사</option>
-          <option value="타악기">타악기</option>
-          <option value="현악기">현악기</option>
-          <option value="관악기">관악기</option>
-          <option value="댄스">댄스</option>
-        </select>
-        <input type="submit" value="회원가입" />
-        <input type="reset" value="취소하기" />
-      </form>
+          <select name="category1">
+            <option value="유화">유화</option>
+            <option value="수채화">수채화</option>
+            <option value="파스텔">파스텔</option>
+            <option value="가죽">가죽</option>
+            <option value="뜨개질">뜨개질</option>
+            <option value="비즈">비즈</option>
+            <option value="일러스트">일러스트</option>
+            <option value="이모티콘">이모티콘</option>
+            <option value="편집">편집</option>
+            <option value="촬영">촬영</option>
+            <option value="한식">한식</option>
+            <option value="양식">양식</option>
+            <option value="일식">일식</option>
+            <option value="중식">중식</option>
+            <option value="세계음식">세계음식</option>
+            <option value="작곡">작곡</option>
+            <option value="작사">작사</option>
+            <option value="타악기">타악기</option>
+            <option value="현악기">현악기</option>
+            <option value="관악기">관악기</option>
+            <option value="댄스">댄스</option>
+          </select>
+          <select name="category2">
+            <option value="유화">유화</option>
+            <option value="수채화">수채화</option>
+            <option value="파스텔">파스텔</option>
+            <option value="가죽">가죽</option>
+            <option value="뜨개질">뜨개질</option>
+            <option value="비즈">비즈</option>
+            <option value="일러스트">일러스트</option>
+            <option value="이모티콘">이모티콘</option>
+            <option value="편집">편집</option>
+            <option value="촬영">촬영</option>
+            <option value="한식">한식</option>
+            <option value="양식">양식</option>
+            <option value="일식">일식</option>
+            <option value="중식">중식</option>
+            <option value="세계음식">세계음식</option>
+            <option value="작곡">작곡</option>
+            <option value="작사">작사</option>
+            <option value="타악기">타악기</option>
+            <option value="현악기">현악기</option>
+            <option value="관악기">관악기</option>
+            <option value="댄스">댄스</option>
+          </select>
+          <select name="category3">
+            <option value="유화">유화</option>
+            <option value="수채화">수채화</option>
+            <option value="파스텔">파스텔</option>
+            <option value="가죽">가죽</option>
+            <option value="뜨개질">뜨개질</option>
+            <option value="비즈">비즈</option>
+            <option value="일러스트">일러스트</option>
+            <option value="이모티콘">이모티콘</option>
+            <option value="편집">편집</option>
+            <option value="촬영">촬영</option>
+            <option value="한식">한식</option>
+            <option value="양식">양식</option>
+            <option value="일식">일식</option>
+            <option value="중식">중식</option>
+            <option value="세계음식">세계음식</option>
+            <option value="작곡">작곡</option>
+            <option value="작사">작사</option>
+            <option value="타악기">타악기</option>
+            <option value="현악기">현악기</option>
+            <option value="관악기">관악기</option>
+            <option value="댄스">댄스</option>
+          </select>
+          <input type="submit" value="회원가입" />
+          <input type="reset" value="취소하기" />
+        </form>
       </AuthFormBlock>
     </RegisterBlock>
   );
