@@ -19,6 +19,17 @@ def getUserName(cursor):
     )
     return resoverall
 
+def getUserPrefer(cursor, email):
+    resoverall = cursor.execute(
+    """
+        SELECT id,prefer1,prefer2,prefer3
+        FROM users
+        WHERE email = :uemail
+    """
+    ,uemail = email
+    )
+    return resoverall
+
 def getUserStorage(cursor, id):
     resoverall = cursor.execute(
     """
