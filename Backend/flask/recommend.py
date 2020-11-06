@@ -1,5 +1,7 @@
 from flask import Flask, request,jsonify
 from pandas import DataFrame
+import pandas as pd
+import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import connect
 app = Flask(__name__)
@@ -19,26 +21,26 @@ chimi_category_dict ={"미술":["유화","수채화","파스텔"],
                     "운동":["헬스","홈트레이닝","다이어트"]}
 chimi_sub_category = ["유화","수채화","파스텔","가죽","뜨개질","비즈","일러스트","이모티콘","편집","촬영"
                         ,"한식","양식","일식","중식","세계음식","기타","작곡","작사","타악기","현악기","관악기","댄스",
-                        "헬스","홈트레이닝","다이어트"]   
-chimi_sub_dict = {"유화":0,"수채화": 0, "파스텔": 0, "가죽": 0, "뜨개질": 0, "비즈": 0, "일러스트": 0, "이모티콘": 0, "편집": 0, 
-                    "촬영": 0, "한식": 0, "양식": 0, "일식": 0, "중식": 0, "세계음식": 0, "기타": 0, "작곡": 0, "작사": 0, "타악기": 0, 
-                    "현악기": 0, "관악기": 0, "댄스": 0, "헬스": 0, "홈트레이닝": 0, "다이어트":0}    #사용자 선호도 조사할때  
+                        "헬스","홈트레이닝","다이어트"]
+chimi_sub_dict = {"유화":0,"수채화": 0, "파스텔": 0, "가죽": 0, "뜨개질": 0, "비즈": 0, "일러스트": 0, "이모티콘": 0, "편집": 0,
+                    "촬영": 0, "한식": 0, "양식": 0, "일식": 0, "중식": 0, "세계음식": 0, "기타": 0, "작곡": 0, "작사": 0, "타악기": 0,
+                    "현악기": 0, "관악기": 0, "댄스": 0, "헬스": 0, "홈트레이닝": 0, "다이어트":0}    #사용자 선호도 조사할때
 
 
 @app.route('/item',methods=['GET'])
 def itemRecommend():
     useremail = request.GET['email'] #내가 분석할 유저
-    conn, cursor = connect.connect() 
+    conn, cursor = connect.connect()
     result = connect.getUserName(cursor)
-    userlist = [row[0] for row in result.fetchall()] 
+    userlist = [row[0] for row in result.fetchall()]
 
     userInfo = connect.getUserPrefer(cursor,useremail)
     userid = 0
     preferlist=[]
     for row in userInfo.fetchall():
         userid = row[0]
-        preferlist = [row[1],row[2],row[3]] #사용자 선호도        
-    
+        preferlist = [row[1],row[2],row[3]] #사용자 선호도
+
     df = DataFrame(
                     columns = userlist,
                   index = chimi_sub_category
@@ -95,6 +97,70 @@ def itemRecommend():
         recommendSet.update(item_based_collabor[key].sort_values(ascending=False)[:2])
         flag -= 1
     recommendList = list(recommendSet)
+
+    # 디비 해제
+    cursor.close()
+    conn.close()
+
+    return jsonify({'recommendlist': recommendList})
+
+@app.route('/itemuser',methods=['GET'])
+def userRecommend():
+    useremail = request.GET['email'] #내가 분석할 유저
+    conn, cursor = connect.connect()
+    result = connect.getUserName(cursor)
+    userlist = [row[0] for row in result.fetchall()]
+
+    userInfo = connect.getUserPrefer(cursor,useremail)
+    userid = 0
+    preferlist=[]
+    for row in userInfo.fetchall():
+        userid = row[0]
+        preferlist = [row[1],row[2],row[3]] #사용자 선호도
+
+    df = DataFrame(
+                    index = userlist,
+                  columns = chimi_sub_category
+                  )
+    df.fillna(0 ,inplace = True)
+
+
+
+    # 찜하기, 좋아요 
+    # 전체사용자 기반 선호도 분석
+    for user in userlist :
+        category = connect.getUserStorage(cursor,user)
+        likes = connect.getUserLike(cursor,user)
+        categorylist = [row[0] for row in category.fetchall()]
+        for catg in categorylist:
+            df.loc[user,catg[0]] += 5 #찜일시 5점 추가
+        likelist = [row[0] for row in likes.fetchall()]
+        for like in likelist:
+            df.loc[user,like[0]] +=3
+
+    user_based_collabor = cosine_similarity(df)
+    print(user_based_collabor)
+
+    user_based_collabor = DataFrame(data = user_based_collabor, index = df.index, columns=df.index)
+    print(user_based_collabor)
+
+    max = 0
+    maxidx = 0;
+    # 가장 유사도 높은 사람 찾기
+    for i in range(len(userlist)):
+        if i == userid:continue
+        if max < user_based_collabor[userid][i]:
+            max = user_based_collabor[userid][i]
+            maxidx = i
+
+
+    #사용자의 선호도
+    chimiName = connect.getUserStorageName(cursor,maxidx+1)
+    namedf = pd.DataFrame(chimiName)
+    if len(namedf) > 3:
+        namedf = namedf.sample(n=3)
+    # 랜덤으로 3개 뽑아준다
+    recommendList = list(np.array(namedf.iloc[:,0]))
 
     # 디비 해제
     cursor.close()
@@ -165,33 +231,72 @@ if __name__ == '__main__':
                   index = ["공예", "뜨개질", "자수"]
                   )
     df.fillna(0,inplace = True)
+    df2 = DataFrame(
+        index=userlist,
+        columns=["공예", "뜨개질", "자수"]
+    )
+    df2.fillna(0,inplace = True)
     # 임의 값 넣음
     print(df.loc["공예",1])
     df.loc["공예":"뜨개질",7:8] = 4
     df.loc["공예":"자수",1:3] =2
+    df.loc["공예",3] =1
     df.loc["뜨개질":"자수",9:15] =3
     print(df.loc["공예":"자수",1:3])
-    print(df)
-    # 찜하기, 좋아요 
-    
-    for user in userlist :
-        category = connect.getUserStorage(cursor,user)
-        likes = connect.getUserLike(cursor,user)
-        categorylist = [row[0] for row in category.fetchall()]
-        for catg in categorylist:
-            df.loc[user,catg[0]] += 5 #찜일시 5점 추가
-        likelist = [row[0] for row in likes.fetchall()]
-        for like in likelist:
-            df.loc[user,like[0]] +=3
+
+    df2.loc["1":"2", 0:1] = 4
+    df2.loc["2":"2", 0:3] = 3
+    df2.loc["3":"4", 1:3] = 2
+    df2.loc["3":"5", 2:3] = 1
+    df2.loc["3":"5", 1:1] = 3
+    print("dsd ", df2)
+    user_base = cosine_similarity(df2)
+    print(user_base)
+    for i in range(len(userlist)):
+        print(user_base[i][1])
+
+
+    # 찜하기, 좋아요
+
+    # for user in userlist :
+    #     category = connect.getUserStorage(cursor,user)
+    #     likes = connect.getUserLike(cursor,user)
+    #     categorylist = [row[0] for row in category.fetchall()]
+    #     for catg in categorylist:
+    #         df.loc[user,catg[0]] += 5 #찜일시 5점 추가
+    #     likelist = [row[0] for row in likes.fetchall()]
+    #     for like in likelist:
+    #         df.loc[user,like[0]] +=3
 
     item_based_collabor = cosine_similarity(df)
+    print(df)
+    print()
     print(item_based_collabor)
     item_based_collabor = DataFrame(data = item_based_collabor, index = df.index, columns=df.index)
     print(item_based_collabor)
     chimi = "자수"
     # 비슷한거 추천 위에서 2개까지
+    print("-------------------------------------------------------------------------------")
+    print(df)
     print(item_based_collabor[chimi].sort_values(ascending=False)[:2])
+    # for i in userlist:
+    #     for j in userlist:
+    #         us = cosine_similarity(df[i,:], df[j,:])
+    #         print(us)
+    # user_based_collabor = cosine_similarity()
+    # user_based_collabor = DataFrame(data = user_based_collabor, index = df.columns, columns=df.columns)
+    # print("user")
+    # print(user_based_collabor)
+    dataw = ["asd","asdd","dfdf","dfswe","qqqqq"]
+    sd = DataFrame(dataw)
+    print(sd)
 
+    chimiName = connect.getUserStorageName(cursor, 1)
+    namedf = pd.DataFrame(chimiName)
+    if len(namedf) > 3:
+        chimiName = namedf.sample(n=3)
+    print(namedf)
+    print(list(np.array(namedf.iloc[:,0])))
     # 디비 해제
     cursor.close()
     conn.close()
