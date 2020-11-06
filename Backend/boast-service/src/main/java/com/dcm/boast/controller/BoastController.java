@@ -114,7 +114,7 @@ public class BoastController {
 //        if(CollectionUtils.isEmpty(transactions)){
 //           return ResponseEntity.notFound().build();
 //        }
-//        List<Long> userIdList = transactions.parallelStream().map(t -> t.getUserId()).collect(Collectors.toList());
+//        List<long> userIdList = transactions.parallelStream().map(t -> t.getUserId()).collect(Collectors.toList());
 //        List<String> students = userClient.getUserNames(userIdList);
 	}
 	@DeleteMapping("/b/{boastId}")

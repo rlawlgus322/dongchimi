@@ -21,13 +21,13 @@ import lombok.Data;
 public class ChimiComment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long cid;        // 댓글 고유번호
+    private long cid;        // 댓글 고유번호
 
     @NotBlank
-    private Long userId;   // 댓글 작성자 이메일
+    private long userId;   // 댓글 작성자 이메일
 
     @NotNull
-    private Long hid;       // 댓글 단 취미 id
+    private long hid;       // 댓글 단 취미 id
 
     private int likes;      // 댓글 좋아요 수
     

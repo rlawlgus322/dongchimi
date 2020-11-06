@@ -62,7 +62,7 @@ public class ChimiController {
 
 		if(chimi != null && userinfo!=null)	{
 
-			chimi.setId((Long) userinfo.get("id"));//user id 저장
+			chimi.setId((long) userinfo.get("id"));//user id 저장
 			chimiService.save(chimi);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		}
@@ -88,20 +88,24 @@ public class ChimiController {
 	@GetMapping
 	@ApiOperation(value = "모든 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
 	public ResponseEntity<List<ChimiResponse>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable){
-		Page<Chimi> chimiPage = chimiService.findAll(pageable);		
-		List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
-		for(Chimi chimi : chimiPage){
-			HashMap<String,Object> userinfo = userClient.getusername(chimi.getId());
-			chimiList.add(new ChimiResponse(chimi,(String)userinfo.get("nickname"),(String)userinfo.get("profileImage"),
-					starService.findById(new PKSet(chimi.getId(), chimi.getHid())).isPresent()));
+		try {
+			Page<Chimi> chimiPage = chimiService.findAll(pageable);		
+			List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
+			for(Chimi chimi : chimiPage){
+				HashMap<String,Object> userinfo = userClient.getusername(chimi.getId());
+				chimiList.add(new ChimiResponse(chimi,(String)userinfo.get("nickname"),(String)userinfo.get("profileImage"),
+						starService.findById(new PKSet(chimi.getId(), chimi.getHid())).isPresent()));
+			}
+			return new ResponseEntity<>(chimiList, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		if(!chimiList.isEmpty())		return new ResponseEntity<>(chimiList, HttpStatus.OK);
-		else												return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
 	}
 	
 	@GetMapping("/{hid}")
 	@ApiOperation(value = "파티 상세조회")
-	public ResponseEntity<ChimiResponse> search(@PathVariable Long hid){
+	public ResponseEntity<ChimiResponse> search(@PathVariable long hid){
 		Chimi newChimi = chimiService.findById(hid).get();
 		HashMap<String,Object> userinfo = userClient.getusername(newChimi.getId());
 		// 조회수 증가
@@ -117,10 +121,10 @@ public class ChimiController {
 
 	@DeleteMapping("/{hid}")
 	@ApiOperation(value = "파티 삭제")
-	public ResponseEntity<String> delete(@RequestHeader("accessToken") String access,@PathVariable Long hid) {
+	public ResponseEntity<String> delete(@RequestHeader("accessToken") String access,@PathVariable long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		Chimi chimi = chimiService.findById(hid).get();
-		if(chimi!=null && userinfo!=null && chimi.getId()==userinfo.get("id") ){ //해당 취미가개설되어 있고 id가 일치하는지
+		if(chimi!=null && userinfo!=null && chimi.getId()==((long)userinfo.get("id")) ){ //해당 취미가개설되어 있고 id가 일치하는지
 			chimiService.deleteById(hid);
 			// 추천 목록 삭제
 			if(!starService.findByStarPKId(hid).isEmpty()){
@@ -134,7 +138,7 @@ public class ChimiController {
 
 	@PutMapping("/recommend/{hid}")
 	@ApiOperation(value = "추천하기")
-	public ResponseEntity<String> recommend(@RequestHeader("accessToken") String access,@PathVariable Long hid) {
+	public ResponseEntity<String> recommend(@RequestHeader("accessToken") String access,@PathVariable long hid) {
 		Chimi newChimi  = chimiService.findById(hid).get();
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		if(newChimi != null){
@@ -151,7 +155,7 @@ public class ChimiController {
 	}
 	@PutMapping("/unrecommend/{hid}")
 	@ApiOperation(value = "추천취소하기")
-	public ResponseEntity<String> unrecommend(@RequestHeader("accessToken") String access,@PathVariable Long hid) {
+	public ResponseEntity<String> unrecommend(@RequestHeader("accessToken") String access,@PathVariable long hid) {
 		Chimi newChimi  = chimiService.findById(hid).get();
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		if(newChimi != null){

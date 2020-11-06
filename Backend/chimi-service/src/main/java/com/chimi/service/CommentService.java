@@ -8,8 +8,8 @@ import com.chimi.model.ChimiComment;
 
 public interface CommentService {
     ChimiComment save(ChimiComment comment);
-    Optional<ChimiComment> findById(Long cid);
-    List<ChimiComment> findByHid(Long hid);
-    void deleteById(Long cid);
-    void deleteByHid(Long hid);
+    Optional<ChimiComment> findById(long cid);
+    List<ChimiComment> findByHid(long hid);
+    void deleteById(long cid);
+    void deleteByHid(long hid);
 }

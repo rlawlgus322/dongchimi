@@ -12,7 +12,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface LikeRepository extends CrudRepository<CommentLike, PKSet> {
-  List<CommentLike> findAllByLikePKChimiId(Long hid);
+  List<CommentLike> findAllByLikePKChimiId(long hid);
   @Modifying
   @Transactional
   Long deleteByLikePK_ChimiId(long hid);

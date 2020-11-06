@@ -15,5 +15,5 @@ public interface CommentReopository extends CrudRepository<ChimiComment, Long> {
     List<ChimiComment> findByHid(long hid);
     
 	@Transactional
-    void deleteByHid(Long postid);
+    void deleteByHid(long postid);
 }

@@ -18,10 +18,10 @@ import lombok.*;
 public class Chimi {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long hid;
+	private long hid;
 	
 	@NotNull
-	private Long id;	// 방장 id
+	private long id;	// 방장 id
 	
 	@NotBlank
 	@Size(max = 100)

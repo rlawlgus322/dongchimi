@@ -18,12 +18,12 @@ public class BoastStar {
 
 	@Id
 	@NotNull
-	private Long bid;
+	private long bid;
 	@NotNull
-	private Long userId;
+	private long userId;
 	
 	
-	public BoastStar(@NotBlank Long userId, @NotNull Long bid) {
+	public BoastStar(@NotBlank long userId, @NotNull long bid) {
 		this.userId = userId;
 		this.bid = bid;
 	}
