@@ -13,5 +13,6 @@ public interface UserService {
     User getUserbyemail(String email);
     long getidByEmail(String email);
     void updateProfileImage(String email, String path);
+	void save(User user);
 
 }

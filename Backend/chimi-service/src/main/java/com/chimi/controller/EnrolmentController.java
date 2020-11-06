@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chimi.intercomm.UserClient;
 import com.chimi.model.Application;
+import com.chimi.model.Chimi;
 import com.chimi.model.Enrolment;
 import com.chimi.model.PKSet;
 import com.chimi.service.ApplicationService;
+import com.chimi.service.ChimiService;
 import com.chimi.service.EnrolmentService;
 
 import io.swagger.annotations.ApiOperation;
@@ -36,15 +38,27 @@ public class EnrolmentController {
     UserClient userClient;
 	@Autowired
 	ApplicationService applicationService;
+	@Autowired
+	ChimiService chimiService;
 	
 	@PostMapping
 	@ApiOperation(value = "파티 신청 승낙")
 	public ResponseEntity<String> agreeApply(@RequestHeader("accessToken") String access,@RequestBody PKSet pk) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		Optional<Application> application = applicationService.findById(pk);
+		Optional<Application> application = applicationService.findById(pk); // 파티 신청 정보
+		
 		if(Long.parseLong(String.valueOf(userinfo.get("id"))) == application.get().getRoomUserId() //승낙하려는 사용자 id와 취미에 등록된 id정보같나 확인
 				&& application.isPresent()){
+			long hid = application.get().getApplicationPK().getChimiId();
+			Chimi chimi = chimiService.findById(hid).get();
+			if(chimi==null) return new ResponseEntity<>("chimi not found", HttpStatus.NOT_FOUND);
+			
+			int curnum = chimi.getCurnum(); //현재 등록된 인원			
+			if(curnum == chimi.getTotalnum()) return new ResponseEntity<>("chimi is full", HttpStatus.BAD_REQUEST);
+			
 			applicationService.deleteById(pk); //신청완료되면 기존거 지우고 등록으로 추가
+			chimi.setCurnum(curnum+1); //등록시키면 현재 내 파티인원 늘리기
+			
 			enrolmentService.save(new Enrolment(application.get().getApplicationPK(),application.get().getRoomUserId())); //등록 추가
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else{
@@ -73,7 +87,18 @@ public class EnrolmentController {
 	@ApiOperation(value = "등록된 파티 사람 지우기")
 	public ResponseEntity<String> delete(@RequestHeader("accessToken") String access,@RequestBody PKSet pk) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		if(enrolmentService.findById(pk).get().getRoomUserId() == (Long.parseLong(String.valueOf(userinfo.get("id"))))) { //내가 등록한 사람이면
+		Optional<Application> application = applicationService.findById(pk);
+		if(application.get().getRoomUserId() == (Long.parseLong(String.valueOf(userinfo.get("id"))))) { //내가 등록한 사람이면
+			long hid = application.get().getApplicationPK().getChimiId();
+			Chimi chimi = chimiService.findById(hid).get();
+			if(chimi==null) return new ResponseEntity<>("chimi not found", HttpStatus.NOT_FOUND);
+			
+			int curnum = chimi.getCurnum(); //현재 등록된 인원			
+			if(curnum == 0) return new ResponseEntity<>("chimi's peple is none", HttpStatus.BAD_REQUEST);
+			
+			applicationService.deleteById(pk); 
+			chimi.setCurnum(curnum-1); //등록파기시키면 현재 내 파티인원 줄리기
+			
 			enrolmentService.delete(pk);//지운다
 			return new ResponseEntity<>("success",HttpStatus.OK);
 		}

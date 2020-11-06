@@ -23,7 +23,7 @@ public class ChimiComment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long cid;        // 댓글 고유번호
 
-    @NotBlank
+    @NotNull
     private long userId;   // 댓글 작성자 이메일
 
     @NotNull
