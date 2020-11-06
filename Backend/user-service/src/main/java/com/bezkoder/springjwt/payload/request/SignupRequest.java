@@ -24,7 +24,11 @@ public class SignupRequest {
 
 
     private int gender;
-  
+
+    private String prefer1;
+    private String prefer2;
+    private String prefer3;
+
     public String getUsername() {
         return username;
     }
@@ -65,9 +69,6 @@ public class SignupRequest {
       this.role = role;
     }
 
-
-
-
     public int getGender() {
         return gender;
     }
@@ -76,5 +77,27 @@ public class SignupRequest {
         this.gender = gender;
     }
 
+    public String getPrefer1() {
+        return prefer1;
+    }
 
+    public void setPrefer1(String prefer1) {
+        this.prefer1 = prefer1;
+    }
+
+    public String getPrefer2() {
+        return prefer2;
+    }
+
+    public void setPrefer2(String prefer2) {
+        this.prefer2 = prefer2;
+    }
+
+    public String getPrefer3() {
+        return prefer3;
+    }
+
+    public void setPrefer3(String prefer3) {
+        this.prefer3 = prefer3;
+    }
 }
