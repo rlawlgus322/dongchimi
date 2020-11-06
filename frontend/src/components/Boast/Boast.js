@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './boast.css';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -32,7 +32,9 @@ class Boast extends Component {
     return (
       <Sdiv className="col-md-4 col-lg-3 ">
         <Mp>사진 {this.props.boast.username}</Mp>
-        <Bdiv style={backgroundImage}></Bdiv>
+        <Bdiv style={backgroundImage}
+          onClick={() => this.props.history.push(`/boast/${this.props.boast.Boast.bid}`)}
+        ></Bdiv>
         <FontAwesomeIcon icon={['far', 'eye']} />
         <FontAwesomeIcon icon={['far', 'heart']} />
         <FontAwesomeIcon icon={['fas', 'heart']} />
@@ -43,5 +45,5 @@ class Boast extends Component {
   }
 }
 
-export default Boast;
+export default withRouter(Boast);
 

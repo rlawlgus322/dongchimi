@@ -9,22 +9,22 @@ const data = [
     isLiked: false,
   },
   {
-    Boast: { bid: 1, userId: 'yunju', hid: 1, title: '뜨개질 성공', postImg: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/f5d5e8813f66f1b203a43d24cdeaad2e/DA87FE56-B1CD-454E-9B25-21795C025FA1-65880-000045972081C515_file.jpg', contents: '', createdate: '2020-10-30', category: '', likes: 30, views: 10 },
+    Boast: { bid: 2, userId: 'yunju', hid: 1, title: '뜨개질 성공', postImg: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/f5d5e8813f66f1b203a43d24cdeaad2e/DA87FE56-B1CD-454E-9B25-21795C025FA1-65880-000045972081C515_file.jpg', contents: '', createdate: '2020-10-30', category: '', likes: 30, views: 10 },
     username: 'bb',
     isLiked: false,
   },
   {
-    Boast: { bid: 1, userId: 'yunju', hid: 1, title: '뜨개질 성공', postImg: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/efdbdecdd9a774dfc21f901d1dddd161/06092924-2FB5-4719-9749-0EDD5D99B7AF-70098-000043269120AC52_file.jpg', contents: '', createdate: '2020-10-30', category: '', likes: 30, views: 10 },
+    Boast: { bid: 3, userId: 'yunju', hid: 1, title: '뜨개질 성공', postImg: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/efdbdecdd9a774dfc21f901d1dddd161/06092924-2FB5-4719-9749-0EDD5D99B7AF-70098-000043269120AC52_file.jpg', contents: '', createdate: '2020-10-30', category: '', likes: 30, views: 10 },
     username: 'cc',
     isLiked: false,
   },
   {
-    Boast: { bid: 1, userId: 'yunju', hid: 1, title: '뜨개질 성공', postImg: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/efdbdecdd9a774dfc21f901d1dddd161/06092924-2FB5-4719-9749-0EDD5D99B7AF-70098-000043269120AC52_file.jpg', contents: '', createdate: '2020-10-30', category: '', likes: 30, views: 10 },
+    Boast: { bid: 4, userId: 'yunju', hid: 1, title: '뜨개질 성공', postImg: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/efdbdecdd9a774dfc21f901d1dddd161/06092924-2FB5-4719-9749-0EDD5D99B7AF-70098-000043269120AC52_file.jpg', contents: '', createdate: '2020-10-30', category: '', likes: 30, views: 10 },
     username: 'dd',
     isLiked: false,
   },
   {
-    Boast: { bid: 1, userId: 'yunju', hid: 1, title: '뜨개질 성공', postImg: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/efdbdecdd9a774dfc21f901d1dddd161/06092924-2FB5-4719-9749-0EDD5D99B7AF-70098-000043269120AC52_file.jpg', contents: '', createdate: '2020-10-30', category: '', likes: 30, views: 10 },
+    Boast: { bid: 5, userId: 'yunju', hid: 1, title: '뜨개질 성공', postImg: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/efdbdecdd9a774dfc21f901d1dddd161/06092924-2FB5-4719-9749-0EDD5D99B7AF-70098-000043269120AC52_file.jpg', contents: '', createdate: '2020-10-30', category: '', likes: 30, views: 10 },
     username: 'ee',
     isLiked: false,
   },
