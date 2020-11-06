@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Footer from '../components/Footer';
 import BoastList from './boast/BoastList';
+import BoastWrite from './boast/BoastWrite';
+import BoastRead from './boast/BoastRead';
 import Main from './Main';
 import MyPage from './mypage/MyPage';
 import Register from './mypage/Register';
@@ -25,6 +27,8 @@ function Pages() {
           <Route exact path="/party/:id" component={PartyRead} />
           <Route exact path="/recommend" component={RecommendList} />
           <Route exact path="/boast" component={BoastList} />
+          <Route exact path="/boast/write" component={BoastWrite} />
+          <Route exact path="/boast/:id" component={BoastRead} />
           <Route exact path="/mypage" component={MyPage} />
           <Route exact path="/register" component={Register} />
         </Switch>
