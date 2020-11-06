@@ -26,14 +26,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.chimi.intercomm.UserClient;
-import com.chimi.model.Application;
 import com.chimi.model.Chimi;
 import com.chimi.model.PKSet;
 import com.chimi.model.ChimiStar;
 import com.chimi.payload.response.ChimiResponse;
 import com.chimi.service.ApplicationService;
 import com.chimi.service.ChimiService;
-import com.chimi.service.EnrolmentService;
 import com.chimi.service.StarService;
 
 import io.swagger.annotations.ApiOperation;
