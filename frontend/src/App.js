@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEye, faHeart } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as fasHeart, faCommentDots } from '@fortawesome/free-solid-svg-icons'
 import './App.css';
+import Main from './pages/Main';
+import Pages from './pages/Pages';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+library.add(faEye, faHeart, fasHeart, faCommentDots);
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      logged: false,
+    }
+  }
+  render() {
+    return (
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/" component={Pages} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
