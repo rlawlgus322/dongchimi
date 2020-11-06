@@ -5,7 +5,6 @@ import BoastList from './boast/BoastList';
 import Main from './Main';
 import MyPage from './mypage/MyPage';
 import Register from './mypage/Register';
-import Update from './mypage/Update';
 import PartyList from './party/PartyList';
 import PartyRead from './party/PartyRead';
 import PartyWrite from './party/PartyWrite';
@@ -28,7 +27,6 @@ function Pages() {
           <Route exact path="/boast" component={BoastList} />
           <Route exact path="/mypage" component={MyPage} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/update" component={Update} />
         </Switch>
       </div>
       <Footer></Footer>
