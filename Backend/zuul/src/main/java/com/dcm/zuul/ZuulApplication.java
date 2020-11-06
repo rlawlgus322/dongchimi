@@ -18,6 +18,7 @@ public class ZuulApplication {
 	         public  void addCorsMappings (CorsRegistry registry) {
 	            registry.addMapping ( "/**" )
 	                    .allowedOrigins ( "*" )
+	                    .allowedHeaders( "*" )
 	                    .allowedMethods ( "GET" , "POST", "DELETE", "PUT" );
 	        }
 	    };
