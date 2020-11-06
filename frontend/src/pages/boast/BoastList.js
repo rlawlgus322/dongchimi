@@ -43,7 +43,7 @@ class BoastList extends Component {
           </select>
           <button
             onClick={() => this.props.history.push('/boast/write')}
-          >파티 만들기</button>
+          >글쓰기</button>
         </div>
         <Boasts boasts={data}></Boasts>
       </>
