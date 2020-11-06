@@ -37,7 +37,7 @@ public class ApplicationContorller {
 
 	@PostMapping("/{hid}")
 	@ApiOperation(value = "파티 신청")
-	public ResponseEntity<String> apply(@RequestHeader("accessToken") String access, @PathVariable Long hid) {
+	public ResponseEntity<String> apply(@RequestHeader("accessToken") String access, @PathVariable long hid) {
 		//만약 정원 다차면 파티 신청 안됨
 		Chimi chimi = chimiService.findById(hid).get();
 		if (chimi.getCurnum() == chimi.getTotalnum())
@@ -66,7 +66,7 @@ public class ApplicationContorller {
 
 	@DeleteMapping("/applicant/{hid}")
 	@ApiOperation(value = "파티 신청 취소")
-	public ResponseEntity<String> disapply(@RequestHeader("accessToken") String access, @PathVariable Long hid) {
+	public ResponseEntity<String> disapply(@RequestHeader("accessToken") String access, @PathVariable long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		PKSet pk = new PKSet((long) userinfo.get("id"), hid);
 
@@ -79,7 +79,7 @@ public class ApplicationContorller {
 	}
 	@DeleteMapping("/moderator/{hid}")
 	@ApiOperation(value = "나에게 온 신청 거부")
-	public ResponseEntity<String> disagree(@RequestHeader("accessToken") String access, @PathVariable Long hid) {
+	public ResponseEntity<String> disagree(@RequestHeader("accessToken") String access, @PathVariable long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		Application application = applicationService.findByHidAndRoomUserId(hid,(long) userinfo.get("id")).get();
 		if (application!=null) {

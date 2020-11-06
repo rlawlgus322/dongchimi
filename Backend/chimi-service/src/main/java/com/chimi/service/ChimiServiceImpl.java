@@ -21,7 +21,7 @@ public class ChimiServiceImpl implements ChimiService{
 	}
 
 	@Override
-	public Optional<Chimi> findById(Long hid) {
+	public Optional<Chimi> findById(long hid) {
 		return chimiRepository.findById(hid);
 	}
 
@@ -31,7 +31,7 @@ public class ChimiServiceImpl implements ChimiService{
 	}
 
 	@Override
-	public void deleteById(Long hid) {
+	public void deleteById(long hid) {
 		chimiRepository.deleteById(hid);
 	}
 }

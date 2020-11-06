@@ -54,7 +54,7 @@ public class EnrolmentController {
 	
 	@GetMapping("/{hid}")
 	@ApiOperation(value = "파티에 등록된 파티 사람 보기")
-	public ResponseEntity<List<Enrolment>> selectAllinParty(@PathVariable Long hid) {
+	public ResponseEntity<List<Enrolment>> selectAllinParty(@PathVariable long hid) {
 		List<Enrolment> list = enrolmentService.findAllByHid(hid);
 		if(list == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		else return new ResponseEntity<>(list, HttpStatus.OK);

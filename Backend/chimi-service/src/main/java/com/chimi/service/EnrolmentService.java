@@ -12,7 +12,7 @@ public interface EnrolmentService {
 
 	List<Enrolment> findAllByRoomUserId(long id);
 
-	List<Enrolment> findAllByHid(Long hid);
+	List<Enrolment> findAllByHid(long hid);
 
 	Optional<Enrolment> findById(PKSet pk);
 

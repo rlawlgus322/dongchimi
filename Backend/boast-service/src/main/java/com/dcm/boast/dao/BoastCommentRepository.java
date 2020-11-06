@@ -11,8 +11,8 @@ import com.dcm.boast.model.Comment;
 @Repository
 public interface BoastCommentRepository extends JpaRepository<Comment,Long>{
 
-	List<Comment> findAllByBid(Long bid);
-	Page<Comment> findAllByBid(Long bid, Pageable pageable);
+	List<Comment> findAllByBid(long bid);
+	Page<Comment> findAllByBid(long bid, Pageable pageable);
 	List<Comment> findAllByReId(long id);
 
 }

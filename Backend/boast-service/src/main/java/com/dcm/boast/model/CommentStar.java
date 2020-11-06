@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 public class CommentStar {
 	@Id
 	@NotNull
-	private Long cmtId;
+	private long cmtId;
 	@NotNull
-	private Long userId;
+	private long userId;
 	
 	
-	public CommentStar(@NotNull Long userId, @NotNull Long cmtId) {
+	public CommentStar(@NotNull long userId, @NotNull long cmtId) {
 		this.userId = userId;
 		this.cmtId = cmtId;
 	}

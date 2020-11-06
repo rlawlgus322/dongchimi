@@ -46,7 +46,7 @@ public class CommentController {
     @ApiOperation(value = "새 댓글 쓰기")
     public ResponseEntity<String> insert(@RequestHeader("accessToken") String access,@RequestBody ChimiComment comment) {
     	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-    	comment.setUserId((Long) userinfo.get("id"));
+    	comment.setUserId((long) userinfo.get("id"));
         ChimiComment newComment = commentService.save(comment);     // 댓글 저장
 
         if(newComment != null)	return new ResponseEntity<>("success", HttpStatus.OK);
@@ -81,7 +81,7 @@ public class CommentController {
 
     @DeleteMapping("/{cid}")
 	@ApiOperation(value = "댓글 삭제")
-	public ResponseEntity<String> deleteComment(@RequestHeader("accessToken") String access,@PathVariable Long cid) {
+	public ResponseEntity<String> deleteComment(@RequestHeader("accessToken") String access,@PathVariable long cid) {
     	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
         if(commentService.findById(cid).isPresent() && commentService.findById(cid).get().getUserId()==((long) userinfo.get("id"))){
             commentService.deleteById(cid);
@@ -97,7 +97,7 @@ public class CommentController {
     
     @PutMapping("/like/{cid}")
 	@ApiOperation(value = "댓글 좋아요")
-	public ResponseEntity<String> like(@RequestHeader("accessToken") String access,@PathVariable Long cid) {
+	public ResponseEntity<String> like(@RequestHeader("accessToken") String access,@PathVariable long cid) {
     	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
         ChimiComment newComment = commentService.findById(cid).get();
         if(newComment != null){
@@ -114,7 +114,7 @@ public class CommentController {
     
     @PutMapping("/dislike/{cid}")
 	@ApiOperation(value = "댓글 좋아요 취소")
-	public ResponseEntity<String> dislike(@RequestHeader("accessToken") String access,@PathVariable Long cid) {
+	public ResponseEntity<String> dislike(@RequestHeader("accessToken") String access,@PathVariable long cid) {
     	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
     	ChimiComment newComment = commentService.findById(cid).get();
         if(newComment != null){
