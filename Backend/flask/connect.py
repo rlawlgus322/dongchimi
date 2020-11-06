@@ -37,7 +37,20 @@ def getUserStorage(cursor, id):
         where hid in (
         SELECT chimi_Id
         FROM storage
-        where id = :userid)
+        where user_Id = :userid)
+    """
+    ,userid = id
+    )
+    return resoverall
+
+def getUserStorageName(cursor, id):
+    resoverall = cursor.execute(
+    """
+        select hid from chimi
+        where hid in (
+        SELECT chimi_Id
+        FROM storage
+        where user_Id = :userid)
     """
     ,userid = id
     )
