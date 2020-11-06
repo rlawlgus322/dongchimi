@@ -1,14 +1,71 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
-import LoginForm from './auth/LoginForm';
 import ModalButton from '../components/common/Button';
+import api from '../utils/api';
+import styled, {css} from 'styled-components';
+import palette from '../lib/styles/palette';
 
-function LoginModal() {
+function LoginModal({history}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const login = (e) => {
+    e.preventDefault();
+    console.log(login, e)
+    console.log("아이디 " + e.target.email.value)
+    console.log("비밀번호 " + e.target.password.value)
+    api.post('auth/signin', {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    }).then(res => {
+      const {accessToken} = res.data;
+      sessionStorage.setItem('token', accessToken);
+      console.log(res)
+      history.push("/")
+    }).catch(err => {
+      console.log(err)
+      history.push("/")
+    })
+  }
+
+  const StyledInput = styled.input`
+  font-size: 1.25rem;
+  border: none;
+  border-bottom: 1px solid ${palette.gray[5]};
+  padding-bottom: 0.5rem
+  outline: none;
+  width: 100%;
+  %:focus {
+    color $oc-teal-7;
+    border-bottom: 1px solid ${palette.gray[7]};
+  }
+  & + & {
+    margin-top: 1rem;
+  }
+  `;
+
+const LoginBtn = styled.input`
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.25rem 1rem;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 100%;
+  height: 50px;
+  variant: info;
+
+  background: info;
+  &:hover {
+    background: info;
+  }
+`;
 
   return (
     <>
@@ -30,7 +87,11 @@ function LoginModal() {
               </Modal.Header>
 
               <Modal.Body>
-                <LoginForm />
+                <form onSubmit={login}>
+                <StyledInput type="text" name="email" placeholder="email" />
+                <StyledInput type="text" name="password" placeholder="password" />
+                <LoginBtn type="submit" value="로그인" />
+                </form>
                 <Container>
                   <Row>
                     <Col>
@@ -52,4 +113,4 @@ function LoginModal() {
   );
 }
 
-export default LoginModal
+export default withRouter(LoginModal);
