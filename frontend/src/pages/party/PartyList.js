@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import Parties from '../../components/Party/List/Parties';
 import Pagination from 'react-js-pagination';
+import api from '../../utils/api';
 
 const data = [
   { id: '1', bangjang: 'a', name: '뜨개질', desc: '뜨개질하자', total: '1', stars: '6', views: '1', imgSrc: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/3960e6fd2eed33ded85590499d95b729/7FB9DDA2-C9B7-473B-BD78-282A33AA084F-9716-000009E931E8FB4C_file.jpg', },
@@ -17,10 +18,15 @@ function PartyList({ history }) {
   // 요청 상태 관리
   const [parties, setParties] = useState(data);
   const [keyword, setKeyword] = useState(null);
+  const logged = sessionStorage.getItem('token') === null ? false : true;
 
   // 요청 작업
   useEffect(() => {
     // 통신 후 결과값 넣어주기
+    api.get('/hobby/chimi')
+      .then((res) => {
+        console.log(res);
+      })
     setParties(data);
   })
   return (
@@ -39,9 +45,11 @@ function PartyList({ history }) {
         <select>
           <option>최신순</option>
         </select>
-        <button
-          onClick={() => history.push('/party/write')}
-        >파티 만들기</button>
+        {logged &&
+          <button
+            onClick={() => history.push('/party/write')}
+          >파티 만들기</button>
+        }
       </div>
       {/** 카드 */}
       <Parties
