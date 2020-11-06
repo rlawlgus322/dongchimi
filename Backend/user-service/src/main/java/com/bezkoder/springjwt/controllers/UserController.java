@@ -73,6 +73,30 @@ public class UserController {
         return entity;
     }
 
+    @GetMapping(value = "/userinfo/")
+    @ApiOperation(value = "유저정보 보내주기")
+    public ResponseEntity<?> getuserinfoS(@RequestHeader("accessToken") String access) {
+
+        ResponseEntity<?> entity = null;
+
+        try {
+            String userEmail = jwtUtils.getUserNameFromJwtToken(access);
+            User user = userService.findUserinfoByEmail(userEmail);
+            userinfoResponse userinfoResponse = new userinfoResponse();
+            userinfoResponse.email = user.getEmail();
+            userinfoResponse.gender = user.getGender();
+            userinfoResponse.nickname =  user.getNickname();
+            userinfoResponse.username = user.getUsername();
+            entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return entity;
+    }
+
+
     @GetMapping(value = "/userinfo/{email}")
     @ApiOperation(value = "유저정보 보내주기")
     public ResponseEntity<?> getuserinfo(@PathVariable String email, @RequestHeader("accessToken") String access) {
