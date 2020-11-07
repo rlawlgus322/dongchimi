@@ -17,7 +17,7 @@ const data = [
 function PartyList({ history }) {
   // 요청 상태 관리
   const [parties, setParties] = useState(data);
-  const [keyword, setKeyword] = useState(null);
+  //const [keyword, setKeyword] = useState(null);
   const logged = sessionStorage.getItem('token') === null ? false : true;
 
   // 요청 작업
@@ -28,7 +28,7 @@ function PartyList({ history }) {
         console.log(res);
       })
     setParties(data);
-  })
+  }, [])
   return (
     <>
       {/** 카테고리 */}
