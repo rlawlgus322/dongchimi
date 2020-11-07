@@ -50,7 +50,7 @@ class PartyWrite extends Component {
           <div className="row">
             {/** 대표 이미지 */}
             <div className="col-md-5 col-12">
-              <img src={this.state.image} />
+              <img alt="Thumbnail" src={this.state.image} />
               <input type="file" name="image"
                 onChange={this.uploadImage.bind(this)}
               />
