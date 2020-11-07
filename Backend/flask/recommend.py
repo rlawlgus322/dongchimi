@@ -28,11 +28,12 @@ def itemRecommend():
     conn, cursor = connect.connect()
     result = connect.getUserName(cursor)
     userlist = [row[0] for row in result.fetchall()]
-
+    print(useremail)
     userInfo = connect.getUserPrefer(cursor,useremail)
     userid = 0
     preferlist=[]
     for row in userInfo.fetchall():
+        print(row)
         userid = row[0]
         preferlist = [row[1],row[2],row[3]] #사용자 선호도
 
@@ -49,11 +50,11 @@ def itemRecommend():
         likes = connect.getUserLike(cursor,user)
         categorylist = [row[0] for row in category.fetchall()]
         for catg in categorylist:
-            df.loc[user,catg[0]] += 5 #찜일시 5점 추가
+            df.loc[catg,user] += 5 #찜일시 5점 추가
         likelist = [row[0] for row in likes.fetchall()]
         for like in likelist:
-            df.loc[user,like[0]] +=3
-
+            df.loc[like,user] +=3
+    print(df)
     item_based_collabor = cosine_similarity(df)
     print(item_based_collabor)
     item_based_collabor = DataFrame(data = item_based_collabor, index = df.index, columns=df.index)
@@ -68,7 +69,7 @@ def itemRecommend():
     likelist = [row[0] for row in likes.fetchall()]
     for like in likelist:
         chimi_sub_dict[catg] += 1
-
+    print(preferlist)
     #1순위,2순위,3순위
     chimi_sub_dict[preferlist[0]] +=3
     chimi_sub_dict[preferlist[1]]+=2
@@ -84,6 +85,7 @@ def itemRecommend():
         # 비슷한거 추천 위에서 2개까지
         recommendSet.update(item_based_collabor[key].sort_values(ascending=False)[:2])
         flag -= 1
+    print(recommendSet)
     recommendList = list(recommendSet)
 
     # 디비 해제
@@ -121,10 +123,10 @@ def userRecommend():
         likes = connect.getUserLike(cursor,user)
         categorylist = [row[0] for row in category.fetchall()]
         for catg in categorylist:
-            df.loc[user,catg[0]] += 5 #찜일시 5점 추가
+            df.loc[user,catg] += 5 #찜일시 5점 추가
         likelist = [row[0] for row in likes.fetchall()]
         for like in likelist:
-            df.loc[user,like[0]] +=3
+            df.loc[user,like] +=3
 
     user_based_collabor = cosine_similarity(df)
     print(user_based_collabor)
@@ -133,7 +135,7 @@ def userRecommend():
     print(user_based_collabor)
 
     max = 0
-    maxidx = 0;
+    maxidx = 0
     # 가장 유사도 높은 사람 찾기
     for i in range(len(userlist)):
         if i == userid:continue
