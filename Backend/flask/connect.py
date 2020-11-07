@@ -2,8 +2,8 @@ import cx_Oracle
 import os
 from pandas import DataFrame
 
-LOCATION = r"C:\Users\multicampus\instantclient_19_8" # 오라클 DB쓰기 위한 유틸 파일
-os.environ["PATH"]=LOCATION + ";" + os.environ["PATH"] # 환경변수 등록
+# LOCATION = r"C:\Users\multicampus\instantclient_19_8" # 오라클 DB쓰기 위한 유틸 파일
+# os.environ["PATH"]=LOCATION + ";" + os.environ["PATH"] # 환경변수 등록
 
 def connect(): 
     connection = cx_Oracle.connect("DCM", "Ssafy1234", "52.78.199.159:1521/xe")
