@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
 import PartyInfo from '../../components/Party/Read/PartyInfo';
 import PartyOpener from '../../components/Party/Read/PartyOpener';
-import PartyPlan from '../../components/Party/Read/PartyPlan';
 import PartyComment from '../../components/Party/Read/PartyComment';
+import api from '../../utils/api';
 
 class PartyRead extends Component {
+  state = {
+    data: [],
+  }
+
+  componentDidMount() {
+    api.get(`/hobby/chimi/${this.props.match.params.id}`)
+      .then(({ data }) => {
+        // console.log('party read', data);
+        this.setState({ data: data });
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
 
   render() {
-    // 통신하여 상세결과값 가져오기
-    const data = { id: '1', bangjang: 'a', name: '뜨개질', desc: '뜨개질하자', total: '1', stars: '6', views: '1', imgSrc: 'https://lab.ssafy.com/s03-final/s03p31a409/uploads/3960e6fd2eed33ded85590499d95b729/7FB9DDA2-C9B7-473B-BD78-282A33AA084F-9716-000009E931E8FB4C_file.jpg', };
-    console.log(this.props.match.params.id);
-
     return (
       <>
         <PartyInfo
           type={1}
-          data={data}
+          data={this.state.data}
         ></PartyInfo>
         <button
           onClick={() => this.props.history.push('/party/update')}
@@ -23,7 +32,9 @@ class PartyRead extends Component {
         <div className='row'>
           <div className='col-6'>
             <PartyOpener></PartyOpener>
-            <PartyPlan></PartyPlan>
+            {this.state.data.chimi !== undefined &&
+              <div dangerouslySetInnerHTML={{ __html: this.state.data.chimi.description }} />
+            }
           </div>
           <div className='col-6'>
             <PartyComment></PartyComment>
