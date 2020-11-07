@@ -41,13 +41,6 @@ def itemRecommend():
                   index = chimi_sub_category
                   )
     df.fillna(0 ,inplace = True)
-    # 임의 값 넣음
-    print(df.loc["공예",1])
-    df.loc["공예":"뜨개질",7:8] = 4
-    df.loc["공예":"자수",1:3] =2
-    df.loc["뜨개질":"자수",9:15] =3
-    print(df.loc["공예":"자수",1:3])
-    print(df)
 
     # 찜하기, 좋아요 
     # 전체사용자 기반 선호도 분석
