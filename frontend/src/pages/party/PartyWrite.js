@@ -73,7 +73,7 @@ class PartyWrite extends Component {
             {/** 대표 이미지 */}
             <div className="col-md-5 col-12" style={{ width: "15%", height: "15%" }}>
               {this.state.preview !== '' &&
-                < img src={this.state.preview} style={{ width: "100%", height: "100%" }} />
+                < img alt="Thumbnail" src={this.state.preview} style={{ width: "300px", height: "300px" }} />
               }
               <input type="file" name="image"
                 accept=".jpg, .jpeg, .png"

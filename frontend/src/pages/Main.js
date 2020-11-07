@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     console.log('logged', sessionStorage.getItem('token') !== null);
   }

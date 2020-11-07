@@ -4,9 +4,6 @@ import PartyMembers from './PartyMembers';
 
 
 class PartyInfo extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const type = this.props.type; // 1-신청시상세, 2-신청후
     console.log(type);
