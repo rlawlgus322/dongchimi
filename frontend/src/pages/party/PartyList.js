@@ -16,7 +16,7 @@ const data = [
 
 function PartyList({ history }) {
   // 요청 상태 관리
-  const [parties, setParties] = useState(data);
+  const [parties, setParties] = useState([]);
   //const [keyword, setKeyword] = useState(null);
   const logged = sessionStorage.getItem('token') === null ? false : true;
 
@@ -24,10 +24,11 @@ function PartyList({ history }) {
   useEffect(() => {
     // 통신 후 결과값 넣어주기
     api.get('/hobby/chimi')
-      .then((res) => {
-        console.log(res);
+      .then(({ data }) => {
+        console.log(data);
+        setParties(data);
       })
-    setParties(data);
+    // setParties(data);
   }, [])
   return (
     <>
