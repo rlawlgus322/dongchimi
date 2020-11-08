@@ -9,6 +9,7 @@ import java.util.UUID;
 @Service
 public class FileServiceImpl implements FileService {
     private static final String PATH = "/home/ubuntu/deploy/build/file/";
+    private static final String SENDPATH = "/file/";
 //    private static final String PATH = "C:/Users/multicampus/IdeaProjects/s03p31a409/back/user-service/file/";
 
 
@@ -36,7 +37,7 @@ public class FileServiceImpl implements FileService {
 //            System.out.println("업로드 에러");
 //        }
 
-        return PATH + fileName;
+        return SENDPATH + fileName;
 
     }
 }
