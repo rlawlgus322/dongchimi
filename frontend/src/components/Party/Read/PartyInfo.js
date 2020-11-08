@@ -7,11 +7,13 @@ class PartyInfo extends Component {
     return (
       <>
         <div className='row'>
-          <div className='col-md-5 col-8'>
-            사진
-          </div>
+          {
+            this.props.data.chimi !== undefined &&
+            <div className='col-md-5 col-8' style={{ backgroundImage: `url(http://k3a409.p.ssafy.io${this.props.data.chimi.image})` }} />
+          }
           <div className='col-md-7 col-8'>
-            {this.props.data.chimi !== undefined &&
+            {
+              this.props.data.chimi !== undefined &&
               <h1>{this.props.data.chimi.name}</h1> &&
               <div>
                 설명 : {this.props.data.chimi.summary} <br></br>
