@@ -65,7 +65,7 @@ public class ChimiController {
 		if(chimi != null && userinfo!=null)	{
 			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
 			System.out.println("id : " + id);
-			chimi.setId(id);//user id 저장
+			chimi.setUserId(id);//user id 저장
 			chimiService.save(chimi);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		}
@@ -95,7 +95,7 @@ public class ChimiController {
 			Page<Chimi> chimiPage = chimiService.findAll(pageable);		
 			List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
 			for(Chimi chimi : chimiPage){
-				HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getId());
+				HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
 				chimiList.add(				
 					new ChimiResponse(chimi,
 							String.valueOf(cuserinfo.get("nickname")),
@@ -116,7 +116,7 @@ public class ChimiController {
 		Chimi newChimi = chimiService.findById(hid).get();
 		HashMap<String, Object> loginUserinfo = null;
 		if(access!=null) loginUserinfo = userClient.getUserInfo(access);
-		HashMap<String,Object> chimiUserinfo = userClient.getusername(newChimi.getId());
+		HashMap<String,Object> chimiUserinfo = userClient.getusername(newChimi.getUserId());
 		// 조회수 증가
 		newChimi.setViews(newChimi.getViews()+1);
 		newChimi = chimiService.save(newChimi);
@@ -149,7 +149,7 @@ public class ChimiController {
 	public ResponseEntity<String> delete(@RequestHeader("accessToken") String access,@PathVariable long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		Chimi chimi = chimiService.findById(hid).get();
-		if(chimi!=null && userinfo!=null && chimi.getId()==Long.parseLong(String.valueOf(userinfo.get("id"))) ){ //해당 취미가개설되어 있고 id가 일치하는지
+		if(chimi!=null && userinfo!=null && chimi.getUserId()==Long.parseLong(String.valueOf(userinfo.get("id"))) ){ //해당 취미가개설되어 있고 id가 일치하는지
 			chimiService.deleteById(hid);
 			// 추천 목록 삭제
 			if(!starService.findByStarPKId(hid).isEmpty()){
@@ -159,6 +159,25 @@ public class ChimiController {
 		} else{
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@GetMapping("/myParty")
+	@ApiOperation(value = "내가 등록한 파티 조회")
+	public ResponseEntity<Page<Chimi>> searchWhichIRegister(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable,
+			@RequestHeader("accessToken") String access){
+
+		try {
+			HashMap<String, Object> loginUserinfo =  userClient.getUserInfo(access);
+			long id = Long.parseLong(String.valueOf(loginUserinfo.get("id")));
+			
+			Page<Chimi> list = chimiService.findByUserId(id,pageable);
+			
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 
 	@PutMapping("/recommend/{hid}")
