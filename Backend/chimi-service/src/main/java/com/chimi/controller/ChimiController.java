@@ -29,10 +29,12 @@ import com.chimi.intercomm.UserClient;
 import com.chimi.model.Chimi;
 import com.chimi.model.PKSet;
 import com.chimi.model.ChimiStar;
+import com.chimi.payload.response.ChimiDetailResponse;
 import com.chimi.payload.response.ChimiResponse;
 import com.chimi.service.ApplicationService;
 import com.chimi.service.ChimiService;
 import com.chimi.service.StarService;
+import com.chimi.service.StorageService;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,6 +54,8 @@ public class ChimiController {
 	FileService fileService;
 	@Autowired
     UserClient userClient;
+	@Autowired
+	StorageService storageService;
 	
 	@PostMapping
 	@ApiOperation(value = "새 파티 게시 ")
@@ -91,9 +95,13 @@ public class ChimiController {
 			Page<Chimi> chimiPage = chimiService.findAll(pageable);		
 			List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
 			for(Chimi chimi : chimiPage){
-				HashMap<String,Object> userinfo = userClient.getusername(chimi.getId());
-				chimiList.add(new ChimiResponse(chimi,String.valueOf(userinfo.get("nickname")),String.valueOf(userinfo.get("profileImage")),
-						starService.findById(new PKSet(chimi.getId(), chimi.getHid())).isPresent()));
+				HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getId());
+				chimiList.add(				
+					new ChimiResponse(chimi,
+							String.valueOf(cuserinfo.get("nickname")),
+							String.valueOf(cuserinfo.get("profileImage"))
+						)
+					);
 			}
 			return new ResponseEntity<>(chimiList, HttpStatus.OK);
 		} catch (Exception e) {
@@ -104,15 +112,33 @@ public class ChimiController {
 	
 	@GetMapping("/{hid}")
 	@ApiOperation(value = "파티 상세조회")
-	public ResponseEntity<ChimiResponse> search(@PathVariable long hid){
+	public ResponseEntity<ChimiDetailResponse> search(@RequestHeader("accessToken") String access,@PathVariable long hid){
 		Chimi newChimi = chimiService.findById(hid).get();
-		HashMap<String,Object> userinfo = userClient.getusername(newChimi.getId());
+		HashMap<String, Object> loginUserinfo = null;
+		if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+		HashMap<String,Object> chimiUserinfo = userClient.getusername(newChimi.getId());
 		// 조회수 증가
 		newChimi.setViews(newChimi.getViews()+1);
 		newChimi = chimiService.save(newChimi);
-		
-		ChimiResponse chimiResponse = new ChimiResponse(newChimi,String.valueOf(userinfo.get("nickname")),String.valueOf(userinfo.get("profileImage")),
-				starService.findById(new PKSet(newChimi.getId(), newChimi.getHid())).isPresent());
+		ChimiDetailResponse chimiResponse = null;
+		if(loginUserinfo == null) { //로그인안되어있는  유저
+			chimiResponse = new ChimiDetailResponse(
+					newChimi,
+					String.valueOf(chimiUserinfo.get("nickname")),
+					String.valueOf(chimiUserinfo.get("profileImage"))
+					);
+		}
+		else {
+			long id = Long.parseLong(String.valueOf(loginUserinfo.get("id")));
+			chimiResponse = new ChimiDetailResponse(
+					newChimi,
+					String.valueOf(chimiUserinfo.get("nickname")),
+					String.valueOf(chimiUserinfo.get("profileImage")),
+					starService.findById(new PKSet(id, newChimi.getHid())).isPresent(),
+					storageService.findById(new PKSet(id, newChimi.getHid())).isPresent(),
+					applicationService.findById(new PKSet(id, newChimi.getHid())).isPresent()
+					);
+		}
 		
 		if(newChimi != null)	return new ResponseEntity<>(chimiResponse, HttpStatus.OK);
 		else	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

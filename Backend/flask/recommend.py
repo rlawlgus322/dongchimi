@@ -88,6 +88,8 @@ def itemRecommend():
     print(recommendSet)
     recommendList = list(recommendSet)
 
+    #TODO 해당 카테고리인 열려있는 파티가져와서 그 중에 찜,추천 많은 애들 추천
+
     # 디비 해제
     cursor.close()
     conn.close()

@@ -65,6 +65,7 @@ public class AuthController {
 
 		JwtResponse jwtResponse = new JwtResponse();
 		jwtResponse.setAccessToken(jwt);
+		jwtResponse.setUid(userRepository.getUserByEmail(loginRequest.getEmail()).getId());
 		return ResponseEntity.ok(jwtResponse);
 	}
 
