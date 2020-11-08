@@ -46,7 +46,8 @@ public class CommentController {
     @ApiOperation(value = "새 댓글 쓰기")
     public ResponseEntity<String> insert(@RequestHeader("accessToken") String access,@RequestBody ChimiComment comment) {
     	HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-    	comment.setUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
+    	long id = Long.parseLong(String.valueOf(userinfo.get("id")));
+    	comment.setUserId(id);
         ChimiComment newComment = commentService.save(comment);     // 댓글 저장
 
         if(newComment != null)	return new ResponseEntity<>("success", HttpStatus.OK);

@@ -73,7 +73,7 @@ public class UserController {
         return entity;
     }
 
-    @GetMapping(value = "/userinfo/")
+    @GetMapping(value = "/userinfo")
     @ApiOperation(value = "유저정보 보내주기")
     public ResponseEntity<?> getuserinfoS(@RequestHeader("accessToken") String access) {
 
@@ -99,12 +99,10 @@ public class UserController {
 
     @GetMapping(value = "/userinfo/{email}")
     @ApiOperation(value = "유저정보 보내주기")
-    public ResponseEntity<?> getuserinfo(@PathVariable String email, @RequestHeader("accessToken") String access) {
+    public ResponseEntity<?> getuserinfo(@PathVariable String email) {
 
         ResponseEntity<?> entity = null;
-
         try {
-            String userEmail = jwtUtils.getUserNameFromJwtToken(access);
             User user = userService.findUserinfoByEmail(email);
             userinfoResponse userinfoResponse = new userinfoResponse();
             userinfoResponse.email = user.getEmail();
@@ -151,9 +149,9 @@ public class UserController {
         return entity;
     }
 
-    @PutMapping("/userinfo/{email}")
+    @PutMapping("/userinfo")
     @ApiOperation(value = "수정하기")
-    public ResponseEntity<?> update(@PathVariable String email, @RequestBody User user ,@RequestHeader("accessToken") String access) {
+    public ResponseEntity<?> update(@RequestBody User user ,@RequestHeader("accessToken") String access) {
 
         ResponseEntity<?> entity = null;
 
@@ -171,10 +169,37 @@ public class UserController {
 
         return entity;
     }
+    
+    @PutMapping("/userinfo/{email}")
+    @ApiOperation(value = "평점주기")
+    public ResponseEntity<?> giveStar(@RequestHeader("accessToken") String access,@PathVariable String email,@RequestParam float star) {
+    	ResponseEntity<?> entity = null;
+    	try {
+    		String userEmail = jwtUtils.getUserNameFromJwtToken(access);
+    		if(userEmail == null ) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        	User user = userService.findUserinfoByEmail(email);
+        	float userStar = user.getStar();
+        	int userNum = user.getNum();
+        	float sum = userStar * userNum;
+        	user.setNum(userNum+1);
+        	user.setStar((sum+star)/userNum+1f);
 
-    @DeleteMapping("/userinfo/{email}")
+        	System.out.println(user.toString());
+        	userService.save(user);
+        	entity = new ResponseEntity<>(user, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+    	return entity;
+    }
+    
+
+    @DeleteMapping("/userinfo")
     @ApiOperation(value = "회원탈퇴")
-    public ResponseEntity<?> delete(@PathVariable String email) {
+    public ResponseEntity<?> delete(@RequestHeader("accessToken") String access) {
+    	String email = jwtUtils.getUserNameFromJwtToken(access);
         if(userService.findUserinfoByEmail(email)!= null){
             userService.delete(email);
             return new ResponseEntity<>(HttpStatus.OK);

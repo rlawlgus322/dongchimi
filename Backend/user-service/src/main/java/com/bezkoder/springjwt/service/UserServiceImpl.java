@@ -77,4 +77,11 @@ public class UserServiceImpl implements UserService {
         user.setProfileimage(path);
         userRepository.save(user);
     }
+
+	@Override
+	public void save(User user) {
+		userRepository.save(user);
+	}
+    
+    
 }
