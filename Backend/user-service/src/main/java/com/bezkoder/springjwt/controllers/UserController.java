@@ -87,6 +87,7 @@ public class UserController {
             userinfoResponse.gender = user.getGender();
             userinfoResponse.nickname =  user.getNickname();
             userinfoResponse.username = user.getUsername();
+            userinfoResponse.progileImage = user.getProfileimage();
             entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
