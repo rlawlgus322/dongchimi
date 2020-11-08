@@ -20,7 +20,9 @@ class PartyInfo extends Component {
                 현재 신청 인원 : {this.props.data.chimi.curnum} <br></br>
               </div>
             }
-            {this.props.type === 1 && <PartyRegister />}
+            {this.props.type === 1 &&
+              this.props.data.chimi !== undefined &&
+              <PartyRegister hid={this.props.data.chimi.hid} />}
             {this.props.type === 2 && <PartyMembers />}
           </div>
         </div>

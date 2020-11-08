@@ -10,9 +10,13 @@ class PartyRead extends Component {
   }
 
   componentDidMount() {
-    api.get(`/hobby/chimi/${this.props.match.params.id}`)
+    api.get(`/hobby/chimi/${this.props.match.params.id}`, {
+      headers: {
+        accessToken: sessionStorage.getItem('token')
+      }
+    })
       .then(({ data }) => {
-        // console.log('party read', data);
+        console.log('party read', data);
         this.setState({ data: data });
       }).catch((err) => {
         console.log(err);
@@ -20,6 +24,7 @@ class PartyRead extends Component {
   }
 
   render() {
+    console.log('render', this.state.data);
     return (
       <>
         <PartyInfo

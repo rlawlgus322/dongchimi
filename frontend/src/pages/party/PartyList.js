@@ -10,12 +10,14 @@ function PartyList({ history }) {
   //const [keyword, setKeyword] = useState(null);
   const logged = sessionStorage.getItem('token') === null ? false : true;
 
-  // 요청 작업
   useEffect(() => {
-    // 통신 후 결과값 넣어주기
-    api.get('/hobby/chimi')
+    api.get('/hobby/chimi', {
+      headers: {
+        accessToken: sessionStorage.getItem('token')
+      }
+    })
       .then(({ data }) => {
-        // console.log(data);
+        console.log(data);
         setParties(data);
       })
     // setParties(data);
