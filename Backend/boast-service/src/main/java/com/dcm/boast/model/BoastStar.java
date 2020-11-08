@@ -1,12 +1,11 @@
 package com.dcm.boast.model;
 
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,18 +13,11 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "BOAST_STAR")
 @NoArgsConstructor
+@AllArgsConstructor
 public class BoastStar {
 
-	@Id
-	@NotNull
-	private long bid;
-	@NotNull
-	private long userId;
+	@EmbeddedId
+    private PKSet starPK;
 	
-	
-	public BoastStar(@NotBlank long userId, @NotNull long bid) {
-		this.userId = userId;
-		this.bid = bid;
-	}
 	
 }

@@ -22,6 +22,7 @@ import com.dcm.boast.model.Boast;
 import com.dcm.boast.model.BoastDetailResponse;
 import com.dcm.boast.model.BoastResponse;
 import com.dcm.boast.model.BoastStar;
+import com.dcm.boast.model.PKSet;
 import com.dcm.boast.service.BoastService;
 
 import io.swagger.annotations.ApiOperation;
@@ -40,22 +41,34 @@ public class BoastController {
 
 	@GetMapping("/all")
 	@ApiOperation(value = "모든 자랑게시물 반환")
-	public ResponseEntity<List<BoastResponse>> findAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable) {
-		
-		Page<Boast> boastlist = boastService.allBoasts(pageable);
-		List<BoastResponse> list = new ArrayList<>();
-		Map<String, Object>map = new HashMap<>();
-		for (Boast bst : boastlist) {
-			map = userClient.getUsername(bst.getUserId());
-			BoastResponse boastResponse = new BoastResponse(bst, (String)map.get("nickname"), false);
-			if(boastService.isLike(bst.getBid())) boastResponse.setLiked(true); //내가 좋아요 누른 게시물인지
-			list.add(boastResponse);
+	public ResponseEntity<List<BoastResponse>> findAll(@RequestHeader("accessToken") String access,
+			@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable) {
+		try {
+			HashMap<String, Object> loginUserinfo = null;
+			if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+			
+			Page<Boast> boastlist = boastService.allBoasts(pageable);
+			List<BoastResponse> list = new ArrayList<>();
+			Map<String, Object>map = new HashMap<>();
+			for (Boast bst : boastlist) {
+				map = userClient.getUsername(bst.getUserId());
+				BoastResponse boastResponse = new BoastResponse(bst, String.valueOf(map.get("nickname")),String.valueOf(map.get("profileImage")), false);
+				if(loginUserinfo!=null) {
+					long id = Long.parseLong(String.valueOf(loginUserinfo.get("id")));
+					if(boastService.isLike(id,bst.getBid())) boastResponse.setLiked(true); //내가 좋아요 누른 게시물인지
+				}
+				list.add(boastResponse);
+			}
+			 return new ResponseEntity<List<BoastResponse>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		if(list != null) return new ResponseEntity<List<BoastResponse>>(list, HttpStatus.OK);
-		else	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+
 	}
 
-	@PostMapping("/")
+	@PostMapping
 	@ApiOperation(value = "자랑게시물 작성")
 	public ResponseEntity<?> insert(@RequestBody Boast boast, @RequestHeader("accessToken") String access) {
 
@@ -101,10 +114,20 @@ public class BoastController {
 		try {
 			Boast bst = boastService.findBoastById(boastId);
 			boastService.view(boastId); // 상세보기 누르면 조회수도같이 올리기
+			
+			//글 쓴 사람
 			Map<String, Object> map = userClient.getUsername(bst.getUserId());
 			String nickname = String.valueOf(map.get("nickname"));
-			BoastDetailResponse boastDetailResponse = new BoastDetailResponse(bst,nickname,false);
-			if(boastService.isLike(bst.getBid())) boastDetailResponse.setLiked(true); //내가 좋아요 누른 게시물인지
+			String profileImage = String.valueOf(map.get("profileImage"));
+			BoastDetailResponse boastDetailResponse = new BoastDetailResponse(bst,nickname,profileImage,false);
+			//보는 사람
+			HashMap<String, Object> loginUserinfo = null;
+			if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+			
+			if(loginUserinfo!=null) { //로그인 된 사람이면 좋아요 유무 확인
+				long id = Long.parseLong(String.valueOf(loginUserinfo.get("id")));
+				if(boastService.isLike(id,bst.getBid())) boastDetailResponse.setLiked(true); //내가 좋아요 누른 게시물인지
+			}
 			entity = new ResponseEntity<BoastDetailResponse>(boastDetailResponse, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,16 +165,15 @@ public class BoastController {
 		return entity;
 	}
 	
-	@PutMapping("/like")
+	@PutMapping("/like/{boastId}")
 	@ApiOperation(value = "좋아요 올리기")
-	public ResponseEntity<?> like(@RequestBody BoastStar boastStar, @RequestHeader("accessToken") String access) {
+	public ResponseEntity<?> like(@PathVariable long boastId, @RequestHeader("accessToken") String access) {
 
 		ResponseEntity<?> entity = null;
-
 		try {
 			Map<String, Object>userinfo = userClient.getUserInfo(access);
 			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
-			boastStar.setUserId(id);
+			BoastStar boastStar = new BoastStar(new PKSet(id,boastId));
 			entity = new ResponseEntity<Boast>(boastService.like(boastStar), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,16 +183,16 @@ public class BoastController {
 		return entity;
 	}
 	
-	@PutMapping("/dislike")
+	@PutMapping("/dislike/{boastId}")
 	@ApiOperation(value = "좋아요 취소")
-	public ResponseEntity<?> dislike(@RequestBody BoastStar boastStar, @RequestHeader("accessToken") String access) {
+	public ResponseEntity<?> dislike(@PathVariable long boastId, @RequestHeader("accessToken") String access) {
 
 		ResponseEntity<?> entity = null;
 
 		try {
 			Map<String, Object>userinfo = userClient.getUserInfo(access);
 			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
-			boastStar.setUserId(id);
+			BoastStar boastStar = new BoastStar(new PKSet(id,boastId));
 			entity = new ResponseEntity<Boast>(boastService.dislike(boastStar), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
