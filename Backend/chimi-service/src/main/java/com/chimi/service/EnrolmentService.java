@@ -18,5 +18,5 @@ public interface EnrolmentService {
 
 	void delete(PKSet pk);
 
-	List<Enrolment> findAllByEnromentId(long parseLong);
+	List<Enrolment> findAllByEnromentId(long id);
 }

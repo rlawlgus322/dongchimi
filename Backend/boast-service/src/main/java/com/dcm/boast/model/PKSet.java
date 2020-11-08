@@ -18,5 +18,5 @@ public class PKSet implements Serializable{
     private long userId;
 
     @NotNull
-    private long boastId;
+    private long id;
 }

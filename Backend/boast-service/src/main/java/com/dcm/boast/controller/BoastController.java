@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 //http://localhost:8083/swagger-ui.html
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+//@RequestMapping("/bst")
 public class BoastController {
 	@Autowired
 	private BoastService boastService;
@@ -93,10 +94,14 @@ public class BoastController {
 		ResponseEntity<?> entity = null;
 
 		try {
+			Boast bst = boastService.findBoastById(boastId);
 			Map<String, Object>userinfo = userClient.getUserInfo(access);
 			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
-			boast.setUserId(id);
-			entity = new ResponseEntity<Boast>(boastService.update(boast,boastId), HttpStatus.OK);
+			bst.setUserId(id);
+			bst.setContents(boast.getContents());
+			bst.setPostImg(boast.getPostImg());
+			bst.setTitle(boast.getTitle());
+			entity = new ResponseEntity<Boast>(boastService.update(bst,boastId), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.NOT_FOUND);

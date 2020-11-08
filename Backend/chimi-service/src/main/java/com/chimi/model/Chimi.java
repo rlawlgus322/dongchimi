@@ -21,9 +21,9 @@ public class Chimi {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long hid;
 	
-	@Column(name = "id")
+	@Column(name = "userId")
 	@NotNull
-	private long id;	// 방장 id
+	private long userId;	// 방장 id
 	
 	@NotBlank
 	@Size(max = 100)

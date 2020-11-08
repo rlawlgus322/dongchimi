@@ -44,7 +44,7 @@ public class ApplicationContorller {
 			return new ResponseEntity<>("full", HttpStatus.NOT_ACCEPTABLE);
 
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		Application newApplication = new Application(new PKSet(Long.parseLong(String.valueOf(userinfo.get("id"))), hid), chimi.getId());
+		Application newApplication = new Application(new PKSet(Long.parseLong(String.valueOf(userinfo.get("id"))), hid), chimi.getUserId());
 		newApplication = applicationService.save(newApplication);
 
 		if (newApplication != null)

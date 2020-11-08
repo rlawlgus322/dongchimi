@@ -12,6 +12,7 @@ import com.dcm.boast.dao.BoastCommentRepository;
 import com.dcm.boast.dao.BoastCommentStarRepository;
 import com.dcm.boast.model.Comment;
 import com.dcm.boast.model.CommentStar;
+import com.dcm.boast.model.PKSet;
 
 @Service
 public class CommentServiceImpl implements CommentService{
@@ -57,7 +58,7 @@ public class CommentServiceImpl implements CommentService{
 	
 	@Override
 	public Comment like(CommentStar commentStar) {
-		Comment ncomment = this.findCommentById(commentStar.getCmtId());
+		Comment ncomment = this.findCommentById(commentStar.getStarPK().getId());
 		ncomment.setLikes(ncomment.getLikes()+1);
 		boastCommentStarRepository.save(commentStar); //좋아요 테이블에 추가
 		return boastCommentRepository.save(ncomment);
@@ -65,14 +66,14 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public Comment dislike(CommentStar commentStar) {
-		Comment comment = this.findCommentById(commentStar.getCmtId());
+		Comment comment = this.findCommentById(commentStar.getStarPK().getId());
 		comment.setLikes(comment.getLikes()-1);
 		boastCommentStarRepository.delete(commentStar); //좋아요 테이블에 삭제
 		return boastCommentRepository.save(comment);
 	}
 	@Override
-	public boolean isLike(long id) {
-		Optional<CommentStar> commentStar = boastCommentStarRepository.findById(id);
+	public boolean isLike(long cid, long uid) {
+		Optional<CommentStar> commentStar =boastCommentStarRepository.findById(new PKSet(uid,cid));
 		if(commentStar.isPresent()) return true;
 		else return false;
 	}
