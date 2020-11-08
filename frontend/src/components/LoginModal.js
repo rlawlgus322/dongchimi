@@ -24,10 +24,11 @@ function LoginModal({history}) {
       const {accessToken} = res.data;
       sessionStorage.setItem('token', accessToken);
       console.log(res)
+      alert("안녕하세요~")
       history.push("/")
     }).catch(err => {
       console.log(err)
-      history.push("/")
+      alert("아이디와 비밀번호를 확인해주세요.")
     })
   }
 
@@ -69,9 +70,9 @@ const LoginBtn = styled.input`
 
   return (
     <>
-      <Button onClick={handleShow}>
+      <a onClick={handleShow}>
         로그인
-      </Button>
+      </a>
 
       <Modal show={show} onHide={handleClose} size="lg">
         <Container>
@@ -88,9 +89,9 @@ const LoginBtn = styled.input`
 
               <Modal.Body>
                 <form onSubmit={login}>
-                <StyledInput type="text" name="email" placeholder="email" />
-                <StyledInput type="text" name="password" placeholder="password" />
-                <LoginBtn type="submit" value="로그인" />
+                  <StyledInput type="text" name="email" placeholder="email" />
+                  <StyledInput type="password" name="password" placeholder="password" />
+                  <LoginBtn type="submit" value="로그인" />
                 </form>
                 <Container>
                   <Row>
