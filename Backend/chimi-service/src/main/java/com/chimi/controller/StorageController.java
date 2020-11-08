@@ -55,9 +55,9 @@ public class StorageController {
 		}
 	}
 
-	@DeleteMapping
+	@DeleteMapping("/{hid}")
 	@ApiOperation(value = "보관함 삭제")
-	public ResponseEntity<String> deleteStorage(@RequestHeader("accessToken") String access, long hid) {
+	public ResponseEntity<String> deleteStorage(@RequestHeader("accessToken") String access,@PathVariable long hid) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		PKSet pk = new PKSet(Long.parseLong(String.valueOf(userinfo.get("id"))), hid);
 

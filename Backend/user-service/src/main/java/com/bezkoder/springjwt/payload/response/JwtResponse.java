@@ -2,10 +2,18 @@ package com.bezkoder.springjwt.payload.response;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
 
+	private long uid;
 	private String username;
 	private String email;
 	private List<String> roles;
@@ -18,9 +26,6 @@ public class JwtResponse {
 		this.roles = roles;
 	}
 
-    public JwtResponse() {
-
-    }
 
     public String getAccessToken() {
 		return token;
