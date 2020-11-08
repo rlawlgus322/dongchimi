@@ -64,7 +64,7 @@ public class BoastServiceImpl implements BoastService {
 
 	@Override
 	public Boast like(BoastStar boastStar) {
-		Boast nboast = this.findBoastById(boastStar.getStarPK().getBoastId());
+		Boast nboast = this.findBoastById(boastStar.getStarPK().getId());
 		nboast.setLikes(nboast.getLikes()+1);
 		boastStarRepository.save(boastStar); //좋아요 테이블에 추가
 		return boastRepository.save(nboast);
@@ -72,7 +72,7 @@ public class BoastServiceImpl implements BoastService {
 
 	@Override
 	public Boast dislike(BoastStar boastStar) {
-		Boast nboast =this.findBoastById(boastStar.getStarPK().getBoastId());
+		Boast nboast =this.findBoastById(boastStar.getStarPK().getId());
 		nboast.setLikes(nboast.getLikes()-1);
 		boastStarRepository.delete(boastStar); //좋아요 테이블에 추가
 		return boastRepository.save(nboast);
