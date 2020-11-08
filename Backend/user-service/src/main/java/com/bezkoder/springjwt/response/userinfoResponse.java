@@ -13,5 +13,7 @@ public class userinfoResponse {
     public String nickname;
     @ApiModelProperty(value = "gender", position = 5)
     public int gender;
+    @ApiModelProperty(value = "profileImage", position = 6)
+    public String progileImage;
 
 }
