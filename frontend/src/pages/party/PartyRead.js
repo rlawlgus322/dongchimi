@@ -17,7 +17,7 @@ class PartyRead extends Component {
     } else if (this.props.match.path === "/mypage/party/:id") {
       this.setState({ type: 2 });
     }
-    console.log('read this.props', this.props)
+    // console.log('read this.props', this.props)
     api.get(`/hobby/chimi/${this.props.match.params.id}`, {
       headers: {
         accessToken: sessionStorage.getItem('token')
@@ -44,7 +44,8 @@ class PartyRead extends Component {
         <div className='row'>
           <div className='col-6'>
             <PartyOpener></PartyOpener>
-            {this.state.data.chimi !== undefined &&
+            {
+              this.state.data.chimi !== undefined &&
               <div dangerouslySetInnerHTML={{ __html: this.state.data.chimi.description }} />
             }
           </div>
@@ -52,7 +53,7 @@ class PartyRead extends Component {
             {
               this.state.type === 1 &&
               this.state.data.chimi !== undefined &&
-              <PartyComment hid={this.state.data.chimi.hid}></PartyComment>
+              <PartyComment hid={this.state.data.chimi.hid} userId={this.state.data.chimi.userId}></PartyComment>
             }
             {
               this.state.type === 2 &&

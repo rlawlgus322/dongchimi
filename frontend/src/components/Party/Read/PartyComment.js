@@ -6,20 +6,21 @@ class PartyComment extends Component {
     super(props);
     this.state = {
       hid: this.props.hid,
+      userId: this.props.userId,
       token: sessionStorage.getItem('token'),
-      data: [],
+      // data: [],
       comments: [],
     }
   }
 
   componentDidMount() {
     // 댓글 가져오기
-    console.log('comment hid', this.state.hid)
+    // console.log('comment hid', this.state.hid)
     this.getComment();
   }
 
   getComment() {
-    console.log('get comment');
+    // console.log('get comment');
     api.get(`/hobby/comment/${this.state.hid}`, {
       headers: {
         accessToken: this.state.token,
@@ -35,7 +36,7 @@ class PartyComment extends Component {
 
   addComment(e) {
     e.preventDefault();
-    console.log('add comment', e.target.comment.value);
+    // console.log('add comment', e.target.comment.value);
     api.post(`/hobby/comment`, {
       content: e.target.comment.value,
       hid: this.state.hid,
@@ -59,12 +60,22 @@ class PartyComment extends Component {
         댓글창
         {
           this.state.comments.map((comment, index) => {
-            return (
-              <div key={index}>
-                {/* <p>{comment.</p> */}
-                <p>{comment.chimiComment.content}</p>
-              </div>
-            )
+            // TODO: 댓글 디자인 다르게 주기!
+            if (comment.chimiComment.userId === this.state.userId) { // 댓글쓴이가 글쓴이랑 같을 때
+              return (
+                <div key={index}>
+                  {comment.nickname} - 파티생성자
+                  <p>{comment.chimiComment.content}</p>
+                </div>
+              )
+            } else {
+              return (
+                <div key={index}>
+                  {comment.nickname}
+                  <p>{comment.chimiComment.content}</p>
+                </div>
+              )
+            }
           })
         }
         <form onSubmit={this.addComment.bind(this)}>

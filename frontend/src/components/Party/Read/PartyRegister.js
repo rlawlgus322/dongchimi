@@ -4,7 +4,7 @@ import api from '../../../utils/api';
 class PartyRegister extends Component {
   constructor(props) {
     super(props);
-    console.log('constructor', this.props);
+    // console.log('constructor', this.props);
     this.state = {
       token: sessionStorage.getItem('token'),
       hid: this.props.hid,
