@@ -16,7 +16,7 @@ class PartyWrite extends Component {
   }
 
   getContents(text) {
-    console.log('text', text);
+    // console.log('text', text);
     this.setState({ editorData: text });
   }
 
@@ -56,7 +56,7 @@ class PartyWrite extends Component {
     formDate.append('file', e.target.files[0]);
     multipart.post('/hobby/chimi/image', formDate)
       .then(({ data }) => {
-        // console.log(data);
+        console.log(data);
         this.setState({ image: data });
       }).catch((err) => {
         console.log(err);
