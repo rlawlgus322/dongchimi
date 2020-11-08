@@ -60,7 +60,9 @@ function LoginModal({ history }) {
       })
       .then((res) => {
         const { accessToken } = res.data;
+        const { uid } = res.data;
         sessionStorage.setItem('token', accessToken);
+        sessionStorage.setItem('uid', uid);
         console.log(res);
         history.push('/');
       })
