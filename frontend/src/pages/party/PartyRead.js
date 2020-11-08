@@ -2,21 +2,29 @@ import React, { Component } from 'react';
 import PartyInfo from '../../components/Party/Read/PartyInfo';
 import PartyOpener from '../../components/Party/Read/PartyOpener';
 import PartyComment from '../../components/Party/Read/PartyComment';
+import PartyChat from '../../components/Party/Read/PartyChat';
 import api from '../../utils/api';
 
 class PartyRead extends Component {
   state = {
     data: [],
+    type: 1,
   }
 
   componentDidMount() {
+    if (this.props.match.path === "/party/:id") {
+      this.setState({ type: 1 });
+    } else if (this.props.match.path === "/mypage/party/:id") {
+      this.setState({ type: 2 });
+    }
+    console.log('read this.props', this.props)
     api.get(`/hobby/chimi/${this.props.match.params.id}`, {
       headers: {
         accessToken: sessionStorage.getItem('token')
       }
     })
       .then(({ data }) => {
-        // console.log('party read', data);
+        console.log('party read', data);
         this.setState({ data: data });
       }).catch((err) => {
         console.log(err);
@@ -27,7 +35,7 @@ class PartyRead extends Component {
     return (
       <>
         <PartyInfo
-          type={1}
+          type={this.state.type}
           data={this.state.data}
         ></PartyInfo>
         <button
@@ -41,8 +49,15 @@ class PartyRead extends Component {
             }
           </div>
           <div className='col-6'>
-            {this.state.data.chimi !== undefined &&
+            {
+              this.state.type === 1 &&
+              this.state.data.chimi !== undefined &&
               <PartyComment hid={this.state.data.chimi.hid}></PartyComment>
+            }
+            {
+              this.state.type === 2 &&
+              this.state.data.chimi !== undefined &&
+              <PartyChat></PartyChat>
             }
           </div>
         </div>
