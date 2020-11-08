@@ -60,3 +60,4 @@ class MyPage extends Component {
 }
 
 export default MyPage;
+

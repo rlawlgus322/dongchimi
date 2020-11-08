@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 
 // #1 import quill-image-uploader
 import ImageUploader from "quill-image-uploader";
+import multipart from "../../utils/multipart";
 
 // #2 register module
 Quill.register("modules/imageUploader", ImageUploader);
@@ -74,6 +75,7 @@ class Editor extends Component {
   render() {
     return (
       <ReactQuill
+        style={{ height: "100%" }}
         theme="snow"
         modules={this.modules}
         formats={this.formats}
@@ -86,3 +88,4 @@ class Editor extends Component {
 }
 
 export default Editor;
+

@@ -75,7 +75,7 @@ const Ul = styled.ul`
 
 
 const RightNav = ({ history, open }) => {
-  const logged = sessionStorage.getItem('token')===null ? false : true; 
+  const logged = sessionStorage.getItem('token') === null ? false : true;
 
   function logout() {
     sessionStorage.removeItem('token');
@@ -87,7 +87,7 @@ const RightNav = ({ history, open }) => {
       <li><NavLink to="/party">Party</NavLink></li>
       <li><NavLink to="/recommend">추천</NavLink></li>
       <li><NavLink to="/boast">자랑게시판</NavLink></li>
-      {!logged && 
+      {!logged &&
         <li><LoginModal></LoginModal></li>
       }
       {logged &&

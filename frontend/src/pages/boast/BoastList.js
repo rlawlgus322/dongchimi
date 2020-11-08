@@ -52,3 +52,4 @@ class BoastList extends Component {
 }
 
 export default BoastList;
+

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import LoginModal from '../components/LoginModal';
 
@@ -32,3 +32,4 @@ class Main extends Component {
 }
 
 export default Main;
+
