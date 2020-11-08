@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const SliderableImageBody = styled.div`
   width: 800px;
@@ -16,10 +16,20 @@ const ImageSlider = styled.div`
   height: 80%;
 `;
 
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
 const MainImage = styled.img`
   width: 80%;
   height: 100%;
   background-color: dodgerblue;
+  animation: ${(props) => (props.aniStart ? boxFade : '')} 0.7s ease;
 `;
 
 const SliderButton = styled.button`
@@ -46,25 +56,36 @@ const SmallImage = styled.img`
 
 function SliderableImage(props) {
   const [index, setIndex] = useState(0);
+  const [aniStart, setAniStart] = useState(false);
   const { images } = props;
   return (
     <SliderableImageBody>
       <ImageSlider>
         <SliderButton
-          onClick={() => setIndex(index === 0 ? images.length - 1 : index - 1)}
+          onClick={() => {
+            // 나중에 중복 제거
+            setIndex(index === 0 ? images.length - 1 : index - 1);
+            setAniStart(true);
+            setTimeout(() => setAniStart(false), 500);
+          }}
         >
           Prev
         </SliderButton>
-        <MainImage src={images[index]} />
+        <MainImage aniStart={aniStart} src={images[index]} />
         <SliderButton
-          onClick={() => setIndex(index === images.length - 1 ? 0 : index + 1)}
+          onClick={() => {
+            // 나중에 중복 제거
+            setIndex(index === images.length - 1 ? 0 : index + 1);
+            setAniStart(true);
+            setTimeout(() => setAniStart(false), 500);
+          }}
         >
           Next
         </SliderButton>
       </ImageSlider>
       <ImageList>
         {images.map((image) => (
-          <SmallImage src={image} />
+          <SmallImage key={image} src={image} />
         ))}
       </ImageList>
     </SliderableImageBody>

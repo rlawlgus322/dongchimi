@@ -1,5 +1,4 @@
 import React from 'react';
-import BoastComment from '../../components/Boast/Read/BoastComment';
 import UserInfoBar from 'components/UserInfoBar';
 import styled from 'styled-components';
 import SliderableImage from 'components/SliderableImage';
