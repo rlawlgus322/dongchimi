@@ -15,6 +15,6 @@ public interface BoastService {
 	Boast view(long id);
 	Boast like(BoastStar boastStar);
 	Boast dislike(BoastStar boastStar);
-	boolean isLike(long id);
+	boolean isLike(long id,long bid);
   
 }
