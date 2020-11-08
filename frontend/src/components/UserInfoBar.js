@@ -22,6 +22,9 @@ const MoreButton = styled.button`
   border: none;
   background: none;
   margin-left: auto;
+  &:focus {
+    outline: none;
+  }
 `;
 
 function UserInfoBar(props) {
