@@ -16,7 +16,7 @@ class PartyRead extends Component {
       }
     })
       .then(({ data }) => {
-        console.log('party read', data);
+        // console.log('party read', data);
         this.setState({ data: data });
       }).catch((err) => {
         console.log(err);
@@ -24,7 +24,6 @@ class PartyRead extends Component {
   }
 
   render() {
-    console.log('render', this.state.data);
     return (
       <>
         <PartyInfo
@@ -42,7 +41,9 @@ class PartyRead extends Component {
             }
           </div>
           <div className='col-6'>
-            <PartyComment></PartyComment>
+            {this.state.data.chimi !== undefined &&
+              <PartyComment hid={this.state.data.chimi.hid}></PartyComment>
+            }
           </div>
         </div>
       </>
