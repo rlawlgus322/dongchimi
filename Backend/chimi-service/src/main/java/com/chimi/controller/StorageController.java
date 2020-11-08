@@ -45,14 +45,15 @@ public class StorageController {
 	@GetMapping
 	@ApiOperation(value = "사용자의 보관함 조회")
 	public ResponseEntity<List<Storage>> searchStorage(@RequestHeader("accessToken") String access) {
-		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		List<Storage> list = storageService.findByStoragePKUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
-
-		if(list != null){
+		
+		try {
+			HashMap<String, Object> userinfo = userClient.getUserInfo(access);
+			List<Storage> list = storageService.findByStoragePKUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
 			return new ResponseEntity<>(list, HttpStatus.OK);
-		} else{
-			return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
 	}
 
 	@DeleteMapping("/{hid}")
