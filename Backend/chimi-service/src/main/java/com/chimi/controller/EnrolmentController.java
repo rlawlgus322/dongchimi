@@ -69,18 +69,42 @@ public class EnrolmentController {
 	@GetMapping("/{hid}")
 	@ApiOperation(value = "파티에 등록된 파티 사람 보기")
 	public ResponseEntity<List<Enrolment>> selectAllinParty(@PathVariable long hid) {
-		List<Enrolment> list = enrolmentService.findAllByHid(hid);
-		if(list == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		else return new ResponseEntity<>(list, HttpStatus.OK);
+		try {
+			List<Enrolment> list = enrolmentService.findAllByHid(hid);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 	
-	@GetMapping
+	@GetMapping("/registrant")
 	@ApiOperation(value = "나에게 등록된 사람 보기")
 	public ResponseEntity<List<Enrolment>> selectAll(@RequestHeader("accessToken") String access) {
-		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		List<Enrolment> list = enrolmentService.findAllByRoomUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
-		if(list == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		else return new ResponseEntity<>(list, HttpStatus.OK);
+		try {
+			HashMap<String, Object> userinfo = userClient.getUserInfo(access);
+			List<Enrolment> list = enrolmentService.findAllByRoomUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	@GetMapping("/all")
+	@ApiOperation(value = "내가 등록한 파티 보기")
+	public ResponseEntity<List<Enrolment>> selectAllEnrolment(@RequestHeader("accessToken") String access) {
+		try {
+			HashMap<String, Object> userinfo = userClient.getUserInfo(access);
+			List<Enrolment> list = enrolmentService.findAllByEnromentId(Long.parseLong(String.valueOf(userinfo.get("id"))));
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 	
 	@DeleteMapping
