@@ -48,7 +48,6 @@ const Register = ({history}) => {
 
   const [email, setEmail] = useState(null);
   const [nickname, setNickname] = useState(null);
-  const [category1, setCategory1] = useState(null);
   
   const signin = (e) => {
     e.preventDefault();
@@ -113,11 +112,6 @@ const Register = ({history}) => {
     setNickname({nickname: e.target.value})
   }
 
-  const changeCategory1 = (e) => {
-    // console.log('email',e.target.value);
-    setCategory1({category1: e.target.value})
-  }
-
   return (
     <RegisterBlock>
       <h1>회원가입</h1>
@@ -147,7 +141,7 @@ const Register = ({history}) => {
         </div>
         선호 카테고리
         <br/>
-        <select name="category1" onChange={changeCategory1}>
+        <select name="category1">
           <option>1순위</option>
           <option value="유화">유화</option>
           <option value="수채화">수채화</option>

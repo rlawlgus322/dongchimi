@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { NavLink, withRouter } from 'react-router-dom';
 import LoginModal from '../LoginModal';
+import _default from 'react-bootstrap/esm/CardColumns';
+import api from '../../utils/api';
 
 const Ul = styled.ul`
   list-style: none;
@@ -76,11 +78,13 @@ const Ul = styled.ul`
 
 const RightNav = ({ history, open }) => {
   const logged = sessionStorage.getItem('token') === null ? false : true;
+  const email = useState(null);
 
   function logout() {
     sessionStorage.removeItem('token');
     history.push("/");
-  }
+  };
+
   return (
     <Ul open={open}>
       <li><NavLink to="/">Home</NavLink></li>
@@ -99,6 +103,7 @@ const RightNav = ({ history, open }) => {
           </ul>
         </li>
       }
+      {/* <li><a onClick={del_user}>회원탈퇴</a></li> */}
 
     </Ul>
   )

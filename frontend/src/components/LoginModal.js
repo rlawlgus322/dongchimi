@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
+import { Modal, Container, Row, Col } from 'react-bootstrap';
 import ModalButton from '../components/common/Button';
 import api from '../utils/api';
 import styled from 'styled-components';
@@ -13,7 +13,7 @@ function LoginModal({history}) {
   const handleShow = () => setShow(true);
 
   const login = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     console.log(login, e)
     console.log("아이디 " + e.target.email.value)
     console.log("비밀번호 " + e.target.password.value)
