@@ -1,10 +1,10 @@
-import {readFileSync} from 'fs';
+var fs = require('fs');
 const express = require("express");
 const https = require("https");
 const app = express();
 const serverOption = {
-  key: readFileSync("./cert/server.key"),
-  cert: readFileSync("./cert/server.crt"),
+  key: fs.readFileSync("./cert/server.key"),
+  cert: fs.readFileSync("./cert/server.crt"),
 };
 const server = https.createServer(serverOption, app);
 const socket = require("socket.io");
