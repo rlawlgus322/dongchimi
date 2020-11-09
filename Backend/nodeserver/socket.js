@@ -16,7 +16,7 @@ const users = {};
 
 const socketToRoom = {};
 
-io.origins('*');
+io.origins('*:*');
 
 io.on('connection', socket => {
   socket.on("join room", roomID => {
