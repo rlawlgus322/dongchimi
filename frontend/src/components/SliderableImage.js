@@ -58,28 +58,29 @@ function SliderableImage(props) {
   const [index, setIndex] = useState(0);
   const [aniStart, setAniStart] = useState(false);
   const { images } = props;
+
+  const onClickButtonHandler = (indexController) => {
+    setAniStart(false);
+    setTimeout(() => {
+      setAniStart(true);
+      indexController();
+    }, 10);
+  };
+
+  const moveToPrevImage = () =>
+    setIndex(index === 0 ? images.length - 1 : index - 1);
+
+  const moveToNextImage = () =>
+    setIndex(index === images.length - 1 ? 0 : index + 1);
+
   return (
     <SliderableImageBody>
       <ImageSlider>
-        <SliderButton
-          onClick={() => {
-            // 나중에 중복 제거
-            setIndex(index === 0 ? images.length - 1 : index - 1);
-            setAniStart(true);
-            setTimeout(() => setAniStart(false), 500);
-          }}
-        >
+        <SliderButton onClick={() => onClickButtonHandler(moveToPrevImage)}>
           Prev
         </SliderButton>
         <MainImage aniStart={aniStart} src={images[index]} />
-        <SliderButton
-          onClick={() => {
-            // 나중에 중복 제거
-            setIndex(index === images.length - 1 ? 0 : index + 1);
-            setAniStart(true);
-            setTimeout(() => setAniStart(false), 500);
-          }}
-        >
+        <SliderButton onClick={() => onClickButtonHandler(moveToNextImage)}>
           Next
         </SliderButton>
       </ImageSlider>
