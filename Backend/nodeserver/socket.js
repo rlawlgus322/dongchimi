@@ -9,18 +9,12 @@ const serverOption = {
   cert: fs.readFileSync("./cert/server.crt"),
 };
 const server = https.createServer(serverOption, app);
-// const socket = require("socket.io");
-// const io = socket(server);
-// const io = require('socket.io')(https, {
-//   origins: '*:*'
-// });
-const io = require("socket.io")(server, { origins: '*:*' });
+const socket = require("socket.io");
+const io = socket(server);
 
 const users = {};
 
 const socketToRoom = {};
-
-// io.origins('*:*');
 
 io.on('connection', socket => {
   socket.on("join room", roomID => {
