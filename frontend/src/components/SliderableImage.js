@@ -59,7 +59,7 @@ function SliderableImage(props) {
   const [aniStart, setAniStart] = useState(false);
   const { images } = props;
 
-  const onClickButtonHandler = (indexController) => {
+  const ChangeImage = (indexController) => {
     setAniStart(false);
     setTimeout(() => {
       setAniStart(true);
@@ -76,17 +76,21 @@ function SliderableImage(props) {
   return (
     <SliderableImageBody>
       <ImageSlider>
-        <SliderButton onClick={() => onClickButtonHandler(moveToPrevImage)}>
+        <SliderButton onClick={() => ChangeImage(moveToPrevImage)}>
           Prev
         </SliderButton>
         <MainImage aniStart={aniStart} src={images[index]} />
-        <SliderButton onClick={() => onClickButtonHandler(moveToNextImage)}>
+        <SliderButton onClick={() => ChangeImage(moveToNextImage)}>
           Next
         </SliderButton>
       </ImageSlider>
       <ImageList>
-        {images.map((image) => (
-          <SmallImage key={image} src={image} />
+        {images.map((image, index) => (
+          <SmallImage
+            key={image}
+            src={image}
+            onClick={() => ChangeImage(() => setIndex(index))}
+          />
         ))}
       </ImageList>
     </SliderableImageBody>
