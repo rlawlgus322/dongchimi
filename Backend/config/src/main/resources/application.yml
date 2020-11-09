@@ -20,3 +20,12 @@ management:
   endpoint:
     env:
       enabled: true
+
+security:
+  require-ssl: true
+server:
+  ssl:
+    key-store: /etc/letsencrypt/live/example.com/keystore.p12
+    key-store-password: Ssafy1234
+    keyStoreType: PKCS12
+    keyAlias: tomcat
