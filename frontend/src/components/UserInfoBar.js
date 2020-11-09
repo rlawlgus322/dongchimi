@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const UserInfoBarBody = styled.div`
   display: flex;
-  width: 600px;
+  width: 640px;
   background-color: tomato;
 `;
 

@@ -2,6 +2,7 @@ import React from 'react';
 import UserInfoBar from 'components/UserInfoBar';
 import styled from 'styled-components';
 import SliderableImage from 'components/SliderableImage';
+import TextViewer from 'components/TextViewer';
 
 const images = [
   'https://images.unsplash.com/photo-1604724434236-a7cebeaa13e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
@@ -27,6 +28,7 @@ function BoastRead() {
         id="hideOnBush"
       />
       <SliderableImage images={images} />
+      <TextViewer text={'안녕하세연'} />
     </BoastReadBody>
   );
 }
