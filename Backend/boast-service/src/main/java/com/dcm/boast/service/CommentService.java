@@ -19,7 +19,7 @@ public interface CommentService {
 
 	Comment dislike(CommentStar commentStar);
 
-	boolean isLike(long id);
+	boolean isLike(long cid, long userId);
 
 	Comment insert(Comment comment);
 

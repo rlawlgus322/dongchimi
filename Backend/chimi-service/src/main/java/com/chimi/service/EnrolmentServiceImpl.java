@@ -40,4 +40,9 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	public Optional<Enrolment> findById(PKSet pk) {
 		return enrolmentRepository.findById(pk);
 	}
+
+	@Override
+	public List<Enrolment> findAllByEnromentId(long id) {
+		return enrolmentRepository.findAllByEnrolmentPKUserId(id);
+	}
 }

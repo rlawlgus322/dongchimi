@@ -1,5 +1,6 @@
 package com.chimi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class ChimiServiceImpl implements ChimiService{
 	@Override
 	public void deleteById(long hid) {
 		chimiRepository.deleteById(hid);
+	}
+
+	@Override
+	public Page<Chimi> findByUserId(long id,Pageable pageable) {
+		return  chimiRepository.findAllByUserId(id,pageable);
 	}
 }

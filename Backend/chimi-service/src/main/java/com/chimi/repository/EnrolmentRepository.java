@@ -15,4 +15,6 @@ public interface EnrolmentRepository extends CrudRepository<Enrolment, PKSet> {
 
 	List<Enrolment> findAllByEnrolmentPKChimiId(long hid);
 
+	List<Enrolment> findAllByEnrolmentPKUserId(long id);
+
 }
