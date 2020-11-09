@@ -161,4 +161,15 @@ def userRecommend():
     return jsonify({'recommendlist': recommendList})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8090,debug='True')
+    app.run(host='0.0.0.0',port=8090,debug='True',ssl_context=('/cert/server.crt', '/cert/server.key')))
+
+
+
+security:
+  require-ssl: true
+server:
+  ssl:
+    key-store: /etc/letsencrypt/live/example.com/keystore.p12
+    key-store-password: Ssafy1234
+    keyStoreType: PKCS12
+    keyAlias: tomcat
