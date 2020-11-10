@@ -20,8 +20,6 @@ const users = {};
 
 const socketToRoom = {};
 
-
-
 io.on('connection', socket => {
   socket.on("join room", roomID => {
     if (users[roomID]) {
