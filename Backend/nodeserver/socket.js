@@ -1,8 +1,13 @@
 var fs = require('fs');
-var cors = require('cors');
+var cors = require("cors");
 const express = require("express");
 const https = require("https");
 const app = express();
+// const corsOptions = {
+//   origin: 'https://localhost:3000',
+//   credentials: true,
+// }
+// app.use(cors(corsOptions));
 app.use(cors());
 const serverOption = {
   key: fs.readFileSync("./cert/server.key"),
@@ -17,7 +22,9 @@ const users = {};
 const socketToRoom = {};
 
 io.on('connection', socket => {
+  console.log('connection');
   socket.on("join room", roomID => {
+    console.log('join room');
     if (users[roomID]) {
       const length = users[roomID].length;
       if (length === 4) {
