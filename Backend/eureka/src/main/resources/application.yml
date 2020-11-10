@@ -1,7 +1,11 @@
 #Default port is 8761
 server:
   port: 8761
-
+  ssl:
+    key-store: /etc/letsencrypt/live/k3a409.p.ssafy.io/keystore.p12
+    key-store-password: Ssafy1234
+    keyStoreType: PKCS12
+    keyAlias: tomcat
 
 eureka:
   client:
@@ -21,9 +25,3 @@ logging:
 
 security:
   require-ssl: true
-server:
-  ssl:
-    key-store: /etc/letsencrypt/live/k3a409.p.ssafy.io/keystore.p12
-    key-store-password: Ssafy1234
-    keyStoreType: PKCS12
-    keyAlias: tomcat
