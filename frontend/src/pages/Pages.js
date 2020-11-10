@@ -7,6 +7,7 @@ import BoastRead from './boast/BoastRead';
 import Main from './Main';
 import MyPage from './mypage/MyPage';
 import Register from './mypage/Register';
+import Update from './mypage/Update';
 import PartyList from './party/PartyList';
 import PartyRead from './party/PartyRead';
 import PartyWrite from './party/PartyWrite';
@@ -32,6 +33,7 @@ function Pages() {
           <Route exact path="/mypage" component={MyPage} />
           <Route exact path="/mypage/party/:id" component={PartyRead} /> {/** 내가 속한 파티 상세 */}
           <Route exact path="/register" component={Register} />
+          <Route exact path="/update" component={Update} />
         </Switch>
       </div>
       <Footer></Footer>
