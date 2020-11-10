@@ -25,9 +25,9 @@ eureka:
     serviceUrl:
         defaultZone: https://k3a409.p.ssafy.io:8761/eureka/
   instance:
-    statusPageUrl: https://${eureka.hostname}:${eureka.instance.secure-port}/info
-    healthCheckUrl: https://${eureka.hostname}:${eureka.instance.secure-port}/health
-    homePageUrl: https://${eureka.hostname}:${eureka.instance.secure-port}/
+    statusPageUrl: https://${eureka.instance.hostname}}:${eureka.instance.secure-port}/info
+    healthCheckUrl: https://${eureka.instance.hostname}}:${eureka.instance.secure-port}/health
+    homePageUrl: https://${eureka.instance.hostname}}:${eureka.instance.secure-port}/
 
 
 #debug:
