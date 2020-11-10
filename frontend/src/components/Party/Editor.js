@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 
 // #1 import quill-image-uploader
 import ImageUploader from "quill-image-uploader";
+import multipart from "../../utils/multipart";
 
 // #2 register module
 Quill.register("modules/imageUploader", ImageUploader);
@@ -28,24 +29,16 @@ class Editor extends Component {
       upload: file => {
         return new Promise((resolve, reject) => {
           const formData = new FormData();
-          formData.append("image", file);
+          formData.append("file", file);
 
-          fetch(
-            "https://api.imgbb.com/1/upload?key=d36eb6591370ae7f9089d85875e56b22",
-            {
-              method: "POST",
-              body: formData
-            }
-          )
-            .then(response => response.json())
-            .then(result => {
-              console.log(result);
-              resolve(result.data.url);
-            })
-            .catch(error => {
+          multipart.post('/hobby/chimi/image', formData)
+            .then(({ data }) => {
+              const url = "http://k3a409.p.ssafy.io" + data;
+              resolve(url);
+            }).catch((err) => {
               reject("Upload failed");
-              console.error("Error:", error);
-            });
+              console.log(err);
+            })
         });
       }
     }
@@ -74,6 +67,7 @@ class Editor extends Component {
   render() {
     return (
       <ReactQuill
+        style={{ height: "100%" }}
         theme="snow"
         modules={this.modules}
         formats={this.formats}
