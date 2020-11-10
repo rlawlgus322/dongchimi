@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Main from './pages/Main';
 import Pages from './pages/Pages';
+import Room from './pages/party/Room';
 
 library.add(faEye, faHeart, fasHeart, faCommentDots);
 
@@ -23,6 +24,7 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path="/" component={Main} />
+          <Route exact path="/party/room/:id" component={Room} />
           <Route path="/" component={Pages} />
         </Switch>
       </div>
