@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MypageTab from '../../components/MypageTab';
+import MypageTab from '../../components/mypage/MypageTab';
 import { Container, Row, Col } from 'react-bootstrap';
 import api from '../../utils/api';
 
@@ -21,21 +21,21 @@ class MyPage extends Component {
           accessToken: this_token,
         }
       })
-      .then(res => {
-        // console.log("res " + JSON.stringify(res))
-        // const userinfo = res.data
-        this.setState({userInfo: res.data});
-        // this.state.userInfo = res.data
-        console.log('userinfo', this.state.userInfo);
-        // console.log(JSON.stringify(this.state.userinfo))
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(res => {
+          // console.log("res " + JSON.stringify(res))
+          // const userinfo = res.data
+          this.setState({ userInfo: res.data });
+          // this.state.userInfo = res.data
+          console.log('userinfo', this.state.userInfo);
+          // console.log(JSON.stringify(this.state.userinfo))
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
     fetchUserinfo()
   }
-  
+
   render() {
     return (
       <Container>
@@ -55,7 +55,7 @@ class MyPage extends Component {
         </Row>
       </Container>
     );
-    }
+  }
 }
 
 export default MyPage;

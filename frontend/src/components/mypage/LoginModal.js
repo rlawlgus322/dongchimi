@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Modal, Container, Row, Col } from 'react-bootstrap';
-import ModalButton from '../components/common/Button';
-import api from '../utils/api';
+import ModalButton from '../common/Button';
+import api from '../../utils/api';
 import styled from 'styled-components';
-import palette from '../lib/styles/palette';
+import palette from '../../lib/styles/palette'
 
 function LoginModal({ history }) {
   const [show, setShow] = useState(false);

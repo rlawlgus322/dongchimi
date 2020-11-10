@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Nav } from 'react-bootstrap';
 // import ReactDOM from 'react-dom';
-import OpenParty from './mypage/OpenParty';
-import JoinParty from './mypage/JoinParty';
-import JoinedParty from './mypage/JoinedParty';
-import LikeParty from './mypage/LikeParty';
+import OpenParty from './OpenParty';
+import JoinParty from './JoinParty';
+import JoinedParty from './JoinedParty';
+import LikeParty from './LikeParty';
 
 const obj = {
   0: <OpenParty />,

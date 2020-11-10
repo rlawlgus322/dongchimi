@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import LoginModal from '../components/LoginModal';
+import LoginModal from '../components/mypage/LoginModal';
 
 class Main extends Component {
   constructor(props) {

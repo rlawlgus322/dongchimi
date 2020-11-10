@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink, withRouter } from 'react-router-dom';
-import LoginModal from '../LoginModal';
+import LoginModal from '../mypage/LoginModal';
 import _default from 'react-bootstrap/esm/CardColumns';
 import api from '../../utils/api';
 
