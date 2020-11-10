@@ -30,9 +30,9 @@ eureka:
   instance:
     secure-port: 5555
     hostname: k3a409.p.ssafy.io
-    statusPageUrl: https://${eureka.instance.hostname}}:${eureka.instance.secure-port}/info
-    healthCheckUrl: https://${eureka.instance.hostname}}:${eureka.instance.secure-port}/health
-    homePageUrl: https://${eureka.instance.hostname}}:${eureka.instance.secure-port}/
+    statusPageUrl: https://${eureka.instance.hostname}:${eureka.instance.secure-port}/info
+    healthCheckUrl: https://${eureka.instance.hostname}:${eureka.instance.secure-port}/health
+    homePageUrl: https://${eureka.instance.hostname}:${eureka.instance.secure-port}/
 
 
 #debug:
