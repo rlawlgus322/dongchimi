@@ -82,6 +82,7 @@ const RightNav = ({ history, open }) => {
 
   function logout() {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('uid');
     history.push("/");
   };
 

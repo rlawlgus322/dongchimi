@@ -8,24 +8,23 @@ class Main extends Component {
   }
 
   render() {
-    const logged = sessionStorage.getItem('token')===null ? false : true; 
+    const logged = sessionStorage.getItem('token') === null ? false : true;
 
     return (
-      
+
       <div>
         Main
         <ul>
           <NavLink to="/party"><li>Party</li></NavLink>
           <NavLink to="/recommend"><li>추천</li></NavLink>
           <NavLink to="/boast"><li>자랑게시판</li></NavLink>
-          {logged && 
+          {logged &&
             <NavLink to="/mypage"><li>마이페이지</li></NavLink>
           }
           {!logged &&
             <li><LoginModal></LoginModal></li>
           }
         </ul>
-        <img src="C:\Users\multicampus\Pictures\user2.png"/>
       </div>
     );
   }
