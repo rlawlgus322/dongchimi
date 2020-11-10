@@ -8,6 +8,7 @@ class MyPage extends Component {
     super(props);
     this.state = {
       userInfo: '',
+      image: '',
     }
   }
   componentDidMount() {
@@ -25,6 +26,10 @@ class MyPage extends Component {
           // console.log("res " + JSON.stringify(res))
           // const userinfo = res.data
           this.setState({ userInfo: res.data });
+          console.log("이미지 주소 " + res.data.progileImage)
+          const path = 'https://k3a409.p.ssafy.io' + res.data.progileImage
+          this.setState({image: path});
+          console.log("이미지주소 22 " + this.state.image)
           // this.state.userInfo = res.data
           console.log('userinfo', this.state.userInfo);
           // console.log(JSON.stringify(this.state.userinfo))
@@ -41,13 +46,14 @@ class MyPage extends Component {
       <Container>
         <Row>
           <Col>
-            <div>프로필 사진</div>
-            <img src={this.state.userInfo.profileImage} alt=""></img>
+            <img src={this.state.image} alt="" width="75%"></img>
           </Col>
           <Col>
-            <div>사용자 정보</div>
-            <div>{this.state.userInfo.email}</div>
-            <div>{this.state.userInfo.nickname}</div>
+            <div>이메일: {this.state.userInfo.email}</div>
+            <div>이름: {this.state.userInfo.username}</div>
+            <div>성별: {this.state.userInfo.gender === 1 ? "여성" : "남성"}</div>
+            <div>닉네임: {this.state.userInfo.email}</div>
+            <div>선호 카테고리: 1순위-{this.state.userInfo.category1}/2순위-{this.state.userInfo.category2}/3순위-{this.state.userInfo.category3}</div>
           </Col>
         </Row>
         <Row>

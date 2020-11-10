@@ -43,6 +43,24 @@ const StyledInput = styled.input`
   }
 `;
 
+const StyledInputWithBlock = styled.input`
+  font-size: 1.25rem;
+  border: none;
+  border-bottom: 1px solid ${palette.gray[5]};
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  padding-bottom: 0.5rem
+  outline: none;
+  width: 75%;
+  %:focus {
+    color $oc-teal-7;
+    border-bottom: 1px solid ${palette.gray[7]};
+  }
+  & + & {
+    margin-top: 1rem;
+  }
+`;
+
 
 const Register = ({history}) => {
 
@@ -118,14 +136,14 @@ const Register = ({history}) => {
       {/* <RegisterForm /> */}
       <AuthFormBlock>
       <form onSubmit={signin}>
-        <StyledInput type="text" name="email" placeholder="email" 
+        <StyledInputWithBlock type="text" name="email" placeholder="email" 
           onChange={changeEmail}
         />
         <Button onClick={eCheck}>중복확인</Button>
         <StyledInput type="password" name="password" placeholder="password" />
         <StyledInput type="password" name="passwordConfirm" placeholder="password Confirm" />
         <StyledInput type="text" name="name" placeholder="name" />
-        <StyledInput type="text" name="nickname" placeholder="nickname"
+        <StyledInputWithBlock type="text" name="nickname" placeholder="nickname"
           onChange={changeNickname}
         />
         <Button onClick={nCheck}>중복확인</Button>

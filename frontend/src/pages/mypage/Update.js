@@ -53,7 +53,7 @@ class Update extends Component {
       .then(res => {
         this.setState({userInfo: res.data});
         this.setState({nickname: res.data.nickname})
-        this.setState({preview: res.data.profileImage})
+        this.setState({preview: 'https://k3a409.p.ssafy.io' + res.data.profileImage})
         console.log("유저인포 " + JSON.stringify(this.state.userInfo))
       })
       .catch(err => {
@@ -164,7 +164,7 @@ class Update extends Component {
             {/** 대표 이미지 */}
             <div className="col-md-5 col-12" style={{ width: "15%", height: "15%" }}>
               {this.state.preview !== '' &&
-                < img alt="Thumbnail" src={this.state.preview} style={{ width: "300px", height: "300px" }} />
+                <img src={this.state.preview} alt="" style={{ width: "300px", height: "300px" }} />
               }
               <input type="file" name="image"
                 accept=".jpg, .jpeg, .png"
@@ -173,7 +173,6 @@ class Update extends Component {
             </div>
           </Col>
           <Col>
-            <div>사용자 정보</div>
             <AuthFormBlock>
             <form onSubmit={this.update.bind(this)}>
               <div>이메일: {this.state.userInfo.email}</div>
