@@ -5,6 +5,11 @@ management:
         include: "*"
 server:
   port: 5555
+  ssl:
+    key-store: /etc/letsencrypt/live/k3a409.p.ssafy.io/keystore.p12
+    key-store-password: Ssafy1234
+    keyStoreType: PKCS12
+    keyAlias: tomcat
 
   #Setting logging levels
 logging:
@@ -42,9 +47,3 @@ zuul:
 
 security:
   require-ssl: true
-server:
-  ssl:
-    key-store: /etc/letsencrypt/live/example.com/keystore.p12
-    key-store-password: Ssafy1234
-    keyStoreType: PKCS12
-    keyAlias: tomcat
