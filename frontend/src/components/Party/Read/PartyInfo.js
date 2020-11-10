@@ -9,7 +9,7 @@ class PartyInfo extends Component {
         <div className='row'>
           {
             this.props.data.chimi !== undefined &&
-            <div className='col-md-5 col-8' style={{ backgroundImage: `url(http://k3a409.p.ssafy.io${this.props.data.chimi.image})` }} />
+            <div className='col-md-5 col-8' style={{ backgroundImage: `url(https://k3a409.p.ssafy.io${this.props.data.chimi.image})` }} />
           }
           <div className='col-md-7 col-8'>
             {

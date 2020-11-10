@@ -33,7 +33,7 @@ class Editor extends Component {
 
           multipart.post('/hobby/chimi/image', formData)
             .then(({ data }) => {
-              const url = "http://k3a409.p.ssafy.io" + data;
+              const url = "https://k3a409.p.ssafy.io" + data;
               resolve(url);
             }).catch((err) => {
               reject("Upload failed");

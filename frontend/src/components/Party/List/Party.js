@@ -7,7 +7,7 @@ class Party extends Component {
     let backgroundImage
     if (this.props.party.chimi.image !== null) {
       backgroundImage = {
-        backgroundImage: `url(http://k3a409.p.ssafy.io${this.props.party.chimi.image})`
+        backgroundImage: `url(https://k3a409.p.ssafy.io${this.props.party.chimi.image})`
       }
     } else {
       backgroundImage = {
