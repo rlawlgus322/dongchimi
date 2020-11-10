@@ -43,7 +43,7 @@ const SliderButton = styled.button`
 `;
 
 const ImageList = styled.div`
-  width: 100%;
+  width: 80%;
   height: 20%;
   background-color: skyblue;
 `;

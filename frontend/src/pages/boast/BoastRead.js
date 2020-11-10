@@ -3,6 +3,8 @@ import UserInfoBar from 'components/UserInfoBar';
 import styled from 'styled-components';
 import SliderableImage from 'components/SliderableImage';
 import TextViewer from 'components/TextViewer';
+import ArticleInfoIcons from 'components/ArticleInfoIcons';
+import CommentWriting from 'components/CommentWriting';
 
 const images = [
   'https://images.unsplash.com/photo-1604724434236-a7cebeaa13e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
@@ -16,19 +18,53 @@ const BoastReadBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: teal;
   width: 100%;
+`;
+
+const InnerBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: teal;
+  width: 800px;
+`;
+
+const FlexEnd = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const HorizontalLine = styled.div`
+  border-bottom: 2px solid blueviolet;
+  width: 100%;
+  height: 10px;
+`;
+
+const Width80Percent = styled.div`
+  width: 80%;
 `;
 
 function BoastRead() {
   return (
     <BoastReadBody>
-      <UserInfoBar
-        thumbnail="https://avatars0.githubusercontent.com/u/33210021?s=60&v=4"
-        id="hideOnBush"
-      />
-      <SliderableImage images={images} />
-      <TextViewer text={'안녕하세연'} />
+      <InnerBody>
+        <Width80Percent>
+          <UserInfoBar
+            thumbnail="https://avatars0.githubusercontent.com/u/33210021?s=60&v=4"
+            id="hideOnBush"
+          />
+        </Width80Percent>
+        <SliderableImage images={images} />
+        <Width80Percent>
+          <TextViewer text={'안녕하세연'} />
+          <FlexEnd>
+            <ArticleInfoIcons isLike={true} />
+          </FlexEnd>
+          <HorizontalLine />
+          <CommentWriting />
+        </Width80Percent>
+      </InnerBody>
     </BoastReadBody>
   );
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const TextViewerBody = styled.div`
   background-color: ivory;
-  width: 80%;
+  width: 100%;
   height: 6em;
 `;
 
