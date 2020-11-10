@@ -4,14 +4,17 @@ const express = require("express");
 const https = require("https");
 const app = express();
 app.use(cors());
-// const serverOption = {
-//   key: fs.readFileSync("./cert/server.key"),
-//   cert: fs.readFileSync("./cert/server.crt"),
-// };
-const server = https.createServer( app);
-const socket = require("socket.io");
-const io = socket(server);
-
+const serverOption = {
+  key: fs.readFileSync("./cert/server.key"),
+  cert: fs.readFileSync("./cert/server.crt"),
+};
+const server = https.createServer(serverOption, app);
+// const socket = require("socket.io");
+// const io = socket(server);
+const io = require('socket.io')(https, {
+    origins: '*:*'
+  });
+  
 const users = {};
 
 const socketToRoom = {};
