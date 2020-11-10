@@ -23,7 +23,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-        defaultZone: https://k3a409.p.ssafy.io:8761/eureka/
+        defaultZone: https://localhost:8761/eureka/
 
 
 
