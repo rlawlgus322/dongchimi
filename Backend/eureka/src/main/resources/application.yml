@@ -23,7 +23,7 @@ security:
   require-ssl: true
 server:
   ssl:
-    key-store: /etc/letsencrypt/live/example.com/keystore.p12
+    key-store: /etc/letsencrypt/live/k3a409.p.ssafy.io/keystore.p12
     key-store-password: Ssafy1234
     keyStoreType: PKCS12
     keyAlias: tomcat
