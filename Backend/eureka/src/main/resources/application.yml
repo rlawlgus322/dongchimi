@@ -8,6 +8,8 @@ server:
     keyAlias: tomcat
 
 eureka:
+  instance:
+    hostname: k3a409.p.ssafy.io
   client:
     registerWithEureka: false
     fetchRegistry: false
