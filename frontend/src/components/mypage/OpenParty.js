@@ -38,10 +38,10 @@ class OpenParty extends Component {
     }).then(({data}) => {
       // console.log("res",res);
       // console.log("파티 데이터 " + JSON.stringify(res.data))
-      console.log("파티 데이터 ", data.content)
+      // console.log("파티 데이터 ", data.content)
       this.setState({parties: data.content});
       // setParties(data)
-      console.log("파티 ", this.state.parties)
+      // console.log("파티 ", this.state.parties)
     }).catch((err) => {
       console.log(err);
     })

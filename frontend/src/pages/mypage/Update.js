@@ -53,9 +53,9 @@ class Update extends Component {
       .then(res => {
         this.setState({userInfo: res.data});
         this.setState({nickname: res.data.nickname})
-        console.log("프로필이미지 " + res.data.profileImage)
+        // console.log("프로필이미지 " + res.data.profileImage)
         this.setState({preview: 'https://k3a409.p.ssafy.io' + res.data.profileImage})
-        console.log("유저인포 " + JSON.stringify(this.state.userInfo))
+        // console.log("유저인포 " + JSON.stringify(this.state.userInfo))
       })
       .catch(err => {
         console.log(err)
@@ -106,10 +106,11 @@ class Update extends Component {
 
   nCheck(e) {
     e.preventDefault();
-    console.log(this.state.nickname)
+    // console.log(this.state.nickname)
     api.get(`auth/userinfo/isemail/${this.state.nickname}`)
     .then(({data}) => {
-      console.log(data)
+      if (data === true) alert("이미 존재하는 닉네임입니다.")
+      else alert("사용 가능한 닉네임입니다.")
     })
     .catch(err => {
       console.log(err)
@@ -141,7 +142,7 @@ class Update extends Component {
   }
 
   del_user() {
-    console.log("회원탈퇴 " + this.state.userInfo.email)
+    // console.log("회원탈퇴 " + this.state.userInfo.email)
     // alert("정말 탈퇴하시겠습니까?")
     api.delete(`auth/userinfo/${this.state.userInfo.eamil}`, {
       headers : {

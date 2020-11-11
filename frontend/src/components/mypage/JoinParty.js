@@ -17,7 +17,7 @@ class JoinParty extends Component {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log("참가한 파티 목록 " + data);
+      // console.log("참가한 파티 목록 " + data);
       this.setState({ parties: data });
     }).catch((err) => {
       console.log(err);

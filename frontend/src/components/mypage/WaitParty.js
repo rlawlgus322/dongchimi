@@ -17,7 +17,7 @@ class WaitParty extends Component {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log("wait 데이타~" + JSON.stringify(data))
+      // console.log("wait 데이타~" + JSON.stringify(data))
       this.setState({ parties: data });
     }).catch((err) => {
       console.log(err);
