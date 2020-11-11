@@ -87,7 +87,7 @@ public class UserController {
             userinfoResponse.gender = user.getGender();
             userinfoResponse.nickname =  user.getNickname();
             userinfoResponse.username = user.getUsername();
-            userinfoResponse.progileImage = user.getProfileimage();
+            userinfoResponse.profileImage = user.getProfileimage();
             userinfoResponse.prefer1 = user.getPrefer1();
             userinfoResponse.prefer2 = user.getPrefer2();
             userinfoResponse.prefer3 = user.getPrefer3();
