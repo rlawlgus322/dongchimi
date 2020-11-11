@@ -1,8 +1,10 @@
 package com.chimi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.chimi.model.Enrolment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,5 +41,15 @@ public class ChimiServiceImpl implements ChimiService{
 	@Override
 	public Page<Chimi> findByUserId(long id,Pageable pageable) {
 		return  chimiRepository.findAllByUserId(id,pageable);
+	}
+
+	@Override
+	public List<Chimi> findByChimiId(List<Enrolment> list) {
+		List<Chimi> chimiList = new ArrayList<>();
+		for (int i =0; i<list.size(); i++){
+			Chimi chimi = chimiRepository.getChimiByHid(list.get(i).getEnrolmentPK().getChimiId());
+			chimiList.add(chimi);
+		}
+		return chimiList;
 	}
 }
