@@ -88,6 +88,9 @@ public class UserController {
             userinfoResponse.nickname =  user.getNickname();
             userinfoResponse.username = user.getUsername();
             userinfoResponse.progileImage = user.getProfileimage();
+            userinfoResponse.prefer1 = user.getPrefer1();
+            userinfoResponse.prefer2 = user.getPrefer2();
+            userinfoResponse.prefer3 = user.getPrefer3();
             entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
