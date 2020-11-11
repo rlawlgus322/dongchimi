@@ -94,13 +94,23 @@ public class User {
     }
 
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
-				+ ", nickname=" + nickname + ", gender=" + gender + ", profileimage=" + profileimage + ", star=" + star
-				+ ", num=" + num + ", prefer1=" + prefer1 + ", prefer2=" + prefer2 + ", prefer3=" + prefer3
-				+ ", create_at=" + create_at + ", roles=" + roles + "]";
-	}
-    
-    
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", gender=" + gender +
+                ", profileimage='" + profileimage + '\'' +
+                ", star=" + star +
+                ", num=" + num +
+                ", prefer1='" + prefer1 + '\'' +
+                ", prefer2='" + prefer2 + '\'' +
+                ", prefer3='" + prefer3 + '\'' +
+                ", create_at=" + create_at +
+                ", roles=" + roles +
+                '}';
+    }
 }
