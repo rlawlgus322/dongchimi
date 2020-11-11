@@ -1,60 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import api from '../../utils/api';
-import { Card, CardDeck } from 'react-bootstrap';
 
-function LikeParty() {
-  const { parties, setParties } = useState();
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import GridListTileBar from '@material-ui/core/GridListTileBar'
 
-  useEffect(() => {
+class LikeParty extends Component {
+  state = {
+    parties: [],
+  }
+
+  componentDidMount() {
     api.get('/hobby/storage', {
       headers: {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log(data);
-      setParties(data);
+      console.log("찜파티 " + JSON.stringify(data))
+      this.setState({ parties: data });
     }).catch((err) => {
       console.log(err);
     })
-  }, []);
+  }
 
-  return (
-    <CardDeck>
-      <Card>
-        <Link to="/">
-          <Card.Img variant="top" src="" />
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-          </Card.Body>
-        </Link>
-      </Card>
-      <Card>
-        <Link to="/">
-          <Card.Img variant="top" src="" />
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-          </Card.Body>
-        </Link>
-      </Card>
-      <Card>
-        <Link to="/">
-          <Card.Img variant="top" src="" />
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-          </Card.Body>
-        </Link>
-      </Card>
-      <Card>
-        <Link to="/">
-          <Card.Img variant="top" src="https://lab.ssafy.com/s03-final/s03p31a409/uploads/3960e6fd2eed33ded85590499d95b729/7FB9DDA2-C9B7-473B-BD78-282A33AA084F-9716-000009E931E8FB4C_file.jpg" />
-          <Card.Body>
-            <Card.Title>Card title</Card.Title>
-          </Card.Body>
-        </Link>
-      </Card>
-    </CardDeck>
-  )
+  render() {
+    return (
+      <>
+        {this.state.parties.length > 0 ?
+          <GridList cellHeight={200} className="gridList" cols={4}>
+            {this.state.parties.map((v, idx) => (
+              <GridListTile key={idx}
+                onClick={() => this.props.history.push(`/mypage/party/${v.hid}`)}>
+                <img src={"https://k3a409.p.ssafy.io" + v.image} alt="" />
+                <GridListTileBar
+                  title={v.name} />
+              </GridListTile>
+            ))}
+          </GridList>
+          : <h1>찜한 파티가 없습니다.</h1> }
+      </>
+    )
+  }
 }
 
-export default LikeParty
+export default withRouter(LikeParty)

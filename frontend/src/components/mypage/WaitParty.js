@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import api from '../../utils/api';
-import { Card, CardDeck } from 'react-bootstrap';
+
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import GridListTileBar from '@material-ui/core/GridListTileBar'
 
 class WaitParty extends Component {
   state = {
-    data: [],
+    parties: [],
   }
 
   componentDidMount() {
@@ -14,8 +17,8 @@ class WaitParty extends Component {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log(data);
-      this.setState({ data: data });
+      console.log("wait 데이타~" + JSON.stringify(data))
+      this.setState({ parties: data });
     }).catch((err) => {
       console.log(err);
     })
@@ -23,42 +26,22 @@ class WaitParty extends Component {
 
   render() {
     return (
-      <CardDeck>
-        <Card>
-          <Link to="/">
-            <Card.Img variant="top" src="" />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-            </Card.Body>
-          </Link>
-        </Card>
-        <Card>
-          <Link to="/">
-            <Card.Img variant="top" src="" />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-            </Card.Body>
-          </Link>
-        </Card>
-        <Card>
-          <Link to="/">
-            <Card.Img variant="top" src="https://lab.ssafy.com/s03-final/s03p31a409/uploads/3960e6fd2eed33ded85590499d95b729/7FB9DDA2-C9B7-473B-BD78-282A33AA084F-9716-000009E931E8FB4C_file.jpg" />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-            </Card.Body>
-          </Link>
-        </Card>
-        <Card>
-          <Link to="/">
-            <Card.Img variant="top" src="" />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-            </Card.Body>
-          </Link>
-        </Card>
-      </CardDeck>
+      <div>
+        {this.state.parties.length > 0 ?
+          <GridList cellHeight={200} className="gridList" cols={4}>
+            {this.state.parties.map((v, idx) => (
+              <GridListTile key={idx}
+                onClick={() => this.props.history.push(`/mypage/party/${v.hid}`)}>
+                <img src={"https://k3a409.p.ssafy.io" + v.image} alt="" />
+                <GridListTileBar
+                  title={v.name} />
+              </GridListTile>
+            ))}
+          </GridList>
+        : <h1>신청한 파티가 없습니다.</h1> }
+      </div>
     )
   }
 }
 
-export default WaitParty;
+export default withRouter(WaitParty);

@@ -100,7 +100,9 @@ const Register = ({history}) => {
     // console.log('eCheck email', check_email);
     api.get(`auth/userinfo/isemail/${email.email}`)
     .then(({data}) => {
-      console.log(data)
+      console.log("echeck " + data)
+      if (data === true) alert("이미 존재하는 이메일입니다.")
+      else alert("사용 가능한 이메일입니다.")
     })
     .catch(err => {
       console.log(err)
@@ -113,7 +115,9 @@ const Register = ({history}) => {
     // console.log("닉네임 " + nickname.nickname)
     api.get(`auth/userinfo/isemail/${nickname.nickname}`)
     .then(({data}) => {
-      console.log(data)
+      console.log("ncheck " + data)
+      if (data === true) alert("이미 존재하는 닉네임입니다.")
+      else alert("사용 가능한 닉네임입니다.")
     })
     .catch(err => {
       console.log(err)
