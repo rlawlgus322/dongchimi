@@ -1,5 +1,7 @@
 package com.chimi.controller;
 
+import com.chimi.model.Chimi;
+import com.chimi.service.ChimiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,8 @@ public class StorageController {
 	StorageService storageService;
 	@Autowired
     UserClient userClient;
+	@Autowired
+	ChimiService chimiService;
 	@PostMapping("/{hid}")
 	@ApiOperation(value = "보관함에 저장")
 	public ResponseEntity<String> insertStorage(@RequestHeader("accessToken") String access,@PathVariable long hid) {
@@ -44,12 +48,13 @@ public class StorageController {
 	
 	@GetMapping
 	@ApiOperation(value = "사용자의 보관함 조회")
-	public ResponseEntity<List<Storage>> searchStorage(@RequestHeader("accessToken") String access) {
+	public ResponseEntity<List<Chimi>> searchStorage(@RequestHeader("accessToken") String access) {
 		
 		try {
 			HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 			List<Storage> list = storageService.findByStoragePKUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
-			return new ResponseEntity<>(list, HttpStatus.OK);
+			List<Chimi> relist = chimiService.findByChimiIdStore(list);
+			return new ResponseEntity<>(relist, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
