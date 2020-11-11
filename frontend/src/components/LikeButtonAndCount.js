@@ -4,13 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const LikeButtonAndCountBody = styled.span`
   display: flex;
-  margin: 0px 5px;
+  margin: 0px 10px;
 `;
 
 const LikeButton = styled.button`
   border: none;
   background-color: rgba(0, 0, 0, 0);
-  &::focus {
+  padding: 0px;
+  margin-right: 5px;
+  &:focus {
     outline: none;
   }
 `;
