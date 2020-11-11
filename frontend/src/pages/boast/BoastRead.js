@@ -53,6 +53,7 @@ function BoastRead() {
           <UserInfoBar
             thumbnail="https://avatars0.githubusercontent.com/u/33210021?s=60&v=4"
             id="hideOnBush"
+            isMoreButton={true}
           />
         </Width80Percent>
         <SliderableImage images={images} />

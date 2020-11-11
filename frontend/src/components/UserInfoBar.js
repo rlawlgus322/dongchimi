@@ -28,13 +28,13 @@ const MoreButton = styled.button`
 `;
 
 function UserInfoBar(props) {
-  const { thumbnail, id } = props;
+  const { thumbnail, id, isMoreButton } = props;
 
   return (
     <UserInfoBarBody>
       <Thumbnail src={thumbnail} alt="User thumbnail" />
       <UserId>{id}</UserId>
-      <MoreButton>•••</MoreButton>
+      {isMoreButton && <MoreButton>•••</MoreButton>}
     </UserInfoBarBody>
   );
 }
