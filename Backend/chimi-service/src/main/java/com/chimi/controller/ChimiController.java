@@ -233,7 +233,6 @@ public class ChimiController {
 	private ResponseEntity<?> create(@RequestParam(value = "file") MultipartFile image) {
 		ResponseEntity<?> entity = null;
 		try {
-			String path = fileService.image(image);
 			entity = new ResponseEntity<>(fileService.image(image), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
