@@ -55,13 +55,14 @@ public class ApplicationContorller {
 
 	@GetMapping("/applicant")
 	@ApiOperation(value = "내가 신청한 파티 신청 조회")
-	public ResponseEntity<List<Application>> searchApplication(@RequestHeader("accessToken") String access) {
+	public ResponseEntity<List<Chimi>> searchApplication(@RequestHeader("accessToken") String access) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 		List<Application> list = applicationService.findByApplicationPKUserId(Long.parseLong(String.valueOf(userinfo.get("id"))));
+		List<Chimi> relist = chimiService.findByChimiIdApp(list);
 		if (list == null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		else
-			return new ResponseEntity<>(list, HttpStatus.OK);
+			return new ResponseEntity<>(relist, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/applicant/{hid}")
