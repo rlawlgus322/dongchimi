@@ -33,6 +33,7 @@ public class FileServiceImpl implements FileService {
         }
 
         String fileName = UUID.randomUUID().toString() + originFilename.substring(originFilename.indexOf('.'));
+        String type = originFilename.substring(originFilename.indexOf('.'), originFilename.length());
 
 //        try {
             FileOutputStream fos = new FileOutputStream(PATH + fileName);
@@ -45,11 +46,13 @@ public class FileServiceImpl implements FileService {
 //        }
         BufferedImage originalImage = ImageIO.read(new File(PATH + fileName));
         int imgwidth = Math.min(originalImage.getHeight(),  originalImage.getWidth());
-
+        if(imgwidth > 500){
+            imgwidth = 500;
+        }
         int imgheight = imgwidth;
 
-        BufferedImage resizedImage = Scalr.resize(originalImage, 300, 300, null);
-        ImageIO.write(resizedImage, "jpg", new File(PATH + fileName));
+        BufferedImage resizedImage = Scalr.resize(originalImage, imgwidth, imgwidth, null);
+        ImageIO.write(resizedImage, type, new File(PATH + fileName));
         return SENDPATH + fileName;
 
     }

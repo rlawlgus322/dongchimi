@@ -232,7 +232,7 @@ public class UserController {
             String userEmail = jwtUtils.getUserNameFromJwtToken(access);
             String path = fileService.image(image);
             userService.updateProfileImage(userEmail, path);
-            entity = new ResponseEntity<>(fileService.image(image), HttpStatus.OK);
+            entity = new ResponseEntity<>(path, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
