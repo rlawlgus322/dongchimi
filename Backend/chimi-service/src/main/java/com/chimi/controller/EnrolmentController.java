@@ -95,7 +95,7 @@ public class EnrolmentController {
 	
 	@GetMapping("/all")
 	@ApiOperation(value = "내가 등록한 파티 보기")
-	public ResponseEntity<List<Enrolment>> selectAllEnrolment(@RequestHeader("accessToken") String access) {
+	public ResponseEntity<List<Chimi>> selectAllEnrolment(@RequestHeader("accessToken") String access) {
 		try {
 			HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 			List<Enrolment> list = enrolmentService.findAllByEnromentId(Long.parseLong(String.valueOf(userinfo.get("id"))));
