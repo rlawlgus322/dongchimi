@@ -6,6 +6,42 @@ import api from '../../utils/api';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette'
 
+const StyledInput = styled.input`
+  font-size: 1.25rem;
+  border: none;
+  border-bottom: 1px solid ${palette.gray[5]};
+  padding-bottom: 0.5rem;
+  outline: none;
+  width: 100%;
+  &:focus {
+    color: ${palette.teal[7]};
+    border-bottom: 1px solid ${palette.gray[7]};
+  }
+  & + & {
+    margin-top: 1rem;
+  }
+`;
+
+const LoginBtn = styled.input`
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.25rem 1rem;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 100%;
+  height: 50px;
+  variant: info;
+
+  background: info;
+  &:hover {
+    background: info;
+  }
+`;
+
 function LoginModal({ history }) {
   const [show, setShow] = useState(false);
 
@@ -32,47 +68,11 @@ function LoginModal({ history }) {
     })
   }
 
-  const StyledInput = styled.input`
-  font-size: 1.25rem;
-  border: none;
-  border-bottom: 1px solid ${palette.gray[5]};
-  padding-bottom: 0.5rem;
-  outline: none;
-  width: 100%;
-  &:focus {
-    color: ${palette.teal[7]};
-    border-bottom: 1px solid ${palette.gray[7]};
-  }
-  & + & {
-    margin-top: 1rem;
-  }
-`;
-
-  const LoginBtn = styled.input`
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0.25rem 1rem;
-  color: white;
-  outline: none;
-  cursor: pointer;
-  margin-top: 1rem;
-  width: 100%;
-  height: 50px;
-  variant: info;
-
-  background: info;
-  &:hover {
-    background: info;
-  }
-`;
-
   return (
     <>
-      <a onClick={handleShow}>
+      <li onClick={handleShow}>
         로그인
-      </a>
+      </li>
 
       <Modal show={show} onHide={handleClose} size="lg">
         <Container>

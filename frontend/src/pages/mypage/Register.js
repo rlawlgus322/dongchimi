@@ -43,6 +43,24 @@ const StyledInput = styled.input`
   }
 `;
 
+const StyledInputWithBlock = styled.input`
+  font-size: 1.25rem;
+  border: none;
+  border-bottom: 1px solid ${palette.gray[5]};
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  padding-bottom: 0.5rem
+  outline: none;
+  width: 75%;
+  %:focus {
+    color $oc-teal-7;
+    border-bottom: 1px solid ${palette.gray[7]};
+  }
+  & + & {
+    margin-top: 1rem;
+  }
+`;
+
 
 const Register = ({history}) => {
 
@@ -82,7 +100,9 @@ const Register = ({history}) => {
     // console.log('eCheck email', check_email);
     api.get(`auth/userinfo/isemail/${email.email}`)
     .then(({data}) => {
-      console.log(data)
+      console.log("echeck " + data)
+      if (data === true) alert("이미 존재하는 이메일입니다.")
+      else alert("사용 가능한 이메일입니다.")
     })
     .catch(err => {
       console.log(err)
@@ -95,7 +115,9 @@ const Register = ({history}) => {
     // console.log("닉네임 " + nickname.nickname)
     api.get(`auth/userinfo/isemail/${nickname.nickname}`)
     .then(({data}) => {
-      console.log(data)
+      console.log("ncheck " + data)
+      if (data === true) alert("이미 존재하는 닉네임입니다.")
+      else alert("사용 가능한 닉네임입니다.")
     })
     .catch(err => {
       console.log(err)
@@ -118,14 +140,14 @@ const Register = ({history}) => {
       {/* <RegisterForm /> */}
       <AuthFormBlock>
       <form onSubmit={signin}>
-        <StyledInput type="text" name="email" placeholder="email" 
+        <StyledInputWithBlock type="text" name="email" placeholder="email" 
           onChange={changeEmail}
         />
         <Button onClick={eCheck}>중복확인</Button>
         <StyledInput type="password" name="password" placeholder="password" />
         <StyledInput type="password" name="passwordConfirm" placeholder="password Confirm" />
         <StyledInput type="text" name="name" placeholder="name" />
-        <StyledInput type="text" name="nickname" placeholder="nickname"
+        <StyledInputWithBlock type="text" name="nickname" placeholder="nickname"
           onChange={changeNickname}
         />
         <Button onClick={nCheck}>중복확인</Button>
