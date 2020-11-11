@@ -9,8 +9,8 @@ const serverOption = {
   cert: fs.readFileSync("./cert/server.crt"),
 };
 const server = https.createServer(serverOption, app);
-// const socket = require("socket.io");
-// const io = socket(server);
+const socket = require("socket.io");
+const io = socket(server);
 const io = require('socket.io')(https, {
     origins: '*:*'
   });
@@ -22,7 +22,7 @@ const socketToRoom = {};
 // users.js
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
 
-io.on('connection', socket => {
+io.on('connection', (socket) => {
   socket.on("join room", roomID => {
     if (users[roomID]) {
       const length = users[roomID].length;
@@ -56,6 +56,7 @@ io.on('connection', socket => {
       users[roomID] = room;
     }
   });
+
 
   socket.on("join", ({ name, room }, callback) => {
     // console.log(name, room);
