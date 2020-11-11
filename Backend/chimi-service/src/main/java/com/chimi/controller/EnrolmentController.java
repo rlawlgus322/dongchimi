@@ -99,7 +99,8 @@ public class EnrolmentController {
 		try {
 			HashMap<String, Object> userinfo = userClient.getUserInfo(access);
 			List<Enrolment> list = enrolmentService.findAllByEnromentId(Long.parseLong(String.valueOf(userinfo.get("id"))));
-			return new ResponseEntity<>(list, HttpStatus.OK);
+			List<Chimi> relist = chimiService.findByChimiId(list);
+			return new ResponseEntity<>(relist, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -15,5 +15,11 @@ public class userinfoResponse {
     public int gender;
     @ApiModelProperty(value = "profileImage", position = 6)
     public String progileImage;
+    @ApiModelProperty(value = "prefer1", position = 7)
+    public String prefer1;
+    @ApiModelProperty(value = "prefer2", position = 8)
+    public String prefer2;
+    @ApiModelProperty(value = "prefer3", position = 9)
+    public String prefer3;
 
 }

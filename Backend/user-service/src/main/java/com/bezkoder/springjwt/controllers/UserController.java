@@ -110,6 +110,9 @@ public class UserController {
             userinfoResponse.gender = user.getGender();
             userinfoResponse.nickname =  user.getNickname();
             userinfoResponse.username = user.getUsername();
+            userinfoResponse.prefer1 = user.getPrefer1();
+            userinfoResponse.prefer2 = user.getPrefer2();
+            userinfoResponse.prefer3 = user.getPrefer3();
             entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

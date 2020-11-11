@@ -16,7 +16,6 @@ const serverOption = {
 const server = https.createServer(serverOption, app);
 const socket = require("socket.io");
 const io = socket(server);
-
 const users = {};
 
 const socketToRoom = {};
