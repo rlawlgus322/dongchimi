@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import LoginModal from '../components/mypage/LoginModal';
 
-function Main() {
-  return (
-    <div>
-      Main
-      <ul>
-        <NavLink to="/party"><li>Party</li></NavLink>
-        <NavLink to="/recommend"><li>추천</li></NavLink>
-        <NavLink to="/boast"><li>자랑게시판</li></NavLink>
-        <NavLink to="/mypage"><li>MyPage</li></NavLink>
-        <li>로그인</li>
-      </ul>
-    </div>
-  );
+class Main extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const logged = sessionStorage.getItem('token') === null ? false : true;
+
+    return (
+
+      <div>
+        Main
+        <ul>
+          <NavLink to="/party"><li>Party</li></NavLink>
+          <NavLink to="/recommend"><li>추천</li></NavLink>
+          <NavLink to="/boast"><li>자랑게시판</li></NavLink>
+          {logged &&
+            <NavLink to="/mypage"><li>마이페이지</li></NavLink>
+          }
+          {!logged &&
+            <li><LoginModal></LoginModal></li>
+          }
+        </ul>
+      </div>
+    );
+  }
 }
 
 export default Main;
+

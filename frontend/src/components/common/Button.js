@@ -18,16 +18,16 @@ background: ${palette.gray[8]};
   background: ${palette.gray[6]};
 }
 ${props =>
-  props.fullWidth &&
-  css`
+    props.fullWidth &&
+    css`
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     width: 100%;
     font-size: 1.125rem;
   `}
 ${props =>
-  props.cyan &&
-  css`
+    props.cyan &&
+    css`
     background: ${palette.cyan[5]};
     &:hover {
       background: ${palette.cyan[4]};
@@ -45,7 +45,7 @@ const StyledLink = styled(Link)`
 
 const Button = props => {
   return props.to ? (
-    <StyledLink {...props} cyan={props.cyan ? 1: 0} />
+    <StyledLink {...props} cyan={props.cyan ? 1 : 0} />
   ) : (
       <StyledButton {...props} />
     )

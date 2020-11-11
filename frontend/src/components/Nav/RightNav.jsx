@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
-import LoginModal from '../LoginModal';
+import { NavLink, withRouter } from 'react-router-dom';
+import LoginModal from '../mypage/LoginModal';
+import _default from 'react-bootstrap/esm/CardColumns';
+import api from '../../utils/api';
 
 const Ul = styled.ul`
   list-style: none;
@@ -73,24 +75,39 @@ const Ul = styled.ul`
   }
 `;
 
-const RightNav = ({ open }) => {
+
+const RightNav = ({ history, open }) => {
+  const logged = sessionStorage.getItem('token') === null ? false : true;
+  const email = useState(null);
+
+  function logout() {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('uid');
+    history.push("/");
+  };
+
   return (
     <Ul open={open}>
       <li><NavLink to="/">Home</NavLink></li>
       <li><NavLink to="/party">Party</NavLink></li>
       <li><NavLink to="/recommend">추천</NavLink></li>
       <li><NavLink to="/boast">자랑게시판</NavLink></li>
-      <li><LoginModal></LoginModal></li>
-      <li className="drop-down">
-        <NavLink to="/mypage">MyPage</NavLink>
-        <ul>
-          <li><NavLink to="/update">프로필 설정</NavLink></li>
-          <li>로그아웃</li>
-        </ul>
-      </li>
+      {!logged &&
+        <li><LoginModal></LoginModal></li>
+      }
+      {logged &&
+        <li className="drop-down">
+          <NavLink to="/mypage">MyPage</NavLink>
+          <ul>
+            <li><NavLink to="/update">프로필 설정</NavLink></li>
+            <li onClick={logout}>로그아웃</li>
+          </ul>
+        </li>
+      }
+      {/* <li><a onClick={del_user}>회원탈퇴</a></li> */}
 
     </Ul>
   )
 }
 
-export default RightNav
+export default withRouter(RightNav);
