@@ -3,6 +3,7 @@ package com.chimi.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.chimi.model.Application;
 import com.chimi.model.Enrolment;
@@ -22,6 +23,8 @@ public class ChimiServiceImpl implements ChimiService{
 
 	@Override
 	public Chimi save(Chimi chimi) {
+		String url = UUID.randomUUID().toString();
+		chimi.setRtcurl(url);
 		return chimiRepository.save(chimi);
 	}
 

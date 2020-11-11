@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.*;
 
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -60,5 +61,11 @@ public class Chimi {
 	
 	@Column(name = "category")
 	private String category;
+
+	@Column(name = "rtcurl")
+	private String rtcurl;
+
+
+
 	
 }
