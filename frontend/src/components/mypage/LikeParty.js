@@ -17,7 +17,7 @@ class LikeParty extends Component {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log("찜파티 " + JSON.stringify(data))
+      // console.log("찜파티 " + JSON.stringify(data))
       this.setState({ parties: data });
     }).catch((err) => {
       console.log(err);
