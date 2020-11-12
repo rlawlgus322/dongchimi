@@ -4,8 +4,10 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import connect
+from flask_cors import CORS
+import random
 app = Flask(__name__)   
-
+CORS(app, resources={r'*': {'origins': '*'}})
 chimi_main_category = ["미술","공예",'디지털드로잉',"사진",'영상',"요리",'음악',"운동"]
 chimi_category_dict ={"미술":["유화","수채화","파스텔"],
                     "공예":["가죽","뜨개질","비즈"],
@@ -86,7 +88,18 @@ def itemRecommend():
         recommendSet.update(item_based_collabor[key].sort_values(ascending=False)[:2])
         flag -= 1
     print(recommendSet)
+
     recommendList = list(recommendSet)
+    samplelist = []
+    for i in range(flag):
+        chimilist = connect.getchimi(cursor)
+        chimis = []
+        for chimi in chimilist.fetchall():
+            print(chimi)
+            chimis.append(chimi)
+        samplelist.append(random.sample(chimis, 3))
+
+
 
     #TODO 해당 카테고리인 열려있는 파티가져와서 그 중에 찜,추천 많은 애들 추천
 
@@ -94,7 +107,7 @@ def itemRecommend():
     cursor.close()
     conn.close()
 
-    return jsonify({'recommendlist': recommendList})
+    return jsonify({'recommendlist': samplelist})
 
 @app.route('/itemuser',methods=['GET'])
 def userRecommend():
@@ -162,7 +175,7 @@ def userRecommend():
         recommendList = list(np.array(namedf.iloc[:,0]))
     else:
         recommendList = []
-
+    
 
     # 디비 해제
     cursor.close()
