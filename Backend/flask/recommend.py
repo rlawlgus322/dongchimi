@@ -134,16 +134,20 @@ def userRecommend():
     print(user_based_collabor)
 
     user_based_collabor = DataFrame(data = user_based_collabor, index = df.index, columns=df.index)
+    print("------------------------------------------------------------------------------")
     print(user_based_collabor)
 
-    max = 0
+    maxval = 0
     maxidx = 0
     # 가장 유사도 높은 사람 찾기
-    for i in range(len(userlist)):
-        if i == userid:continue
-        if max < user_based_collabor[userid][i]:
-            max = user_based_collabor[userid][i]
-            maxidx = i
+    for user in userlist:
+        print(user)
+        if user == userid: continue
+        print(userid)
+        if maxval < user_based_collabor.loc[userid, user]:
+            maxval = user_based_collabor.loc[userid, user]
+            maxidx = user
+
 
 
     #사용자의 선호도
@@ -152,7 +156,13 @@ def userRecommend():
     if len(namedf) > 3:
         namedf = namedf.sample(n=3)
     # 랜덤으로 3개 뽑아준다
-    recommendList = list(np.array(namedf.iloc[:,0]))
+    print("---------------------------------------------------------------------------")
+    print(namedf)
+    if len(namedf) != 0:
+        recommendList = list(np.array(namedf.iloc[:,0]))
+    else:
+        recommendList = []
+
 
     # 디비 해제
     cursor.close()
@@ -161,5 +171,7 @@ def userRecommend():
     return jsonify({'recommendlist': recommendList})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8090,debug='True',ssl_context=('./cert/server.crt', './cert/server.key'))
+    app.run(host='localhost',port=8090,debug='True',ssl_context=('./cert/server.crt', './cert/server.key'))
+    # app.run(host='0.0.0.0',port=8090,debug='True',ssl_context=('./cert/server.crt', './cert/server.key'))
+
 
