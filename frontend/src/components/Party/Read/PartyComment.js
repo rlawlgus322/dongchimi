@@ -27,7 +27,7 @@ class PartyComment extends Component {
       }
     })
       .then(({ data }) => {
-        console.log('comment', data);
+        // console.log('comment', data);
         this.setState({ comments: data });
       }).catch((err) => {
         console.log(err);
