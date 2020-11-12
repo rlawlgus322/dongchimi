@@ -20,4 +20,5 @@ public interface ChimiService {
 	List<Chimi> findByChimiId(List<Enrolment> list);
 	List<Chimi> findByChimiIdApp(List<Application> list);
 	List<Chimi> findByChimiIdStore(List<Storage> list);
+	void updatechimiIsStart();
 }

@@ -82,6 +82,8 @@ public class ChimiController {
 			newChimi.setName(chimi.getName());
 			newChimi.setSummary(chimi.getSummary());
 			newChimi.setDescription(chimi.getDescription());
+			newChimi.setStartdate(chimi.getStartdate());
+			newChimi.setIsstart(chimi.isIsstart());
 			newChimi = chimiService.save(newChimi);
 		}
 		if(newChimi != null)	return new ResponseEntity<>("success", HttpStatus.OK);
@@ -92,6 +94,7 @@ public class ChimiController {
 	@ApiOperation(value = "모든 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
 	public ResponseEntity<List<ChimiResponse>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable){
 		try {
+			chimiService.updatechimiIsStart();
 			Page<Chimi> chimiPage = chimiService.findAll(pageable);		
 			List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
 			for(Chimi chimi : chimiPage){
@@ -197,6 +200,7 @@ public class ChimiController {
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
 	}
+
 	@PutMapping("/unrecommend/{hid}")
 	@ApiOperation(value = "추천취소하기")
 	public ResponseEntity<String> unrecommend(@RequestHeader("accessToken") String access,@PathVariable long hid) {
