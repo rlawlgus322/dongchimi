@@ -23,6 +23,7 @@ class Party extends Component {
             <h2 className="title">{this.props.party.chimi.name}</h2>
             <p className="content">파티장 : {this.props.party.nickname}</p>
             <p className="content">모집인원 : {this.props.party.chimi.totalnum}</p>
+            <p className="content">현재 참여 인원 : {this.props.party.chimi.curnum}</p>
           </div>
         </div>
       </div>
