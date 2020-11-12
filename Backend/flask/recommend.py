@@ -136,13 +136,13 @@ def userRecommend():
     user_based_collabor = DataFrame(data = user_based_collabor, index = df.index, columns=df.index)
     print(user_based_collabor)
 
-    max = 0
+    maxval = 0
     maxidx = 0
     # 가장 유사도 높은 사람 찾기
     for i in range(len(userlist)):
         if i == userid:continue
-        if max < user_based_collabor[userid][i]:
-            max = user_based_collabor[userid][i]
+        if maxval < user_based_collabor[userid][i]:
+            maxval = user_based_collabor[userid][i]
             maxidx = i
 
 
