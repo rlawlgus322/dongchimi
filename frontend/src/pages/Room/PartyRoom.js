@@ -24,10 +24,13 @@ class PartyRoom extends Component {
     return (
       <>
         <FaceChat roomID={this.props.match.params.id} />
-        <TextChat
-          roomID={this.props.match.params.id}
-          name={this.state.name}
-        />
+        {
+          this.state.name !== '' &&
+          <TextChat
+            roomID={this.props.match.params.id}
+            name={this.state.name}
+          />
+        }
       </>
     )
   }
