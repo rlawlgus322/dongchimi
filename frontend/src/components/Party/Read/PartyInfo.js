@@ -20,6 +20,7 @@ class PartyInfo extends Component {
               this.props.data.chimi !== undefined &&
               <h1>{this.props.data.chimi.name}</h1> &&
               <div>
+                제목 : {this.props.data.chimi.name}<br></br>
                 설명 : {this.props.data.chimi.summary} <br></br>
                 카테고리 : {this.props.data.chimi.category} <br></br>
                 모집인원 : {this.props.data.chimi.totalnum} <br></br>
