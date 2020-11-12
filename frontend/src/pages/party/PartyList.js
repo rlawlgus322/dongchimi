@@ -17,7 +17,7 @@ function PartyList({ history }) {
       }
     })
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         setParties(data);
       })
     // setParties(data);
