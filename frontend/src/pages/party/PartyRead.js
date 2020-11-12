@@ -51,8 +51,9 @@ class PartyRead extends Component {
               <PartyOpener nickname={this.state.data.nickname} />
             }
             {
+              this.state.data.chimi !== undefined &&
               this.state.type === 3 &&
-              <PartyApplicant />
+              <PartyApplicant chimiId={this.props.match.params.id} />
             }
             {
               this.state.data.chimi !== undefined &&
