@@ -5,6 +5,7 @@ import SliderableImage from 'components/SliderableImage';
 import TextViewer from 'components/TextViewer';
 import ArticleInfoIcons from 'components/ArticleInfoIcons';
 import CommentWriting from 'components/CommentWriting';
+import CommentRead from 'components/CommentRead';
 
 const images = [
   'https://images.unsplash.com/photo-1604724434236-a7cebeaa13e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
@@ -64,6 +65,7 @@ function BoastRead() {
           </FlexEnd>
           <HorizontalLine />
           <CommentWriting />
+          <CommentRead />
         </Width80Percent>
       </InnerBody>
     </BoastReadBody>
