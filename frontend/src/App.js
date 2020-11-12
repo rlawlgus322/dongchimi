@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Main from './pages/Main';
 import Pages from './pages/Pages';
-import PartyRoom from './pages/party/PartyRoom';
+import PartyRoom from './pages/Room/PartyRoom';
 
 library.add(faEye, faHeart, fasHeart, faCommentDots);
 
