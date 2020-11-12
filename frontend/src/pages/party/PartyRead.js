@@ -48,7 +48,7 @@ class PartyRead extends Component {
           <div className='col-6'>
             {
               this.state.data.chimi !== undefined &&
-              <PartyOpener name={this.state.data.chimi.name} />
+              <PartyOpener nickname={this.state.data.nickname} />
             }
             {
               this.state.type === 3 &&

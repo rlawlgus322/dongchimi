@@ -4,7 +4,7 @@ class PartyOpener extends Component {
   render() {
     return (
       <div>
-        <h3>파티 연 사람 : {this.props.name}</h3>
+        <h3>파티 연 사람 : {this.props.nickname}</h3>
       </div>
     )
   }
