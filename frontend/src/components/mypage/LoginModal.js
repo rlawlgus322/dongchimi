@@ -57,8 +57,11 @@ function LoginModal({ history }) {
       email: e.target.email.value,
       password: e.target.password.value,
     }).then(res => {
+      // console.log("로그인 데이터 " + JSON.stringify(res.data))
+      // console.log("로그인 uid " + JSON.stringify(res.data.uid))
       const { accessToken } = res.data;
       sessionStorage.setItem('token', accessToken);
+      sessionStorage.setItem('uid', res.data.uid)
       // console.log(res)
       alert("안녕하세요~")
       history.push("/")
