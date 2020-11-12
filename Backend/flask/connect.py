@@ -63,7 +63,7 @@ def getUserLike(cursor, id):
         where hid in (
         SELECT chimi_Id
         FROM chimi_star
-        where id = :userid
+        where user_Id = :userid
         )
     """
     ,userid = id
