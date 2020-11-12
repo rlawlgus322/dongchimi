@@ -29,7 +29,6 @@ class PartyInfo extends Component {
             }
             {this.props.type === 1 &&
               this.props.data.chimi !== undefined &&
-              // <PartyRegister hid={this.props.data.chimi.hid} />}
               <PartyRegister data={this.props.data} />}
             {this.props.type === 2 &&
               this.props.data.chimi !== undefined &&

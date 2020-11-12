@@ -27,7 +27,7 @@ class PartyRead extends Component {
       }
     })
       .then(({ data }) => {
-        console.log('party read', data);
+        // console.log('party read', data);
         this.setState({ data: data });
       }).catch((err) => {
         console.log(err);
@@ -41,12 +41,6 @@ class PartyRead extends Component {
           type={this.state.type}
           data={this.state.data}
         ></PartyInfo>
-        {/* {
-          this.state.data.chimi !== undefined &&
-          this.state.data.chimi.userId === Number(sessionStorage.getItem('uid')) &&
-          <button onClick={() => this.props.history.push('/party/update')}>수정</button> &&
-          <button onClick={() => console.log('삭제')}>삭제</button>
-        } */}
         <div className='row'>
           <div className='col-6'>
             {
