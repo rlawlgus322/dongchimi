@@ -22,16 +22,20 @@ class PartyRoom extends Component {
 
   render() {
     return (
-      <>
-        <FaceChat roomID={this.props.match.params.id} />
-        {
-          this.state.name !== '' &&
-          <TextChat
-            roomID={this.props.match.params.id}
-            name={this.state.name}
-          />
-        }
-      </>
+      <div className="row">
+        <div className="col-md-8">
+          <FaceChat roomID={this.props.match.params.id} />
+        </div>
+        <div className="col-md-4">
+          {
+            this.state.name !== '' &&
+            <TextChat
+              roomID={this.props.match.params.id}
+              name={this.state.name}
+            />
+          }
+        </div>
+      </div>
     )
   }
 }
