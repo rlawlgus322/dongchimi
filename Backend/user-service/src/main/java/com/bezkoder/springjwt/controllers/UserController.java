@@ -129,7 +129,7 @@ public class UserController {
 
         return entity;
     }
-    @GetMapping(value = "/userinfo/{id}")
+    @GetMapping(value = "/userinfoby/{id}")
     @ApiOperation(value = "유저정보 보내주기")
     public ResponseEntity<?> getuserinfoid(@PathVariable Long id) {
         System.out.println("id = "+ id);
