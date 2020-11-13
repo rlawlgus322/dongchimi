@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.time.LocalDate;
 
 import com.chimi.model.Application;
 import com.chimi.model.Enrolment;
@@ -82,7 +83,7 @@ public class ChimiServiceImpl implements ChimiService{
 	public void updatechimiIsStart() {
 		List<Chimi> list = chimiRepository.findChimisByHidIsNotNull();
 		for (Chimi chimi : list ) {
-			if( chimi.getStartdate().isBefore( LocalDateTime.now() )){
+			if( chimi.getStartdate().isBefore( LocalDate.now() )){
 				chimi.setIsstart(true);
 				chimiRepository.save(chimi);
 			}

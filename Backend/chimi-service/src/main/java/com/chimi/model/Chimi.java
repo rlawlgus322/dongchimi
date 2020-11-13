@@ -1,5 +1,6 @@
 package com.chimi.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -66,7 +67,7 @@ public class Chimi {
 	private String rtcurl;
 
 	@Column(name = "startdate")
-	private LocalDateTime startdate;
+	private LocalDate startdate;
 
 	@Column(name = "isstart")
 	private boolean isstart = false;
