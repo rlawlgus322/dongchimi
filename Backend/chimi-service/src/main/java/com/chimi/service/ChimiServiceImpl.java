@@ -113,4 +113,25 @@ public class ChimiServiceImpl implements ChimiService{
 
 		return chimiRepository.getChimisByNameContains(name);
 	}
+
+	@Override
+	public int countName(String name) {
+
+		return chimiRepository.countChimisByNameContains(name);
+	}
+
+	@Override
+	public int countCategory(String category) {
+		return chimiRepository.countChimisByCategory(category);
+	}
+
+	@Override
+	public int countNameAndCategory(String name, String category) {
+		return chimiRepository.countChimisByCategoryAndNameContains(category, name);
+	}
+
+	@Override
+	public int countAll() {
+		return chimiRepository.countAll();
+	}
 }
