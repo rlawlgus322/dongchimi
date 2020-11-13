@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import api from '../../../utils/api';
 
 class PartyRegister extends Component {
@@ -15,12 +16,6 @@ class PartyRegister extends Component {
       recommend: this.props.data.recommend,
     }
   }
-  
-  // componentDidMount() {
-  //   console.log("레지스터프롭 " + JSON.stringify(this.state.data))
-  //   console.log("세션 uid " + this.state.uid)
-  //   console.log("데이터 userId " + this.state.data.chimi.userId)
-  // }
 
   register() {
     if (this.state.token === null) {
@@ -32,9 +27,9 @@ class PartyRegister extends Component {
         accessToken: this.state.token,
       }
     }).then((res) => {
-      console.log(res)
+      // console.log(res)
       // console.log("레지스터 " + this.state.applicated)
-      this.setState({applicated: !this.state.applicated})
+      this.setState({ applicated: !this.state.applicated })
       // console.log("레지스터 " + this.state.applicated)
     }).catch((err) => {
       console.log(err);
@@ -47,15 +42,15 @@ class PartyRegister extends Component {
         accessToken: this.state.token,
       }
     }).then((res) => {
-      console.log(res);
-      this.setState({applicated: !this.state.applicated})
+      // console.log(res);
+      this.setState({ applicated: !this.state.applicated })
     }).catch((err) => {
       console.log(err);
     })
   }
 
   save() {
-    console.log('보관함에 저장');
+    // console.log('보관함에 저장');
     if (this.state.token === null) {
       alert('로그인이 필요합니다');
       return;
@@ -65,8 +60,8 @@ class PartyRegister extends Component {
         accessToken: this.state.token,
       }
     }).then((res) => {
-      console.log(res);
-      this.setState({stored: !this.state.stored})
+      // console.log(res);
+      this.setState({ stored: !this.state.stored })
     }).catch((err) => {
       console.log(err);
     })
@@ -78,8 +73,8 @@ class PartyRegister extends Component {
         accessToken: this.state.token,
       }
     }).then((res) => {
-      console.log(res);
-      this.setState({stored: !this.state.stored})
+      // console.log(res);
+      this.setState({ stored: !this.state.stored })
     }).catch((err) => {
       console.log(err);
     })
@@ -95,8 +90,8 @@ class PartyRegister extends Component {
         accessToken: this.state.token,
       }
     }).then((res) => {
-      console.log(res);
-      this.setState({recommend: !this.state.recommend})
+      // console.log(res);
+      this.setState({ recommend: !this.state.recommend })
     }).catch((err) => {
       console.log(err);
     })
@@ -108,8 +103,8 @@ class PartyRegister extends Component {
         accessToken: this.state.token,
       }
     }).then((res) => {
-      console.log(res);
-      this.setState({recommend: !this.state.recommend})
+      // console.log(res);
+      this.setState({ recommend: !this.state.recommend })
     }).catch((err) => {
       console.log(err);
     })
@@ -117,8 +112,9 @@ class PartyRegister extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.uid !== this.state.data.chimi.userId &&
+      <>
+        {
+          this.state.uid !== this.state.data.chimi.userId &&
           <div>
             {!this.state.applicated && <button onClick={this.register.bind(this)}>신청하기</button>}
             {this.state.applicated && <button onClick={this.unregister.bind(this)}>신청취소하기</button>}
@@ -127,21 +123,17 @@ class PartyRegister extends Component {
             {!this.state.recommend && <button onClick={this.recommend.bind(this)}>추천하기</button>}
             {this.state.recommend && <button onClick={this.unrecommend.bind(this)}>추천취소</button>}
           </div>
-          // <div>
-          //   {this.state.applicated === false ? <button onClick={this.register.bind(this)}>신청하기</button>
-          //     : <button onClick={this.unregister.bind(this)}>신청취소하기</button>
-          //   }
-          //   {this.state.stored === false ? <button onClick={this.save.bind(this)}>보관함에저장</button>
-          //     : <button onClick={this.remove.bind(this)}>보관함에서삭제</button>
-          //   }
-          //   {this. state.recommend === false ? <button onClick={this.recommend.bind(this)}>추천하기</button>
-          //     : <button onClick={this.unrecommend.bind(this)}>추천취소하기</button>
-          //   }
-          // </div>
-        } 
-      </div>
+        }
+        {
+          this.state.uid === this.state.data.chimi.userId &&
+          <div>
+            <button onClick={() => this.props.history.push('/party/update')}>수정</button>
+            <button onClick={() => console.log('삭제')}>삭제</button>
+          </div>
+        }
+      </>
     )
   }
 }
 
-export default PartyRegister;
+export default withRouter(PartyRegister);

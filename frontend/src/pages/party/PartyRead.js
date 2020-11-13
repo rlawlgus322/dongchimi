@@ -41,18 +41,16 @@ class PartyRead extends Component {
           type={this.state.type}
           data={this.state.data}
         ></PartyInfo>
-        <button
-          onClick={() => this.props.history.push('/party/update')}
-        >수정</button>
         <div className='row'>
           <div className='col-6'>
             {
               this.state.data.chimi !== undefined &&
-              <PartyOpener name={this.state.data.chimi.name} />
+              <PartyOpener nickname={this.state.data.nickname} />
             }
             {
+              this.state.data.chimi !== undefined &&
               this.state.type === 3 &&
-              <PartyApplicant />
+              <PartyApplicant chimiId={this.props.match.params.id} />
             }
             {
               this.state.data.chimi !== undefined &&
