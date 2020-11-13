@@ -109,6 +109,7 @@ public class ChimiController {
 			}
 			return new ResponseEntity<>(chimiList, HttpStatus.OK);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -119,7 +120,7 @@ public class ChimiController {
 	public ResponseEntity<ChimiDetailResponse> search(@RequestHeader("accessToken") String access,@PathVariable long hid){
 		Chimi newChimi = chimiService.findById(hid).get();
 		HashMap<String, Object> loginUserinfo = null;
-		if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+		if(!access.equals("null")) loginUserinfo = userClient.getUserInfo(access);
 		HashMap<String,Object> chimiUserinfo = userClient.getusername(newChimi.getUserId());
 		// 조회수 증가
 		newChimi.setViews(newChimi.getViews()+1);
