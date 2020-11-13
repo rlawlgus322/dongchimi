@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import api from '../../utils/api';
+
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import GridListTileBar from '@material-ui/core/GridListTileBar'
 
 class WaitParty extends Component {
   state = {
-    data: [],
+    parties: [],
   }
 
   componentDidMount() {
@@ -12,8 +17,8 @@ class WaitParty extends Component {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log(data);
-      this.setState({ data: data });
+      // console.log("wait 데이타~" + JSON.stringify(data))
+      this.setState({ parties: data });
     }).catch((err) => {
       console.log(err);
     })
@@ -41,4 +46,4 @@ class WaitParty extends Component {
   }
 }
 
-export default WaitParty;
+export default withRouter(WaitParty);
