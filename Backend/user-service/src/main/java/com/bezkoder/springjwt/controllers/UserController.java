@@ -87,7 +87,7 @@ public class UserController {
             userinfoResponse.gender = user.getGender();
             userinfoResponse.nickname =  user.getNickname();
             userinfoResponse.username = user.getUsername();
-            userinfoResponse.progileImage = user.getProfileimage();
+            userinfoResponse.profileImage = user.getProfileimage();
             userinfoResponse.prefer1 = user.getPrefer1();
             userinfoResponse.prefer2 = user.getPrefer2();
             userinfoResponse.prefer3 = user.getPrefer3();
@@ -256,7 +256,7 @@ public class UserController {
             String userEmail = jwtUtils.getUserNameFromJwtToken(access);
             String path = fileService.image(image);
             userService.updateProfileImage(userEmail, path);
-            entity = new ResponseEntity<>(fileService.image(image), HttpStatus.OK);
+            entity = new ResponseEntity<>(path, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
