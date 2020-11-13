@@ -46,6 +46,9 @@ public class BoastController {
 			@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable) {
 		try {
 			HashMap<String, Object> loginUserinfo = null;
+			System.out.println(access);
+			System.out.println(access instanceof Strings);
+
 			if(access!=null) loginUserinfo = userClient.getUserInfo(access);
 			
 			Page<Boast> boastlist = boastService.allBoasts(pageable);
