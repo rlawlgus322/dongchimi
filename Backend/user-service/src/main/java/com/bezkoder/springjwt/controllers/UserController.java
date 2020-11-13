@@ -101,13 +101,37 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/userinfo/{email}")
+    @GetMapping(value = "/userinfo/{nickname}")
     @ApiOperation(value = "유저정보 보내주기")
-    public ResponseEntity<?> getuserinfo(@PathVariable String email) {
+    public ResponseEntity<?> getuserinfo(@PathVariable String nickname) {
 
         ResponseEntity<?> entity = null;
         try {
-            User user = userService.findUserinfoByEmail(email);
+            User user = userService.findUserinfoByNickname(nickname);
+            userinfoResponse userinfoResponse = new userinfoResponse();
+            userinfoResponse.email = user.getEmail();
+            userinfoResponse.gender = user.getGender();
+            userinfoResponse.nickname =  user.getNickname();
+            userinfoResponse.username = user.getUsername();
+            userinfoResponse.prefer1 = user.getPrefer1();
+            userinfoResponse.prefer2 = user.getPrefer2();
+            userinfoResponse.prefer3 = user.getPrefer3();
+            System.out.println(user.toString());
+            entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return entity;
+    }
+    @GetMapping(value = "/userinfo/{id}")
+    @ApiOperation(value = "유저정보 보내주기")
+    public ResponseEntity<?> getuserinfoid(@PathVariable long id) {
+
+        ResponseEntity<?> entity = null;
+        try {
+            User user = userService.findUserinfoById(id);
             userinfoResponse userinfoResponse = new userinfoResponse();
             userinfoResponse.email = user.getEmail();
             userinfoResponse.gender = user.getGender();

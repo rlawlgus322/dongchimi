@@ -70,6 +70,17 @@ def getUserLike(cursor, id):
     )
     return resoverall    
 
+def getchimi(cursor, category):
+    resoverall = cursor.execute(
+    """
+        select * from chimi
+        where category like '%:selcategory%' and isstart = True;
+       
+    """
+    ,selcategory = category
+    )
+    return resoverall    
+
 if __name__ == '__main__':
     conn, cursor = connect()
     print(getUserLike(cursor,1))

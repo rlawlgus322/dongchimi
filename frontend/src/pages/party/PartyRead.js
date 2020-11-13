@@ -24,7 +24,7 @@ class PartyRead extends Component {
       }
     })
       .then(({ data }) => {
-        // console.log('party read', data);
+        console.log('party read', data);
         this.setState({ data: data });
       }).catch((err) => {
         console.log(err);

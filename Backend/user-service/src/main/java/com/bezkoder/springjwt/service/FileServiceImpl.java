@@ -55,4 +55,5 @@ public String image(MultipartFile image) throws IOException {
     return SENDPATH + fileName;
 
 }
+
 }

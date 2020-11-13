@@ -5,6 +5,7 @@ import com.bezkoder.springjwt.models.User;
 public interface UserService {
     User findUserinfoById(long id);
     User findUserinfoByEmail(String email);
+    User findUserinfoByNickname(String nickname);
     String getUsernameById(long id);
     boolean duplicateCheckEmail(String email);
     boolean duplicateCheckNickname(String nickname);
