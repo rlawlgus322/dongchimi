@@ -12,30 +12,20 @@ class MyPage extends Component {
     }
   }
   componentDidMount() {
-    // const  [img, setImage] = useState(null);
-    // const onChange = (e) => { }
     const fetchUserinfo = () => {
       const this_token = sessionStorage.getItem('token')
-      // console.log(this_token)
       api.get('auth/userinfo/', {
         headers: {
           accessToken: this_token,
         }
       })
-        .then(res => {
-          // console.log("res " + JSON.stringify(res))
-          // const userinfo = res.data
-          this.setState({ userInfo: res.data });
-          // console.log("이미지 주소 " + res.data.profileImage)
-          this.setState({image: 'https://k3a409.p.ssafy.io' + res.data.profileImage});
-          // console.log("이미지주소 22 " + this.state.image)
-          // this.state.userInfo = res.data
-          // console.log('userinfo', this.state.userInfo);
-          // console.log(JSON.stringify(this.state.userinfo))
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      .then(res => {
+        this.setState({ userInfo: res.data });
+        this.setState({ image: 'https://k3a409.p.ssafy.io' + res.data.profileImage });
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
     fetchUserinfo()
   }
