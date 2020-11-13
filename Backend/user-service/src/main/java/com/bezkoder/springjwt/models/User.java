@@ -61,11 +61,11 @@ public class User {
     @CreationTimestamp
     private LocalDateTime create_at;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles = new HashSet<>();
 
 
     public User(String username, String email, String password,String nickname, int gender, String profileimage, float star, int num) {
@@ -110,7 +110,7 @@ public class User {
                 ", prefer2='" + prefer2 + '\'' +
                 ", prefer3='" + prefer3 + '\'' +
                 ", create_at=" + create_at +
-                ", roles=" + roles +
+
                 '}';
     }
 }
