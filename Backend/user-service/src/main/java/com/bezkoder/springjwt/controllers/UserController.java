@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -113,6 +114,7 @@ public class UserController {
             userinfoResponse.gender = user.getGender();
             userinfoResponse.nickname =  user.getNickname();
             userinfoResponse.username = user.getUsername();
+            userinfoResponse.profileImage = user.getProfileimage();
             userinfoResponse.prefer1 = user.getPrefer1();
             userinfoResponse.prefer2 = user.getPrefer2();
             userinfoResponse.prefer3 = user.getPrefer3();
@@ -137,11 +139,28 @@ public class UserController {
             userinfoResponse.gender = user.getGender();
             userinfoResponse.nickname =  user.getNickname();
             userinfoResponse.username = user.getUsername();
+            userinfoResponse.profileImage = user.getProfileimage();
             userinfoResponse.prefer1 = user.getPrefer1();
             userinfoResponse.prefer2 = user.getPrefer2();
             userinfoResponse.prefer3 = user.getPrefer3();
             System.out.println(user.toString());
             entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return entity;
+    }
+    @GetMapping(value = "/userinfolist")
+    @ApiOperation(value = "유저정보 보내주기")
+    public ResponseEntity<?> getuserinfoidd(@RequestParam long[] idlist) {
+
+        ResponseEntity<?> entity = null;
+        try {
+            List<userinfoResponse> list = userService.USER_LIST(idlist);
+            System.out.println(list.toString());
+            entity = new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
