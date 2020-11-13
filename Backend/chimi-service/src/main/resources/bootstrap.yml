@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: chimiservice
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      enabled: false

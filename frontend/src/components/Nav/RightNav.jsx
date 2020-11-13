@@ -93,14 +93,14 @@ const RightNav = ({ history, open }) => {
       <li><NavLink to="/recommend">추천</NavLink></li>
       <li><NavLink to="/boast">자랑게시판</NavLink></li>
       {!logged &&
-        <a><LoginModal></LoginModal></a>
+        <li><LoginModal></LoginModal></li>
       }
       {logged &&
         <li className="drop-down">
           <NavLink to="/mypage">MyPage</NavLink>
           <ul>
             <li><NavLink to="/update">프로필 설정</NavLink></li>
-            <li onClick={logout}><a>로그아웃</a></li>
+            <li onClick={logout}>로그아웃</li>
           </ul>
         </li>
       }
