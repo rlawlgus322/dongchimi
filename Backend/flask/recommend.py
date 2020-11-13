@@ -91,13 +91,16 @@ def itemRecommend():
 
     recommendList = list(recommendSet)
     samplelist = []
-    for i in range(flag):
+    # for i in range(flag):
+    for i in range(3):
         chimilist = connect.getchimi(cursor)
         chimis = []
         for chimi in chimilist.fetchall():
             print(chimi)
             chimis.append(chimi)
         samplelist.append(random.sample(chimis, 3))
+    ####### 수정한부분 ##########    
+    print("샘플리스트" + samplelist)
 
 
 
@@ -175,6 +178,8 @@ def userRecommend():
         recommendList = list(np.array(namedf.iloc[:,0]))
     else:
         recommendList = []
+    
+    print("협업..?" + recommendList)
     
 
     # 디비 해제
