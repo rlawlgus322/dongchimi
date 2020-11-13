@@ -4,6 +4,7 @@ import com.chimi.service.FileService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -93,20 +94,47 @@ public class ChimiController {
 	
 	@GetMapping
 	@ApiOperation(value = "모든 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
-	public ResponseEntity<List<ChimiResponse>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable){
+	public ResponseEntity<List<ChimiResponse>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable, @RequestParam(value = "category") String category, @RequestParam(value = "name") String name){
 		try {
-			chimiService.updatechimiIsStart();
-			Page<Chimi> chimiPage = chimiService.findAll(pageable);		
 			List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
-			for(Chimi chimi : chimiPage){
-				HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
-				chimiList.add(				
-					new ChimiResponse(chimi,
-							String.valueOf(cuserinfo.get("nickname")),
-							String.valueOf(cuserinfo.get("profileImage"))
-						)
+			if(category == "null" && name == "null"){
+				chimiService.updatechimiIsStart();
+				Page<Chimi> chimiPage = chimiService.findAll(pageable);
+				for(Chimi chimi : chimiPage){
+					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
+					chimiList.add(
+							new ChimiResponse(chimi,
+									String.valueOf(cuserinfo.get("nickname")),
+									String.valueOf(cuserinfo.get("profileImage"))
+							)
 					);
+				}
+
+			}else if(category == "null" && name !="null"){
+				Page<Chimi> chimiPage = chimiService.findbyCategory(category,pageable);
+				for(Chimi chimi : chimiPage){
+					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
+					chimiList.add(
+							new ChimiResponse(chimi,
+									String.valueOf(cuserinfo.get("nickname")),
+									String.valueOf(cuserinfo.get("profileImage"))
+							)
+					);
+				}
+			}else{
+				Page<Chimi> chimiPage = chimiService.findbyCategoryAndName(category,name,pageable);
+				for(Chimi chimi : chimiPage){
+					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
+					chimiList.add(
+							new ChimiResponse(chimi,
+									String.valueOf(cuserinfo.get("nickname")),
+									String.valueOf(cuserinfo.get("profileImage"))
+							)
+					);
+				}
 			}
+
+
 			return new ResponseEntity<>(chimiList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,6 +249,19 @@ public class ChimiController {
 		} else{
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
+	}
+
+	@GetMapping("/search")
+	@ApiOperation(value = "파티이름검색")
+	public ResponseEntity<List<Chimi>> searchWhichpartyname(@RequestParam(value = "name") String name){
+
+		try {
+			return new ResponseEntity<>(chimiService.getChimisByName(name), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
 	}
 	
 	
