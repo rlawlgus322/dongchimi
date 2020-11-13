@@ -1,7 +1,5 @@
-import Axios from 'axios';
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 
 const ImageUploaderBody = styled.div`
   width: 600px;
@@ -18,8 +16,9 @@ const Label = styled.label`
   background-repeat: no-repeat;
   background-size: 100% 100%;
   cursor: pointer;
+  opacity: 0.8;
   &:hover {
-    opacity: 0.8;
+    opacity: 0.5;
   }
 `;
 
@@ -31,12 +30,10 @@ const Input = styled.input`
   border: none;
   clip: rect(0, 0, 0, 0);
   margin: --1px;
-  padding: 0;
 `;
 
 const ImageList = styled.div`
   display: flex;
-  justify-content:space-between;
   width: 100%;
   height: auto;
   flex-grow: 1;
@@ -44,52 +41,47 @@ const ImageList = styled.div`
 
 const Image = styled.img`
   width: 19%;
-  height: 100%;
+  height: 76px;
+  & + &{
+    margin-left: 7px;
+  }
 `
 
-function  ImageUploader() {
-  const [imageList, setImageList] = useState([undefined,undefined,undefined,undefined,undefined])
-  const onChnagehandler = async  (event) => {
-    const preview = document.getElementById('preview');
-    const files = event.target.files;
-    
-    console.log(files);
-    
-    preview.style.backgroundImage = files.length ? `url(${URL.createObjectURL(files[0])})` : "";
-    
-    // 지금 안 되는 듯
-    // const formData = new FormData();
-    // formData.append("file", files[0]);
+function  ImageUploader(props) {
+  const [imageList, setImageList] = useState([]);
+  const {setImageFiles} = props;
 
-    // try{
-    //   const res = await axios.post(
-    //     'https://k3a409.p.ssafy.io/api/boast/image',
-    //     formData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data"
-    //       }
-    //     }
-    //   )
-    //   console.log(res);
-    // } catch(error){
-    //   console.dir(error);
-    // }
+  let files = {};
 
-    // 파일 여러개 업로드하면 imageList에 저장
+  const paintImages = () => {
+    if(!files){
+      return;
+    }
+
     let arrayList = [];
     for(let i=0;i<files.length;i++){
       arrayList.push(URL.createObjectURL(files[i]));
     }
+
     setImageList(arrayList);
+  }
+
+  const onChnagehandler = (event) => {
+    const preview = document.getElementById('preview');
+    files = event.target.files;
+    if(files.length > 5){
+      alert("최대 5개의 이미지만 올릴 수 있습니다.")
+      return;
+    }
+    preview.style.backgroundImage = files.length ? `url(${URL.createObjectURL(files[0])})` : "";
+    
+    paintImages();
+    setImageFiles(files);
   };
-
-// http://k3a409.p.ssafy.io/api/boast/image
-
 
   return (
     <ImageUploaderBody>
-      <Label for="inputFile" id="preview">이미지 업로드</Label>
+      <Label for="inputFile" id="preview">이미지 업로드 (최대 5개)</Label>
       <Input
         type="file"
         accept=".jpg,.png,.gif,.jpeg"
