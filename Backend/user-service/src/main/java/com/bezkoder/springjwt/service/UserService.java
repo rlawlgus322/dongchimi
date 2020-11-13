@@ -1,6 +1,9 @@
 package com.bezkoder.springjwt.service;
 
 import com.bezkoder.springjwt.models.User;
+import com.bezkoder.springjwt.response.userinfoResponse;
+
+import java.util.List;
 
 public interface UserService {
     User findUserinfoById(long id);
@@ -15,5 +18,6 @@ public interface UserService {
     long getidByEmail(String email);
     void updateProfileImage(String email, String path);
 	void save(User user);
+	List<userinfoResponse> USER_LIST(long[] idlist);
 
 }

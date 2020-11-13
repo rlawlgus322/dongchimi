@@ -2,8 +2,12 @@ package com.bezkoder.springjwt.service;
 
 import com.bezkoder.springjwt.models.User;
 import com.bezkoder.springjwt.repository.UserRepository;
+import com.bezkoder.springjwt.response.userinfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -87,6 +91,26 @@ public class UserServiceImpl implements UserService {
 	public void save(User user) {
 		userRepository.save(user);
 	}
-    
-    
+
+    @Override
+    public List<userinfoResponse> USER_LIST(long[] idlist) {
+        List<userinfoResponse> list = new ArrayList<>();
+        for (int i = 0; i < idlist.length; i++){
+            User user = userRepository.getUserById(idlist[i]);
+            userinfoResponse userinfoResponse = new userinfoResponse();
+            userinfoResponse.email = user.getEmail();
+            userinfoResponse.gender = user.getGender();
+            userinfoResponse.nickname =  user.getNickname();
+            userinfoResponse.username = user.getUsername();
+            userinfoResponse.profileImage = user.getProfileimage();
+            userinfoResponse.prefer1 = user.getPrefer1();
+            userinfoResponse.prefer2 = user.getPrefer2();
+            userinfoResponse.prefer3 = user.getPrefer3();
+            list.add(userinfoResponse);
+
+        }
+        return list;
+    }
+
+
 }
