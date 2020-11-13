@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService {
             userinfoResponse.prefer1 = user.getPrefer1();
             userinfoResponse.prefer2 = user.getPrefer2();
             userinfoResponse.prefer3 = user.getPrefer3();
+            userinfoResponse.star = user.getStar();
             list.add(userinfoResponse);
 
         }

@@ -118,6 +118,7 @@ public class UserController {
             userinfoResponse.prefer1 = user.getPrefer1();
             userinfoResponse.prefer2 = user.getPrefer2();
             userinfoResponse.prefer3 = user.getPrefer3();
+            userinfoResponse.star = user.getStar();
             System.out.println(user.toString());
             entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
         } catch (Exception e) {
@@ -143,6 +144,7 @@ public class UserController {
             userinfoResponse.prefer1 = user.getPrefer1();
             userinfoResponse.prefer2 = user.getPrefer2();
             userinfoResponse.prefer3 = user.getPrefer3();
+            userinfoResponse.star = user.getStar();
             System.out.println(user.toString());
             entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
         } catch (Exception e) {
@@ -154,7 +156,7 @@ public class UserController {
     }
     @GetMapping(value = "/userinfolist")
     @ApiOperation(value = "유저정보 보내주기")
-    public ResponseEntity<?> getuserinfoidd(@RequestParam long[] idlist) {
+    public ResponseEntity<?> getuserinfoidd(@RequestParam(value = "idlist") long[] idlist) {
 
         ResponseEntity<?> entity = null;
         try {
@@ -221,14 +223,14 @@ public class UserController {
         return entity;
     }
     
-    @PutMapping("/userinfo/{email}")
+    @PutMapping("/userinfo/{nickname}")
     @ApiOperation(value = "평점주기")
-    public ResponseEntity<?> giveStar(@RequestHeader("accessToken") String access,@PathVariable String email,@RequestParam float star) {
+    public ResponseEntity<?> giveStar(@RequestHeader("accessToken") String access,@PathVariable String nickname,@RequestParam float star) {
     	ResponseEntity<?> entity = null;
     	try {
     		String userEmail = jwtUtils.getUserNameFromJwtToken(access);
     		if(userEmail == null ) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        	User user = userService.findUserinfoByEmail(email);
+        	User user = userService.findUserinfoByNickname(nickname);
         	float userStar = user.getStar();
         	int userNum = user.getNum();
         	float sum = userStar * userNum;

@@ -21,5 +21,7 @@ public class userinfoResponse {
     public String prefer2;
     @ApiModelProperty(value = "prefer3", position = 9)
     public String prefer3;
+    @ApiModelProperty(value = "star", position = 10)
+    public float star;
 
 }
