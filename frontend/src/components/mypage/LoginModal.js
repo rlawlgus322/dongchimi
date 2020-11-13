@@ -68,6 +68,35 @@ function LoginModal({ history }) {
   }
 `;
 
+function LoginModal({ history }) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const login = (e) => {
+    e.preventDefault()
+    // console.log(login, e)
+    // console.log("아이디 " + e.target.email.value)
+    // console.log("비밀번호 " + e.target.password.value)
+    api.post('auth/signin', {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    }).then(res => {
+      // console.log("로그인 데이터 " + JSON.stringify(res.data))
+      // console.log("로그인 uid " + JSON.stringify(res.data.uid))
+      const { accessToken } = res.data;
+      sessionStorage.setItem('token', accessToken);
+      sessionStorage.setItem('uid', res.data.uid)
+      // console.log(res)
+      alert("안녕하세요~")
+      history.push("/")
+    }).catch(err => {
+      // console.log(err)
+      alert("아이디와 비밀번호를 확인해주세요.")
+    })
+  }
+
   return (
     <>
       <a onClick={handleShow}>

@@ -4,17 +4,17 @@ import Peer from "simple-peer";
 import styled from "styled-components";
 
 const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    height: 100vh;
-    width: 90%;
-    margin: auto;
-    flex-wrap: wrap;
+padding: 20px;
+display: flex;
+height: 100vh;
+width: 90%;
+margin: auto;
+flex-wrap: wrap;
 `;
 
 const StyledVideo = styled.video`
-    height: 40%;
-    width: 50%;
+height: 40%;
+width: 50%;
 `;
 
 const Video = (props) => {
@@ -42,7 +42,8 @@ const Room = (props) => {
     const socketRef = useRef();
     const userVideo = useRef();
     const peersRef = useRef([]);
-    const roomID = props.match.params.roomID;
+    // const roomID = props.match.params.roomID;
+    const roomID = props.roomID;
 
     useEffect(() => {
         socketRef.current = io.connect("/", { transforts: ['websocket'] }, { path: "/socket.io/" });
