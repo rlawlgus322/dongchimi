@@ -82,6 +82,7 @@ public class BoastController {
 			Map<String, Object>userinfo = userClient.getUserInfo(access);
 			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
 			boast.setUserId(id);
+			System.out.println(id);
 			entity = new ResponseEntity<Boast>(boastService.insert(boast), HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();

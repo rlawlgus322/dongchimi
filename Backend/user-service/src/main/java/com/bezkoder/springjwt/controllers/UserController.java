@@ -156,7 +156,7 @@ public class UserController {
     }
     @GetMapping(value = "/userinfolist")
     @ApiOperation(value = "유저정보 보내주기")
-    public ResponseEntity<?> getuserinfoidd(@RequestParam long[] idlist) {
+    public ResponseEntity<?> getuserinfoidd(@RequestParam(value = "idlist") long[] idlist) {
 
         ResponseEntity<?> entity = null;
         try {
