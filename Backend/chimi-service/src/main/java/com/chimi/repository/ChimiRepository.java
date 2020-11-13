@@ -19,4 +19,12 @@ public interface ChimiRepository extends CrudRepository<Chimi, Long>{
 
 	List<Chimi> findChimisByHidIsNotNull();
 
+	List<Chimi> getChimisByNameContains(String name);
+
+	Page<Chimi> findChimisByCategory(String category,Pageable pageable);
+
+	Page<Chimi> findChimisByNameContains(String name,Pageable pageable);
+
+	Page<Chimi> findChimisByCategoryAndNameContains(String category, String name,Pageable pageable);
+
 }
