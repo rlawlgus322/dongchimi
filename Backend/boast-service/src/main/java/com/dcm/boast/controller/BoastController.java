@@ -47,7 +47,7 @@ public class BoastController {
 		try {
 			HashMap<String, Object> loginUserinfo = null;
 			System.out.println(access);
-			System.out.println(access instanceof Strings);
+			System.out.println(access instanceof String);
 
 			if(access!=null) loginUserinfo = userClient.getUserInfo(access);
 			
