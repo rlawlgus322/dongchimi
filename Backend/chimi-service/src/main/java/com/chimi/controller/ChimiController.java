@@ -66,6 +66,7 @@ public class ChimiController {
 			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
 			System.out.println("id : " + id);
 			chimi.setUserId(id);//user id 저장
+			chimi.setIsstart(false);
 			chimiService.save(chimi);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		}
