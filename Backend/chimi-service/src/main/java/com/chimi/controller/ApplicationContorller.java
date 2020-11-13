@@ -2,6 +2,7 @@ package com.chimi.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,13 +80,18 @@ public class ApplicationContorller {
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
 	}
-	@DeleteMapping("/moderator/{hid}")
+	@DeleteMapping("/moderator")
 	@ApiOperation(value = "나에게 온 신청 거부")
-	public ResponseEntity<String> disagree(@RequestHeader("accessToken") String access, @PathVariable long hid) {
+	public ResponseEntity<String> disagree(@RequestHeader("accessToken") String access,@RequestBody PKSet pk) {
 		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
-		Application application = applicationService.findByHidAndRoomUserId(hid,Long.parseLong(String.valueOf(userinfo.get("id")))).get();
+		Optional<Application> application = applicationService.findById(pk); // 파티 신청 정보
+		
 		if (application!=null) {
-			applicationService.deleteById(application.getApplicationPK());
+			long hid = application.get().getApplicationPK().getChimiId();
+			Chimi chimi = chimiService.findById(hid).get();
+			if(chimi==null) return new ResponseEntity<>("chimi not found", HttpStatus.NOT_FOUND);
+			
+			applicationService.deleteById(pk); //신청 거부
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
