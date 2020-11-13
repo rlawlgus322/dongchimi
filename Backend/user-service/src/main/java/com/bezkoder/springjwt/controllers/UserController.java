@@ -130,11 +130,11 @@ public class UserController {
     }
     @GetMapping(value = "/userinfo/{id}")
     @ApiOperation(value = "유저정보 보내주기")
-    public ResponseEntity<?> getuserinfoid(@PathVariable long id) {
+    public ResponseEntity<?> getuserinfoid(@PathVariable String id) {
 
         ResponseEntity<?> entity = null;
         try {
-            User user = userService.findUserinfoById(id);
+            User user = userService.findUserinfoById(Long.parseLong(id));
             userinfoResponse userinfoResponse = new userinfoResponse();
             userinfoResponse.email = user.getEmail();
             userinfoResponse.gender = user.getGender();
