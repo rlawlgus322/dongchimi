@@ -7,6 +7,7 @@ const globalStyles = createGlobalStyle`
         text-decoration:none;
         color:inherit;
         &:hover{
+          color: inherit;
           text-decoration: none;
         }
     }
@@ -14,9 +15,8 @@ const globalStyles = createGlobalStyle`
         box-sizing:border-box;
     }
     body{
-        font-family:--apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;
         font-size:16px;
-        color: white;
         padding-top: 50px;
     }
     button{
