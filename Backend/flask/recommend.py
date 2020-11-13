@@ -179,7 +179,8 @@ def userRecommend():
     else:
         recommendList = []
     
-    print("협업..?" + recommendList)
+    print("협업..?")
+    print(recommendList)
     
 
     # 디비 해제
@@ -189,7 +190,7 @@ def userRecommend():
     return jsonify({'recommendlist': recommendList})
 
 if __name__ == '__main__':
-    # app.run(host='localhost',port=8090,debug='True',ssl_context=('./cert/server.crt', './cert/server.key'))
-    app.run(host='0.0.0.0',port=8090,debug='True',ssl_context=('./cert/server.crt', './cert/server.key'))
+    app.run(host='localhost',port=8090,debug='True',ssl_context=('./cert/server.crt', './cert/server.key'))
+    # app.run(host='0.0.0.0',port=8090,debug='True',ssl_context=('./cert/server.crt', './cert/server.key'))
 
 
