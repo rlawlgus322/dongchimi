@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Link, withRouter } from "react-router-dom";
 import styled from 'styled-components';
 import SearchOverlay from 'components/SearchOverlay';
+import LoginModal from '../components/mypage/LoginModal';
 
 const Header = styled.header`
   display: flex;
@@ -97,7 +98,7 @@ export default withRouter(({location:{pathname}}) => {
 
   return(
     <Header>
-      <Logo><Bold>DONG</Bold>CHIMI</Logo>
+      <Logo to="/"><Bold>DONG</Bold>CHIMI</Logo>
       <List isMenuOpened={isMenuOpened}>
         <Item current={pathname === "/"}>
           <SLink to="/">홈</SLink>
@@ -111,6 +112,7 @@ export default withRouter(({location:{pathname}}) => {
         <Item current={pathname === "/mypage"}>
           <SLink to="/mypage">마이페이지</SLink>
         </Item>
+        <LoginModal/>
         <Curtain isMenuOpened={isMenuOpened}/>
       </List>
 
