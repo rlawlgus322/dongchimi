@@ -49,7 +49,7 @@ public class BoastController {
 			System.out.println(access);
 			System.out.println(access instanceof String);
 
-			if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+			if(!access.equals("null")) loginUserinfo = userClient.getUserInfo(access);
 			
 			Page<Boast> boastlist = boastService.allBoasts(pageable);
 			List<BoastResponse> list = new ArrayList<>();
@@ -130,7 +130,7 @@ public class BoastController {
 			BoastDetailResponse boastDetailResponse = new BoastDetailResponse(bst,nickname,profileImage,false);
 			//보는 사람
 			HashMap<String, Object> loginUserinfo = null;
-			if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+			if(!access.equals("null")) loginUserinfo = userClient.getUserInfo(access);
 			
 			if(loginUserinfo!=null) { //로그인 된 사람이면 좋아요 유무 확인
 				long id = Long.parseLong(String.valueOf(loginUserinfo.get("id")));
