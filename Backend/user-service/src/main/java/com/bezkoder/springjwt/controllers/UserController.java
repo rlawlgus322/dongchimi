@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,10 +129,10 @@ public class UserController {
 
         return entity;
     }
-    @GetMapping(value = "/userinfo/{id}")
+    @GetMapping(value = "/userinfoby/{id}")
     @ApiOperation(value = "유저정보 보내주기")
-    public ResponseEntity<?> getuserinfoid(@PathVariable long id) {
-
+    public ResponseEntity<?> getuserinfoid(@PathVariable Long id) {
+        System.out.println("id = "+ id);
         ResponseEntity<?> entity = null;
         try {
             User user = userService.findUserinfoById(id);

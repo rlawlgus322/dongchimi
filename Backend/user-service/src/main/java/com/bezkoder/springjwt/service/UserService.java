@@ -6,7 +6,7 @@ import com.bezkoder.springjwt.response.userinfoResponse;
 import java.util.List;
 
 public interface UserService {
-    User findUserinfoById(long id);
+    User findUserinfoById(Long id);
     User findUserinfoByEmail(String email);
     User findUserinfoByNickname(String nickname);
     String getUsernameById(long id);
