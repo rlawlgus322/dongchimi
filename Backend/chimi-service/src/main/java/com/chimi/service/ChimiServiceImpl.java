@@ -132,6 +132,6 @@ public class ChimiServiceImpl implements ChimiService{
 
 	@Override
 	public int countAll() {
-		return chimiRepository.countAll();
+		return chimiRepository.countChimisByHidIsNotNull();
 	}
 }
