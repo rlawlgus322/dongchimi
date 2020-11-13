@@ -3,25 +3,45 @@ import { withRouter } from 'react-router-dom';
 import Parties from '../../components/Party/List/Parties';
 import Pagination from 'react-js-pagination';
 import api from '../../utils/api';
+import './party.css';
 
 function PartyList({ history }) {
-  // 요청 상태 관리
   const [parties, setParties] = useState([]);
-  //const [keyword, setKeyword] = useState(null);
+  const [page, setPage] = useState(1); // 페이징
+  const [keyword, setKeyword] = useState(""); // 검색어
   const logged = sessionStorage.getItem('token') === null ? false : true;
 
   useEffect(() => {
+    getLists();
+  }, [])
+
+  useEffect(() => {
+    getLists();
+  }, [page])
+
+  function getLists() {
     api.get('/hobby/chimi', {
+      params: {
+        page: page - 1,
+        size: 12
+      }
+    }, {
       headers: {
         accessToken: sessionStorage.getItem('token')
       }
+    }).then(({ data }) => {
+      // console.log('party list', data);
+      setParties(data);
+    }).catch((err) => {
+      console.log(err);
     })
-      .then(({ data }) => {
-        // console.log(data);
-        setParties(data);
-      })
-    // setParties(data);
-  }, [])
+  }
+
+  function handlePageChange(pageNumber) {
+    console.log('active page ', pageNumber);
+    setPage(pageNumber);
+  }
+
   return (
     <>
       {/** 카테고리 */}
@@ -37,6 +57,7 @@ function PartyList({ history }) {
         정렬 기준
         <select>
           <option>최신순</option>
+          <option>오래된순</option>
         </select>
         {logged &&
           <button
@@ -51,14 +72,13 @@ function PartyList({ history }) {
       {/** 페이지네이션 */}
       <div style={{ textAlign: "center" }}>
         <Pagination
-          hideDisabled
-          activePage={1}
+          activePage={page}
           itemsCountPerPage={12}
-          totalItemsCount={5}
+          totalItemsCount={30} // 전체 값 가져온 뒤에 수정 필요!!
           pageRangeDisplayed={5}
           itemClass="page-item"
           linkClass="page-link"
-          onChange={function () { console.log('onChange') }}
+          onChange={handlePageChange}
         />
       </div>
     </>
@@ -66,4 +86,3 @@ function PartyList({ history }) {
 }
 
 export default withRouter(PartyList);
-

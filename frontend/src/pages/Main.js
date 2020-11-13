@@ -22,7 +22,7 @@ class Main extends Component {
             <NavLink to="/mypage"><li>마이페이지</li></NavLink>
           }
           {!logged &&
-            <LoginModal></LoginModal>
+            <li><LoginModal></LoginModal></li>
           }
         </ul>
       </div>

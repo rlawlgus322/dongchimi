@@ -10,13 +10,13 @@ class PartyUpdate extends Component {
   }
 
   getContents(text) {
-    // console.log('text', text);
+    console.log('text', text);
     this.setState({ editorData: text });
   }
 
   submit(e) {
     e.preventDefault();
-    // console.log('submit');
+    console.log('submit');
   }
 
   render() {
