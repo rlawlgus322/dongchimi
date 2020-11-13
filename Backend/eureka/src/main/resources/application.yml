@@ -1,0 +1,29 @@
+#Default port is 8761
+server:
+  port: 8761
+  ssl:
+    key-store: /etc/letsencrypt/live/k3a409.p.ssafy.io/keystore.p12
+    key-store-password: Ssafy1234
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+
+eureka:
+  instance:
+    hostname: k3a409.p.ssafy.io
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+  serviceUrl:
+    defaultZone: https://k3a409.p.ssafy.io:8761
+
+#Setting logging levels
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.dcm: DEBUG
+
+security:
+  require-ssl: true
