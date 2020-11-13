@@ -25,4 +25,10 @@ public interface ChimiService {
 	List<Chimi> findByChimiIdStore(List<Storage> list);
 	void updatechimiIsStart();
 	List<Chimi> getChimisByName(String name);
+	int countName(String name);
+	int countCategory(String category);
+	int countNameAndCategory(String name, String category);
+	int countAll();
+
+
 }
