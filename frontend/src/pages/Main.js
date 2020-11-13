@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
-import LoginModal from '../components/mypage/LoginModal';
-
+import MovingImageList from 'components/MovingImageList';
 const MainBody = styled.div`
+  width: 100%;
 `
 function Main() {
   
   const logged = sessionStorage.getItem('token') === null;
 
   return (
-    <MainBody></MainBody>
+    <MainBody>
+      <MovingImageList />
+    </MainBody>
   )
 }
 
