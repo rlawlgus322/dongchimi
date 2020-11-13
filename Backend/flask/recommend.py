@@ -92,8 +92,8 @@ def itemRecommend():
     recommendList = list(recommendSet)
     samplelist = []
     # for i in range(flag):
-    for i in range(3):
-        chimilist = connect.getchimi(cursor)
+    for ctg in recommendList:
+        chimilist = connect.getchimi(cursor, ctg)
         chimis = []
         for chimi in chimilist.fetchall():
             print(chimi)
