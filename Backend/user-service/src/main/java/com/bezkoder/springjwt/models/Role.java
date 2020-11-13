@@ -3,10 +3,11 @@ package com.bezkoder.springjwt.models;
 import javax.persistence.*;
 
 @Entity
+@SequenceGenerator(name = "TEAM_SEQ_GENERATOR", sequenceName = "TEAM_SEQ", initialValue = 1, allocationSize = 1)
 @Table(name = "roles")
 public class Role {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEAM_SEQ_GENERATOR")
 	private Integer id;
 
 	@Enumerated(EnumType.STRING)
@@ -36,4 +37,6 @@ public class Role {
 	public void setName(ERole name) {
 		this.name = name;
 	}
+
+
 }
