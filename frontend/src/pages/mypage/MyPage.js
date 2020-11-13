@@ -8,7 +8,6 @@ class MyPage extends Component {
     super(props);
     this.state = {
       userInfo: '',
-      image: '',
     }
   }
   componentDidMount() {
@@ -36,7 +35,8 @@ class MyPage extends Component {
       <Container>
         <Row>
           <Col>
-            <img src={this.state.image} alt="" width="75%"></img>
+            <div>프로필 사진</div>
+            <img src={this.state.userInfo.profileImage} alt=""></img>
           </Col>
           <Col>
             <br />
@@ -47,7 +47,9 @@ class MyPage extends Component {
             <h4>선호 카테고리: 1순위-{this.state.userInfo.prefer1}/<br />2순위-{this.state.userInfo.prefer2}/3순위-{this.state.userInfo.prefer3}</h4>
           </Col>
         </Row>
-        <MypageTab></MypageTab>
+        <Row>
+          <MypageTab></MypageTab>
+        </Row>
       </Container>
     );
   }
