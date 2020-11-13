@@ -5,29 +5,45 @@ import PartyMembers from './PartyMembers';
 
 class PartyInfo extends Component {
   render() {
-    const type = this.props.type; // 1-신청시상세, 2-신청후
-    console.log(type);
-    let comp;
-    if (type === 1) comp = <PartyRegister></PartyRegister>
-    else comp = <PartyMembers></PartyMembers>
     return (
-      <div>
+      <>
         <div className='row'>
-          <div className='col-md-5 col-8'>
-            사진
-          </div>
+          {
+            this.props.data.chimi !== undefined &&
+            <div className='col-md-5 col-8'
+              style={{
+                backgroundImage: `url(https://k3a409.p.ssafy.io${this.props.data.chimi.image !== null ? this.props.data.chimi.image : '/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png'})`,
+                textAlign: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: "350px",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            />
+          }
           <div className='col-md-7 col-8'>
-            <h1>{this.props.data.name}</h1>
-            <div>
-              설명 : {this.props.data.desc} <br></br>
-              해시태그 <br></br>
-              모임기간 <br></br>
-              모집인원 : {this.props.data.total} <br></br>
-            </div>
-            {comp}
+            {
+              this.props.data.chimi !== undefined &&
+              <h1>{this.props.data.chimi.name}</h1> &&
+              <div>
+                제목 : {this.props.data.chimi.name}<br></br>
+                설명 : {this.props.data.chimi.summary} <br></br>
+                카테고리 : {this.props.data.chimi.category} <br></br>
+                모집인원 : {this.props.data.chimi.totalnum} <br></br>
+                현재 신청 인원 : {this.props.data.chimi.curnum} <br></br>
+              </div>
+            }
+            {this.props.type === 1 &&
+              this.props.data.chimi !== undefined &&
+              <PartyRegister data={this.props.data} />}
+            {this.props.type === 2 &&
+              this.props.data.chimi !== undefined &&
+              <PartyMembers hid={this.props.data.chimi.hid} />}
           </div>
         </div>
-      </div>
+      </>
     )
   }
 }

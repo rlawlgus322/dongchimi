@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Party from './Party';
 
 class Parties extends Component {
-  state = {
-    parties: this.props.parties,
-  }
   render() {
     // console.log(this.state.parties);
     const mapToComponent = data => {
@@ -14,7 +11,7 @@ class Parties extends Component {
     }
     return (
       <div className="row chimi d-flex justify-content-center">
-        {mapToComponent(this.state.parties)}
+        {mapToComponent(this.props.parties)}
       </div>
     )
   }

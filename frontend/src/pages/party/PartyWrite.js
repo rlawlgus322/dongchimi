@@ -16,17 +16,12 @@ class PartyWrite extends Component {
   }
 
   getContents(text) {
-    console.log('text', text);
+    // console.log('text', text);
     this.setState({ editorData: text });
   }
 
   submit(e) {
     e.preventDefault();
-    // console.log(e);
-    // console.log('token', this.state.token);
-    // console.log('submit');
-    // console.log('editor data', this.state.editorData);
-    // console.log('editor toString', this.state.editorData.toString());
     api.post('/hobby/chimi', {
       category: e.target.category.value,
       description: this.state.editorData,
@@ -39,7 +34,7 @@ class PartyWrite extends Component {
         accessToken: sessionStorage.getItem('token')
       }
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
       this.props.history.push('/party');
     }).catch((err) => {
       console.log(err);
@@ -51,17 +46,15 @@ class PartyWrite extends Component {
     // console.log(e.target.files[0]);
     // console.log(e.target.image);
     this.setState({ preview: URL.createObjectURL(e.target.files[0]) });
-    // this.state.preview = URL.createObjectURL(e.target.files[0]);
     const formDate = new FormData();
     formDate.append('file', e.target.files[0]);
     multipart.post('/hobby/chimi/image', formDate)
       .then(({ data }) => {
-        // console.log(data);
+        console.log(data);
         this.setState({ image: data });
       }).catch((err) => {
         console.log(err);
       });
-    // this.setState({ image: URL.createObjectURL(e.target.files[0]) });
   }
 
   render() {

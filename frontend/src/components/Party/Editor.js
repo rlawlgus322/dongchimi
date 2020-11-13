@@ -29,24 +29,16 @@ class Editor extends Component {
       upload: file => {
         return new Promise((resolve, reject) => {
           const formData = new FormData();
-          formData.append("image", file);
+          formData.append("file", file);
 
-          fetch(
-            "https://api.imgbb.com/1/upload?key=d36eb6591370ae7f9089d85875e56b22",
-            {
-              method: "POST",
-              body: formData
-            }
-          )
-            .then(response => response.json())
-            .then(result => {
-              console.log(result);
-              resolve(result.data.url);
-            })
-            .catch(error => {
+          multipart.post('/hobby/chimi/image', formData)
+            .then(({ data }) => {
+              const url = "https://k3a409.p.ssafy.io" + data;
+              resolve(url);
+            }).catch((err) => {
               reject("Upload failed");
-              console.error("Error:", error);
-            });
+              console.log(err);
+            })
         });
       }
     }
