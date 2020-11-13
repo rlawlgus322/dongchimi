@@ -16,11 +16,17 @@ const Bdiv = styled.div`
   height: 280px;
   position: relative;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: 10px;
 `;
 
 const Mp = styled.p`
   margin: 0px;
+`;
+
+const ProfileImg = styled.img`
+  height: 35px;
+  margin: 5px 5px;
+  border-radius: 100%;
 `;
 
 class Boast extends Component {
@@ -30,17 +36,36 @@ class Boast extends Component {
     };
     return (
       <Sdiv className="col-md-4 col-lg-3 ">
-        <Mp>사진 {this.props.boast.username}</Mp>
+        <Mp>
+          <ProfileImg src={this.props.boast.profileImage} />
+          {this.props.boast.username}
+        </Mp>
         <Bdiv
           style={backgroundImage}
           onClick={() =>
             this.props.history.push(`/boast/${this.props.boast.Boast.bid}`)
           }
         ></Bdiv>
-        <FontAwesomeIcon icon={['far', 'eye']} />
-        <FontAwesomeIcon icon={['far', 'heart']} />
-        <FontAwesomeIcon icon={['fas', 'heart']} />
-        <FontAwesomeIcon icon={['fas', 'comment-dots']} />
+        <div className="row">
+          <div className="col-4" style={{ padding: "0 20px" }}>
+            <FontAwesomeIcon icon={['far', 'eye']} />
+            {this.props.boast.Boast.views}
+          </div>
+          <div className="col-4" style={{ padding: "0 20px" }}>
+            {
+              this.props.boast.isLiked === false &&
+              <FontAwesomeIcon icon={['far', 'heart']} />
+            }
+            {
+              this.props.boast.isLiked === true &&
+              <FontAwesomeIcon icon={['fas', 'heart']} />
+            }
+            {this.props.boast.Boast.likes}
+          </div>
+          <div className="col-4" style={{ padding: "0 20px" }}>
+            <FontAwesomeIcon icon={['fas', 'comment-dots']} />
+          </div>
+        </div>
         <Mp>{this.props.boast.Boast.title}</Mp>
       </Sdiv>
     );

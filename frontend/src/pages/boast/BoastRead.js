@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import UserInfoBar from 'components/UserInfoBar';
 import styled from 'styled-components';
 import SliderableImage from 'components/SliderableImage';
@@ -6,6 +6,7 @@ import TextViewer from 'components/TextViewer';
 import ArticleInfoIcons from 'components/ArticleInfoIcons';
 import CommentWriting from 'components/CommentWriting';
 import CommentRead from 'components/CommentRead';
+import api from 'utils/api';
 
 const images = [
   'https://images.unsplash.com/photo-1604724434236-a7cebeaa13e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
@@ -46,7 +47,29 @@ const Width80Percent = styled.div`
   width: 80%;
 `;
 
-function BoastRead() {
+function BoastRead(props) {
+  const [data, setData] = useState([]);
+  // const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    api.get(`/hobby/chimi/${props.match.params.id}`, {
+      headers: {
+        accessToken: sessionStorage.getItem('token'),
+      }
+    }).then(({ data }) => {
+      console.log(data);
+      setData(data);
+    }).catch((err) => {
+      console.log(err);
+    })
+  }, [])
+
+  // useEffect(() => {
+  //   console.log(data.chimi.image);
+  //   const obj = JSON.parse(data.chimi.image);
+  //   // TODO : 파싱해서 images에 저장하기
+  // }, data);
+
   return (
     <BoastReadBody>
       <InnerBody>
