@@ -1,28 +1,21 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
 
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
-import GridListTileBar from '@material-ui/core/GridListTileBar'
+function JoinParty() {
+  const { parties, setParties } = useState();
 
-class JoinParty extends Component {
-  state = {
-    parties: [],
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     api.get('/hobby/enrolment/all', {
       headers: {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      // console.log("참가한 파티 목록 " + data);
-      this.setState({ parties: data });
+      console.log(data);
+      setParties(data);
     }).catch((err) => {
       console.log(err);
     })
-  }
+  }, []);
 
   render() {
     return (
@@ -44,4 +37,4 @@ class JoinParty extends Component {
   }
 }
 
-export default withRouter(JoinParty)
+export default JoinParty
