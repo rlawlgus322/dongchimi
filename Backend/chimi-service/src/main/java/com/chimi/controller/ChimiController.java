@@ -1,5 +1,6 @@
 package com.chimi.controller;
 
+import com.chimi.payload.response.ChimiSearchResponse;
 import com.chimi.service.FileService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -94,12 +95,14 @@ public class ChimiController {
 	
 	@GetMapping
 	@ApiOperation(value = "모든 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
-	public ResponseEntity<List<ChimiResponse>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable, @RequestParam(value = "category") String category, @RequestParam(value = "name") String name){
+	public ResponseEntity<ChimiSearchResponse> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable, @RequestParam(value = "category",required=false) String category, @RequestParam(value = "name", required=false) String name){
 		try {
+			int cnt = 0;
 			List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
-			if(category == "null" && name == "null"){
+			if(category == null && name == null){
 				chimiService.updatechimiIsStart();
 				Page<Chimi> chimiPage = chimiService.findAll(pageable);
+				cnt = chimiService.countAll();
 				for(Chimi chimi : chimiPage){
 					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
 					chimiList.add(
@@ -110,8 +113,9 @@ public class ChimiController {
 					);
 				}
 
-			}else if(category == "null" && name !="null"){
+			}else if(category == null && name != null){
 				Page<Chimi> chimiPage = chimiService.findbyCategory(category,pageable);
+				cnt = chimiService.countCategory(category);
 				for(Chimi chimi : chimiPage){
 					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
 					chimiList.add(
@@ -121,8 +125,21 @@ public class ChimiController {
 							)
 					);
 				}
-			}else{
+			}else if(category != null && name == null){
+				Page<Chimi> chimiPage = chimiService.findbyName(name, pageable);
+				cnt = chimiService.countName(name);
+				for(Chimi chimi : chimiPage){
+					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
+					chimiList.add(
+							new ChimiResponse(chimi,
+									String.valueOf(cuserinfo.get("nickname")),
+									String.valueOf(cuserinfo.get("profileImage"))
+							)
+					);
+				}
+			} else{
 				Page<Chimi> chimiPage = chimiService.findbyCategoryAndName(category,name,pageable);
+				cnt = chimiService.countNameAndCategory(name, category);
 				for(Chimi chimi : chimiPage){
 					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
 					chimiList.add(
@@ -134,8 +151,10 @@ public class ChimiController {
 				}
 			}
 
-
-			return new ResponseEntity<>(chimiList, HttpStatus.OK);
+			ChimiSearchResponse chimiSearchResponse = new ChimiSearchResponse();
+			chimiSearchResponse.setChimiResponse(chimiList);
+			chimiSearchResponse.setCnt(cnt);
+			return new ResponseEntity<ChimiSearchResponse>(chimiSearchResponse, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
