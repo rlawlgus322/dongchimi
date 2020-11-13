@@ -1,11 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ImageUploader from 'components/ImageUploader';
 import multipart from 'utils/multipart';
 import HobbyCategory from "components/HobbyCategory";
 import api from "utils/api";
-
-
 
 const BoastWriteBody = styled.div`
   display: flex;
@@ -33,7 +31,7 @@ function BoastWrite() {
   let imageUrls = [];
   const submitBoast = async () => {
     await uploadImages(); 
-    const title = "";
+    const title = "title";
     const postImg = JSON.stringify(imageUrls);
     const contents = document.getElementById("BoastContent").innerText;
     const payload = {
@@ -43,15 +41,12 @@ function BoastWrite() {
       contents,
     }
 
-    console.log(payload);
-
     try{
-      const response = await api.post("boast", payload, {
+      api.post("boast/", payload, {
         headers: {
           accessToken: sessionStorage.getItem("token")
         }
       })
-      console.log(response);
     }catch(error){
       console.error(error);
     }
@@ -84,9 +79,7 @@ function BoastWrite() {
       }
     }
     imageUrls = {...imageUrls};
-    console.log(imageUrls);
   }
-
 
   return (
   <BoastWriteBody>
