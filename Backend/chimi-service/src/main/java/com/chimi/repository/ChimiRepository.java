@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ChimiRepository extends CrudRepository<Chimi, Long>{
 	Page<Chimi> findAll(Pageable pageable);
-	int countAll();
+	int countChimisByHidIsNotNull();
 
 	Page<Chimi> findAllByUserId(long id,Pageable pageable);
 
