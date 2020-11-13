@@ -37,6 +37,7 @@ public class ChimiServiceImpl implements ChimiService{
 
 	@Override
 	public Page<Chimi> findAll(Pageable pageable) {
+
 		return chimiRepository.findAll(pageable);
 	}
 
@@ -47,7 +48,23 @@ public class ChimiServiceImpl implements ChimiService{
 
 	@Override
 	public Page<Chimi> findByUserId(long id,Pageable pageable) {
+
 		return  chimiRepository.findAllByUserId(id,pageable);
+	}
+
+	@Override
+	public Page<Chimi> findbyCategory(String category, Pageable pageable) {
+		return chimiRepository.findChimisByCategory(category,pageable);
+	}
+
+	@Override
+	public Page<Chimi> findbyName(String name, Pageable pageable) {
+		return chimiRepository.findChimisByNameContains(name, pageable);
+	}
+
+	@Override
+	public Page<Chimi> findbyCategoryAndName(String category, String name, Pageable pageable) {
+		return chimiRepository.findChimisByCategoryAndNameContains(category, name, pageable);
 	}
 
 	@Override
@@ -89,5 +106,11 @@ public class ChimiServiceImpl implements ChimiService{
 			}
 		}
 
+	}
+
+	@Override
+	public List<Chimi> getChimisByName(String name) {
+
+		return chimiRepository.getChimisByNameContains(name);
 	}
 }
