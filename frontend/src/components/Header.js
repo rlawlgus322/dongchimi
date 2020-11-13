@@ -33,7 +33,7 @@ const SLink = styled(Link)`
 `
 
 const MenuToggleButton = styled.button`
-  
+
 `
 
 export default withRouter(({location:{pathname}}) => (
