@@ -1,5 +1,6 @@
 package com.chimi.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -75,5 +76,17 @@ public class ChimiServiceImpl implements ChimiService{
 			chimiList.add(chimi);
 		}
 		return chimiList;
+	}
+
+	@Override
+	public void updatechimiIsStart() {
+		List<Chimi> list = chimiRepository.findChimisByHidIsNotNull();
+		for (Chimi chimi : list ) {
+			if( chimi.getStartdate().isBefore( LocalDateTime.now() )){
+				chimi.setIsstart(true);
+				chimiRepository.save(chimi);
+			}
+		}
+
 	}
 }

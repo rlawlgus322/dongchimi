@@ -216,7 +216,7 @@ public class BoastController {
             @ApiResponse(code = 403, message = "권한이 없습니다"),
             @ApiResponse(code = 404, message = "이미지 업로드 실패")
     })
-    private ResponseEntity<?> create(@RequestParam(value = "file") MultipartFile image, @RequestHeader("accessToken") String access) {
+    private ResponseEntity<?> create(@RequestParam(value = "file") MultipartFile image) {
         ResponseEntity<?> entity = null;
         try {
             String path = fileService.image(image);

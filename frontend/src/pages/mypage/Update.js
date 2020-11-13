@@ -53,9 +53,8 @@ class Update extends Component {
       .then(res => {
         this.setState({userInfo: res.data});
         this.setState({nickname: res.data.nickname})
-        // console.log("프로필이미지 " + res.data.profileImage)
-        this.setState({preview: 'https://k3a409.p.ssafy.io' + res.data.profileImage})
-        // console.log("유저인포 " + JSON.stringify(this.state.userInfo))
+        this.setState({preview: res.data.profileImage})
+        console.log("유저인포 " + JSON.stringify(this.state.userInfo))
       })
       .catch(err => {
         console.log(err)
@@ -106,11 +105,10 @@ class Update extends Component {
 
   nCheck(e) {
     e.preventDefault();
-    // console.log(this.state.nickname)
+    console.log(this.state.nickname)
     api.get(`auth/userinfo/isemail/${this.state.nickname}`)
     .then(({data}) => {
-      if (data === true) alert("이미 존재하는 닉네임입니다.")
-      else alert("사용 가능한 닉네임입니다.")
+      console.log(data)
     })
     .catch(err => {
       console.log(err)
@@ -142,7 +140,7 @@ class Update extends Component {
   }
 
   del_user() {
-    // console.log("회원탈퇴 " + this.state.userInfo.email)
+    console.log("회원탈퇴 " + this.state.userInfo.email)
     // alert("정말 탈퇴하시겠습니까?")
     api.delete(`auth/userinfo/${this.state.userInfo.eamil}`, {
       headers : {
@@ -163,9 +161,10 @@ class Update extends Component {
       <Container>
         <Row>
           <Col>
+            {/** 대표 이미지 */}
             <div className="col-md-5 col-12" style={{ width: "15%", height: "15%" }}>
               {this.state.preview !== '' &&
-                <img src={this.state.preview} alt="" style={{ width: "300px", height: "300px" }} />
+                < img alt="Thumbnail" src={this.state.preview} style={{ width: "300px", height: "300px" }} />
               }
               <input type="file" name="image"
                 accept=".jpg, .jpeg, .png"
@@ -174,6 +173,7 @@ class Update extends Component {
             </div>
           </Col>
           <Col>
+            <div>사용자 정보</div>
             <AuthFormBlock>
             <form onSubmit={this.update.bind(this)}>
               <div>이메일: {this.state.userInfo.email}</div>
@@ -186,7 +186,7 @@ class Update extends Component {
               선호 카테고리
               <br/>
               <select name="category1">
-                <option value={this.state.userInfo.prefer1}>{this.state.userInfo.prefer1}</option>
+                <option value={this.state.userInfo.category1}></option>
                 <option value="유화">유화</option>
                 <option value="수채화">수채화</option>
                 <option value="파스텔">파스텔</option>
@@ -212,8 +212,8 @@ class Update extends Component {
                 <option value="관악기">관악기</option>
                 <option value="댄스">댄스</option>
               </select>
-              <select name="category2" label={this.state.userInfo.prefer2}>
-                <option value={this.state.userInfo.prefer2}>{this.state.userInfo.prefer2}</option>
+              <select name="category2">
+              <option value={this.state.userInfo.category2}></option>
                 <option value="유화">유화</option>
                 <option value="수채화">수채화</option>
                 <option value="파스텔">파스텔</option>
@@ -239,8 +239,8 @@ class Update extends Component {
                 <option value="관악기">관악기</option>
                 <option value="댄스">댄스</option>
               </select>
-              <select name="category3" label={this.state.userInfo.prefer3}>
-                <option value={this.state.userInfo.prefer3}>{this.state.userInfo.prefer3}</option>
+              <select name="category3">
+              <option value={this.state.userInfo.category3}></option>
                 <option value="유화">유화</option>
                 <option value="수채화">수채화</option>
                 <option value="파스텔">파스텔</option>

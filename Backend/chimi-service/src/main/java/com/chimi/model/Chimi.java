@@ -65,6 +65,11 @@ public class Chimi {
 	@Column(name = "rtcurl")
 	private String rtcurl;
 
+	@Column(name = "startdate")
+	private LocalDateTime startdate;
+
+	@Column(name = "isstart")
+	private boolean isstart = false;
 
 
 	

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.chimi.model.Chimi;
 
+import java.util.List;
+
 @Repository
 public interface ChimiRepository extends CrudRepository<Chimi, Long>{
 	Page<Chimi> findAll(Pageable pageable);
@@ -14,5 +16,7 @@ public interface ChimiRepository extends CrudRepository<Chimi, Long>{
 	Page<Chimi> findAllByUserId(long id,Pageable pageable);
 
 	Chimi getChimiByHid(long hid);
+
+	List<Chimi> findChimisByHidIsNotNull();
 
 }
