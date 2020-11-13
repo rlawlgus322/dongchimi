@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+// import { Card, CardDeck } from 'react-bootstrap';
 import api from '../../utils/api';
 
-function OpenParty() {
-  const { parties, setParties } = useState();
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import GridListTileBar from '@material-ui/core/GridListTileBar'
 
 class OpenParty extends Component {
 
@@ -20,7 +23,7 @@ class OpenParty extends Component {
     }).catch((err) => {
       console.log(err);
     })
-  }, []);
+  }
 
   render() {
     return (
@@ -44,4 +47,4 @@ class OpenParty extends Component {
   }
 }
 
-export default OpenParty
+export default withRouter(OpenParty)

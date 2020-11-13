@@ -6,33 +6,7 @@ import api from '../../utils/api';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette'
 
-function LoginModal({ history }) {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const login = (e) => {
-    e.preventDefault()
-    // console.log(login, e)
-    // console.log("아이디 " + e.target.email.value)
-    // console.log("비밀번호 " + e.target.password.value)
-    api.post('auth/signin', {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    }).then(res => {
-      const { accessToken } = res.data;
-      sessionStorage.setItem('token', accessToken);
-      // console.log(res)
-      alert("안녕하세요~")
-      history.push("/")
-    }).catch(err => {
-      // console.log(err)
-      alert("아이디와 비밀번호를 확인해주세요.")
-    })
-  }
-
-  const StyledInput = styled.input`
+const StyledInput = styled.input`
   font-size: 1.25rem;
   border: none;
   border-bottom: 1px solid ${palette.gray[5]};
@@ -48,7 +22,7 @@ function LoginModal({ history }) {
   }
 `;
 
-  const LoginBtn = styled.input`
+const LoginBtn = styled.input`
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -99,9 +73,9 @@ function LoginModal({ history }) {
 
   return (
     <>
-      <a onClick={handleShow}>
+      <li onClick={handleShow}>
         로그인
-      </a>
+      </li>
 
       <Modal show={show} onHide={handleClose} size="lg">
         <Container>

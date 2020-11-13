@@ -1,21 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import api from '../../utils/api';
 
-function LikeParty() {
-  const { parties, setParties } = useState();
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import GridListTileBar from '@material-ui/core/GridListTileBar'
 
-  useEffect(() => {
+class LikeParty extends Component {
+  state = {
+    parties: [],
+  }
+
+  componentDidMount() {
     api.get('/hobby/storage', {
       headers: {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log(data);
-      setParties(data);
+      // console.log("찜파티 " + JSON.stringify(data))
+      this.setState({ parties: data });
     }).catch((err) => {
       console.log(err);
     })
-  }, []);
+  }
 
   render() {
     return (
@@ -39,4 +46,4 @@ function LikeParty() {
   }
 }
 
-export default LikeParty
+export default withRouter(LikeParty)
