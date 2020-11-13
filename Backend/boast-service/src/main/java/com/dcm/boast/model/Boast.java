@@ -28,7 +28,7 @@ public class Boast {
     @NotNull
     private long userId;   // 자랑 유저 id
     
-    @NotNull
+
     private long hid;   // 취미 id
     
     @NotBlank
