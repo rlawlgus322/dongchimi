@@ -100,6 +100,14 @@ public class ApplicationContorller {
 		if(list == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		else return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	
+	@GetMapping("/moderator/{hid}")
+	@ApiOperation(value = "해당 파티 신청 인원 보여주기")
+	public ResponseEntity<List<Application>> selectallApplyHid(@RequestHeader("accessToken") String access, @PathVariable long hid) {
+		HashMap<String, Object> userinfo = userClient.getUserInfo(access);
+		List<Application> list = applicationService.findByHid(hid);
+		if(list == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		else return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
 
 }
