@@ -14,4 +14,5 @@ public interface ApplicationRepository extends CrudRepository<Application, PKSet
 	List<Application> findAllByApplicationPKUserIdOrderByCreatedateDesc(long userId);
 	List<Application> findAllByRoomUserIdOrderByCreatedateDesc(long id);
     Optional<Application> findByApplicationPK_ChimiIdAndRoomUserId(long hid,long userId);
+    List<Application> getApplicationsByApplicationPK_ChimiId(long hid);
 }
