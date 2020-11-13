@@ -27,7 +27,6 @@ class PartyApplicant extends Component {
 
   render() {
     console.log('applicant chimiId', this.state.chimiId);
-    // 2안. 가져온 데이터 중 이 게시글에 맞는 데이터만 렌더한다
     const applicants = this.state.applicants.map((applicant, index) => {
       if (applicant.applicationPK.chimiId === Number(this.state.chimiId)) {
         console.log('map ', applicant);
