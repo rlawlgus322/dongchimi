@@ -1,6 +1,7 @@
 package com.bezkoder.springjwt.controllers;
 
 import com.bezkoder.springjwt.models.User;
+import com.bezkoder.springjwt.response.UserUpdateRequest;
 import com.bezkoder.springjwt.response.userinfoResponse;
 import com.bezkoder.springjwt.security.jwt.JwtUtils;
 import com.bezkoder.springjwt.service.FileService;
@@ -205,13 +206,13 @@ public class UserController {
 
     @PutMapping("/userinfo")
     @ApiOperation(value = "수정하기")
-    public ResponseEntity<?> update(@RequestBody User user ,@RequestHeader("accessToken") String access) {
+    public ResponseEntity<?> update(@RequestBody UserUpdateRequest user , @RequestHeader("accessToken") String access) {
         //닉네임 prefer 123 프사(null 일수도)
         ResponseEntity<?> entity = null;
 
         try {
             String userEmail = jwtUtils.getUserNameFromJwtToken(access);
-            User newuser = userService.update(user);
+            User newuser = userService.update(userEmail, user);
             userinfoResponse userinfo = new userinfoResponse();
             userinfo.nickname = newuser.getNickname();
 
