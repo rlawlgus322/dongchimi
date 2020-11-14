@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
+import FlexBoxImageList from 'components/FlexBoxImageList';
+// 한 줄당 이미지 10개 이하로 
 
 const LeftValueList = ["-300px", "0px", "300px", "600px", "900px", "1200px", "1500px", "1800px", "2100px", "2400px"];
 
@@ -16,51 +18,30 @@ const imageList = [
 "https://images.unsplash.com/photo-1605213304982-3729ab855027?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
 ];
 
+const imageList2 = [
+  "https://images.unsplash.com/photo-1605050825221-66a810cb6d36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+  "https://images.unsplash.com/photo-1605020614743-65096a9ac90c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+  "https://images.unsplash.com/photo-1605090378975-85885877d84e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+  "https://images.unsplash.com/photo-1605256801693-882832f5d2de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+  "https://images.unsplash.com/photo-1605131546231-a5f385db4a6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+  "https://images.unsplash.com/photo-1605030753481-bb38b08c384a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+  "https://images.unsplash.com/photo-1605245871292-ea12ecbac076?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
+]
+
 const MovingImageListBody = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 750px;
-`
-const FlexBoxImageList = styled.div`
-  position: relative;
-  display: flex;
-  height: 33.33%;
-  overflow: hidden;
+  height: 900px;
 `
 
-const ImageCell = styled.img`
-  position: absolute;
-  height: 300px;
-  width: 300px;
-  transition: left 0.5s ease-in-out;
-`
-let imageIndex = 0;
-let imageDOMLists = [];
-const ImageDataLength = 10;
 function MovingImageList() {
-
-  const MoveImage = () => {
-    const bottleNeck = Math.min(LeftValueList.length, ImageDataLength);
-    for(let i=0;i<bottleNeck;i++){
-      const curImageDOM = imageDOMLists[(i+imageIndex)%bottleNeck]
-      curImageDOM.style.zIndex = -i;
-      curImageDOM.style.left = LeftValueList[i];
-    }
-    imageIndex++
-  }
-
-  useEffect(() => {
-    imageDOMLists = document.querySelectorAll(".ImageCell");
-    MoveImage();
-    setInterval(MoveImage, 2000);
-  }, []);
 
   return (
   <MovingImageListBody>
-    <FlexBoxImageList>
-      {imageList.map((elem, index) => <ImageCell className="ImageCell" key={index} src={elem}/>)}
-    </FlexBoxImageList>
+    <FlexBoxImageList imageUrlList={imageList} size="300" top="0" timeInterval="2100"/>
+    <FlexBoxImageList imageUrlList={imageList2} size="300" top="300" timeInterval="2300"/>
+    <FlexBoxImageList imageUrlList={imageList} size="300" top="600" timeInterval="2200"/>
   </MovingImageListBody>
   )  
 }
