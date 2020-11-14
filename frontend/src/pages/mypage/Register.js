@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
 import api from '../../utils/api';
 import { Button } from 'react-bootstrap'
+// import * as EmailValidator from 'email-validator';
 
 const RegisterBlock = styled.div`
   width: 50%;
@@ -20,6 +21,8 @@ const RegisterBlock = styled.div`
 `;
 
 const AuthFormBlock = styled.div`
+  justify-content: center;
+  aling-items: center;
   h3 {
     margin: 0;
     color: ${palette.gray[8]};
@@ -33,25 +36,7 @@ const StyledInput = styled.input`
   border-bottom: 1px solid ${palette.gray[5]};
   padding-bottom: 0.5rem
   outline: none;
-  width: 100%;
-  %:focus {
-    color $oc-teal-7;
-    border-bottom: 1px solid ${palette.gray[7]};
-  }
-  & + & {
-    margin-top: 1rem;
-  }
-`;
-
-const StyledInputWithBlock = styled.input`
-  font-size: 1.25rem;
-  border: none;
-  border-bottom: 1px solid ${palette.gray[5]};
-  margin-top: 0.5rem;
-  margin-right: 1rem;
-  padding-bottom: 0.5rem
-  outline: none;
-  width: 75%;
+  width: 60%;
   %:focus {
     color $oc-teal-7;
     border-bottom: 1px solid ${palette.gray[7]};
@@ -65,6 +50,8 @@ const StyledInputWithBlock = styled.input`
 const Register = ({history}) => {
 
   const [email, setEmail] = useState(null);
+  // const [eValidate, setEValidate] = useState(false);
+  // const errorEmail = useState("올바른 이메일을 입력해주세요.")
   const [nickname, setNickname] = useState(null);
   
   const signin = (e) => {
@@ -75,6 +62,7 @@ const Register = ({history}) => {
     // console.log('category1', e.target.category1.value);
     // console.log('category2', e.target.category2.value);
     // console.log('category3', e.target.category3.value);
+    console.log("닉네임 " + e.target.nickname.value)
     api.post('auth/signup', {
       username: e.target.name.value,
       email: e.target.email.value,
@@ -96,13 +84,9 @@ const Register = ({history}) => {
 
   const eCheck = (e) => {
     e.preventDefault();
-    // const check_email = email.email;
-    // console.log('eCheck email', check_email);
     api.get(`auth/userinfo/isemail/${email.email}`)
     .then(({data}) => {
-      // console.log("echeck " + data)
-      if (data === true) alert("이미 존재하는 이메일입니다.")
-      else alert("사용 가능한 이메일입니다.")
+      { data ? alert("이미 존재하는 이메일입니다.") : alert("사용 가능한 이메일입니다.")}
     })
     .catch(err => {
       console.log(err)
@@ -111,13 +95,10 @@ const Register = ({history}) => {
 
   const nCheck = (e) => {
     e.preventDefault();
-    // const check_nickname = nickname.nickname
-    // console.log("닉네임 " + nickname.nickname)
-    api.get(`auth/userinfo/isemail/${nickname.nickname}`)
+    api.get(`auth/userinfo/isnick/${nickname.nickname}`)
     .then(({data}) => {
-      // console.log("ncheck " + data)
-      if (data === true) alert("이미 존재하는 닉네임입니다.")
-      else alert("사용 가능한 닉네임입니다.")
+      { data ? alert("이미 존재하는 닉네임입니다.") : alert("사용 가능한 닉네임입니다.")}
+      console.log(data)
     })
     .catch(err => {
       console.log(err)
@@ -125,14 +106,19 @@ const Register = ({history}) => {
   }
 
   const changeEmail = (e) => {
-    // console.log('email',e.target.value);
     setEmail({email: e.target.value})
   }
 
   const changeNickname = (e) => {
-    // console.log('email',e.target.value);
     setNickname({nickname: e.target.value})
   }
+
+  // const emailValidate = (e) => {
+  //   console.log('이메일 유효성 before ' + JSON.stringify(eValidate))
+  //   setEValidate({eValidate: EmailValidator.validate(e.target.value)})
+  //   console.log(e.target.value)
+  //   console.log('이메일 유효성 after ' + JSON.stringify(eValidate))
+  // }
 
   return (
     <RegisterBlock>
@@ -140,14 +126,19 @@ const Register = ({history}) => {
       {/* <RegisterForm /> */}
       <AuthFormBlock>
       <form onSubmit={signin}>
-        <StyledInputWithBlock type="text" name="email" placeholder="email" 
+        <StyledInput type="text" name="email" placeholder="email" 
           onChange={changeEmail}
         />
         <Button onClick={eCheck}>중복확인</Button>
+        {/* { email != null && email.length > 0 &&
+          <div>
+            { !eValidate && {errorEmail} }
+          </div>
+        } */}
         <StyledInput type="password" name="password" placeholder="password" />
         <StyledInput type="password" name="passwordConfirm" placeholder="password Confirm" />
         <StyledInput type="text" name="name" placeholder="name" />
-        <StyledInputWithBlock type="text" name="nickname" placeholder="nickname"
+        <StyledInput type="text" name="nickname" placeholder="nickname"
           onChange={changeNickname}
         />
         <Button onClick={nCheck}>중복확인</Button>
@@ -164,7 +155,7 @@ const Register = ({history}) => {
         선호 카테고리
         <br/>
         <select name="category1">
-          <option>1순위</option>
+          <option value="">1순위</option>
           <option value="유화">유화</option>
           <option value="수채화">수채화</option>
           <option value="파스텔">파스텔</option>
@@ -191,7 +182,7 @@ const Register = ({history}) => {
           <option value="댄스">댄스</option>
         </select>
         <select name="category2">
-          <option>2순위</option>
+          <option value="">2순위</option>
           <option value="유화">유화</option>
           <option value="수채화">수채화</option>
           <option value="파스텔">파스텔</option>
@@ -218,7 +209,7 @@ const Register = ({history}) => {
           <option value="댄스">댄스</option>
         </select>
         <select name="category3">
-          <option>3순위</option>
+          <option value="">3순위</option>
           <option value="유화">유화</option>
           <option value="수채화">수채화</option>
           <option value="파스텔">파스텔</option>
