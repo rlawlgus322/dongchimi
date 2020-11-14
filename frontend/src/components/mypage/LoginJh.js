@@ -1,46 +1,11 @@
-import React, { useState } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
-import { Modal, Container, Row, Col } from 'react-bootstrap';
-import ModalButton from '../common/Button';
+import React, { useState,useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import { Modal} from 'react-bootstrap';
 import api from '../../utils/api';
-import styled from 'styled-components';
-import palette from '../../lib/styles/palette'
+import './login.css';
+import jQuery from "jquery";
+window.$ = window.jQuery = jQuery;
 
-const StyledInput = styled.input`
-  font-size: 1.25rem;
-  border: none;
-  border-bottom: 1px solid ${palette.gray[5]};
-  padding-bottom: 0.5rem;
-  outline: none;
-  width: 100%;
-  &:focus {
-    color: ${palette.teal[7]};
-    border-bottom: 1px solid ${palette.gray[7]};
-  }
-  & + & {
-    margin-top: 1rem;
-  }
-`;
-
-const LoginBtn = styled.input`
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0.25rem 1rem;
-  color: white;
-  outline: none;
-  cursor: pointer;
-  margin-top: 1rem;
-  width: 100%;
-  height: 50px;
-  variant: info;
-
-  background: info;
-  &:hover {
-    background: info;
-  }
-`;
 
 function LoginModal({ history }) {
     const [show, setShow] = useState(false);
@@ -48,6 +13,21 @@ function LoginModal({ history }) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    useEffect(() => {
+        window.$('#signup').click(function() {
+            window.$('.pinkbox').css('transform', 'translateX(80%)');
+            window.$('.signin').addClass('nodisplay');
+            window.$('.signup').removeClass('nodisplay');
+          });
+          
+          window.$('#signin').click(function() {
+            window.$('.pinkbox').css('transform', 'translateX(0%)');
+            window.$('.signup').addClass('nodisplay');
+            window.$('.signin').removeClass('nodisplay');
+          });
+    });
+
+    
     const login = (e) => {
         e.preventDefault()
 
@@ -65,21 +45,58 @@ function LoginModal({ history }) {
         })
     }
 
+
     return (
         <>
             <li onClick={handleShow}>
                 로그인
-      </li>
+            </li>
 
             <Modal show={show} onHide={handleClose} size="lg">
-                <div className="page">
-                    <div className="container">
-                        <div className = "left">
-                            <div className = "login">Login</div>
-                            <div className="eula">By logging in you agree to the ridiculously long terms that you didn't bother to read</div>               
+            
+                <div className="welcome">
+                    <div className="pinkbox">
+                        <div className="signup nodisplay">
+                            <h1 className ="register">register</h1>
+                            <form autocomplete="off">
+                                <input type="text" placeholder="username"></input>
+                                <input type="email" placeholder="email"></input>
+                                <input type="password" placeholder="password"></input>
+                                <input type="password" placeholder="confirm password"></input>
+                                <button className="button submit">create account </button>
+                            </form>
                         </div>
+                        <div className="signin">
+                                <h1 className ="register">sign in</h1>
+                                <form className="more-padding" autocomplete="off">
+                                    <input type="text" placeholder="username"></input>
+                                    <input type="password" placeholder="password"></input>
+                                    <div className="checkbox">
+                                        <input type="checkbox" id="remember" /><label for="remember">remember me</label>
+                                    </div>
+
+                                    <button className="button submit">login</button>
+                                </form>
+                        </div>
+                    
                     </div>
+                    <div className="leftbox">
+                            <h2 className="title"><span>BLOOM</span>&amp;<br/>BOUQUET</h2>
+                            <p className="desc">pick your perfect <span>bouquet</span></p>
+                            <img className="flower smaller" src="https://image.ibb.co/d5X6pn/1357d638624297b.jpg" alt="1357d638624297b" border="0"/>
+                            <p className="account">have an account?</p>
+                            <button className="button signbutton" id="signin">login</button>
+                        </div>
+                        <div className="rightbox">
+                            <h2 className="title"><span>BLOOM</span>&amp;<br/>BOUQUET</h2>
+                            <p className="desc"> pick your perfect <span>bouquet</span></p>
+                            <img className="flower" src="https://preview.ibb.co/jvu2Un/0057c1c1bab51a0.jpg"/>
+                            <p className="account">don't have an account?</p>
+                            <button className="button signbutton" id="signup">sign up</button>
+                        </div>
                 </div>
+           
+                
             </Modal>
         </>
     );
