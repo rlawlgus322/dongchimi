@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
-
-const LeftValueList = ["-300px", "0px", "300px", "600px", "900px", "1200px", "1500px", "1800px", "2100px", "2400px"];
+import SexyImageCell from 'components/SexyImageCell';
 
 const FlexBoxImageListBody = styled.div`
   position: relative;
@@ -17,12 +16,9 @@ const ImageCell = styled.img`
   transition: left 0.5s ease-in-out;
 `
 
-
-
 function FlexBoxImageList(props) {
   const {imageUrlList, size, top, timeInterval} = props;
   const interval = timeInterval || 2000;
-
 
   let imageDOMList = [];
   let leftValueList = [];
@@ -37,6 +33,7 @@ function FlexBoxImageList(props) {
   }
   const initValues = () => {
     imageDOMList = document.querySelectorAll(`.ImageCell--${top}`);
+    console.log(imageDOMList);
     for(let i=0;i<imageDOMList.length;i++){
       const leftValue = size*i - size;
       leftValueList.push(leftValue);
@@ -53,14 +50,14 @@ function FlexBoxImageList(props) {
   const moveImage = () => {
     for(let i=0;i<imageDOMList.length;i++){
       const curImageDOM = imageDOMList[(i+imageIndex)%imageDOMList.length];
-      curImageDOM.style.zIndex = -i;
+      curImageDOM.style.zIndex = 100-i;
       curImageDOM.style.left = `${leftValueList[i]}px`;
     }
     imageIndex++;
   }
 
   return <FlexBoxImageListBody className={`ImageList--${top}`}>
-    {imageUrlList.map((url, index) => <ImageCell className={`ImageCell--${top}`} key={index} src={url}/>)}
+    {imageUrlList.map((url, index) => <SexyImageCell className={`ImageCell--${top}`} content={"내용입니당"} cName={`ImageCell--${top}`} key={index} url={url}/>)}
   </FlexBoxImageListBody>
 }
 

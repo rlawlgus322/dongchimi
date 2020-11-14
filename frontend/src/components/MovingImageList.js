@@ -1,12 +1,9 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import FlexBoxImageList from 'components/FlexBoxImageList';
-// 한 줄당 이미지 10개 이하로 
-
-const LeftValueList = ["-300px", "0px", "300px", "600px", "900px", "1200px", "1500px", "1800px", "2100px", "2400px"];
 
 const imageList = [
-"https://images.unsplash.com/photo-1605021170978-35f9508451b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+"https://k3a409.p.ssafy.io/file/0aedb9af-7a51-441b-9449-16461035ad9c.jpeg",
 "https://images.unsplash.com/photo-1602526428496-8346b5cf9954?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
 "https://images.unsplash.com/photo-1605131545304-096aeaeee5d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
 "https://images.unsplash.com/photo-1605217431875-d1b97092115d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
@@ -35,8 +32,8 @@ const MovingImageListBody = styled.div`
   height: 900px;
 `
 
-function MovingImageList() {
-
+function MovingImageList(props) {
+  console.log(props);
   return (
   <MovingImageListBody>
     <FlexBoxImageList imageUrlList={imageList} size="300" top="0" timeInterval="2100"/>
