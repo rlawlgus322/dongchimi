@@ -33,7 +33,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <Header/>
+        <Header />
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/party" component={PartyList} />
@@ -45,11 +45,12 @@ class App extends Component {
           <Route exact path="/boast/write" component={BoastWrite} />
           <Route exact path="/boast/:id" component={BoastRead} />
           <Route exact path="/mypage" component={MyPage} />
-          <Route exact path="/party/join/:id" component={PartyRead} /> {/** 내가 속한 파티 상세 */}
-          <Route exact path="/party/open/:id" component={PartyRead} /> {/** 내가 속한 파티 상세 */}
+          <Route exact path="/party/join/:id" component={PartyRead} />
+          <Route exact path="/party/open/:id" component={PartyRead} />
+          <Route exact path="/party/room/:id" component={PartyRoom} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/update" component={Update} />
-          <Redirect from="*" to="/"/>
+          <Redirect from="*" to="/" />
         </Switch>
       </>
     );

@@ -22,18 +22,20 @@ class PartyRoom extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-md-8">
-          <FaceChat roomID={this.props.match.params.id} />
-        </div>
-        <div className="col-md-4">
-          {
-            this.state.name !== '' &&
-            <TextChat
-              roomID={this.props.match.params.id}
-              name={this.state.name}
-            />
-          }
+      <div style={{ overflow: "hidden" }}>
+        <div className="row">
+          <div className="col-md-8">
+            <FaceChat roomID={this.props.match.params.id} />
+          </div>
+          <div className="col-md-4">
+            {
+              this.state.name !== '' &&
+              <TextChat
+                roomID={this.props.match.params.id}
+                name={this.state.name}
+              />
+            }
+          </div>
         </div>
       </div>
     )

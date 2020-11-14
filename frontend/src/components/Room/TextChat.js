@@ -6,6 +6,7 @@ import RoomInfo from './RoomInfo';
 import Input from './Input';
 
 import Paper from "@material-ui/core/Paper";
+import "./TextChat.css";
 
 let socket;
 
@@ -61,8 +62,8 @@ const TextChat = (props) => {
 
   return (
     <div className="chatScreen">
-      <Paper elevation={5} className="chatScreenPaper">
-        <RoomInfo room={room} />
+      <Paper className="chatScreenPaper">
+        {/* <RoomInfo room={room} /> */}
         <Messages messages={messages} name={name} />
         <Input
           message={message}
