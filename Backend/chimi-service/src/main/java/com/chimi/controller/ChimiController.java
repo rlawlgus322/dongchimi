@@ -114,6 +114,8 @@ public class ChimiController {
 				}
 
 			}else if(category == null && name != null){
+				System.out.println("=====================================================================================");
+				System.out.println("name " + name);
 				Page<Chimi> chimiPage = chimiService.findbyCategory(category,pageable);
 				cnt = chimiService.countCategory(category);
 				for(Chimi chimi : chimiPage){
@@ -126,6 +128,8 @@ public class ChimiController {
 					);
 				}
 			}else if(category != null && name == null){
+				System.out.println("=====================================================================================");
+				System.out.println("category "+ category);
 				Page<Chimi> chimiPage = chimiService.findbyName(name, pageable);
 				cnt = chimiService.countName(name);
 				for(Chimi chimi : chimiPage){
@@ -138,6 +142,8 @@ public class ChimiController {
 					);
 				}
 			} else{
+				System.out.println("=====================================================================================");
+				System.out.println("category "+ category + " name " + name);
 				Page<Chimi> chimiPage = chimiService.findbyCategoryAndName(category,name,pageable);
 				cnt = chimiService.countNameAndCategory(name, category);
 				for(Chimi chimi : chimiPage){
