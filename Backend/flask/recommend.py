@@ -23,27 +23,34 @@ chimi_sub_dict = {"유화":0,"수채화": 0, "파스텔": 0, "가죽": 0, "뜨�
                     "촬영": 0, "한식": 0, "양식": 0, "일식": 0, "중식": 0, "세계음식": 0, "기타": 0, "작곡": 0, "작사": 0, "타악기": 0,
                     "현악기": 0, "관악기": 0, "댄스": 0, "헬스": 0, "홈트레이닝": 0, "다이어트":0}    #사용자 선호도 조사할때
 
-##### 일단 이거는 호출 x #####
+##### 이 함수만 호출 #####
 @app.route('/item',methods=['GET'])
 def itemRecommend():
     useremail = request.args.get("email") #내가 분석할 유저
     conn, cursor = connect.connect()
     result = connect.getUserName(cursor)
     userlist = [row[0] for row in result.fetchall()]
+    print("------------------------userlist-----------------------------")
+    print(userlist)
+    print("-------------------useremail-----------------------------------")
     print(useremail)
     userInfo = connect.getUserPrefer(cursor,useremail)
     userid = 0
     preferlist=[]
     for row in userInfo.fetchall():
-        print(row)
+        # print(row)
         userid = row[0]
         preferlist = [row[1], row[2], row[3]] #사용자 선호도
+    print("----------------------------------------preferlist--------------------------------------")
+    print(preferlist)
 
     df = DataFrame(
                     columns = userlist,
                     index = chimi_sub_category
                   )
     df.fillna(0, inplace = True)
+    print("----------------------------------------df------------------------------------------")
+    print(df)
 
     # 찜하기, 좋아요 
     # 전체사용자 기반 선호도 분석
@@ -56,10 +63,13 @@ def itemRecommend():
         likelist = [row[0] for row in likes.fetchall()]
         for like in likelist:
             df.loc[like, user] +=3
+    print("---------------------------------------df2222222222222222------------------------------")
     print(df)
     item_based_collabor = cosine_similarity(df)
+    print("------------------------------itembasecollab----------------------------------")
     print(item_based_collabor)
     item_based_collabor = DataFrame(data = item_based_collabor, index = df.index, columns=df.index)
+    print("------------------------------itembasecollab22222222222222----------------------------------")
     print(item_based_collabor)
 
     #사용자의 선호도
@@ -71,7 +81,8 @@ def itemRecommend():
     likelist = [row[0] for row in likes.fetchall()]
     for like in likelist:
         chimi_sub_dict[catg] += 1
-    print(preferlist)
+    print("---------------------chimi-sub-dict----------------------")
+    print(chimi_sub_dict)
     #1순위,2순위,3순위
     chimi_sub_dict[preferlist[0]] += 3
     chimi_sub_dict[preferlist[1]] += 2
@@ -79,6 +90,8 @@ def itemRecommend():
 
     # 사용자의 찜, 좋아요와 1-3순위다 더해서 가중치 분석
     chimi_weight_val = sorted(chimi_sub_dict.items(), reverse=True, key = lambda item: item[1])
+    print("----------------------chimi-weight-val-----------------------------")
+    print(chimi_weight_val)
 
     recommendSet = {}
     cnt = 0 # 몇개까지 볼건지
@@ -90,21 +103,23 @@ def itemRecommend():
     print(recommendSet)
 
     recommendList = list(recommendSet)
+    print("-------------------------------recommendlist------------------------------------")
+    print(recommendList)
     samplelist = []
-    # for i in range(flag):
-    for ctg in recommendList:
-        chimilist = connect.getchimi(cursor, ctg)
-        chimis = []
-        for chimi in chimilist.fetchall():
-            print(chimi)
-            chimis.append(chimi)
-        if len(chimis) >= 3:
-          samplelist.append(random.sample(chimis, 3))
-        else:
-          samplelist.append(random.sample(chimis, len(chimis)))
-    ####### 수정한부분 ##########    
-    print("샘플리스트")
-    print(samplelist)
+    # # for i in range(flag):
+    # for ctg in recommendList:
+    #     chimilist = connect.getchimi(cursor, ctg)
+    #     chimis = []
+    #     for chimi in chimilist.fetchall():
+    #         print(chimi)
+    #         chimis.append(chimi)
+    #     if len(chimis) >= 3:
+    #       samplelist.append(random.sample(chimis, 3))
+    #     else:
+    #       samplelist.append(random.sample(chimis, len(chimis)))
+    # ####### 수정한부분 ##########    
+    # print("샘플리스트")
+    # print(samplelist)
 
 
 
@@ -117,7 +132,7 @@ def itemRecommend():
     return jsonify({'recommendlist': samplelist})
 
 
-##### 이 메서드만 호출 #####
+##### 이 함수 호출 x #####
 @app.route('/itemuser',methods=['GET'])
 def userRecommend():
     useremail = request.args.get("email") #내가 분석할 유저
@@ -144,7 +159,7 @@ def userRecommend():
                   )
     print("----------------------------------df--------------------------------")
     print(df)
-    df.fillna(0 ,inplace = True)
+    df.fillna(0, inplace = True)
     print("----------------------------------df--------------------------------")
     print(df)
 
@@ -191,12 +206,12 @@ def userRecommend():
     # 랜덤으로 3개 뽑아준다
     print("--------------------------------namedf----------------------------------------")
     print(namedf)
-    # if len(namedf) != 0:
-    #     recommendList = list(np.array(namedf.iloc[:, 0]))
-    # else:
-    #     recommendList = []
+    if len(namedf) != 0:
+        recommendList = list(np.array(namedf.iloc[:, 0]))
+    else:
+        recommendList = []
 
-    recommendList = list(np.array(namedf.iloc[:, 0]))
+    # recommendList = list(np.array(namedf.iloc[:, 0]))
     # while len(recommendList) < 3:
 
     
