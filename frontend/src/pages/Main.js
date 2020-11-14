@@ -24,7 +24,6 @@ function Main() {
     }
   }, [])
 
-  //const logged = sessionStorage.getItem('token') === null;
 
   return (
     <MainBody>

@@ -72,7 +72,7 @@ function LoginModal({ history }) {
       sessionStorage.setItem('uid', res.data.uid)
       // console.log(res)
       alert("안녕하세요~")
-      history.push("/")
+      window.location.href = "/";
     }).catch(err => {
       // console.log(err)
       alert("아이디와 비밀번호를 확인해주세요.")

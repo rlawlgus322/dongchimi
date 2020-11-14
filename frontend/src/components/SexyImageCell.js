@@ -44,6 +44,7 @@ const ContentOverlay = styled(Link)`
   &:hover{
     opacity: 1;
     padding-top: 10px;
+    color: white;
   }
 `
 
