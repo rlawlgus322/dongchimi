@@ -30,8 +30,10 @@ function CommentWriting(props) {
       <TextBox contentEditable="true" id="textBox" />
       <SubmitButton
         onClick={() => {
-          console.log('comment submit');
-          console.log(document.getElementById('textBox').innerText)
+          if (sessionStorage.getItem('token') === null) {
+            alert("로그인이 필요합니다");
+            return;
+          }
           api.post('/boast/comment', {
             bid: bid,
             content: document.getElementById('textBox').innerText,
@@ -42,6 +44,7 @@ function CommentWriting(props) {
           }).then(({ data }) => {
             // console.log('succes comment write');
             // console.log(data);
+            document.getElementById('textBox').innerText = '';
           }).catch((err) => {
             console.log(err);
           })

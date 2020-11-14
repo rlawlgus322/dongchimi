@@ -8,14 +8,6 @@ import CommentWriting from 'components/CommentWriting';
 import CommentRead from 'components/CommentRead';
 import api from 'utils/api';
 
-// const images = [
-//   'https://images.unsplash.com/photo-1604724434236-a7cebeaa13e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-//   'https://images.unsplash.com/photo-1601758004584-903c2a9a1abc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-//   'https://images.unsplash.com/photo-1593643946890-b5b85ade6451?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-//   'https://images.unsplash.com/photo-1604582833049-4ddbc5b2ca38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-//   'https://images.unsplash.com/photo-1604521247394-9c294900978b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-// ];
-
 const BoastReadBody = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,9 +44,11 @@ function BoastRead(props) {
   const [images, setImages] = useState([]);
   const [boast, setBoast] = useState([]);
   const [profileImage, setProfileImage] = useState("");
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     getBoastRead();
+    getBoastComment();
   }, [])
 
   function getBoastRead() {
@@ -78,6 +72,19 @@ function BoastRead(props) {
       } else {
         setProfileImage("https://k3a409.p.ssafy.io" + data.profileImage);
       }
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  function getBoastComment() {
+    api.get(`/boast/comment/all/${props.match.params.id}`, {
+      headers: {
+        accessToken: sessionStorage.getItem('token'),
+      }
+    }).then(({ data }) => {
+      console.log('comments', data);
+      setComments(data);
     }).catch((err) => {
       console.log(err);
     })
