@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom';
 import Parties from '../../components/Party/List/Parties';
 import Pagination from 'react-js-pagination';
 import api from '../../utils/api';
-import './party.css';
-
 
 function PartyList({ history }) {
   const categories = [
@@ -16,14 +14,10 @@ function PartyList({ history }) {
   ]
   const [parties, setParties] = useState([]);
   const [page, setPage] = useState(1); // 페이징
-  const [totalItemsCount, setTotalItemCount] = useState(1);
+  const [totalItemsCount, setTotalItemsCount] = useState(1);
   const [keyword, setKeyword] = useState(null); // 검색어
   const [category, setCategory] = useState(null); // 카테고리
   const logged = sessionStorage.getItem('token') === null ? false : true;
-
-  useEffect(() => {
-    getLists();
-  }, [])
 
   useEffect(() => {
     getLists();
@@ -41,16 +35,16 @@ function PartyList({ history }) {
         accessToken: sessionStorage.getItem('token')
       }
     }).then(({ data }) => {
-      console.log('party list', data);
+      // console.log('party list', data);
       setParties(data.chimiResponse);
-      setTotalItemCount(data.cnt);
+      setTotalItemsCount(data.cnt);
     }).catch((err) => {
       console.log(err);
     })
   }
 
   function handlePageChange(pageNumber) {
-    console.log('active page ', pageNumber);
+    // console.log('active page ', pageNumber);
     setPage(pageNumber);
   }
 
