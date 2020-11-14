@@ -42,6 +42,14 @@ const LoginBtn = styled.input`
   }
 `;
 
+const Li = styled.li`
+  margin-left: 15px;
+  cursor: pointer;
+  &:hover{
+    opacity: 0.8;
+  }
+`
+
 function LoginModal({ history }) {
   const [show, setShow] = useState(false);
 
@@ -73,9 +81,9 @@ function LoginModal({ history }) {
 
   return (
     <>
-      <li onClick={handleShow}>
+      <Li onClick={handleShow}>
         로그인
-      </li>
+      </Li>
 
       <Modal show={show} onHide={handleClose} size="lg">
         <Container>
