@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import UserInfoBar from 'components/UserInfoBar';
 import styled from 'styled-components';
 import SliderableImage from 'components/SliderableImage';
@@ -6,14 +6,7 @@ import TextViewer from 'components/TextViewer';
 import ArticleInfoIcons from 'components/ArticleInfoIcons';
 import CommentWriting from 'components/CommentWriting';
 import CommentRead from 'components/CommentRead';
-
-const images = [
-  'https://images.unsplash.com/photo-1604724434236-a7cebeaa13e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  'https://images.unsplash.com/photo-1601758004584-903c2a9a1abc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  'https://images.unsplash.com/photo-1593643946890-b5b85ade6451?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  'https://images.unsplash.com/photo-1604582833049-4ddbc5b2ca38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  'https://images.unsplash.com/photo-1604521247394-9c294900978b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-];
+import api from 'utils/api';
 
 const BoastReadBody = styled.div`
   display: flex;
@@ -46,25 +39,75 @@ const Width80Percent = styled.div`
   width: 80%;
 `;
 
-function BoastRead() {
+function BoastRead(props) {
+  const [data, setData] = useState([]);
+  const [images, setImages] = useState([]);
+  const [boast, setBoast] = useState([]);
+  const [profileImage, setProfileImage] = useState("");
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    getBoastRead();
+    getBoastComment();
+  }, [])
+
+  function getBoastRead() {
+    api.get(`/boast/${props.match.params.id}`, {
+      headers: {
+        accessToken: sessionStorage.getItem('token'),
+      }
+    }).then(({ data }) => {
+      // console.log('boast read', data);
+      setData(data);
+      const img = JSON.parse(data.boast.postImg);
+      const tmp = [];
+      for (let i = 0; i < Object.keys(img).length; i++) {
+        const path = "https://k3a409.p.ssafy.io" + img[i];
+        tmp.push(path);
+      }
+      setBoast(data.boast);
+      setImages(tmp);
+      if (data.profileImage === "null") {
+        setProfileImage("https://k3a409.p.ssafy.io/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png")
+      } else {
+        setProfileImage("https://k3a409.p.ssafy.io" + data.profileImage);
+      }
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  function getBoastComment() {
+    api.get(`/boast/comment/all/${props.match.params.id}`, {
+      headers: {
+        accessToken: sessionStorage.getItem('token'),
+      }
+    }).then(({ data }) => {
+      console.log('comments', data);
+      setComments(data);
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
   return (
     <BoastReadBody>
       <InnerBody>
         <Width80Percent>
           <UserInfoBar
-            thumbnail="https://avatars0.githubusercontent.com/u/33210021?s=60&v=4"
-            id="hideOnBush"
+            thumbnail={profileImage}
+            id={data.nicknname}
             isMoreButton={true}
           />
         </Width80Percent>
         <SliderableImage images={images} />
         <Width80Percent>
-          <TextViewer text={'안녕하세연'} />
+          <TextViewer text={boast.contents} />
           <FlexEnd>
-            <ArticleInfoIcons isLike={true} />
+            <ArticleInfoIcons boast={boast} isLike={data.liked} getBoastRead={getBoastRead} />
           </FlexEnd>
           <HorizontalLine />
-          <CommentWriting />
+          <CommentWriting bid={boast.bid} />
           <CommentRead />
         </Width80Percent>
       </InnerBody>

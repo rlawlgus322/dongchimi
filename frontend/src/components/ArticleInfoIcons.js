@@ -9,10 +9,12 @@ const ArticleInfoIconsBody = styled.div`
 `;
 
 function ArticleInfoIcons(props) {
+  const { boast, isLike, getBoastRead } = props;
+  // console.log('article info icons', props);
   return (
     <ArticleInfoIconsBody>
-      <ViewConter count={10} />
-      <LikeButtonAndCount isLike={true} count={50} />
+      <ViewConter count={boast.views} />
+      <LikeButtonAndCount isLike={isLike} bid={boast.bid} count={boast.likes} getBoastRead={getBoastRead} />
       <CommentConter count={15} />
     </ArticleInfoIconsBody>
   );
