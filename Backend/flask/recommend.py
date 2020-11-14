@@ -37,25 +37,25 @@ def itemRecommend():
     for row in userInfo.fetchall():
         print(row)
         userid = row[0]
-        preferlist = [row[1],row[2],row[3]] #사용자 선호도
+        preferlist = [row[1], row[2], row[3]] #사용자 선호도
 
     df = DataFrame(
                     columns = userlist,
-                  index = chimi_sub_category
+                    index = chimi_sub_category
                   )
-    df.fillna(0 ,inplace = True)
+    df.fillna(0, inplace = True)
 
     # 찜하기, 좋아요 
     # 전체사용자 기반 선호도 분석
     for user in userlist :
-        category = connect.getUserStorage(cursor,user)
-        likes = connect.getUserLike(cursor,user)
+        category = connect.getUserStorage(cursor, user)
+        likes = connect.getUserLike(cursor, user)
         categorylist = [row[0] for row in category.fetchall()]
         for catg in categorylist:
             df.loc[catg,user] += 5 #찜일시 5점 추가
         likelist = [row[0] for row in likes.fetchall()]
         for like in likelist:
-            df.loc[like,user] +=3
+            df.loc[like, user] +=3
     print(df)
     item_based_collabor = cosine_similarity(df)
     print(item_based_collabor)
@@ -63,30 +63,30 @@ def itemRecommend():
     print(item_based_collabor)
 
     #사용자의 선호도
-    category = connect.getUserStorage(cursor,userid)
+    category = connect.getUserStorage(cursor, userid)
     categorylist = [row[0] for row in category.fetchall()]
     for catg in categorylist:
         chimi_sub_dict[catg] += 2
-    likes = connect.getUserLike(cursor,userid)
+    likes = connect.getUserLike(cursor, userid)
     likelist = [row[0] for row in likes.fetchall()]
     for like in likelist:
         chimi_sub_dict[catg] += 1
     print(preferlist)
     #1순위,2순위,3순위
-    chimi_sub_dict[preferlist[0]] +=3
-    chimi_sub_dict[preferlist[1]]+=2
-    chimi_sub_dict[preferlist[2]]+=1
+    chimi_sub_dict[preferlist[0]] += 3
+    chimi_sub_dict[preferlist[1]] += 2
+    chimi_sub_dict[preferlist[2]] += 1
 
     # 사용자의 찜, 좋아요와 1-3순위다 더해서 가중치 분석
-    chimi_weight_val = sorted(chimi_sub_dict.items(), reverse=True,  key = lambda item: item[1])
+    chimi_weight_val = sorted(chimi_sub_dict.items(), reverse=True, key = lambda item: item[1])
 
     recommendSet = {}
-    flag = 2 # 몇개까지 볼건지
+    cnt = 0 # 몇개까지 볼건지
     for key, value in chimi_weight_val:
-        if flag == 0 : break
+        if cnt == 2 : break
         # 비슷한거 추천 위에서 2개까지
         recommendSet.update(item_based_collabor[key].sort_values(ascending=False)[:2])
-        flag -= 1
+        cnt += 1
     print(recommendSet)
 
     recommendList = list(recommendSet)
@@ -98,9 +98,13 @@ def itemRecommend():
         for chimi in chimilist.fetchall():
             print(chimi)
             chimis.append(chimi)
-        samplelist.append(random.sample(chimis, 3))
+        if len(chimis) >= 3:
+          samplelist.append(random.sample(chimis, 3))
+        else:
+          samplelist.append(random.sample(chimis, len(chimis)))
     ####### 수정한부분 ##########    
-    print("샘플리스트" + samplelist)
+    print("샘플리스트")
+    print(samplelist)
 
 
 
@@ -124,11 +128,11 @@ def userRecommend():
     preferlist=[]
     for row in userInfo.fetchall():
         userid = row[0]
-        preferlist = [row[1],row[2],row[3]] #사용자 선호도
+        preferlist = [row[1], row[2], row[3]] #사용자 선호도
 
     df = DataFrame(
                     index = userlist,
-                  columns = chimi_sub_category
+                    columns = chimi_sub_category
                   )
     df.fillna(0 ,inplace = True)
 
@@ -137,20 +141,20 @@ def userRecommend():
     # 찜하기, 좋아요 
     # 전체사용자 기반 선호도 분석
     for user in userlist :
-        category = connect.getUserStorage(cursor,user)
-        likes = connect.getUserLike(cursor,user)
+        category = connect.getUserStorage(cursor, user)
+        likes = connect.getUserLike(cursor, user)
         categorylist = [row[0] for row in category.fetchall()]
         for catg in categorylist:
-            df.loc[user,catg] += 5 #찜일시 5점 추가
+            df.loc[user, catg] += 5 #찜일시 5점 추가
         likelist = [row[0] for row in likes.fetchall()]
         for like in likelist:
-            df.loc[user,like] +=3
+            df.loc[user, like] += 3
 
     user_based_collabor = cosine_similarity(df)
     print(user_based_collabor)
 
     user_based_collabor = DataFrame(data = user_based_collabor, index = df.index, columns=df.index)
-    print("------------------------------------------------------------------------------")
+    print("---------------------------------user_based_collabor-------------------------------------------")
     print(user_based_collabor)
 
     maxval = 0
@@ -167,15 +171,15 @@ def userRecommend():
 
 
     #사용자의 선호도
-    chimiName = connect.getUserStorageName(cursor,maxidx+1)
+    chimiName = connect.getUserStorageName(cursor, maxidx + 1)
     namedf = pd.DataFrame(chimiName)
     if len(namedf) > 3:
-        namedf = namedf.sample(n=3)
+        namedf = namedf.sample(n = 3)
     # 랜덤으로 3개 뽑아준다
-    print("---------------------------------------------------------------------------")
+    print("--------------------------------namedf----------------------------------------")
     print(namedf)
     if len(namedf) != 0:
-        recommendList = list(np.array(namedf.iloc[:,0]))
+        recommendList = list(np.array(namedf.iloc[:, 0]))
     else:
         recommendList = []
     
@@ -190,7 +194,5 @@ def userRecommend():
     return jsonify({'recommendlist': recommendList})
 
 if __name__ == '__main__':
-    app.run(host='localhost',port=8090,debug='True',ssl_context=('./cert/server.crt', './cert/server.key'))
-    # app.run(host='0.0.0.0',port=8090,debug='True',ssl_context=('./cert/server.crt', './cert/server.key'))
-
-
+    # app.run(host='localhost', port=8090, debug='True', ssl_context=('./cert/server.crt', './cert/server.key'))
+    app.run(host='0.0.0.0', port=8090, debug='True', ssl_context=('./cert/server.crt', './cert/server.key'))
