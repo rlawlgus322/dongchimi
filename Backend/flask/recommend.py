@@ -23,7 +23,7 @@ chimi_sub_dict = {"유화":0,"수채화": 0, "파스텔": 0, "가죽": 0, "뜨�
                     "촬영": 0, "한식": 0, "양식": 0, "일식": 0, "중식": 0, "세계음식": 0, "기타": 0, "작곡": 0, "작사": 0, "타악기": 0,
                     "현악기": 0, "관악기": 0, "댄스": 0, "헬스": 0, "홈트레이닝": 0, "다이어트":0}    #사용자 선호도 조사할때
 
-
+##### 일단 이거는 호출 x #####
 @app.route('/item',methods=['GET'])
 def itemRecommend():
     useremail = request.args.get("email") #내가 분석할 유저
@@ -116,14 +116,22 @@ def itemRecommend():
 
     return jsonify({'recommendlist': samplelist})
 
+
+##### 이 메서드만 호출 #####
 @app.route('/itemuser',methods=['GET'])
 def userRecommend():
     useremail = request.args.get("email") #내가 분석할 유저
     conn, cursor = connect.connect()
     result = connect.getUserName(cursor)
+    print("-------------------------result-------------------------------")
+    print(result)
     userlist = [row[0] for row in result.fetchall()]
+    print("---------------------------------userlist------------------------------------")
+    print(userlist)
 
     userInfo = connect.getUserPrefer(cursor,useremail)
+    print("-----------------------------------userInfo-------------------------------")
+    print(userInfo)
     userid = 0
     preferlist=[]
     for row in userInfo.fetchall():
@@ -134,7 +142,11 @@ def userRecommend():
                     index = userlist,
                     columns = chimi_sub_category
                   )
+    print("----------------------------------df--------------------------------")
+    print(df)
     df.fillna(0 ,inplace = True)
+    print("----------------------------------df--------------------------------")
+    print(df)
 
 
 
@@ -151,6 +163,7 @@ def userRecommend():
             df.loc[user, like] += 3
 
     user_based_collabor = cosine_similarity(df)
+    print("---------------------------------user_based_collabor-------------------------------------------")
     print(user_based_collabor)
 
     user_based_collabor = DataFrame(data = user_based_collabor, index = df.index, columns=df.index)
@@ -161,9 +174,9 @@ def userRecommend():
     maxidx = 0
     # 가장 유사도 높은 사람 찾기
     for user in userlist:
-        print(user)
+        # print(user)
         if user == userid: continue
-        print(userid)
+        # print(userid)
         if maxval < user_based_collabor.loc[userid, user]:
             maxval = user_based_collabor.loc[userid, user]
             maxidx = user
@@ -178,12 +191,16 @@ def userRecommend():
     # 랜덤으로 3개 뽑아준다
     print("--------------------------------namedf----------------------------------------")
     print(namedf)
-    if len(namedf) != 0:
-        recommendList = list(np.array(namedf.iloc[:, 0]))
-    else:
-        recommendList = []
+    # if len(namedf) != 0:
+    #     recommendList = list(np.array(namedf.iloc[:, 0]))
+    # else:
+    #     recommendList = []
+
+    recommendList = list(np.array(namedf.iloc[:, 0]))
+    # while len(recommendList) < 3:
+
     
-    print("협업..?")
+    print("---------------------------------recommendList---------------------------------")
     print(recommendList)
     
 
