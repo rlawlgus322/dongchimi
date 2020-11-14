@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 
 class PartyChat extends Component {
-  startFaceChat() {
-    console.log('화상채팅 시작')
-  }
+
 
   render() {
     return (
       <>
         파티 채팅
-        <button onClick={this.startFaceChat.bind(this)}>화상채팅시작</button>
+        <button onClick={() => {
+          console.log('화상채팅 시작');
+          console.log('url', this.props.rtcurl);
+          // this.props.history.push(`/party/room/`)
+          const win = window.open(`/party/room/${this.props.rtcurl}`, "_balnk");
+          win.focus();
+        }}>화상채팅시작</button>
       </>
     )
   }
