@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 //http://localhost:8083/swagger-ui.html
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/bst")
+//@RequestMapping("/bst")
 public class BoastController {
 	@Autowired
 	private BoastService boastService;
