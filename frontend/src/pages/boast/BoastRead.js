@@ -51,8 +51,13 @@ function BoastRead(props) {
   const [data, setData] = useState([]);
   const [images, setImages] = useState([]);
   const [boast, setBoast] = useState([]);
+  const [profileImage, setProfileImage] = useState("");
 
   useEffect(() => {
+    getBoastRead();
+  }, [])
+
+  function getBoastRead() {
     api.get(`/boast/${props.match.params.id}`, {
       headers: {
         accessToken: sessionStorage.getItem('token'),
@@ -63,22 +68,27 @@ function BoastRead(props) {
       const img = JSON.parse(data.boast.postImg);
       const tmp = [];
       for (let i = 0; i < Object.keys(img).length; i++) {
-        const path = "http://k3a409.p.ssafy.io" + img[i];
+        const path = "https://k3a409.p.ssafy.io" + img[i];
         tmp.push(path);
       }
       setBoast(data.boast);
       setImages(tmp);
+      if (data.profileImage === "null") {
+        setProfileImage("https://k3a409.p.ssafy.io/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png")
+      } else {
+        setProfileImage("https://k3a409.p.ssafy.io" + data.profileImage);
+      }
     }).catch((err) => {
       console.log(err);
     })
-  }, [])
+  }
 
   return (
     <BoastReadBody>
       <InnerBody>
         <Width80Percent>
           <UserInfoBar
-            thumbnail={`https://k3a409.p.ssafy.io${data.profileImage}`}
+            thumbnail={profileImage}
             id={data.nicknname}
             isMoreButton={true}
           />
@@ -87,7 +97,7 @@ function BoastRead(props) {
         <Width80Percent>
           <TextViewer text={boast.contents} />
           <FlexEnd>
-            <ArticleInfoIcons vcnt={boast.views} isLike={data.liked} lcnt={boast.likes} />
+            <ArticleInfoIcons boast={boast} isLike={data.liked} getBoastRead={getBoastRead} />
           </FlexEnd>
           <HorizontalLine />
           <CommentWriting />

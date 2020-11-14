@@ -26,11 +26,6 @@ class BoastList extends Component {
       <>
         자랑하기
         <div style={{ textAlign: "right" }}>
-          {/** 정렬 기준 */}
-          정렬 기준
-          <select>
-            <option>최신순</option>
-          </select>
           {
             sessionStorage.getItem('token') !== null &&
             <button

@@ -36,10 +36,14 @@ class Boast extends Component {
     const backgroundImage = {
       backgroundImage: `url(${image})`,
     };
+    let profileImage = "https://k3a409.p.ssafy.io/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png";
+    if (this.props.boast.profileImage !== "null") {
+      profileImage = "https://k3a409.p.ssafy.io" + this.props.boast.profileImage;
+    }
     return (
       <Sdiv className="col-md-4 col-lg-3 ">
         <Mp>
-          <ProfileImg src={`https://k3a409.p.ssafy.io${this.props.boast.profileImage}`} />
+          <ProfileImg src={profileImage} />
           {this.props.boast.nickname}
         </Mp>
         <Bdiv
@@ -55,7 +59,7 @@ class Boast extends Component {
           </div>
           <div className="col-4" style={{ padding: "0 20px" }}>
             {
-              this.props.liked === true ? <FontAwesomeIcon icon={['fas', 'heart']} /> : <FontAwesomeIcon icon={['far', 'heart']} />
+              this.props.boast.liked === true ? <FontAwesomeIcon icon={['fas', 'heart']} color="crimson" /> : <FontAwesomeIcon icon={['far', 'heart']} />
             }
             {this.props.boast.boast.likes}
           </div>

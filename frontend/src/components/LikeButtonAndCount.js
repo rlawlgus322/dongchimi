@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import api from 'utils/api';
 
 const LikeButtonAndCountBody = styled.span`
   display: flex;
@@ -20,15 +21,42 @@ const LikeButton = styled.button`
 const LikeCount = styled.span``;
 
 function LikeButtonAndCount(props) {
-  const { isLike, count } = props;
+  const { isLike, bid, count, getBoastRead } = props;
   return (
     <LikeButtonAndCountBody>
-      <LikeButton>
+      <LikeButton
+        onClick={() => {
+          console.log('like button click')
+          if (!isLike) {
+            api.put(`/boast/like/${bid}`, {}, {
+              headers: {
+                accessToken: sessionStorage.getItem('token'),
+              }
+            }).then(({ data }) => {
+              console.log('like success', data);
+              getBoastRead();
+            }).catch((err) => {
+              console.log(err)
+            })
+          } else {
+            api.put(`/boast/dislike/${bid}`, {}, {
+              headers: {
+                accessToken: sessionStorage.getItem('token'),
+              }
+            }).then(({ data }) => {
+              console.log(data);
+              getBoastRead();
+            }).catch((err) => {
+              console.log(err);
+            })
+          }
+        }}
+      >
         {isLike ? (
           <FontAwesomeIcon icon={['fas', 'heart']} size="lg" color="crimson" />
         ) : (
-          <FontAwesomeIcon icon={['far', 'heart']} size="lg" />
-        )}
+            <FontAwesomeIcon icon={['far', 'heart']} size="lg" />
+          )}
       </LikeButton>
       <LikeCount>{count}</LikeCount>
       <LikeCount />
