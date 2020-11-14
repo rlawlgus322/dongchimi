@@ -1,20 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import SexyImageCell from 'components/SexyImageCell';
-import {getServerImageUrl, isEmptyObject} from "utils/common";
+import {getServerImageUrl} from "utils/common";
 
 const FlexBoxImageListBody = styled.div`
   position: relative;
   display: flex;
   height: 33.33%;
   overflow: hidden;
-`
-
-const ImageCell = styled.img`
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  transition: left 0.5s ease-in-out;
 `
 function FlexBoxImageList(props) {
   const [imageAndContent, setImageAndContent] = useState([]);
@@ -33,7 +26,6 @@ function FlexBoxImageList(props) {
   }
 
   const initImageSize = () => {
-    document.querySelector(`.ImageList--${top}`);
     for(let i=0;i<imageDOMList.length;i++){
       imageDOMList[i].style.width = `${size}px`;
       imageDOMList[i].style.height = `${size}px`;
@@ -51,11 +43,12 @@ function FlexBoxImageList(props) {
 
   useEffect(() => {
     setImageAndContent(boastList.map((elem) => {
-      const {boast: {contents, postImg}} = elem;
+      const {boast: {contents, postImg, bid}} = elem;
       const url = postImg === "{}" ? "https://images.unsplash.com/photo-1519114563721-eb52c00b9129?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" : getServerImageUrl(JSON.parse(postImg)[0]);
       return {
         contents,
-        url
+        url,
+        bid
       }
     }));
   }, [boastList])
@@ -68,7 +61,7 @@ function FlexBoxImageList(props) {
   }, [imageAndContent])
 
   return <FlexBoxImageListBody className={`ImageList--${top}`}>
-    {imageAndContent.map((elem, index) => <SexyImageCell className={`ImageCell--${top}`} content={elem.contents} cName={`ImageCell--${top}`} key={index} url={elem.url}/>)}
+    {imageAndContent.map((elem, index) => <SexyImageCell className={`ImageCell--${top}`} content={elem.contents} key={index} url={elem.url} bid={elem.bid}/>)}
   </FlexBoxImageListBody>
 }
 

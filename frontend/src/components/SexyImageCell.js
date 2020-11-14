@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 const SexyImageCellBody = styled.div`
@@ -26,7 +27,7 @@ const Image = styled.img`
   height: 100%;
 `
 
-const ContentOverlay = styled.button`
+const ContentOverlay = styled(Link)`
   position: relative;
   width: 100%;
   height: 100%;
@@ -47,12 +48,12 @@ const ContentOverlay = styled.button`
 `
 
 function SexyImageCell(props) {
-  const {url, className, content} = props;
+  const {url, className, content, bid} = props;
   return (
   <SexyImageCellBody className={className}>
     <Overlay>
       <Image src={url}/>
-      <ContentOverlay onClick={() => console.log("hi")}>
+      <ContentOverlay to={`/boast/${bid}`}>
         {content}
       </ContentOverlay>
     </Overlay>
