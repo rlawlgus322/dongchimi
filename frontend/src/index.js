@@ -9,7 +9,7 @@ import GlobalStyles from "components/GlobalStyles";
 ReactDOM.render(
   <BrowserRouter>
     <App />
-    <GlobalStyles/>
+    <GlobalStyles />
   </BrowserRouter>,
   document.getElementById('root'),
 );
