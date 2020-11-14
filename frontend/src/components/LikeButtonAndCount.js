@@ -26,14 +26,13 @@ function LikeButtonAndCount(props) {
     <LikeButtonAndCountBody>
       <LikeButton
         onClick={() => {
-          console.log('like button click')
           if (!isLike) {
             api.put(`/boast/like/${bid}`, {}, {
               headers: {
                 accessToken: sessionStorage.getItem('token'),
               }
             }).then(({ data }) => {
-              console.log('like success', data);
+              // console.log('like success', data);
               getBoastRead();
             }).catch((err) => {
               console.log(err)
@@ -44,7 +43,7 @@ function LikeButtonAndCount(props) {
                 accessToken: sessionStorage.getItem('token'),
               }
             }).then(({ data }) => {
-              console.log(data);
+              // console.log('dislike success', data);
               getBoastRead();
             }).catch((err) => {
               console.log(err);

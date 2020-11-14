@@ -63,7 +63,7 @@ function BoastRead(props) {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log('boast read', data);
+      // console.log('boast read', data);
       setData(data);
       const img = JSON.parse(data.boast.postImg);
       const tmp = [];
@@ -100,7 +100,7 @@ function BoastRead(props) {
             <ArticleInfoIcons boast={boast} isLike={data.liked} getBoastRead={getBoastRead} />
           </FlexEnd>
           <HorizontalLine />
-          <CommentWriting />
+          <CommentWriting bid={boast.bid} />
           <CommentRead />
         </Width80Percent>
       </InnerBody>

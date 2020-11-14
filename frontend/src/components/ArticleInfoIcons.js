@@ -10,7 +10,7 @@ const ArticleInfoIconsBody = styled.div`
 
 function ArticleInfoIcons(props) {
   const { boast, isLike, getBoastRead } = props;
-  console.log('article info icons', props);
+  // console.log('article info icons', props);
   return (
     <ArticleInfoIconsBody>
       <ViewConter count={boast.views} />
