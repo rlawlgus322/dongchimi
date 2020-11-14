@@ -2,6 +2,7 @@ package com.bezkoder.springjwt.service;
 
 import com.bezkoder.springjwt.models.User;
 import com.bezkoder.springjwt.repository.UserRepository;
+import com.bezkoder.springjwt.response.UserUpdateRequest;
 import com.bezkoder.springjwt.response.userinfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,13 +55,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) {
-        User exuser = userRepository.getUserByEmail(user.getEmail());
-        exuser.setNickname(user.getNickname());
-        exuser.setPrefer1(user.getPrefer1());
-        exuser.setPrefer2(user.getPrefer2());
-        exuser.setPrefer3(user.getPrefer3());
-        exuser.setProfileimage(user.getProfileimage());
+    public User update(String email, UserUpdateRequest user) {
+        User exuser = userRepository.getUserByEmail(email);
+        exuser.setNickname(user.nickname);
+        exuser.setPrefer1(user.prefer1);
+        exuser.setPrefer2(user.prefer2);
+        exuser.setPrefer3(user.prefer3);
+        exuser.setProfileimage(user.image);
         userRepository.save(exuser);
         return exuser;
     }

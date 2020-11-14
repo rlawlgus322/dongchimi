@@ -1,6 +1,7 @@
 package com.bezkoder.springjwt.service;
 
 import com.bezkoder.springjwt.models.User;
+import com.bezkoder.springjwt.response.UserUpdateRequest;
 import com.bezkoder.springjwt.response.userinfoResponse;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface UserService {
     String getUsernameById(long id);
     boolean duplicateCheckEmail(String email);
     boolean duplicateCheckNickname(String nickname);
-    User update(User user);
+    User update(String email, UserUpdateRequest user);
     void delete(String email);
     User getUserbyemail(String email);
     long getidByEmail(String email);
