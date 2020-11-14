@@ -47,8 +47,6 @@ function MovingImageList(props) {
     boastList2D.push(tempList);
   }
 
-  console.log(boastList2D);
-
   return (
   <MovingImageListBody>
     <FlexBoxImageList boastList={boastList2D[0]} size="300" top="0" timeInterval="2100"/>

@@ -16,9 +16,7 @@ const ImageCell = styled.img`
   height: 300px;
   transition: left 0.5s ease-in-out;
 `
-let count = 0;
 function FlexBoxImageList(props) {
-  console.log(count++);
   const [imageAndContent, setImageAndContent] = useState([]);
   const {boastList, size, top, timeInterval} = props;
   const interval = timeInterval || 2000;
@@ -28,7 +26,6 @@ function FlexBoxImageList(props) {
 
   const initValues = () => {
     imageDOMList = document.querySelectorAll(`.ImageCell--${top}`);
-    console.log(imageDOMList);
     for(let i=0;i<imageDOMList.length;i++){
       const leftValue = size*i - size;
       leftValueList.push(leftValue);
@@ -64,7 +61,6 @@ function FlexBoxImageList(props) {
   }, [boastList])
 
   useEffect(() => {
-    console.log("didYOuCallme?:", imageAndContent);
     initValues();
     initImageSize();
     moveImage();
