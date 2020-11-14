@@ -96,6 +96,9 @@ class PartyWrite extends Component {
                   <option value="일식">일식</option>
                   <option value="중식">중식</option>
                   <option value="세계음식">세계음식</option>
+                  <option value="헬스">헬스</option>
+                  <option value="홈트">홈트</option>
+                  <option value="다이어트">다이어트</option>
                   <option value="작곡">작곡</option>
                   <option value="작사">작사</option>
                   <option value="타악기">타악기</option>

@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import PartyRegister from './PartyRegister';
 import PartyMembers from './PartyMembers';
 
-
 class PartyInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      members: [],
+    }
+  }
+
   render() {
     return (
       <>
@@ -35,12 +41,25 @@ class PartyInfo extends Component {
                 현재 신청 인원 : {this.props.data.chimi.curnum} <br></br>
               </div>
             }
-            {this.props.type === 1 &&
+            {
+              this.props.type === 1 &&
               this.props.data.chimi !== undefined &&
-              <PartyRegister data={this.props.data} />}
-            {this.props.type === 2 &&
+              !this.props.data.chimi.isstart &&
+              <PartyRegister data={this.props.data} />
+            }
+            {
+              this.props.type === 1 &&
               this.props.data.chimi !== undefined &&
-              <PartyMembers hid={this.props.data.chimi.hid} />}
+              this.props.data.chimi.isstart &&
+              <h2>시작된 파티입니다</h2>
+            }
+            {
+              this.props.type === 2 &&
+              this.props.data.chimi !== undefined &&
+              <PartyMembers
+                hid={this.props.data.chimi.hid}
+              />
+            }
           </div>
         </div>
       </>
