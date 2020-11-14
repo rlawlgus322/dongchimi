@@ -7,17 +7,20 @@ import PartyApplicant from '../../components/Party/Read/PartyApplicant';
 import api from '../../utils/api';
 
 class PartyRead extends Component {
-  state = {
-    data: [],
-    type: 1,
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      type: 1,
+    }
   }
 
   componentDidMount() {
-    if (this.props.match.path === "/party/:id") {
+    if (this.props.match.path === "/party/:id") { // 그냥 파티
       this.setState({ type: 1 });
-    } else if (this.props.match.path === "/party/join/:id") {
+    } else if (this.props.match.path === "/party/join/:id") { // 참가한 파티
       this.setState({ type: 2 });
-    } else if (this.props.match.path === "/party/open/:id") {
+    } else if (this.props.match.path === "/party/open/:id") { // 내가 연 파티
       this.setState({ type: 3 });
     }
     // console.log('read this.props', this.props)
@@ -27,7 +30,7 @@ class PartyRead extends Component {
       }
     })
       .then(({ data }) => {
-        console.log('party read', data);
+        // console.log('party read', data);
         this.setState({ data: data });
       }).catch((err) => {
         console.log(err);
@@ -66,7 +69,14 @@ class PartyRead extends Component {
             {
               (this.state.type === 2 || this.state.type === 3) &&
               this.state.data.chimi !== undefined &&
+              this.state.data.chimi.isstart &&
               <PartyChat></PartyChat>
+            }
+            {
+              (this.state.type === 2 || this.state.type === 3) &&
+              this.state.data.chimi !== undefined &&
+              !this.state.data.chimi.isstart &&
+              <h2>파티 시작일까지 아직 기다려주세요!</h2>
             }
           </div>
         </div>
