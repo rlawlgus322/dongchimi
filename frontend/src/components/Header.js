@@ -80,12 +80,15 @@ const SearchOverlayWrapper = styled.div`
   display: none;
   opacity: ${props => (props.isSearchOpened ? "1" : "0")};
   transition: opacity 0.4s ease-in-out;
+  z-index: 1000;
 `
 
 export default withRouter(({location:{pathname}}) => {
   const [isMenuOpened, setIsMenuOpend] = useState(false);
   const [isSearchOpened, setIsSearchOpened] = useState(false);
 
+  const isLogin = sessionStorage.getItem('token');
+  console.log(isLogin);
   const closeSearch = () => {
     setIsSearchOpened(false);
     setTimeout(() => document.getElementById("SearchOverlay").style.display = "none", 500);
@@ -94,6 +97,11 @@ export default withRouter(({location:{pathname}}) => {
   const openSearch = () => {
     document.getElementById("SearchOverlay").style.display = "block"
     setTimeout(() => setIsSearchOpened(true), 10);
+  }
+
+  const logout = () => {
+    sessionStorage.clear();
+    window.location.href = "/";
   }
 
   return(
@@ -112,7 +120,7 @@ export default withRouter(({location:{pathname}}) => {
         <Item current={pathname === "/mypage"}>
           <SLink to="/mypage">마이페이지</SLink>
         </Item>
-        <LoginModal/>
+        { isLogin ? <SLink onClick={logout}>로그아웃</SLink> : <LoginModal /> }
         <Curtain isMenuOpened={isMenuOpened}/>
       </List>
 
