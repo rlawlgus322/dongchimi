@@ -9,10 +9,11 @@ const ArticleInfoIconsBody = styled.div`
 `;
 
 function ArticleInfoIcons(props) {
+  const { vcnt, isLike, lcnt } = props;
   return (
     <ArticleInfoIconsBody>
-      <ViewConter count={10} />
-      <LikeButtonAndCount isLike={true} count={50} />
+      <ViewConter count={vcnt} />
+      <LikeButtonAndCount isLike={isLike} count={lcnt} />
       <CommentConter count={15} />
     </ArticleInfoIconsBody>
   );

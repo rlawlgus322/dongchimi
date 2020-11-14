@@ -8,13 +8,13 @@ import CommentWriting from 'components/CommentWriting';
 import CommentRead from 'components/CommentRead';
 import api from 'utils/api';
 
-const images = [
-  'https://images.unsplash.com/photo-1604724434236-a7cebeaa13e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  'https://images.unsplash.com/photo-1601758004584-903c2a9a1abc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  'https://images.unsplash.com/photo-1593643946890-b5b85ade6451?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  'https://images.unsplash.com/photo-1604582833049-4ddbc5b2ca38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  'https://images.unsplash.com/photo-1604521247394-9c294900978b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-];
+// const images = [
+//   'https://images.unsplash.com/photo-1604724434236-a7cebeaa13e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+//   'https://images.unsplash.com/photo-1601758004584-903c2a9a1abc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+//   'https://images.unsplash.com/photo-1593643946890-b5b85ade6451?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+//   'https://images.unsplash.com/photo-1604582833049-4ddbc5b2ca38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+//   'https://images.unsplash.com/photo-1604521247394-9c294900978b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+// ];
 
 const BoastReadBody = styled.div`
   display: flex;
@@ -49,42 +49,45 @@ const Width80Percent = styled.div`
 
 function BoastRead(props) {
   const [data, setData] = useState([]);
-  // const [images, setImages] = useState([]);
+  const [images, setImages] = useState([]);
+  const [boast, setBoast] = useState([]);
 
   useEffect(() => {
-    api.get(`/hobby/chimi/${props.match.params.id}`, {
+    api.get(`/boast/${props.match.params.id}`, {
       headers: {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log(data);
+      console.log('boast read', data);
       setData(data);
+      const img = JSON.parse(data.boast.postImg);
+      const tmp = [];
+      for (let i = 0; i < Object.keys(img).length; i++) {
+        const path = "http://k3a409.p.ssafy.io" + img[i];
+        tmp.push(path);
+      }
+      setBoast(data.boast);
+      setImages(tmp);
     }).catch((err) => {
       console.log(err);
     })
   }, [])
-
-  // useEffect(() => {
-  //   console.log(data.chimi.image);
-  //   const obj = JSON.parse(data.chimi.image);
-  //   // TODO : 파싱해서 images에 저장하기
-  // }, data);
 
   return (
     <BoastReadBody>
       <InnerBody>
         <Width80Percent>
           <UserInfoBar
-            thumbnail="https://avatars0.githubusercontent.com/u/33210021?s=60&v=4"
-            id="hideOnBush"
+            thumbnail={`https://k3a409.p.ssafy.io${data.profileImage}`}
+            id={data.nicknname}
             isMoreButton={true}
           />
         </Width80Percent>
         <SliderableImage images={images} />
         <Width80Percent>
-          <TextViewer text={'안녕하세연'} />
+          <TextViewer text={boast.contents} />
           <FlexEnd>
-            <ArticleInfoIcons isLike={true} />
+            <ArticleInfoIcons vcnt={boast.views} isLike={data.liked} lcnt={boast.likes} />
           </FlexEnd>
           <HorizontalLine />
           <CommentWriting />

@@ -39,7 +39,7 @@ class Boast extends Component {
     return (
       <Sdiv className="col-md-4 col-lg-3 ">
         <Mp>
-          <ProfileImg src={this.props.boast.profileImage} />
+          <ProfileImg src={`https://k3a409.p.ssafy.io${this.props.boast.profileImage}`} />
           {this.props.boast.nickname}
         </Mp>
         <Bdiv
