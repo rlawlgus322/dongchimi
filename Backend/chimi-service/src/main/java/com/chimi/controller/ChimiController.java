@@ -117,7 +117,7 @@ public class ChimiController {
 				System.out.println("=====================================================================================");
 				System.out.println("name " + name);
 				Page<Chimi> chimiPage = chimiService.findbyName(name, pageable);
-				cnt = chimiService.countCategory(category);
+				cnt = chimiService.countName(name);
 				for(Chimi chimi : chimiPage){
 					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
 					chimiList.add(
@@ -131,7 +131,7 @@ public class ChimiController {
 				System.out.println("=====================================================================================");
 				System.out.println("category "+ category);
 				Page<Chimi> chimiPage = chimiService.findbyCategory(category,pageable);
-				cnt = chimiService.countName(name);
+				cnt = chimiService.countCategory(category);
 				for(Chimi chimi : chimiPage){
 					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
 					chimiList.add(
