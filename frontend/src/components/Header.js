@@ -88,7 +88,6 @@ export default withRouter(({location:{pathname}}) => {
   const [isSearchOpened, setIsSearchOpened] = useState(false);
 
   const isLogin = sessionStorage.getItem('token');
-  console.log(isLogin);
   const closeSearch = () => {
     setIsSearchOpened(false);
     setTimeout(() => document.getElementById("SearchOverlay").style.display = "none", 500);
