@@ -92,6 +92,9 @@ function SliderableImage(props) {
             onClick={() => ChangeImage(() => setIndex(index))}
           />
         ))}
+        {
+
+        }
       </ImageList>
     </SliderableImageBody>
   );

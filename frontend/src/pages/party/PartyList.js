@@ -36,8 +36,7 @@ function PartyList({ history }) {
         size: 12,
         name: keyword,
         category: category,
-      }
-    }, {
+      },
       headers: {
         accessToken: sessionStorage.getItem('token')
       }
