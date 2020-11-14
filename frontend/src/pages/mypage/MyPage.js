@@ -45,7 +45,7 @@ class MyPage extends Component {
         <Row>
           <Col>
             <div>프로필 사진</div>
-            <img src={this.state.userInfo.profileImage} alt=""></img>
+            <img src={this.state.image} alt=""></img>
           </Col>
           <Col>
             <br />

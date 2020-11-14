@@ -30,7 +30,7 @@ class PartyRead extends Component {
       }
     })
       .then(({ data }) => {
-        // console.log('party read', data);
+        console.log('party read', data);
         this.setState({ data: data });
       }).catch((err) => {
         console.log(err);
@@ -70,7 +70,7 @@ class PartyRead extends Component {
               (this.state.type === 2 || this.state.type === 3) &&
               this.state.data.chimi !== undefined &&
               this.state.data.chimi.isstart &&
-              <PartyChat></PartyChat>
+              <PartyChat rtcurl={this.state.data.chimi.rtcurl}></PartyChat>
             }
             {
               (this.state.type === 2 || this.state.type === 3) &&
