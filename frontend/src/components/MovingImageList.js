@@ -33,12 +33,27 @@ const MovingImageListBody = styled.div`
 `
 
 function MovingImageList(props) {
-  console.log(props);
+  const {boastList} = props;
+  const row = 3;
+  const col = parseInt(boastList.length / row);
+
+  const boastList2D = [];
+
+  for(let i=0;i<row;i++){
+    const tempList = [];
+    for(let j=0;j<col;j++){
+      tempList.push(boastList[i*col + j]);
+    }
+    boastList2D.push(tempList);
+  }
+
+  console.log(boastList2D);
+
   return (
   <MovingImageListBody>
-    <FlexBoxImageList imageUrlList={imageList} size="300" top="0" timeInterval="2100"/>
-    <FlexBoxImageList imageUrlList={imageList2} size="300" top="300" timeInterval="2300"/>
-    <FlexBoxImageList imageUrlList={imageList} size="300" top="600" timeInterval="2200"/>
+    <FlexBoxImageList boastList={boastList2D[0]} size="300" top="0" timeInterval="2100"/>
+    <FlexBoxImageList boastList={boastList2D[1]} size="300" top="300" timeInterval="2300"/>
+    <FlexBoxImageList boastList={boastList2D[2]} size="300" top="600" timeInterval="2200"/>
   </MovingImageListBody>
   )  
 }

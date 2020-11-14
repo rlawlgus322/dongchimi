@@ -9,6 +9,7 @@ const SexyImageCellBody = styled.div`
   width: 300px;
   height: 300px;
   transition: left 0.5s ease-in-out;
+  background-color: white;
 `
 
 const Overlay = styled.div`
