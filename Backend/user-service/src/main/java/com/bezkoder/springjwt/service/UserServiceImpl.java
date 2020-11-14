@@ -57,6 +57,10 @@ public class UserServiceImpl implements UserService {
     public User update(User user) {
         User exuser = userRepository.getUserByEmail(user.getEmail());
         exuser.setNickname(user.getNickname());
+        exuser.setPrefer1(user.getPrefer1());
+        exuser.setPrefer2(user.getPrefer2());
+        exuser.setPrefer3(user.getPrefer3());
+        exuser.setProfileimage(user.getProfileimage());
         userRepository.save(exuser);
         return exuser;
     }

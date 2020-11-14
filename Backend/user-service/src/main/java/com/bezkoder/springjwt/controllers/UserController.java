@@ -206,7 +206,7 @@ public class UserController {
     @PutMapping("/userinfo")
     @ApiOperation(value = "수정하기")
     public ResponseEntity<?> update(@RequestBody User user ,@RequestHeader("accessToken") String access) {
-
+        //닉네임 prefer 123 프사(null 일수도)
         ResponseEntity<?> entity = null;
 
         try {
