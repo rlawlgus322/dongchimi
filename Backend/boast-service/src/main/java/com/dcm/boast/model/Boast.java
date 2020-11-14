@@ -81,6 +81,16 @@ public class Boast {
       this.likes = boast.getLikes();
       this.views = boast.getViews();
     }
+
+
+
+
+	@Override
+	public String toString() {
+		return "Boast [bid=" + bid + ", userId=" + userId + ", hid=" + hid + ", title=" + title + ", postImg=" + postImg
+				+ ", contents=" + contents + ", createdate=" + createdate + ", category=" + category + ", likes="
+				+ likes + ", views=" + views + "]";
+	}
   
   
 
