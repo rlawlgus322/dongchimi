@@ -26,6 +26,12 @@ const globalStyles = createGlobalStyle`
         outline: none;
       }
     }
+    .pagination {
+      display: inline-block !important;
+    }
+    .pagination > li {
+      display: inline-block;
+    }
 `;
 
 export default globalStyles;
