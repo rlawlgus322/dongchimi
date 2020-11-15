@@ -12,7 +12,7 @@ function Main() {
     try{
       const {data} = await api.get("boast/all",  {
         params: {
-          size: 24
+          size: 30
         },
         headers: {
           accessToken: sessionStorage.getItem("token")
