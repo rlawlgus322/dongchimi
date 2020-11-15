@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import MypageTab from '../../components/mypage/MypageTab';
 import { Container, Row, Col } from 'react-bootstrap';
 import api from '../../utils/api';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+
+const MypageDiv = styled.div`
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+  outline: none;
+  width: 100%;
+`;
 
 class MyPage extends Component {
   constructor(props) {
@@ -36,20 +45,23 @@ class MyPage extends Component {
         <Row>
           <Col>
             <div>프로필 사진</div>
-            <img src={this.state.userInfo.profileImage} alt=""></img>
+            <img src={this.state.image} alt=""></img>
           </Col>
           <Col>
             <br />
-            <h4>이메일: {this.state.userInfo.email}</h4>
+            <MypageDiv>이메일: {this.state.userInfo.email}</MypageDiv>
+            <MypageDiv>이름: {this.state.userInfo.username}</MypageDiv>
+            <MypageDiv>성별: {this.state.userInfo.gender === 1 ? "여성" : "남성"}</MypageDiv>
+            <MypageDiv>닉네임: {this.state.userInfo.nickname}</MypageDiv>
+            <MypageDiv>선호 카테고리: 1순위-{this.state.userInfo.prefer1}/<br />2순위-{this.state.userInfo.prefer2}/3순위-{this.state.userInfo.prefer3}</MypageDiv>
+            {/* <h4>이메일: {this.state.userInfo.email}</h4>
             <h4>이름: {this.state.userInfo.username}</h4>
             <h4>성별: {this.state.userInfo.gender === 1 ? "여성" : "남성"}</h4>
             <h4>닉네임: {this.state.userInfo.email}</h4>
-            <h4>선호 카테고리: 1순위-{this.state.userInfo.prefer1}/<br />2순위-{this.state.userInfo.prefer2}/3순위-{this.state.userInfo.prefer3}</h4>
+            <h4>선호 카테고리: 1순위-{this.state.userInfo.prefer1}/<br />2순위-{this.state.userInfo.prefer2}/3순위-{this.state.userInfo.prefer3}</h4> */}
           </Col>
         </Row>
-        <Row>
-          <MypageTab></MypageTab>
-        </Row>
+        <MypageTab></MypageTab>
       </Container>
     );
   }
