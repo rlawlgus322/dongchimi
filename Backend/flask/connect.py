@@ -70,7 +70,7 @@ def getUserLike(cursor, id):
     )
     return resoverall    
 
-def getchimi(cursor, category):
+def getchimi(cursor, ctg):
     resoverall = cursor.execute(
     # """
     #     select * from chimi
@@ -79,10 +79,10 @@ def getchimi(cursor, category):
     # """
     """
         select * from chimi
-        where category = :selcategory and isstart = True;
+        where category = :selected_ctg and isstart = True;
        
     """
-    ,selcategory = category
+    ,selected_ctg = ctg
     )
     return resoverall    
 
