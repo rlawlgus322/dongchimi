@@ -316,6 +316,17 @@ public class ChimiController {
 		return entity;
 	}
 
+	@GetMapping("/partynum")
+	@ApiOperation(value = "내가 등록한 파티 조회")
+	public ResponseEntity<Integer> partynum(){
+		try {
+			return new ResponseEntity<>(chimiService.countAll(), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
 
 
 

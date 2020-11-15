@@ -118,5 +118,10 @@ public class UserServiceImpl implements UserService {
         return list;
     }
 
+    @Override
+    public int userNum() {
+        return userRepository.countUsersByIdIsNotNull();
+    }
+
 
 }
