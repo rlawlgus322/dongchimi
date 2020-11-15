@@ -200,8 +200,11 @@ def userRecommend():
         if user == userid: continue
         # print(userid)
         if maxval < user_based_collabor.loc[userid, user]:
-            # maxval = user_based_collabor.loc[userid, user]
+            maxval = user_based_collabor.loc[userid, user]
             similar_user = user
+
+    print("-----------------------------maxval-------------------------------")
+    print(maxval)
 
     print("------------------------similar_user-------------------------------------")
     print(similar_user)
