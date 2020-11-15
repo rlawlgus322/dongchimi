@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../../../utils/api';
 
 function PartyMembers(props) {
@@ -10,7 +10,7 @@ function PartyMembers(props) {
   }, []);
 
   useEffect(() => {
-    console.log('change ids');
+    // console.log('change ids');
     getMembers();
   }, [ids])
 
@@ -42,7 +42,7 @@ function PartyMembers(props) {
   }
 
   const memberList = members.map((member, index) => {
-    console.log("memberList", member);
+    // console.log("memberList", member);
     return (
       <div key={index}>
         <img src='https://k3a409.p.ssafy.io/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png' style={{ height: "25px" }} />
