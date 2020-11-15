@@ -24,7 +24,7 @@ chimi_sub_dict = {"유화":0,"수채화": 0, "파스텔": 0, "가죽": 0, "뜨�
                     "현악기": 0, "관악기": 0, "댄스": 0, "헬스": 0, "홈트레이닝": 0, "다이어트":0}    #사용자 선호도 조사할때
 
 ##### 이 함수만 호출 #####
-@app.route('/item',methods=['GET'])
+@app.route('/item', methods=['GET'])
 def itemRecommend():
     useremail = request.args.get("email") #내가 분석할 유저
     conn, cursor = connect.connect()

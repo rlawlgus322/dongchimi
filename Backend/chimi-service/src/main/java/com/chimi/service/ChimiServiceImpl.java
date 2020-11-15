@@ -25,8 +25,7 @@ public class ChimiServiceImpl implements ChimiService{
 
 	@Override
 	public Chimi save(Chimi chimi) {
-		String url = UUID.randomUUID().toString();
-		chimi.setRtcurl(url);
+
 		return chimiRepository.save(chimi);
 	}
 
