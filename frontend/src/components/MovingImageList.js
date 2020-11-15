@@ -6,7 +6,7 @@ const MovingImageListBody = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 900px;
+  height: 500px;
 `
 
 function MovingImageList(props) {
