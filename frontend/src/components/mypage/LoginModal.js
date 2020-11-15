@@ -19,29 +19,20 @@ const Li = styled.li`
 
 function LoginModal({ history }) {
     const [show, setShow] = useState(false);
+    const [email, setEmail] = useState(null);
+    const [nickname, setNickname] = useState(null);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     useEffect(() => {
-        window.$('#signup').click(function () {
-            window.$('.pinkbox').css('transform', 'translateX(80%)');
-            window.$('.signin').addClass('nodisplay');
-            window.$('.signup').removeClass('nodisplay');
-        });
-
-        window.$('#signin').click(function () {
-            window.$('.pinkbox').css('transform', 'translateX(0%)');
-            window.$('.signup').addClass('nodisplay');
-            window.$('.signin').removeClass('nodisplay');
-        });
-
         /* ===== Logic for creating fake Select Boxes ===== */
         window.$('.sel').each(function () {
+            console.log( window.$(this));
             window.$(this).children('select').css('display', 'none');
 
             var $current = window.$(this);
-
+            console.log($current);
             window.$(this).find('option').each(function (i) {
                 if (i == 0) {
                     $current.prepend(window.$('<div>', {
@@ -49,6 +40,8 @@ function LoginModal({ history }) {
                     }));
 
                     var placeholder = window.$(this).text();
+                    console.log(placeholder)
+                    console.log()
                     $current.prepend(window.$('<span>', {
                         class: $current.attr('class').replace(/sel/g, 'sel__placeholder'),
                         text: placeholder,
@@ -70,6 +63,34 @@ function LoginModal({ history }) {
             window.$(this).toggleClass('active');
         });
 
+         // Toggling the `.selected` state on the options.
+         window.$('.sel__box__options').click(function () {
+            var txt = window.$(this).text();
+            var index = window.$(this).index();
+
+            window.$(this).siblings('.sel__box__options').removeClass('selected');
+            window.$(this).addClass('selected');
+
+            var $currentSel = window.$(this).closest('.sel');
+            $currentSel.children('.sel__placeholder').text(txt);
+            $currentSel.children('select').prop('selectedIndex', index + 1);
+        });
+
+    }, []); // 한 번만 호출
+
+    useEffect(() => {
+        window.$('#signup').click(function () {
+            window.$('.pinkbox').css('transform', 'translateX(80%)');
+            window.$('.signin').addClass('nodisplay');
+            window.$('.signup').removeClass('nodisplay');
+        });
+
+        window.$('#signin').click(function () {
+            window.$('.pinkbox').css('transform', 'translateX(0%)');
+            window.$('.signup').addClass('nodisplay');
+            window.$('.signin').removeClass('nodisplay');
+        });
+
         // Toggling the `.selected` state on the options.
         window.$('.sel__box__options').click(function () {
             var txt = window.$(this).text();
@@ -82,8 +103,7 @@ function LoginModal({ history }) {
             $currentSel.children('.sel__placeholder').text(txt);
             $currentSel.children('select').prop('selectedIndex', index + 1);
         });
-
-    });
+    }) // setState 할 때마다 호출
 
 
     const login = (e) => {
@@ -103,6 +123,59 @@ function LoginModal({ history }) {
         })
     }
 
+    const signin = (e) => {
+        e.preventDefault();
+        api.post('auth/signup', {
+            username: e.target.name.value,
+            email: e.target.email.value,
+            password: e.target.password.value,
+            nickname: e.target.nickname.value,
+            gender: e.target.gender.value,
+            role: ["mod", "user"],
+            prefer1: e.target.category1.value,
+            prefer2: e.target.category2.value,
+            prefer3: e.target.category3.value,
+        }).then((res) => {
+            alert("회원가입되었습니다.")
+            history.push("/")
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+    const eCheck = (e) => {
+        e.preventDefault();
+        api.get(`auth/userinfo/isemail/${email.email}`)
+            .then(({ data }) => {
+                { data ? alert("이미 존재하는 이메일입니다.") : alert("사용 가능한 이메일입니다.") }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const nCheck = (e) => {
+        e.preventDefault();
+        api.get(`auth/userinfo/isnick/${nickname.nickname}`)
+            .then(({ data }) => {
+                { data ? alert("이미 존재하는 닉네임입니다.") : alert("사용 가능한 닉네임입니다.") }
+                console.log(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const changeEmail = (e) => {
+        console.log(e)
+        setEmail({ email: e.target.value })
+    }
+
+    const changeNickname = (e) => {
+        setNickname({ nickname: e.target.value })
+    }
+
 
     return (
         <>
@@ -116,124 +189,123 @@ function LoginModal({ history }) {
                     <div className="pinkbox">
                         <div className="signup nodisplay">
                             <h1 className="register">register</h1>
-                            <form autocomplete="off">
+                            <form  onSubmit={signin}>
+                                <div className="oneline"><input type="text"  name="email" placeholder="email" onChange={changeEmail} /><button onClick={eCheck}>중복확인</button></div>
+                                <input type="password" name="password" placeholder="password"></input>
+                                <input type="password" name="passwordConfirm" placeholder="confirm password"></input>
+                                <input type="text" name="name" placeholder="username"></input>
+                                <div className="oneline"><input className="nick" name="nickname" type="text" placeholder="nickname" onChange={changeNickname} /> <button onClick={nCheck}>중복확인</button></div>
 
-                                <input type="email" placeholder="email"></input>
-                                <input type="password" placeholder="password"></input>
-                                <input type="password" placeholder="confirm password"></input>
-                                <input type="text" placeholder="username"></input>
-                                <input className="nick" type="text" placeholder="nickname"></input>
-                                
                                 <div className="radio">
-                                <label className="genderTitle" >성별</label>
+                                    <label className="genderTitle" >성별</label>
                                     <input className="radiobutton" type="radio" name="gender" value="1" defaultChecked /> <label className="gender" >여자 </label>
                                     <input className="radiobutton" type="radio" name="gender" value="2" /> <label className="gender">남자 </label>
                                 </div>
-                            
+
                                 <label className="category" >선호 카테고리</label>
                                 <div>
-                                <div className="sel sel--black-panther">
+                                    <div className="sel sel--black-panther">
 
-                                    <select id="select-profession" name="category1">
-                                        <option value="">1순위</option>
-                                        <option value="유화">유화</option>
-                                        <option value="수채화">수채화</option>
-                                        <option value="파스텔">파스텔</option>
-                                        <option value="가죽">가죽</option>
-                                        <option value="뜨개질">뜨개질</option>
-                                        <option value="비즈">비즈</option>
-                                        <option value="일러스트">일러스트</option>
-                                        <option value="이모티콘">이모티콘</option>
-                                        <option value="편집">편집</option>
-                                        <option value="촬영">촬영</option>
-                                        <option value="한식">한식</option>
-                                        <option value="양식">양식</option>
-                                        <option value="일식">일식</option>
-                                        <option value="중식">중식</option>
-                                        <option value="세계음식">세계음식</option>
-                                        <option value="헬스">헬스</option>
-                                        <option value="홈트">홈트</option>
-                                        <option value="다이어트">다이어트</option>
-                                        <option value="작곡">작곡</option>
-                                        <option value="작사">작사</option>
-                                        <option value="타악기">타악기</option>
-                                        <option value="현악기">현악기</option>
-                                        <option value="관악기">관악기</option>
-                                        <option value="댄스">댄스</option>
-                                    </select>
-                                
-                                </div>
-                                <div className="sel sel--black-panther">
-                                    <select id="select-profession" name="category2">
-                                        <option value="">2순위</option>
-                                        <option value="유화">유화</option>
-                                        <option value="수채화">수채화</option>
-                                        <option value="파스텔">파스텔</option>
-                                        <option value="가죽">가죽</option>
-                                        <option value="뜨개질">뜨개질</option>
-                                        <option value="비즈">비즈</option>
-                                        <option value="일러스트">일러스트</option>
-                                        <option value="이모티콘">이모티콘</option>
-                                        <option value="편집">편집</option>
-                                        <option value="촬영">촬영</option>
-                                        <option value="한식">한식</option>
-                                        <option value="양식">양식</option>
-                                        <option value="일식">일식</option>
-                                        <option value="중식">중식</option>
-                                        <option value="세계음식">세계음식</option>
-                                        <option value="헬스">헬스</option>
-                                        <option value="홈트">홈트</option>
-                                        <option value="다이어트">다이어트</option>
-                                        <option value="작곡">작곡</option>
-                                        <option value="작사">작사</option>
-                                        <option value="타악기">타악기</option>
-                                        <option value="현악기">현악기</option>
-                                        <option value="관악기">관악기</option>
-                                        <option value="댄스">댄스</option>
-                                    </select>
+                                        <select className="sel sel--black-panther" id="select-profession" name="category1">
+                                            <option value="">1순위</option>
+                                            <option value="유화">유화</option>
+                                            <option value="수채화">수채화</option>
+                                            <option value="파스텔">파스텔</option>
+                                            <option value="가죽">가죽</option>
+                                            <option value="뜨개질">뜨개질</option>
+                                            <option value="비즈">비즈</option>
+                                            <option value="일러스트">일러스트</option>
+                                            <option value="이모티콘">이모티콘</option>
+                                            <option value="편집">편집</option>
+                                            <option value="촬영">촬영</option>
+                                            <option value="한식">한식</option>
+                                            <option value="양식">양식</option>
+                                            <option value="일식">일식</option>
+                                            <option value="중식">중식</option>
+                                            <option value="세계음식">세계음식</option>
+                                            <option value="헬스">헬스</option>
+                                            <option value="홈트">홈트</option>
+                                            <option value="다이어트">다이어트</option>
+                                            <option value="작곡">작곡</option>
+                                            <option value="작사">작사</option>
+                                            <option value="타악기">타악기</option>
+                                            <option value="현악기">현악기</option>
+                                            <option value="관악기">관악기</option>
+                                            <option value="댄스">댄스</option>
+                                        </select>
 
-                                </div>
-                                <div className="sel sel--black-panther">
+                                    </div>
+                                    <div className="sel sel--black-panther">
+                                        <select className="sel sel--black-panther" id="select-profession" name="category2">
+                                            <option value="">2순위</option>
+                                            <option value="유화">유화</option>
+                                            <option value="수채화">수채화</option>
+                                            <option value="파스텔">파스텔</option>
+                                            <option value="가죽">가죽</option>
+                                            <option value="뜨개질">뜨개질</option>
+                                            <option value="비즈">비즈</option>
+                                            <option value="일러스트">일러스트</option>
+                                            <option value="이모티콘">이모티콘</option>
+                                            <option value="편집">편집</option>
+                                            <option value="촬영">촬영</option>
+                                            <option value="한식">한식</option>
+                                            <option value="양식">양식</option>
+                                            <option value="일식">일식</option>
+                                            <option value="중식">중식</option>
+                                            <option value="세계음식">세계음식</option>
+                                            <option value="헬스">헬스</option>
+                                            <option value="홈트">홈트</option>
+                                            <option value="다이어트">다이어트</option>
+                                            <option value="작곡">작곡</option>
+                                            <option value="작사">작사</option>
+                                            <option value="타악기">타악기</option>
+                                            <option value="현악기">현악기</option>
+                                            <option value="관악기">관악기</option>
+                                            <option value="댄스">댄스</option>
+                                        </select>
 
-                                <select id="select-profession" name="category3">
-                                        <option value="">3순위</option>
-                                        <option value="유화">유화</option>
-                                        <option value="수채화">수채화</option>
-                                        <option value="파스텔">파스텔</option>
-                                        <option value="가죽">가죽</option>
-                                        <option value="뜨개질">뜨개질</option>
-                                        <option value="비즈">비즈</option>
-                                        <option value="일러스트">일러스트</option>
-                                        <option value="이모티콘">이모티콘</option>
-                                        <option value="편집">편집</option>
-                                        <option value="촬영">촬영</option>
-                                        <option value="한식">한식</option>
-                                        <option value="양식">양식</option>
-                                        <option value="일식">일식</option>
-                                        <option value="중식">중식</option>
-                                        <option value="세계음식">세계음식</option>
-                                        <option value="헬스">헬스</option>
-                                        <option value="홈트">홈트</option>
-                                        <option value="다이어트">다이어트</option>
-                                        <option value="작곡">작곡</option>
-                                        <option value="작사">작사</option>
-                                        <option value="타악기">타악기</option>
-                                        <option value="현악기">현악기</option>
-                                        <option value="관악기">관악기</option>
-                                        <option value="댄스">댄스</option>
-                                    </select>
+                                    </div>
+                                    <div className="sel sel--black-panther">
+
+                                        <select className="sel sel--black-panther" id="select-profession" name="category3">
+                                            <option value="">3순위</option>
+                                            <option value="유화">유화</option>
+                                            <option value="수채화">수채화</option>
+                                            <option value="파스텔">파스텔</option>
+                                            <option value="가죽">가죽</option>
+                                            <option value="뜨개질">뜨개질</option>
+                                            <option value="비즈">비즈</option>
+                                            <option value="일러스트">일러스트</option>
+                                            <option value="이모티콘">이모티콘</option>
+                                            <option value="편집">편집</option>
+                                            <option value="촬영">촬영</option>
+                                            <option value="한식">한식</option>
+                                            <option value="양식">양식</option>
+                                            <option value="일식">일식</option>
+                                            <option value="중식">중식</option>
+                                            <option value="세계음식">세계음식</option>
+                                            <option value="헬스">헬스</option>
+                                            <option value="홈트">홈트</option>
+                                            <option value="다이어트">다이어트</option>
+                                            <option value="작곡">작곡</option>
+                                            <option value="작사">작사</option>
+                                            <option value="타악기">타악기</option>
+                                            <option value="현악기">현악기</option>
+                                            <option value="관악기">관악기</option>
+                                            <option value="댄스">댄스</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                </div>
-                                <button className="button submit">create account </button>
+                                <button className="button submit" type="submit" value="회원가입">create account </button>
                             </form>
                         </div>
                         <div className="signin">
                             <h1 className="register login">sign in</h1>
-                            <form className="more-padding" autocomplete="off" onSubmit={login}>
+                            <form className="more-padding" autoComplete="off" onSubmit={login}>
                                 <input className="signinput" type="text" name="email" placeholder="username"></input>
-                                <input className="signinput" type="password" name="password"  placeholder="password"></input>
+                                <input className="signinput" type="password" name="password" placeholder="password"></input>
                                 <div className="checkbox">
-                                    <input type="checkbox" id="remember" /><label for="remember">remember me</label>
+                                    <input type="checkbox" id="remember" /><label htmlFor="remember">remember me</label>
                                 </div>
 
                                 <button className="button submit" type="submit" value="로그인">login</button>

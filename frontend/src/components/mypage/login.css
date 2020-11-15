@@ -50,9 +50,12 @@ body {
   transition: all .5s ease-in-out;
   z-index: 2;
 }
+.oneline{
+    width: 75%;
+}
 .radio{
     padding :9px;
-    width : 65%;
+    width : 75%;
     display: inline;
     /* height : 50px; */
     /* margin-top: 10px; */
@@ -233,7 +236,7 @@ border-color: #CBC0D3;
 
 input {
   background: #d0e7ce;
-  width: 65%;
+  width: 75%;
   color: black;
   border: none;
   border-bottom: 1px solid #f6f6f6;
