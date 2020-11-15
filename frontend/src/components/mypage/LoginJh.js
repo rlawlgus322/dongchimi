@@ -219,7 +219,7 @@ function LoginModal({ history }) {
                         </div>
                         <div className="signin">
                             <h1 className="register login">sign in</h1>
-                            <form className="more-padding" autocomplete="off">
+                            <form className="more-padding" autocomplete="off" onSubmit={login}>
                                 <input className="signinput" type="text" placeholder="username"></input>
                                 <input className="signinput" type="password" placeholder="password"></input>
                                 <div className="checkbox">
@@ -243,7 +243,7 @@ function LoginModal({ history }) {
                         <p className="desc"> 동일한 <span>취미</span>를 찾다</p>
                         <img className="flower" src={dongchimi2} />
                         <p className="account nanumsquare">계정이 없으신가요?</p>
-                        <button className="button signbutton" id="signup">회원가입</button>
+                        <button className="button signbutton" id="signup" onClick={handleClose} cyan fullWidth>회원가입</button>
                     </div>
                 </div>
 

@@ -29,8 +29,8 @@ body {
 
 .welcome {
   background:  #f6f6f6;
-  width: 1130px;
-  height: 915px;
+  width: 915px;
+  height: 498px;
   position: relative;
   margin: auto 0;
   top: 25%;
@@ -43,25 +43,28 @@ body {
   top: -10%;
   left: 5%;
   background: #d0e7ce;
-  width: 570px;
-  height: 1110px;
+  width: 455px;
+  height: 600px;
   border-radius: 5px;
   box-shadow: 2px 0 10px rgba(0,0,0,.1);
   transition: all .5s ease-in-out;
   z-index: 2;
 }
 .radio{
-    /* width : 55%; */
+    padding :9px;
+    width : 65%;
     display: inline;
-    height : 80px;
+    /* height : 50px; */
+    /* margin-top: 10px; */
+    border-bottom: solid 1px white;
 }
 .gender{
-    font-size: 25px;
+    font-size: 15px;
     font-weight: 600;
 }
 
 .radiobutton{
-    width : 15px;
+    width : 10px;
     margin-left: 30px;
     margin-right: 10px;
 }
@@ -95,11 +98,11 @@ input[type="radio"] {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
   font-weight: 800;
-  margin-top: 100px;
-  margin-bottom: 60px;
+  margin-top: 50px;
+  margin-bottom: 30px;
   text-transform: uppercase;
   color: #037c5e;
-  font-size: 4em;
+  font-size: 2.5em;
   letter-spacing: 8px;
 }
 
@@ -112,38 +115,38 @@ input[type="radio"] {
     border-radius: 70px;
     border: solid 1px white;
     margin-top: 10px;
+    margin-bottom: 10px;
     background-color:white 
 }
 
 .login{
-    margin-top: 175px;
+    margin-top: 85px;
 }
 .signup input {
-    margin-bottom: 50px;
+    margin-bottom: 5px;
 }
-.signup .nick {
-    margin-bottom: 30px;
-}
+
 .signup h1 {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .title {
   font-family: 'NanumSquare', sans-serif;
   font-weight: 800;
   color: #8E9AAF;
-  font-size: 100px;
+  font-size: 60px;
   line-height: 1.1em;
   letter-spacing: 3px;
   text-align: center;
-  margin-top: 20%;
+  margin-top: 10%;
+  margin-bottom: 10px;
 }
 .desc {
   margin-top: -8px;
 }
 .account {
-  margin-top: 75%;
-  font-size: 25px;
+  margin-top: 55%;
+  font-size: 15px;
 }
 p {
   font-family: 'NanumSquare', sans-serif;
@@ -160,9 +163,9 @@ span {
 .flower {
   position: absolute;
   width: center;
-  height:300px;
-  top: 33%;
-  left: 23%;
+  height:200px;
+  top: 30%;
+  left: 28%;
   opacity: .7;
 }
 
@@ -206,19 +209,19 @@ form {
   align-items: center;
   flex-direction: column;
   padding-top: 7px;
-  height: 800px;
+  height: 480px;
 }
 .more-padding{
   padding-top: 35px;
-  height: 800px;
+  height: 50%;
 }
 .signinput {
 padding: 12px;
-height: 70px;
-margin-top: 50px;
+height: 50px;
+margin-top: 20px;
 }
 .more-padding .submit {
-margin-top: 45px;
+margin-top: 20px;
 }
 
 .submit:hover {
@@ -231,7 +234,7 @@ border-color: #CBC0D3;
 input {
   background: #d0e7ce;
   width: 65%;
-  color: #d0e7ce;
+  color: black;
   border: none;
   border-bottom: 1px solid #f6f6f6;
   padding: 9px;
@@ -240,23 +243,20 @@ input {
 input::placeholder {
     color:  white;
     letter-spacing: 2px;
-    font-size: 2.5em;
+    font-size: 1.5em;
     font-weight: 400;
 }
 input:focus {
     color: #053101;
     outline: none;
     border-bottom: 1.2px solid #080591;
-    font-size: 2em;
+    font-size: 1em;
     transition: .8s all ease;
 }
 input:focus::placeholder {
     opacity: 0;
 }
 
-.signinput{
-    height: 100px;
-}
 
 label {
   font-family:'NanumSquare', sans-serif;
@@ -291,7 +291,8 @@ input[type=checkbox] {
 }
 
 .radio .genderTitle{
-    font-size: 25px;
+    color: white;
+    font-size: 20px;
 }
 
 /* select box css */
