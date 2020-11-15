@@ -20,7 +20,7 @@ body {
 }
 
 /* div box styling */
-.container {
+.contain {
   margin: auto;
   width: 650px;
   height: 550px;
@@ -29,9 +29,10 @@ body {
 
 .welcome {
   background:  #f6f6f6;
-  width: 650px;
-  height: 415px;
-  position: absolute;
+  width: 1130px;
+  height: 915px;
+  position: relative;
+  margin: auto 0;
   top: 25%;
   border-radius: 5px;
   box-shadow: 5px 5px 5px rgba(0,0,0,.1);
@@ -41,15 +42,35 @@ body {
   position: absolute;
   top: -10%;
   left: 5%;
-  background: #8bb8e8;
-  width: 320px;
-  height: 500px;
+  background: #d0e7ce;
+  width: 570px;
+  height: 1110px;
   border-radius: 5px;
   box-shadow: 2px 0 10px rgba(0,0,0,.1);
   transition: all .5s ease-in-out;
   z-index: 2;
 }
+.radio{
+    /* width : 55%; */
+    display: inline;
+    height : 80px;
+}
+.gender{
+    font-size: 25px;
+    font-weight: 600;
+}
 
+.radiobutton{
+    width : 15px;
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+input[type="radio"] {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
+}
 .nodisplay {
   display:none;
   transition: all .5s ease;
@@ -58,6 +79,7 @@ body {
 .leftbox, .rightbox {
   position: absolute;
   width: 50%;
+  height: 100%;
   transition: 1s all ease;
 }
 
@@ -72,48 +94,75 @@ body {
 .register {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  margin-top: 95px;
+  font-weight: 800;
+  margin-top: 100px;
+  margin-bottom: 60px;
   text-transform: uppercase;
-  color:  #f6f6f6;
-  font-size: 2em;
+  color: #037c5e;
+  font-size: 4em;
   letter-spacing: 8px;
 }
 
+.category{
+    padding: 10px;
+    color:  #d0e7ce;
+    letter-spacing: 2px;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 70px;
+    border: solid 1px white;
+    margin-top: 10px;
+    background-color:white 
+}
+
+.login{
+    margin-top: 175px;
+}
+.signup input {
+    margin-bottom: 50px;
+}
+.signup .nick {
+    margin-bottom: 30px;
+}
+.signup h1 {
+    margin-bottom: 50px;
+}
+
 .title {
-  font-family: 'Lora', serif;
+  font-family: 'NanumSquare', sans-serif;
+  font-weight: 800;
   color: #8E9AAF;
-  font-size: 1.8em;
+  font-size: 100px;
   line-height: 1.1em;
   letter-spacing: 3px;
   text-align: center;
-  font-weight: 300;
   margin-top: 20%;
 }
 .desc {
   margin-top: -8px;
 }
 .account {
-  margin-top: 45%;
-  font-size: 10px;
+  margin-top: 75%;
+  font-size: 25px;
 }
 p {
-  font-family: 'Open Sans', sans-serif;
-  font-size: .7em;
+  font-family: 'NanumSquare', sans-serif;
+  font-size: 30px;
   letter-spacing: 2px;
   color: #8E9AAF;
   text-align: center;
 }
 
 span {
-  color: #8bb8e8;
+  color: #d0e7ce;
 }
 
 .flower {
   position: absolute;
-  width: 120px;
-  height: 120px;
-  top: 46%;
-  left: 29%;
+  width: center;
+  height:300px;
+  top: 33%;
+  left: 23%;
   opacity: .7;
 }
 
@@ -127,17 +176,17 @@ span {
 
 .button {
   padding: 12px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'NanumSquare', sans-serif;
   text-transform: uppercase;
   letter-spacing: 3px;
-  font-size: 11px;
+  font-size: 21px;
   border-radius: 10px;
   margin: auto;
   outline: none;
   display: block;
 }
 .button:hover {
-background: #8bb8e8;
+background: #037c5e;
 color:  #f6f6f6;
 transition: background-color 1s ease-out;
 }
@@ -146,8 +195,8 @@ transition: background-color 1s ease-out;
     margin: auto;
   margin-top: 3%;
   background:  #f6f6f6;
-  color: darken(#8bb8e8, 20%);
-  border: solid 1px #8bb8e8;
+  color: #037c5e;
+  border: solid 1px #037c5e;
 }
 
 /* form styling */
@@ -157,57 +206,63 @@ form {
   align-items: center;
   flex-direction: column;
   padding-top: 7px;
+  height: 800px;
 }
 .more-padding{
   padding-top: 35px;
+  height: 800px;
 }
-.more-padding input {
+.signinput {
 padding: 12px;
+height: 70px;
+margin-top: 50px;
 }
 .more-padding .submit {
 margin-top: 45px;
 }
-.submit {
-  margin-top: 25px;
-  padding: 12px;
-  border-color: darken(#8bb8e8, 20%);
-}
+
 .submit:hover {
 background: #CBC0D3;
-border-color: darken(#CBC0D3, 5%);
+border-color: #CBC0D3;
 }
 
+
+
 input {
-  background: #8bb8e8;
+  background: #d0e7ce;
   width: 65%;
-  color: darken(#8bb8e8, 20%);
+  color: #d0e7ce;
   border: none;
-  border-bottom: 1px solid rgba( #f6f6f6, 0.5);
+  border-bottom: 1px solid #f6f6f6;
   padding: 9px;
-  margin: 7px;
+  
 }
 input::placeholder {
-    color: rgba( #f6f6f6, 1);
+    color:  white;
     letter-spacing: 2px;
-    font-size: 1.3em;
-    font-weight: 100;
+    font-size: 2.5em;
+    font-weight: 400;
 }
 input:focus {
-    color: darken(#8bb8e8, 20%);
+    color: #053101;
     outline: none;
-    border-bottom: 1.2px solid rgba(darken(#8bb8e8, 20%), 0.7);
-    font-size: 1em;
+    border-bottom: 1.2px solid #080591;
+    font-size: 2em;
     transition: .8s all ease;
 }
 input:focus::placeholder {
     opacity: 0;
 }
 
+.signinput{
+    height: 100px;
+}
+
 label {
-  font-family:'Open Sans', sans-serif;
-  color: darken(#8bb8e8, 20%);
-  font-size: 0.8em;
-  letter-spacing: 1px;
+  font-family:'NanumSquare', sans-serif;
+  color: #037c5e;
+  font-size: 1.5em;
+  letter-spacing: 2px;
 }
 
 .checkbox {
@@ -219,11 +274,187 @@ label {
 }
 
 input[type=checkbox] {
-  width: 7px;
-  background: darken(#8bb8e8, 20%);
+  width: 27px;
+  background: #d0e7ce;
+  margin-top: 50px;
 }
 
 .checkbox input[type="checkbox"]:checked + label {
-  color: darken(#8bb8e8, 20%);
+  color: #d0e7ce;
   transition: .5s all ease;
 }
+
+.submit {
+    font-size: 25px;
+  padding: 12px;
+  border-color: #d0e7ce;
+}
+
+.radio .genderTitle{
+    font-size: 25px;
+}
+
+/* select box css */
+/* ===== Resets and Housekeeping ===== */
+* {
+    padding: 0;
+    margin: 0;
+  }
+  
+  html {
+    font-size: 16px;
+  }
+  
+  body {
+    background: #eeebe7;
+    padding: 100px 20px;
+    text-align: center;
+  }
+  
+  /* ===== Actual Styles ===== */
+  
+  /* ===== Horizontal Rule ===== */
+  .rule {
+    margin: 10px 0;
+    border: none;
+    height: 1.5px;
+    background-image: linear-gradient(left, #f0f0f0, #c9bbae, #f0f0f0);
+  }
+  
+  /* ===== Select Box ===== */
+  .sel {
+    font-size: 20px;
+    display: inline-block;
+    /* margin: 3em 2em; */
+    width: 120px;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .sel::before {
+    position: absolute;
+    content: '\f063';
+    font-family: 'FontAwesome';
+    font-size: 20px;
+    color: #FFF;
+    right: 20px;
+    top: calc(50% - 0.5em);
+  }
+  
+  .sel.active::before {
+    transform: rotateX(-180deg);
+  }
+  
+  .sel__placeholder {
+    display: block;
+    font-family: 'Quicksand';
+    font-size: 20px;
+    color: #838e95;
+    padding: 0.2em 0.5em;
+    text-align: left;
+    pointer-events: none;
+    user-select: none;
+    visibility: visible;
+  }
+  
+  .sel.active .sel__placeholder {
+    visibility: hidden;
+  }
+  
+  .sel__placeholder::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.2em 0.5em;
+    content: attr(data-placeholder);
+    visibility: hidden;
+  }
+  
+  .sel.active .sel__placeholder::before {
+    visibility: visible;
+  }
+  
+  .sel__box {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: -4px;
+    display: none;
+    list-style-type: none;
+    text-align: left;
+    font-size: 20px;
+    background-color: #FFF;
+    width: calc(100% + 8px);
+    box-sizing: border-box;
+  }
+  
+  .sel.active .sel__box {
+    display: block;
+    animation: fadeInUp 500ms;
+  }
+  
+  .sel__box__options {
+    display: list-item;
+    font-family: 'Quicksand';
+    font-size: 20px;
+    color: #838e95;
+    padding: 0.5em 1em;
+    user-select: none;
+  }
+  
+  .sel__box__options::after {
+    content: '\f00c';
+    font-family: 'FontAwesome';
+    font-size: 0.5em;
+    margin-left: 5px;
+    display: none;
+  }
+  
+  .sel__box__options.selected::after {
+    display: inline;
+  }
+  
+  .sel__box__options:hover {
+    background-color: #ebedef;
+  }
+  
+  /* ----- Select Box Black Panther ----- */
+  .sel {
+    border-bottom: 4px solid rgba(0, 0, 0, 0.3);
+  }
+  
+  .sel--black-panther {
+    z-index: 3;
+  }
+  
+  /* ----- Select Box Superman ----- */
+  .sel--superman {
+  /*   display: none; */
+    z-index: 2;
+  }
+  
+  /* ===== Keyframes ===== */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+  
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+    }
+  }
