@@ -31,7 +31,7 @@ def getUserPrefer(cursor, email):
     return resoverall
 
 #####추가
-def getSelectedUserParty(cursor, selected_id):
+def getSelectedUserPrefer(cursor, selected_id):
     resoverall = cursor.execute(
     """
         SELECT prefer1, prefer2, prefer3
@@ -93,7 +93,7 @@ def getchimi(cursor, ctg):
     # # """
     """
         select * from chimi
-        where category = '헬스';
+        where category = '작사';
        
     """
     ,selected_ctg = ctg
