@@ -49,7 +49,7 @@ class PartyApplicant extends Component {
         <div key={index}>
           지원한 사람 : {userInfo.nickname}
           별점 : {userInfo.star}
-          <button onClick={() => {
+          <button className="partybutton" onClick={() => {
             // console.log('accept', userInfo)
             api.post('/hobby/enrolment', {
               chimiId: this.state.applicants[index].applicationPK.chimiId,
@@ -66,7 +66,7 @@ class PartyApplicant extends Component {
               console.log(err);
             })
           }}>수락</button>
-          <button onClick={() => {
+          <button className="partybutton" onClick={() => {
             api.delete('/hobby/apply/moderator', {
               headers: {
                 accessToken: sessionStorage.getItem('token')
