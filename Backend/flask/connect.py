@@ -30,6 +30,18 @@ def getUserPrefer(cursor, email):
     )
     return resoverall
 
+#####추가
+def getSelectedUserPrefer(cursor, id):
+    resoverall = cursor.execute(
+    """
+        SELECT prefer1, prefer2, prefer3
+        FROM users
+        WHERE user_Id = :userid
+    """
+    ,userid = id    
+    )
+    return resoverall
+    
 def getUserStorage(cursor, id):
     resoverall = cursor.execute(
     """
