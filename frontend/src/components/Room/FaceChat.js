@@ -37,6 +37,7 @@ const Video = (props) => {
         props.peer.on("stream", stream => {
             ref.current.srcObject = stream;
         })
+        console.log('Video', props)
     }, []);
 
     return (
@@ -45,8 +46,8 @@ const Video = (props) => {
             {/* <InactiveVideo playsInline autoPlay ref={ref} /> */}
             <video className="inactive-video" playsInline autoPlay ref={ref}
                 onClick={() => {
-                    console.log('click inactive video peer', props.peer)
-                    // console.log('click inactive video peers', peers)
+                    console.log('click inactive video props.peer', props.peer);
+                    console.log('click inactive video ref', ref);
                 }}
                 style={{ cursor: "pointer" }}
             />
@@ -64,11 +65,15 @@ const videoConstraints = {
 
 const Room = (props) => {
     const [peers, setPeers] = useState([]);
+    const [inactive, setInactive] = useState([]);
+    const [active, setActive] = useState();
+    const [all, setAll] = useState([]);
     const socketRef = useRef();
     const userVideo = useRef();
     const peersRef = useRef([]);
     // const roomID = props.match.params.roomID;
     const { roomID, name } = props;
+    const tempRef = useRef();
 
     useEffect(() => {
         socketRef.current = io.connect("/", { transforts: ['websocket'] }, { path: "/socket.io/" });
@@ -87,8 +92,25 @@ const Room = (props) => {
                     peers.push(peer);
                 })
                 setPeers(peers);
+
+                // 추가중인 코드...
+                setInactive(peers);
+                const allPeers = [];
+                allPeers.push(userVideo);
+                // peers.forEach(peer => {
+                //     // const ref = useRef();
+                //     peer.on("stream", stream => {
+                //         tempRef.current.srcObject = stream;
+                //     })
+                //     allPeers.push(tempRef);
+                // })
+
+                allPeers.push(peers);
+                setAll(allPeers);
+                console.log('all peers', all);
             })
             console.log('front peers', peers);
+            console.log('front inactive', inactive);
 
             socketRef.current.on("user joined", payload => {
                 const peer = addPeer(payload.signal, payload.callerID, stream);
@@ -138,8 +160,10 @@ const Room = (props) => {
         return peer;
     }
 
-    function changeActivePeer() {
-
+    function changeActivePeer(e) {
+        // userVideo 에 현재 선택한 친구 넣어주고
+        // peers를 다시 업데이트 해주자!
+        console.log('changeActive', e);
     }
 
     return (
