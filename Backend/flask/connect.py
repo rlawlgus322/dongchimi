@@ -90,12 +90,12 @@ def getchimi(cursor, ctg):
     # select * from chimi
     #     where category = :selected_ctg and isstart = True;
        
-    # # """
-    """
+    # """
+    """"
         select * from chimi
-        where category = '작사';
+        where category = :selected_ctg;
        
-    """
+    """"
     ,selected_ctg = ctg
     )
     return resoverall    
