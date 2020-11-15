@@ -7,8 +7,8 @@ const SexyImageCellBody = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   transition: left 0.5s ease-in-out;
   background-color: white;
 `
@@ -31,7 +31,7 @@ const ContentOverlay = styled(Link)`
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: #d0e7ce;
   display: flex;
   justify-content: center;
   align-items: center;

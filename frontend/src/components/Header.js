@@ -3,21 +3,32 @@ import { Link, withRouter } from "react-router-dom";
 import styled from 'styled-components';
 import SearchOverlay from 'components/SearchOverlay';
 import LoginModal from '../components/mypage/LoginModal';
-
+import './header.css';
 const Header = styled.header`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  height: 80px;
+  height: 90px;
   margin-top: -50px;
-  padding: 0px 10px;
-  border: 1px solid lightgray;
+  margin-bottom: 20px;
+  padding: 0px 20px;
+  border-bottom:5px solid #d0e7ce
 `
 
 const Logo = styled(Link)`
   margin-right: auto;
-  font-size: 2rem;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  margin-top: 20px;
+  font-family:Cafe24Ohsquare;
+
+`
+const ico = styled.image`
+  margin-top: 20px;
+  width:"50px"
+
 `
 
 const List = styled.ul`
@@ -46,7 +57,8 @@ const Item = styled.li`
 `
 
 const Bold = styled.span`
-  font-weight: 600;
+  font-weight: 1000;
+  color:#d0e7ce;
 `
 
 const SLink = styled(Link)`
@@ -105,7 +117,7 @@ export default withRouter(({ location: { pathname } }) => {
 
   return (
     <Header>
-      <Logo to="/"><Bold>DONG</Bold>CHIMI</Logo>
+      <Logo to="/"><Bold>동</Bold>취미</Logo>
       <List isMenuOpened={isMenuOpened}>
         <Item current={pathname === "/"}>
           <SLink to="/">홈</SLink>
@@ -138,3 +150,4 @@ export default withRouter(({ location: { pathname } }) => {
   )
 }
 );
+
