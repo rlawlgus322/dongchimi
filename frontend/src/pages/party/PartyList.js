@@ -194,12 +194,6 @@ function PartyList({ history }) {
         />
         <button onClick={getLists}>검색</button>
         <br></br>
-        {/** 정렬 기준 */}
-        정렬 기준
-        <select>
-          <option>최신순</option>
-          <option>오래된순</option>
-        </select>
         {logged && (
           <button onClick={() => history.push('/party/write')}>
             파티 만들기
