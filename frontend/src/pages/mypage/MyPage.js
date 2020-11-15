@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MypageTab from '../../components/mypage/MypageTab';
 import { Container, Row, Col } from 'react-bootstrap';
 import api from '../../utils/api';
+import axios from 'axios';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
@@ -22,26 +23,46 @@ class MyPage extends Component {
     super(props);
     this.state = {
       userInfo: '',
+      email: '',
     }
   }
   componentDidMount() {
     const fetchUserinfo = () => {
       const this_token = sessionStorage.getItem('token')
-      api.get('auth/userinfo/', {
+      api.get('/auth/userinfo/', {
         headers: {
           accessToken: this_token,
         }
       })
         .then(res => {
+          // console.log('user info', res.data);
           this.setState({ userInfo: res.data });
           const path = res.data.profileImage !== null ? res.data.profileImage : '/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png'
           this.setState({ image: 'https://k3a409.p.ssafy.io' + path });
+          this.setState({ email: res.data.email });
         })
         .catch(err => {
           console.log(err)
         })
     }
     fetchUserinfo()
+  }
+
+  componentDidUpdate() {
+    if (this.state.email !== '')
+      this.recommendChimi();
+  }
+
+  recommendChimi() {
+    axios.get('https://k3a409.p.ssafy.io:8090/item', {
+      params: {
+        email: this.state.email
+      }
+    }).then(({ data }) => {
+      console.log('item', data);
+    }).catch((err) => {
+      console.log(err);
+    })
   }
 
   render() {
@@ -52,7 +73,7 @@ class MyPage extends Component {
             <div>프로필 사진</div>
             <img src={this.state.image} alt=""></img>
           </Col>
-          
+
           <Col>
             <br />
             <MypageDiv>이메일: {this.state.userInfo.email}</MypageDiv>
@@ -60,13 +81,8 @@ class MyPage extends Component {
             <MypageDiv>성별: {this.state.userInfo.gender === 1 ? "여성" : "남성"}</MypageDiv>
             <MypageDiv>닉네임: {this.state.userInfo.nickname}</MypageDiv>
             <MypageDiv>선호 카테고리<MypageDiv> &nbsp;&nbsp; 1순위 - {this.state.userInfo.prefer1}</MypageDiv><MypageDiv>&nbsp;&nbsp; 2순위 - {this.state.userInfo.prefer2}</MypageDiv><MypageDiv>&nbsp;&nbsp; 3순위 - {this.state.userInfo.prefer3}</MypageDiv></MypageDiv>
-            {/* <h4>이메일: {this.state.userInfo.email}</h4>
-            <h4>이름: {this.state.userInfo.username}</h4>
-            <h4>성별: {this.state.userInfo.gender === 1 ? "여성" : "남성"}</h4>
-            <h4>닉네임: {this.state.userInfo.email}</h4>
-            <h4>선호 카테고리: 1순위-{this.state.userInfo.prefer1}/<br />2순위-{this.state.userInfo.prefer2}/3순위-{this.state.userInfo.prefer3}</h4> */}
           </Col>
-        
+
         </Row>
         <MypageTab></MypageTab>
       </Container>
