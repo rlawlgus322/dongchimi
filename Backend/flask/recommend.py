@@ -210,6 +210,7 @@ def userRecommend():
     selected_prefer = connect.getSelectedUserPrefer(cursor, similar_user)
     print(selected_prefer, type(selected_prefer))
 
+    recommendList = []
 
 
     #사용자의 선호도
@@ -232,8 +233,8 @@ def userRecommend():
     # while len(recommendList) < 3:
 
     
-    print("---------------------------------recommendList---------------------------------")
-    print(recommendList)
+    # print("---------------------------------recommendList---------------------------------")
+    # print(recommendList)
     
 
     # 디비 해제
