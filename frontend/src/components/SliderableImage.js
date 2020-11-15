@@ -4,14 +4,14 @@ import styled, { keyframes } from 'styled-components';
 const SliderableImageBody = styled.div`
   width: 800px;
   height: 600px;
-  background-color: gold;
+  // background-color: gold;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const ImageSlider = styled.div`
-  background-color: pink;
+  // background-color: pink;
   width: 100%;
   height: 80%;
 `;
@@ -28,14 +28,14 @@ const boxFade = keyframes`
 const MainImage = styled.img`
   width: 80%;
   height: 100%;
-  background-color: dodgerblue;
+  // background-color: dodgerblue;
   animation: ${(props) => (props.aniStart ? boxFade : '')} 0.7s ease;
 `;
 
 const SliderButton = styled.button`
   width: 10%;
   height: 50px;
-  background-color: gray;
+  // background-color: gray;
   border: none;
   &:focus {
     outline: none;
@@ -45,13 +45,13 @@ const SliderButton = styled.button`
 const ImageList = styled.div`
   width: 80%;
   height: 20%;
-  background-color: skyblue;
+  // background-color: skyblue;
 `;
 
 const SmallImage = styled.img`
   width: 20%;
   height: 100%;
-  background-color: aliceblue;
+  // background-color: aliceblue;
 `;
 
 function SliderableImage(props) {

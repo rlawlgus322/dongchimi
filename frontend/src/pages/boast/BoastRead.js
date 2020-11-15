@@ -19,7 +19,7 @@ const InnerBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: teal;
+  // background-color: teal;
   width: 800px;
 `;
 
@@ -30,7 +30,7 @@ const FlexEnd = styled.div`
 `;
 
 const HorizontalLine = styled.div`
-  border-bottom: 2px solid blueviolet;
+  border-bottom: 2px solid #d0e7ce;
   width: 100%;
   height: 10px;
 `;

@@ -20,6 +20,7 @@ const TextBox = styled.div`
 `;
 
 const SubmitButton = styled.button`
+  margin-top: 20px;
   align-self: flex-end;
 `;
 
