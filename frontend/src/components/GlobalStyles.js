@@ -5,6 +5,7 @@ const globalStyles = createGlobalStyle`
     ${reset};
     a{
         text-decoration:none;
+        font-family:Cafe24Ohsquare;
         color:inherit;
         &:hover{
           color: inherit;
@@ -15,7 +16,7 @@ const globalStyles = createGlobalStyle`
         box-sizing:border-box;
     }
     body{
-        font-family: 'Noto Sans KR', sans-serif;
+        font-family:Cafe24Ohsquare;
         font-size:16px;
         padding-top: 50px;
     }
@@ -32,6 +33,12 @@ const globalStyles = createGlobalStyle`
     .pagination > li {
       display: inline-block;
     }
+    @font-face {
+      font-family: 'Cafe24Ohsquare';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+  }
 `;
 
 export default globalStyles;
