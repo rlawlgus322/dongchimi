@@ -33,7 +33,10 @@ class App extends Component {
   render() {
     return (
       <>
-        <Header />
+        {
+          !window.location.pathname.includes("/party/room/") &&
+          < Header />
+        }
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/party" component={PartyList} />
