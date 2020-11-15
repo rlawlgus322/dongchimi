@@ -3,6 +3,60 @@ import { withRouter } from 'react-router-dom';
 import Parties from '../../components/Party/List/Parties';
 import Pagination from 'react-js-pagination';
 import api from '../../utils/api';
+import styled from 'styled-components';
+
+const PartyListBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`
+
+const CategoryContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: center;
+  width: 650px;
+`
+
+const CategoryList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  color: inherit;
+`
+
+const CategoryListItem = styled.li`
+  margin-right: 20px;
+  flex-shrink: 0;
+  color: inherit;
+  margin-bottom: 20px;
+  cursor: pointer;
+`
+
+const WholeCategoryList = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: black;
+  color: white;
+  width: 0px;
+  height: 0px;
+  transition: all 0.3s ease-in-out;
+  font-size: 0px;
+  &.show{
+    width: 650px;
+    height: 110px;
+    padding: 10px;
+    font-size: 1em;
+  }
+`
+
+const MoreCategoryButton = styled.button`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`
 
 function PartyList({ history }) {
   const categories = [
@@ -13,17 +67,21 @@ function PartyList({ history }) {
     "타악기", "현악기", "관악기", "댄스",
   ]
   const [parties, setParties] = useState([]);
+  const [partiesBuffer, setPartiesBuffer] = useState([]);
   const [page, setPage] = useState(1); // 페이징
   const [totalItemsCount, setTotalItemsCount] = useState(1);
   const [keyword, setKeyword] = useState(null); // 검색어
   const [category, setCategory] = useState(null); // 카테고리
   const logged = sessionStorage.getItem('token') === null ? false : true;
 
+  console.log(partiesBuffer, parties);
+
   useEffect(() => {
     getLists();
   }, [page, category])
 
   function getLists() {
+    setPartiesBuffer(parties);
     api.get('/hobby/chimi', {
       params: {
         page: page - 1,
@@ -35,7 +93,6 @@ function PartyList({ history }) {
         accessToken: sessionStorage.getItem('token')
       }
     }).then(({ data }) => {
-      // console.log('party list', data);
       setParties(data.chimiResponse);
       setTotalItemsCount(data.cnt);
     }).catch((err) => {
@@ -44,12 +101,10 @@ function PartyList({ history }) {
   }
 
   function handlePageChange(pageNumber) {
-    // console.log('active page ', pageNumber);
     setPage(pageNumber);
   }
 
   function handleKeywordChange(e) {
-    // console.log('keyword', e.target.value);
     if (e.target.value === '') {
       setKeyword(null);
     } else {
@@ -58,8 +113,6 @@ function PartyList({ history }) {
   }
 
   function handleCategoryChange(e) {
-    // console.log(e);
-    // console.log(e.target.textContent);
     if (e.target.textContent === "전체") {
       setCategory(null);
     } else {
@@ -67,21 +120,42 @@ function PartyList({ history }) {
     }
   }
 
+  function showWholeCategory() {
+    const wholeCategory = document.querySelector(".wholeCategory");
+    wholeCategory.classList.add("show");
+  }
+
+  function closeWholeCategory(e) {
+    const wholeCategory = document.querySelector(".wholeCategory");
+    wholeCategory.classList.remove("show");
+  }
+
   return (
-    <>
-      {/** 카테고리 */}
-      <div style={{ textAlign: "center" }}>
-        카테고리 <br></br>
-        <ul>
-          {categories.map((cate, index) => (
-            <li key={index}
+    <PartyListBody>
+    <CategoryContainer>
+        <CategoryList>
+          {categories.map((category, index) => (
+            index < 10 && 
+            <CategoryListItem key={index}
               onClick={handleCategoryChange}
             >
-              {cate}
-            </li>
+              {category}
+            </CategoryListItem>
           ))}
-        </ul>
-      </div>
+        </CategoryList>
+        <MoreCategoryButton onMouseOver={showWholeCategory}>•••</MoreCategoryButton>
+        <WholeCategoryList onMouseLeave={closeWholeCategory} className="wholeCategory">
+          <CategoryList>
+            {categories.map((category, index) => (
+              <CategoryListItem key={index}
+                onClick={handleCategoryChange}
+              >
+                {category}
+              </CategoryListItem>
+            ))}
+          </CategoryList>
+        </WholeCategoryList>
+      </CategoryContainer>
       <div style={{ textAlign: "right" }}>
         {/** 검색창 */}
         <input type="text" placeholder="search"
@@ -117,7 +191,7 @@ function PartyList({ history }) {
           onChange={handlePageChange}
         />
       </div>
-    </>
+    </PartyListBody>
   );
 }
 
