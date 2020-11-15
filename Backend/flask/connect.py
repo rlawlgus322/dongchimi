@@ -89,11 +89,11 @@ def getchimi(cursor, ctg):
     #     where category like '%:selcategory%' and isstart = True;
        
     # """
-    """
+    """"
         select * from chimi
-        where category = :selected_ctg and isstart = True;
+        where category = :selected_ctg;
        
-    """
+    """"
     ,selected_ctg = ctg
     )
     return resoverall    
