@@ -20,5 +20,6 @@ public interface UserService {
     void updateProfileImage(String email, String path);
 	void save(User user);
 	List<userinfoResponse> USER_LIST(long[] idlist);
+	int userNum();
 
 }

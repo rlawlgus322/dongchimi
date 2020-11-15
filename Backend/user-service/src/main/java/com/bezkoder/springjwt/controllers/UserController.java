@@ -287,6 +287,21 @@ public class UserController {
         return entity;
     }
 
+    @GetMapping("/userinfo/num")
+    @ApiOperation(value = "유저수 보내주기")
+    public ResponseEntity<Integer> getusernum() {
+        ResponseEntity<Integer> entity = null;
+        try {
+
+            entity = new ResponseEntity<>(userService.userNum(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return entity;
+    }
+
 
 
 
