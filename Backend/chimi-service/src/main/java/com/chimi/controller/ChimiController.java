@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import com.chimi.intercomm.UserClient;
 import com.chimi.model.Chimi;
@@ -69,6 +70,8 @@ public class ChimiController {
 			System.out.println("id : " + id);
 			chimi.setUserId(id);//user id 저장
 			chimi.setIsstart(false);
+			String url = UUID.randomUUID().toString();
+			chimi.setRtcurl(url);
 			chimiService.save(chimi);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		}
