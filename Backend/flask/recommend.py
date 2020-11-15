@@ -204,11 +204,10 @@ def userRecommend():
             # maxval = user_based_collabor.loc[userid, user]
             similar_user = user
 
-    print("------------------------maxidx-------------------------------------")
-    print(maxidx)
+    print("------------------------similar_user-------------------------------------")
+    print(similar_user)
 
     selected_prefer = connect.getSelectedUserPrefer(cursor, similar_user)
-    print("---------------------selected_prefer-----------------------")
     print(selected_prefer, type(selected_prefer))
 
 
@@ -227,7 +226,7 @@ def userRecommend():
     # else:
     #     recommendList = []
 
-    similar_user_ctg = connect.get
+    # similar_user_ctg = connect.get
 
     # recommendList = list(np.array(namedf.iloc[:, 0]))
     # while len(recommendList) < 3:
