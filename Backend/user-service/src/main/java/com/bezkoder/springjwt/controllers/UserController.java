@@ -1,6 +1,7 @@
 package com.bezkoder.springjwt.controllers;
 
 import com.bezkoder.springjwt.models.User;
+import com.bezkoder.springjwt.response.UserUpdateRequest;
 import com.bezkoder.springjwt.response.userinfoResponse;
 import com.bezkoder.springjwt.security.jwt.JwtUtils;
 import com.bezkoder.springjwt.service.FileService;
@@ -14,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -113,9 +116,11 @@ public class UserController {
             userinfoResponse.gender = user.getGender();
             userinfoResponse.nickname =  user.getNickname();
             userinfoResponse.username = user.getUsername();
+            userinfoResponse.profileImage = user.getProfileimage();
             userinfoResponse.prefer1 = user.getPrefer1();
             userinfoResponse.prefer2 = user.getPrefer2();
             userinfoResponse.prefer3 = user.getPrefer3();
+            userinfoResponse.star = user.getStar();
             System.out.println(user.toString());
             entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
         } catch (Exception e) {
@@ -125,10 +130,10 @@ public class UserController {
 
         return entity;
     }
-    @GetMapping(value = "/userinfo/{id}")
+    @GetMapping(value = "/userinfoby/{id}")
     @ApiOperation(value = "유저정보 보내주기")
-    public ResponseEntity<?> getuserinfoid(@PathVariable long id) {
-
+    public ResponseEntity<?> getuserinfoid(@PathVariable Long id) {
+        System.out.println("id = "+ id);
         ResponseEntity<?> entity = null;
         try {
             User user = userService.findUserinfoById(id);
@@ -137,11 +142,29 @@ public class UserController {
             userinfoResponse.gender = user.getGender();
             userinfoResponse.nickname =  user.getNickname();
             userinfoResponse.username = user.getUsername();
+            userinfoResponse.profileImage = user.getProfileimage();
             userinfoResponse.prefer1 = user.getPrefer1();
             userinfoResponse.prefer2 = user.getPrefer2();
             userinfoResponse.prefer3 = user.getPrefer3();
+            userinfoResponse.star = user.getStar();
             System.out.println(user.toString());
             entity = new ResponseEntity<>(userinfoResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return entity;
+    }
+    @GetMapping(value = "/userinfolist")
+    @ApiOperation(value = "유저정보 보내주기")
+    public ResponseEntity<?> getuserinfoidd(@RequestParam(value = "idlist") long[] idlist) {
+
+        ResponseEntity<?> entity = null;
+        try {
+            List<userinfoResponse> list = userService.USER_LIST(idlist);
+            System.out.println(list.toString());
+            entity = new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -183,13 +206,13 @@ public class UserController {
 
     @PutMapping("/userinfo")
     @ApiOperation(value = "수정하기")
-    public ResponseEntity<?> update(@RequestBody User user ,@RequestHeader("accessToken") String access) {
-
+    public ResponseEntity<?> update(@RequestBody UserUpdateRequest user , @RequestHeader("accessToken") String access) {
+        //닉네임 prefer 123 프사(null 일수도)
         ResponseEntity<?> entity = null;
 
         try {
             String userEmail = jwtUtils.getUserNameFromJwtToken(access);
-            User newuser = userService.update(user);
+            User newuser = userService.update(userEmail, user);
             userinfoResponse userinfo = new userinfoResponse();
             userinfo.nickname = newuser.getNickname();
 
@@ -202,14 +225,14 @@ public class UserController {
         return entity;
     }
     
-    @PutMapping("/userinfo/{email}")
+    @PutMapping("/userinfo/{nickname}")
     @ApiOperation(value = "평점주기")
-    public ResponseEntity<?> giveStar(@RequestHeader("accessToken") String access,@PathVariable String email,@RequestParam float star) {
+    public ResponseEntity<?> giveStar(@RequestHeader("accessToken") String access,@PathVariable String nickname,@RequestParam float star) {
     	ResponseEntity<?> entity = null;
     	try {
     		String userEmail = jwtUtils.getUserNameFromJwtToken(access);
     		if(userEmail == null ) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        	User user = userService.findUserinfoByEmail(email);
+        	User user = userService.findUserinfoByNickname(nickname);
         	float userStar = user.getStar();
         	int userNum = user.getNum();
         	float sum = userStar * userNum;
@@ -261,6 +284,21 @@ public class UserController {
             e.printStackTrace();
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        return entity;
+    }
+
+    @GetMapping("/userinfo/num")
+    @ApiOperation(value = "유저수 보내주기")
+    public ResponseEntity<Integer> getusernum() {
+        ResponseEntity<Integer> entity = null;
+        try {
+
+            entity = new ResponseEntity<>(userService.userNum(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         return entity;
     }
 

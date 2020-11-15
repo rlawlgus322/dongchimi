@@ -46,7 +46,10 @@ public class BoastController {
 			@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable) {
 		try {
 			HashMap<String, Object> loginUserinfo = null;
-			if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+			System.out.println(access);
+			System.out.println(access instanceof String);
+
+			if(!access.equals("null")) loginUserinfo = userClient.getUserInfo(access);
 			
 			Page<Boast> boastlist = boastService.allBoasts(pageable);
 			List<BoastResponse> list = new ArrayList<>();
@@ -79,6 +82,7 @@ public class BoastController {
 			Map<String, Object>userinfo = userClient.getUserInfo(access);
 			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
 			boast.setUserId(id);
+			System.out.println(id);
 			entity = new ResponseEntity<Boast>(boastService.insert(boast), HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,7 +131,7 @@ public class BoastController {
 			BoastDetailResponse boastDetailResponse = new BoastDetailResponse(bst,nickname,profileImage,false);
 			//보는 사람
 			HashMap<String, Object> loginUserinfo = null;
-			if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+			if(!access.equals("null")) loginUserinfo = userClient.getUserInfo(access);
 			
 			if(loginUserinfo!=null) { //로그인 된 사람이면 좋아요 유무 확인
 				long id = Long.parseLong(String.valueOf(loginUserinfo.get("id")));

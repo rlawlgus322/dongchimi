@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.time.LocalDate;
 
 import com.chimi.model.Application;
 import com.chimi.model.Enrolment;
@@ -24,8 +25,7 @@ public class ChimiServiceImpl implements ChimiService{
 
 	@Override
 	public Chimi save(Chimi chimi) {
-		String url = UUID.randomUUID().toString();
-		chimi.setRtcurl(url);
+
 		return chimiRepository.save(chimi);
 	}
 
@@ -36,6 +36,7 @@ public class ChimiServiceImpl implements ChimiService{
 
 	@Override
 	public Page<Chimi> findAll(Pageable pageable) {
+
 		return chimiRepository.findAll(pageable);
 	}
 
@@ -46,7 +47,23 @@ public class ChimiServiceImpl implements ChimiService{
 
 	@Override
 	public Page<Chimi> findByUserId(long id,Pageable pageable) {
+
 		return  chimiRepository.findAllByUserId(id,pageable);
+	}
+
+	@Override
+	public Page<Chimi> findbyCategory(String category, Pageable pageable) {
+		return chimiRepository.findChimisByCategory(category,pageable);
+	}
+
+	@Override
+	public Page<Chimi> findbyName(String name, Pageable pageable) {
+		return chimiRepository.findChimisByNameContains(name, pageable);
+	}
+
+	@Override
+	public Page<Chimi> findbyCategoryAndName(String category, String name, Pageable pageable) {
+		return chimiRepository.findChimisByCategoryAndNameContains(category, name, pageable);
 	}
 
 	@Override
@@ -82,11 +99,38 @@ public class ChimiServiceImpl implements ChimiService{
 	public void updatechimiIsStart() {
 		List<Chimi> list = chimiRepository.findChimisByHidIsNotNull();
 		for (Chimi chimi : list ) {
-			if( chimi.getStartdate().isBefore( LocalDateTime.now() )){
+			if( chimi.getStartdate().isBefore( LocalDate.now() )){
 				chimi.setIsstart(true);
 				chimiRepository.save(chimi);
 			}
 		}
 
+	}
+
+	@Override
+	public List<Chimi> getChimisByName(String name) {
+
+		return chimiRepository.getChimisByNameContains(name);
+	}
+
+	@Override
+	public int countName(String name) {
+
+		return chimiRepository.countChimisByNameContains(name);
+	}
+
+	@Override
+	public int countCategory(String category) {
+		return chimiRepository.countChimisByCategory(category);
+	}
+
+	@Override
+	public int countNameAndCategory(String name, String category) {
+		return chimiRepository.countChimisByCategoryAndNameContains(category, name);
+	}
+
+	@Override
+	public int countAll() {
+		return chimiRepository.countChimisByHidIsNotNull();
 	}
 }

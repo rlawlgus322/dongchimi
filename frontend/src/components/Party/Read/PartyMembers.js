@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../utils/api';
+import Party from '../List/Party';
+import "./party.scss"
 
 function PartyMembers(props) {
   const [ids, setIds] = useState([]);
@@ -44,17 +46,17 @@ function PartyMembers(props) {
   const memberList = members.map((member, index) => {
     // console.log("memberList", member);
     return (
-      <div key={index}>
-        <img src='https://k3a409.p.ssafy.io/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png' style={{ height: "25px" }} />
-        {member.nickname}
+      <div className="badge"  key={index}>
+        <img style={{height:"105px"}} src='https://k3a409.p.ssafy.io/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png' />
+        <div className = "ribbon">{member.nickname}</div>
       </div>
     )
   })
 
   return (
     <>
-      <div>멤버 목록</div>
-      {members.length === 0 ? <h2>참가자가 없습니다</h2> : memberList}
+      <div className="member">멤버 목록</div>
+      {members.length === 0 ? <h2  className="memberlist">참가자가 없습니다</h2> : memberList}
     </>
   )
 }

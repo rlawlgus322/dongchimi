@@ -18,4 +18,7 @@ public interface ApplicationService {
 	List<Application> findAllByRoomUserId(long id);
 
 	Optional<Application> findByHidAndRoomUserId(long hid, long id);
+
+	List<Application> findByHid(long hid);
+
 }

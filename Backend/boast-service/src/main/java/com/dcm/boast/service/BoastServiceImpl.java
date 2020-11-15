@@ -57,8 +57,10 @@ public class BoastServiceImpl implements BoastService {
 	
 	@Override
 	public Boast view(long id) {
-		Boast nboast = this.findBoastById(id);
+		Boast nboast = boastRepository.findById(id).get();
+		System.out.println(nboast);
 		nboast.setViews(nboast.getViews()+1);
+		System.out.println("조회수 : " + nboast);
 		return boastRepository.save(nboast);
 	}
 
