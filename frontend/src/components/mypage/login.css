@@ -15,9 +15,9 @@
 /* $sans-serif: 'Open Sans', sans-serif;
 $serif: 'Lora', serif; */
 
-body {
+/* body {
   background: #CBC0D3;
-}
+} */
 
 /* div box styling */
 .contain {
@@ -310,7 +310,7 @@ input[type=checkbox] {
   }
   
   body {
-    background: #eeebe7;
+    /* background: #eeebe7; */
     padding: 100px 20px;
     text-align: center;
   }
