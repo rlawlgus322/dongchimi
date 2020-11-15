@@ -20,8 +20,8 @@ const TextChat = (props) => {
 
   useEffect(() => {
     const name = props.name;
-    console.log("props.name", name);
-    console.log("props", props);
+    // console.log("props.name", name);
+    // console.log("props", props);
     const room = props.roomID;
 
     socket = io.connect("/", { transforts: ['websocket'] }, { path: "/socket.io" });
@@ -29,8 +29,8 @@ const TextChat = (props) => {
     setName(name);
     setRoom(room);
 
-    console.log("name", name);
-    console.log("room", room);
+    // console.log("name", name);
+    // console.log("room", room);
 
     socket.emit("join", { name, room }, (error) => {
       if (error) {
@@ -56,9 +56,9 @@ const TextChat = (props) => {
     }
   };
 
-  console.log("message", message);
-  console.log("messages", messages);
-  console.log("users", users);
+  // console.log("message", message);
+  // console.log("messages", messages);
+  // console.log("users", users);
 
   return (
     <div className="chatScreen">
