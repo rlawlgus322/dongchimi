@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PartyRegister from './PartyRegister';
 import PartyMembers from './PartyMembers';
 
-function PartyInfo(props, { history }) {
+function PartyInfo(props) {
   const { type, data, isWriter } = props;
 
   return (
@@ -39,7 +39,7 @@ function PartyInfo(props, { history }) {
           {
             data.chimi !== undefined && isWriter &&
             <div>
-              <button onClick={() => history.push('/party/update')}>수정</button>
+              <button onClick={() => props.history.push('/party/update')}>수정</button>
               <button onClick={() => console.log('삭제')}>삭제</button>
             </div>
           }

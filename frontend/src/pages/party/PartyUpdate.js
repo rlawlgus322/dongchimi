@@ -1,8 +1,12 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import Editor from '../../components/Party/Editor';
 import api from 'utils/api';
+import multipart from 'utils/multipart';
 
-function PartyUpdate() {
+function PartyUpdate(props, { history }) {
+
+  const { preview, setPreview } = useState('');
 
   useEffect(() => {
   }, []);
@@ -17,6 +21,21 @@ function PartyUpdate() {
     this.setState({ editorData: text });
   }
 
+  function uploadImage(e) {
+    // console.log(e);
+    // console.log(e.target.files[0]);
+    // console.log(e.target.image);
+    this.setState({ preview: URL.createObjectURL(e.target.files[0]) });
+    const formDate = new FormData();
+    formDate.append('file', e.target.files[0]);
+    multipart.post('/hobby/chimi/image', formDate)
+      .then(({ data }) => {
+        console.log(data);
+        this.setState({ image: data });
+      }).catch((err) => {
+        console.log(err);
+      });
+  }
 
   function submit(e) {
     e.preventDefault();
@@ -26,16 +45,16 @@ function PartyUpdate() {
   return (
     <>
       파티 수정 페이지
-      <form onSubmit={this.submit.bind(this)}>
+      <form onSubmit={submit}>
         <div className="row">
           {/** 대표 이미지 */}
           <div className="col-md-5 col-12" style={{ width: "15%", height: "15%" }}>
-            {this.state.preview !== '' &&
-              < img alt="Thumbnail" src={this.state.preview} style={{ width: "300px", height: "300px" }} />
+            {preview !== '' &&
+              < img alt="Thumbnail" src={preview} style={{ width: "300px", height: "300px" }} />
             }
             <input type="file" name="image"
               accept=".jpg, .jpeg, .png"
-              onChange={this.uploadImage.bind(this)}
+              onChange={uploadImage}
             />
           </div>
           {/** 입력창 */}
@@ -76,16 +95,16 @@ function PartyUpdate() {
         </div>
         {/** 글쓰기 에디터 */}
         <div style={{ height: "250px", margin: "3rem 0 5rem 0" }}>
-          <Editor getContents={this.getContents.bind(this)} />
+          <Editor getContents={getContents} />
         </div>
         <div style={{ textAlign: "center" }}>
           <input type="submit" value="수정하기" />
           <input type="reset" value="취소하기"
-            onClick={() => this.props.history.push('/party')} />
+            onClick={() => props.history.push('/party')} />
         </div>
       </form>
     </>
   )
 }
 
-export default PartyUpdate;
+export default withRouter(PartyUpdate);
