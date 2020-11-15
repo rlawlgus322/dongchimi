@@ -23,7 +23,7 @@ chimi_sub_dict = {"유화":0,"수채화": 0, "파스텔": 0, "가죽": 0, "뜨�
                     "촬영": 0, "한식": 0, "양식": 0, "일식": 0, "중식": 0, "세계음식": 0, "기타": 0, "작곡": 0, "작사": 0, "타악기": 0,
                     "현악기": 0, "관악기": 0, "댄스": 0, "헬스": 0, "홈트레이닝": 0, "다이어트":0}    #사용자 선호도 조사할때
 
-##### 이 함수만 호출 #####
+
 @app.route('/item', methods=['GET'])
 def itemRecommend():
     useremail = request.args.get("email") #내가 분석할 유저
@@ -140,7 +140,6 @@ def itemRecommend():
     return jsonify({'recommendlist': recommendList})
 
 
-##### 이 함수 호출 x #####
 @app.route('/itemuser',methods=['GET'])
 def userRecommend():
     useremail = request.args.get("email") #내가 분석할 유저
