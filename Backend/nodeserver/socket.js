@@ -81,11 +81,13 @@ io.on('connection', socket => {
             users[roomID] = [socket.id];
         }
         socketToRoom[socket.id] = roomID;
-        // const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
+        const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
 
-        // socket.emit("all users", usersInThisRoom);
-        socket.emit("all users", users);
-        console.log('join room - all users', users);
+        socket.emit("all users", usersInThisRoom);
+        // socket.emit("all users", users);
+        // console.log('join room - all users', users);
+        console.log('join room - users', users);
+        console.log('join room - usersInThisRoom', usersInThisRoom);
     });
 
     socket.on("sending signal", payload => {
@@ -103,8 +105,8 @@ io.on('connection', socket => {
             room = room.filter(id => id !== socket.id);
             users[roomID] = room;
         }
-        socket.emit("all users", users);
-        console.log("disconnect - all users", users);
+        // socket.emit("all users", users);
+        console.log("disconnect - users", users);
 
         const user = removeUser(socket.id);
         console.log("유저가 떠났습니다..");
