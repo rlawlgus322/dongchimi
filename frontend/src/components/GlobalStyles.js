@@ -33,6 +33,20 @@ const globalStyles = createGlobalStyle`
     .pagination > li {
       display: inline-block;
     }
+    video {
+      transform: rotateY(180deg);
+      -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+      -moz-transform:rotateY(180deg); /* Firefox */
+    }
+    .active-video {
+      height: 75%;
+      width: 100%;
+      border: solid;
+    }; 
+    .inactive-video {
+      height: 25% !important;
+      /* width: 50%; */
+    };
     @font-face {
       font-family: 'Cafe24Ohsquare';
       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');

@@ -13,7 +13,7 @@ class PartyRoom extends Component {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log('userinfo', data);
+      // console.log('userinfo', data);
       this.setState({ name: data.nickname });
     }).catch((err) => {
       console.log(err);
@@ -22,12 +22,15 @@ class PartyRoom extends Component {
 
   render() {
     return (
-      <div style={{ overflow: "hidden" }}>
+      <div style={{ overflow: "hidden", marginTop: "-50px" }}>
         <div className="row">
-          <div className="col-md-8">
-            <FaceChat roomID={this.props.match.params.id} />
+          <div className="col-md-9">
+            <FaceChat
+              roomID={this.props.match.params.id}
+              name={this.state.name}
+            />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-3">
             {
               this.state.name !== '' &&
               <TextChat
