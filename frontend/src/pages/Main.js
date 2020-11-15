@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import MovingImageList from 'components/MovingImageList';
 import api from "utils/api";
+import IndexBottom from '../components/indexBottom';
 const MainBody = styled.div`
   width: 100%;
 `
+
 function Main() {
   const [boastList, setBoastList] = useState([]);
 
@@ -28,6 +30,7 @@ function Main() {
   return (
     <MainBody>
       <MovingImageList boastList={boastList}/>
+      <IndexBottom></IndexBottom>
     </MainBody>
   )
 }
