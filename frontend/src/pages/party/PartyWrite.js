@@ -22,11 +22,7 @@ class PartyWrite extends Component {
 
   submit(e) {
     e.preventDefault();
-    // console.log(e);
-    // console.log('token', this.state.token);
-    // console.log('submit');
-    // console.log('editor data', this.state.editorData);
-    // console.log('editor toString', this.state.editorData.toString());
+    const startdate = e.target.startdate.value
     api.post('/hobby/chimi', {
       category: e.target.category.value,
       description: this.state.editorData,
@@ -34,12 +30,13 @@ class PartyWrite extends Component {
       name: e.target.name.value,
       summary: e.target.summary.value,
       totalnum: e.target.totalnum.value,
+      startdate: e.target.startdate.value,
     }, {
       headers: {
         accessToken: sessionStorage.getItem('token')
       }
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
       this.props.history.push('/party');
     }).catch((err) => {
       console.log(err);
@@ -51,7 +48,6 @@ class PartyWrite extends Component {
     // console.log(e.target.files[0]);
     // console.log(e.target.image);
     this.setState({ preview: URL.createObjectURL(e.target.files[0]) });
-    // this.state.preview = URL.createObjectURL(e.target.files[0]);
     const formDate = new FormData();
     formDate.append('file', e.target.files[0]);
     multipart.post('/hobby/chimi/image', formDate)
@@ -61,7 +57,6 @@ class PartyWrite extends Component {
       }).catch((err) => {
         console.log(err);
       });
-    // this.setState({ image: URL.createObjectURL(e.target.files[0]) });
   }
 
   render() {
@@ -101,6 +96,9 @@ class PartyWrite extends Component {
                   <option value="일식">일식</option>
                   <option value="중식">중식</option>
                   <option value="세계음식">세계음식</option>
+                  <option value="헬스">헬스</option>
+                  <option value="홈트">홈트</option>
+                  <option value="다이어트">다이어트</option>
                   <option value="작곡">작곡</option>
                   <option value="작사">작사</option>
                   <option value="타악기">타악기</option>
@@ -109,6 +107,7 @@ class PartyWrite extends Component {
                   <option value="댄스">댄스</option>
                 </select>
                 <input type="number" name="totalnum" placeholder="모집 인원" className="col-8" />
+                <div>취미 시작 날짜 : <input type="date" name="startdate" /></div>
               </div>
             </div>
           </div>
