@@ -1,9 +1,11 @@
 package com.chimi.controller;
 
+import com.chimi.payload.response.ChimiSearchResponse;
 import com.chimi.service.FileService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import com.chimi.intercomm.UserClient;
 import com.chimi.model.Chimi;
@@ -66,6 +69,9 @@ public class ChimiController {
 			long id = Long.parseLong(String.valueOf(userinfo.get("id")));
 			System.out.println("id : " + id);
 			chimi.setUserId(id);//user id 저장
+			chimi.setIsstart(false);
+			String url = UUID.randomUUID().toString();
+			chimi.setRtcurl(url);
 			chimiService.save(chimi);
 			return new ResponseEntity<>("success", HttpStatus.OK);
 		}
@@ -92,22 +98,74 @@ public class ChimiController {
 	
 	@GetMapping
 	@ApiOperation(value = "모든 파티 조회[페이징]")	// ?page=0&size=20&sort=hid,asc
-	public ResponseEntity<List<ChimiResponse>> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable){
+	public ResponseEntity<ChimiSearchResponse> searchAll(@PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable, @RequestParam(value = "category",required=false) String category, @RequestParam(value = "name", required=false) String name){
 		try {
-			chimiService.updatechimiIsStart();
-			Page<Chimi> chimiPage = chimiService.findAll(pageable);		
+			int cnt = 0;
 			List<ChimiResponse> chimiList = new ArrayList<ChimiResponse> ();
-			for(Chimi chimi : chimiPage){
-				HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
-				chimiList.add(				
-					new ChimiResponse(chimi,
-							String.valueOf(cuserinfo.get("nickname")),
-							String.valueOf(cuserinfo.get("profileImage"))
-						)
+			if(category == null && name == null){
+				chimiService.updatechimiIsStart();
+				Page<Chimi> chimiPage = chimiService.findAll(pageable);
+				cnt = chimiService.countAll();
+				for(Chimi chimi : chimiPage){
+					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
+					chimiList.add(
+							new ChimiResponse(chimi,
+									String.valueOf(cuserinfo.get("nickname")),
+									String.valueOf(cuserinfo.get("profileImage"))
+							)
 					);
+				}
+
+			}else if(category == null && name != null){
+				System.out.println("=====================================================================================");
+				System.out.println("name " + name);
+				Page<Chimi> chimiPage = chimiService.findbyName(name, pageable);
+				cnt = chimiService.countName(name);
+				for(Chimi chimi : chimiPage){
+					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
+					chimiList.add(
+							new ChimiResponse(chimi,
+									String.valueOf(cuserinfo.get("nickname")),
+									String.valueOf(cuserinfo.get("profileImage"))
+							)
+					);
+				}
+			}else if(category != null && name == null){
+				System.out.println("=====================================================================================");
+				System.out.println("category "+ category);
+				Page<Chimi> chimiPage = chimiService.findbyCategory(category,pageable);
+				cnt = chimiService.countCategory(category);
+				for(Chimi chimi : chimiPage){
+					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
+					chimiList.add(
+							new ChimiResponse(chimi,
+									String.valueOf(cuserinfo.get("nickname")),
+									String.valueOf(cuserinfo.get("profileImage"))
+							)
+					);
+				}
+			} else{
+				System.out.println("=====================================================================================");
+				System.out.println("category "+ category + " name " + name);
+				Page<Chimi> chimiPage = chimiService.findbyCategoryAndName(category,name,pageable);
+				cnt = chimiService.countNameAndCategory(name, category);
+				for(Chimi chimi : chimiPage){
+					HashMap<String,Object> cuserinfo = userClient.getusername(chimi.getUserId());
+					chimiList.add(
+							new ChimiResponse(chimi,
+									String.valueOf(cuserinfo.get("nickname")),
+									String.valueOf(cuserinfo.get("profileImage"))
+							)
+					);
+				}
 			}
-			return new ResponseEntity<>(chimiList, HttpStatus.OK);
+
+			ChimiSearchResponse chimiSearchResponse = new ChimiSearchResponse();
+			chimiSearchResponse.setChimiResponse(chimiList);
+			chimiSearchResponse.setCnt(cnt);
+			return new ResponseEntity<ChimiSearchResponse>(chimiSearchResponse, HttpStatus.OK);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -118,7 +176,7 @@ public class ChimiController {
 	public ResponseEntity<ChimiDetailResponse> search(@RequestHeader("accessToken") String access,@PathVariable long hid){
 		Chimi newChimi = chimiService.findById(hid).get();
 		HashMap<String, Object> loginUserinfo = null;
-		if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+		if(!access.equals("null")) loginUserinfo = userClient.getUserInfo(access);
 		HashMap<String,Object> chimiUserinfo = userClient.getusername(newChimi.getUserId());
 		// 조회수 증가
 		newChimi.setViews(newChimi.getViews()+1);
@@ -220,6 +278,19 @@ public class ChimiController {
 			return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
 		}
 	}
+
+	@GetMapping("/search")
+	@ApiOperation(value = "파티이름검색")
+	public ResponseEntity<List<Chimi>> searchWhichpartyname(@RequestParam(value = "name") String name){
+
+		try {
+			return new ResponseEntity<>(chimiService.getChimisByName(name), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
 	
 	
 	
@@ -245,6 +316,17 @@ public class ChimiController {
 		return entity;
 	}
 
+	@GetMapping("/partynum")
+	@ApiOperation(value = "내가 등록한 파티 조회")
+	public ResponseEntity<Integer> partynum(){
+		try {
+			return new ResponseEntity<>(chimiService.countAll(), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
 
 
 

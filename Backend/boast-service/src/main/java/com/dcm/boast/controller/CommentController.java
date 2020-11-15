@@ -38,7 +38,7 @@ public class CommentController {
 			@PathVariable long boastId, @PageableDefault(size=10, sort="createdate",direction = Sort.Direction.DESC)Pageable pageable) {
 		try {
 			HashMap<String, Object> loginUserinfo = null;
-			if(access!=null) loginUserinfo = userClient.getUserInfo(access);
+			if(!access.equals("null")) loginUserinfo = userClient.getUserInfo(access);
 			
 			Page<Comment> commentlist = commentService.allComments(boastId,pageable);
 			List<CommentResponse> list = new ArrayList<>();

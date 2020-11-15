@@ -6,7 +6,7 @@ import javax.validation.constraints.*;
  
 public class SignupRequest {
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 1, max = 20)
     private String username;
  
     @NotBlank
@@ -64,7 +64,7 @@ public class SignupRequest {
     public Set<String> getRole() {
       return this.role;
     }
-    
+
     public void setRole(Set<String> role) {
       this.role = role;
     }

@@ -91,7 +91,7 @@ public class AuthController {
 							 signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()),
 				signUpRequest.getNickname(),
-				signUpRequest.getGender(),null,0,0,
+				signUpRequest.getGender(),"/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png",0,0,
 				signUpRequest.getPrefer1(),
 				signUpRequest.getPrefer2(),
 				signUpRequest.getPrefer3()
