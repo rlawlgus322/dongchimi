@@ -93,18 +93,27 @@ def itemRecommend():
     print("----------------------chimi-weight-val-----------------------------")
     print(chimi_weight_val)
 
-    recommendSet = {}
-    cnt = 0 # 몇개까지 볼건지
-    for key, value in chimi_weight_val:
-        if cnt == 2 : break
-        # 비슷한거 추천 위에서 2개까지
-        recommendSet.update(item_based_collabor[key].sort_values(ascending=False)[:2])
-        cnt += 1
-    print(recommendSet)
+    # recommendSet = {}
+    # cnt = 0 # 몇개까지 볼건지
+    # for key, value in chimi_weight_val:
+    #     if cnt == 2 : break
+    #     # 비슷한거 추천 위에서 2개까지
+    #     recommendSet.update(item_based_collabor[key].sort_values(ascending=False)[:2])
+    #     cnt += 1
+    # print(recommendSet)
 
-    recommendList = list(recommendSet)
+    # recommendList = list(recommendSet)
+    recommendList = []
+    cnt = 0
+    for key, val in chimi_weight_val:
+        recommendList.append(key)
+        cnt += 1
+        if cnt == 3:
+            break
+    
     print("-------------------------------recommendlist------------------------------------")
     print(recommendList)
+    
     samplelist = []
     for ctg in recommendList:
         chimilist = connect.getchimi(cursor, ctg)

@@ -72,9 +72,14 @@ def getUserLike(cursor, id):
 
 def getchimi(cursor, category):
     resoverall = cursor.execute(
+    # """
+    #     select * from chimi
+    #     where category like '%:selcategory%' and isstart = True;
+       
+    # """
     """
         select * from chimi
-        where category like '%:selcategory%' and isstart = True;
+        where category = :selcategory and isstart = True;
        
     """
     ,selcategory = category
