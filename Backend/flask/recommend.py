@@ -106,20 +106,19 @@ def itemRecommend():
     print("-------------------------------recommendlist------------------------------------")
     print(recommendList)
     samplelist = []
-    # # for i in range(flag):
-    # for ctg in recommendList:
-    #     chimilist = connect.getchimi(cursor, ctg)
-    #     chimis = []
-    #     for chimi in chimilist.fetchall():
-    #         print(chimi)
-    #         chimis.append(chimi)
-    #     if len(chimis) >= 3:
-    #       samplelist.append(random.sample(chimis, 3))
-    #     else:
-    #       samplelist.append(random.sample(chimis, len(chimis)))
-    # ####### 수정한부분 ##########    
-    # print("샘플리스트")
-    # print(samplelist)
+    for ctg in recommendList:
+        chimilist = connect.getchimi(cursor, ctg)
+        chimis = []
+        for chimi in chimilist.fetchall():
+            print(chimi)
+            chimis.append(chimi)
+        if len(chimis) >= 3:
+          samplelist.append(random.sample(chimis, 3))
+        else:
+          samplelist.append(random.sample(chimis, len(chimis)))
+    ####### 수정한부분 ##########    
+    print("샘플리스트")
+    print(samplelist)
 
 
 
