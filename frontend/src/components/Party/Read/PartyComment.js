@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import api from '../../../utils/api';
-import "./party.scss"
+import "./style.css"
 class PartyComment extends Component {
   constructor(props) {
     super(props);

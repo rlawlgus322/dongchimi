@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../utils/api';
 import Party from '../List/Party';
-import "./party.scss"
+import "./style.css"
 
 function PartyMembers(props) {
   const [ids, setIds] = useState([]);
