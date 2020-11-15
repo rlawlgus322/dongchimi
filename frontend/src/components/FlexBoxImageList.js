@@ -6,7 +6,7 @@ import {getServerImageUrl} from "utils/common";
 const FlexBoxImageListBody = styled.div`
   position: relative;
   display: flex;
-  height: 33.33%;
+  height: 22.5%;
   overflow: hidden;
 `
 function FlexBoxImageList(props) {

@@ -26,9 +26,9 @@ function MovingImageList(props) {
 
   return (
   <MovingImageListBody>
-    <FlexBoxImageList boastList={boastList2D[0]} size="300" top="0" timeInterval="2100"/>
-    <FlexBoxImageList boastList={boastList2D[1]} size="300" top="300" timeInterval="2300"/>
-    <FlexBoxImageList boastList={boastList2D[2]} size="300" top="600" timeInterval="2200"/>
+    <FlexBoxImageList boastList={boastList2D[0]} size="203" top="0" timeInterval="2100"/>
+    <FlexBoxImageList boastList={boastList2D[1]} size="203" top="203" timeInterval="2300"/>
+    <FlexBoxImageList boastList={boastList2D[2]} size="203" top="406" timeInterval="2200"/>
   </MovingImageListBody>
   )  
 }
