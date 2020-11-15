@@ -32,6 +32,19 @@ const globalStyles = createGlobalStyle`
     .pagination > li {
       display: inline-block;
     }
+    .active-video {
+      height: 75%;
+      width: 100%;
+      border: solid;
+    };
+    .inactive-video {
+      height: 25% !important;
+    };
+    video {
+      transform: rotateY(180deg);
+      -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+      -moz-transform:rotateY(180deg); /* Firefox */
+    }
 `;
 
 export default globalStyles;
