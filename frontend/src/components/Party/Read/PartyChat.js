@@ -7,7 +7,7 @@ class PartyChat extends Component {
     return (
       <>
         파티 채팅
-        <button onClick={() => {
+        <button className="partybutton" onClick={() => {
           console.log('화상채팅 시작');
           console.log('url', this.props.rtcurl);
           // this.props.history.push(`/party/room/`)
