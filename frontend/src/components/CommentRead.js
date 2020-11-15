@@ -12,6 +12,7 @@ const CommentReadBody = styled.div`
 const CommentText = styled.div`
   width: 100%;
   height: 3em;
+  margin-top: 20px;
 `;
 
 const CommentReadFooter = styled.div`
@@ -47,12 +48,12 @@ function CommentRead(props) {
 
   return (
     <CommentReadBody>
-      <UserInfoBar
+      {/* <UserInfoBar
         thumbnail="https://avatars0.githubusercontent.com/u/33210021?s=60&v=4"
         id="hideOnBush"
         isMoreButton={false}
-      />
-      <CommentText>댓글 본문 입니다.</CommentText>
+      /> */}
+      <CommentText>댓글</CommentText>
       <CommentReadFooter>
         <Date>2020-10-04</Date>
         <LikeButtonAndCount count={24} />
