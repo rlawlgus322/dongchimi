@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const UserInfoBarBody = styled.div`
   display: flex;
   width: 100%;
-  background-color: tomato;
+  // background-color: tomato;
 `;
 
 const Thumbnail = styled.img`
