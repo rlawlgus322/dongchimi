@@ -23,8 +23,6 @@ const FlexBox = styled.div`
 
 function Parties(props) {
   const { parties1, parties2, isEven } = props;
-  console.log(parties1);
-  console.log(parties2);
   const timeInterval = 50;
   return (
     <PartiesBody>
