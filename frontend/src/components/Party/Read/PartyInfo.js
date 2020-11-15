@@ -37,6 +37,13 @@ function PartyInfo(props) {
             </div>
           }
           {
+            // type === 2 &&
+            data.chimi !== undefined &&
+            <PartyMembers
+              hid={data.chimi.hid}
+            />
+          }
+          {
             data.chimi !== undefined && isWriter &&
             <div>
               <button onClick={() => props.history.push('/party/update')}>수정</button>
@@ -46,7 +53,7 @@ function PartyInfo(props) {
           {
             type === 1 &&
             data.chimi !== undefined &&
-            !data.chimi.isstart &&
+            // !data.chimi.isstart &&
             <PartyRegister data={data} />
           }
           {
@@ -54,13 +61,6 @@ function PartyInfo(props) {
             data.chimi !== undefined &&
             data.chimi.isstart &&
             <h2>시작된 파티입니다</h2>
-          }
-          {
-            type === 2 &&
-            data.chimi !== undefined &&
-            <PartyMembers
-              hid={data.chimi.hid}
-            />
           }
         </div>
       </div>
