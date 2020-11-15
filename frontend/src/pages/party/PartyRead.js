@@ -12,6 +12,7 @@ class PartyRead extends Component {
     this.state = {
       data: [],
       type: 1,
+      isWriter: false,
     }
   }
 
@@ -30,8 +31,11 @@ class PartyRead extends Component {
       }
     })
       .then(({ data }) => {
-        // console.log('party read', data);
+        console.log('party read', data);
         this.setState({ data: data });
+        if (data.chimi.userId === Number(sessionStorage.getItem('uid'))) {
+          this.setState({ isWriter: true });
+        }
       }).catch((err) => {
         console.log(err);
       })
@@ -43,6 +47,7 @@ class PartyRead extends Component {
         <PartyInfo
           type={this.state.type}
           data={this.state.data}
+          isWriter={this.state.isWriter}
         ></PartyInfo>
         <div className='row'>
           <div className='col-6'>
@@ -70,7 +75,7 @@ class PartyRead extends Component {
               (this.state.type === 2 || this.state.type === 3) &&
               this.state.data.chimi !== undefined &&
               this.state.data.chimi.isstart &&
-              <PartyChat></PartyChat>
+              <PartyChat rtcurl={this.state.data.chimi.rtcurl}></PartyChat>
             }
             {
               (this.state.type === 2 || this.state.type === 3) &&
