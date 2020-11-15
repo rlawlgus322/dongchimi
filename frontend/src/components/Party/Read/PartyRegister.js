@@ -124,13 +124,6 @@ class PartyRegister extends Component {
             {this.state.recommend && <button onClick={this.unrecommend.bind(this)}>추천취소</button>}
           </div>
         }
-        {
-          this.state.uid === this.state.data.chimi.userId &&
-          <div>
-            <button onClick={() => this.props.history.push('/party/update')}>수정</button>
-            <button onClick={() => console.log('삭제')}>삭제</button>
-          </div>
-        }
       </>
     )
   }
