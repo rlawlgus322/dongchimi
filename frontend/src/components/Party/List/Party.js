@@ -5,7 +5,7 @@ import './party.css';
 class Party extends Component {
   render() {
     return (
-      <div className="col-md-4 col-lg-3 item"
+      <div className="item"
         onClick={() => this.props.history.push(`/party/${this.props.party.chimi.hid}`)}
       >
         <div className="box" style={{

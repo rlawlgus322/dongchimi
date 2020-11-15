@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import styled from "styled-components";
 import Party from './Party';
 
-class Parties extends Component {
-  render() {
-    // console.log(this.state.parties);
-    const mapToComponent = data => {
-      return data.map((party, i) => {
-        return (<Party party={party} key={i} />);
-      });
-    }
-    return (
-      <div className="row chimi d-flex justify-content-center">
-        {mapToComponent(this.props.parties)}
-      </div>
-    )
-  }
+const PartiesBody = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
+`
+
+function Parties(props) {
+  const {parties} = props;
+  console.log(parties);
+  return (
+    <PartiesBody>
+      {parties.map((party, i) => <Party party={party} key={i} />)}
+    </PartiesBody>
+  )
 }
 
 export default Parties;
