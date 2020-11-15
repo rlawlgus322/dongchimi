@@ -1,22 +1,57 @@
-import React, { Component } from 'react';
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 import Party from './Party';
 
 const PartiesBody = styled.div`
+  position: relative;
+  display: flex;
+  width: 100vw;
+  height: 70vh;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+`;
+
+const FlexBox = styled.div`
+  position: absolute;
   display: flex;
   flex-wrap: wrap;
-  width: 100vw;
-  height: 100vh;
-`
+  align-content: flex-start;
+  width: 100%;
+  height: 100%;
+`;
 
 function Parties(props) {
-  const {parties} = props;
-  console.log(parties);
+  const { parties1, parties2, isEven } = props;
+  console.log(parties1);
+  console.log(parties2);
+  const timeInterval = 50;
   return (
     <PartiesBody>
-      {parties.map((party, i) => <Party party={party} key={i} />)}
+      <FlexBox>
+        {parties1 &&
+          parties1.map((party, i) => (
+            <Party
+              party={party}
+              key={i}
+              delay={i * timeInterval}
+              isShow={!isEven}
+            />
+          ))}
+      </FlexBox>
+      <FlexBox>
+        {parties2 &&
+          parties2.map((party, i) => (
+            <Party
+              party={party}
+              key={i}
+              delay={i * timeInterval}
+              isShow={isEven}
+            />
+          ))}
+      </FlexBox>
     </PartiesBody>
-  )
+  );
 }
 
 export default Parties;
