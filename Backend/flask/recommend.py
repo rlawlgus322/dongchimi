@@ -62,7 +62,7 @@ def itemRecommend():
             df.loc[catg,user] += 5 #찜일시 5점 추가
         likelist = [row[0] for row in likes.fetchall()]
         for like in likelist:
-            df.loc[like, user] +=3
+            df.loc[like, user] += 3
     print("---------------------------------------df2222222222222222------------------------------")
     print(df)
     item_based_collabor = cosine_similarity(df)
@@ -230,7 +230,7 @@ def userRecommend():
 
 
 
-    #사용자의 선호도
+    # # 사용자의 선호도
     # chimiName = connect.getUserStorageName(cursor, maxidx + 1)
     # chimiName = connect.getUserStorageName(cursor, maxidx)
     # namedf = pd.DataFrame(chimiName)
@@ -243,15 +243,15 @@ def userRecommend():
     #     recommendList = list(np.array(namedf.iloc[:, 0]))
     # else:
     #     recommendList = []
-
+    #
     # similar_user_ctg = connect.get
-
+    #
     # recommendList = list(np.array(namedf.iloc[:, 0]))
     # while len(recommendList) < 3:
 
     
-    # print("---------------------------------recommendList---------------------------------")
-    # print(recommendList)
+    print("---------------------------------recommendList---------------------------------")
+    print(recommendList)
     
 
     # 디비 해제
@@ -261,5 +261,5 @@ def userRecommend():
     return jsonify({'recommendlist': recommendList})
 
 if __name__ == '__main__':
-    # app.run(host='localhost', port=8090, debug='True', ssl_context=('./cert/server.crt', './cert/server.key'))
-    app.run(host='0.0.0.0', port=8090, debug='True', ssl_context=('./cert/server.crt', './cert/server.key'))
+     app.run(host='localhost', port=8090, debug='True')
+   # app.run(host='0.0.0.0', port=8090, debug='True', ssl_context=('./cert/server.crt', './cert/server.key'))
