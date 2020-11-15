@@ -115,13 +115,13 @@ class PartyRegister extends Component {
       <>
         {
           this.state.uid !== this.state.data.chimi.userId &&
-          <div>
-            {!this.state.applicated && <button onClick={this.register.bind(this)}>신청하기</button>}
-            {this.state.applicated && <button onClick={this.unregister.bind(this)}>신청취소하기</button>}
-            {!this.state.stored && <button onClick={this.save.bind(this)}>보관함에 저장</button>}
-            {this.state.stored && <button onClick={this.remove.bind(this)}>보관함에서 삭제</button>}
-            {!this.state.recommend && <button onClick={this.recommend.bind(this)}>추천하기</button>}
-            {this.state.recommend && <button onClick={this.unrecommend.bind(this)}>추천취소</button>}
+          <div style={{marginLeft:"22%"}}>
+            {!this.state.applicated && <button className="partybutton" onClick={this.register.bind(this)}>신청하기</button>}
+            {this.state.applicated && <button className="partybutton" onClick={this.unregister.bind(this)}>신청취소하기</button>}
+            {!this.state.stored && <button className="partybutton"onClick={this.save.bind(this)}>보관함에 저장</button>}
+            {this.state.stored && <button className="partybutton" onClick={this.remove.bind(this)}>보관함에서 삭제</button>}
+            {!this.state.recommend && <button className="partybutton" onClick={this.recommend.bind(this)}>추천하기</button>}
+            {this.state.recommend && <button className="partybutton" onClick={this.unrecommend.bind(this)}>추천취소</button>}
           </div>
         }
       </>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import api from '../../../utils/api';
-
+import "./party.scss"
 class PartyComment extends Component {
   constructor(props) {
     super(props);
@@ -56,29 +56,30 @@ class PartyComment extends Component {
 
   render() {
     return (
-      <div>
-        댓글창
+      <div className="comment">
         {
           this.state.comments.map((comment, index) => {
-            // TODO: 댓글 디자인 다르게 주기!
+            //TODO : 댓글 디자인 다르게 주기!
             if (comment.chimiComment.userId === this.state.userId) { // 댓글쓴이가 글쓴이랑 같을 때
               return (
                 <div key={index}>
                   {comment.nickname} - 파티생성자
-                  <p>{comment.chimiComment.content}</p>
+                  <p class="from-me" >{comment.chimiComment.content}</p>
                 </div>
               )
             } else {
               return (
                 <div key={index}>
                   {comment.nickname}
-                  <p>{comment.chimiComment.content}</p>
+                  <p class="from-them">{comment.chimiComment.content}</p>
                 </div>
               )
             }
           })
         }
-        <form onSubmit={this.addComment.bind(this)}>
+
+
+        <form className="commentForm" onSubmit={this.addComment.bind(this)}>
           <input type="text" name="comment" />
           <input type="submit" />
         </form>
