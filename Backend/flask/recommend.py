@@ -23,7 +23,7 @@ chimi_sub_dict = {"유화":0,"수채화": 0, "파스텔": 0, "가죽": 0, "뜨�
                     "촬영": 0, "한식": 0, "양식": 0, "일식": 0, "중식": 0, "세계음식": 0, "기타": 0, "작곡": 0, "작사": 0, "타악기": 0,
                     "현악기": 0, "관악기": 0, "댄스": 0, "헬스": 0, "홈트": 0, "다이어트":0}    #사용자 선호도 조사할때
 
-##### 이 함수만 호출 #####
+
 @app.route('/item', methods=['GET'])
 def itemRecommend():
     useremail = request.args.get("email") #내가 분석할 유저
@@ -103,31 +103,31 @@ def itemRecommend():
     # print(recommendSet)
 
     # recommendList = list(recommendSet)
-    recommendList = []
+    ctg_list = []
     cnt = 0
     for key, val in chimi_weight_val:
-        recommendList.append(key)
+        ctg_list.append(key)
         cnt += 1
         if cnt == 3:
             break
     
-    print("-------------------------------recommendlist------------------------------------")
-    print(recommendList)
+    print("-------------------------------ctg_list------------------------------------")
+    print(ctg_list)
 
-    samplelist = []
-    for ctg in recommendList:
+    recommendList = []
+    for ctg in ctg_list:
         chimilist = connect.getchimi(cursor, ctg)
         chimis = []
         for chimi in chimilist.fetchall():
             print(chimi)
             chimis.append(chimi)
         if len(chimis) >= 3:
-          samplelist.append(random.sample(chimis, 3))
+          recommendList.extend(random.sample(chimis, 3))
         else:
-          samplelist.append(random.sample(chimis, len(chimis)))
+          recommendList.extend(random.sample(chimis, len(chimis)))
     ####### 수정한부분 ##########    
-    print("샘플리스트")
-    print(samplelist)
+    print("------------------------recommendList-------------------------------------")
+    print(recommendList)
 
 
 
@@ -137,10 +137,9 @@ def itemRecommend():
     cursor.close()
     conn.close()
 
-    return jsonify({'recommendlist': samplelist})
+    return jsonify({'recommendlist': recommendList})
 
 
-##### 이 함수 호출 x #####
 @app.route('/itemuser',methods=['GET'])
 def userRecommend():
     useremail = request.args.get("email") #내가 분석할 유저
@@ -201,14 +200,33 @@ def userRecommend():
         if user == userid: continue
         # print(userid)
         if maxval < user_based_collabor.loc[userid, user]:
-            # maxval = user_based_collabor.loc[userid, user]
+            maxval = user_based_collabor.loc[userid, user]
             similar_user = user
+
+    print("-----------------------------maxval-------------------------------")
+    print(maxval)
 
     print("------------------------similar_user-------------------------------------")
     print(similar_user)
 
-    selected_prefer = connect.getSelectedUserPrefer(cursor, similar_user)
-    print(selected_prefer, type(selected_prefer))
+    ctg_list = connect.getSelectedUserPrefer(cursor, similar_user)
+    print("--------------------------------ctg_list--------------------------------")
+    print(ctg_list, type(ctg_list))
+
+    recommendList = []
+    for ctg in ctg_list:
+        chimilist = connect.getchimi(cursor, ctg)
+        chimis = []
+        for chimi in chimilist.fetchall():
+            print(chimi)
+            chimis.append(chimi)
+        if len(chimis) >= 3:
+          recommendList.extend(random.sample(chimis, 3))
+        else:
+          recommendList.extend(random.sample(chimis, len(chimis)))
+    ####### 수정한부분 ##########    
+    print("------------------------recommendList-------------------------------------")
+    print(recommendList)
 
 
 
@@ -232,8 +250,8 @@ def userRecommend():
     # while len(recommendList) < 3:
 
     
-    print("---------------------------------recommendList---------------------------------")
-    print(recommendList)
+    # print("---------------------------------recommendList---------------------------------")
+    # print(recommendList)
     
 
     # 디비 해제

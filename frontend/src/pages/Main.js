@@ -1,33 +1,35 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import LoginModal from '../components/mypage/LoginModal';
+import React, {useState, useEffect} from 'react';
+import styled from 'styled-components';
+import MovingImageList from 'components/MovingImageList';
+import api from "utils/api";
+const MainBody = styled.div`
+  width: 100%;
+`
+function Main() {
+  const [boastList, setBoastList] = useState([]);
 
-class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
+  useEffect(async () => {
+    try{
+      const {data} = await api.get("boast/all",  {
+        params: {
+          size: 30
+        },
+        headers: {
+          accessToken: sessionStorage.getItem("token")
+        }
+      })
+      setBoastList(data);
+    }catch(error){
+      console.error(error);
+    }
+  }, [])
 
-  render() {
-    const logged = sessionStorage.getItem('token') === null ? false : true;
 
-    return (
-
-      <div>
-        Main
-        <ul>
-          <NavLink to="/party"><li>Party</li></NavLink>
-          <NavLink to="/recommend"><li>추천</li></NavLink>
-          <NavLink to="/boast"><li>자랑게시판</li></NavLink>
-          {logged &&
-            <NavLink to="/mypage"><li>마이페이지</li></NavLink>
-          }
-          {!logged &&
-            <li><LoginModal></LoginModal></li>
-          }
-        </ul>
-      </div>
-    );
-  }
+  return (
+    <MainBody>
+      <MovingImageList boastList={boastList}/>
+    </MainBody>
+  )
 }
 
 export default Main;

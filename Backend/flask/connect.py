@@ -31,17 +31,17 @@ def getUserPrefer(cursor, email):
     return resoverall
 
 #####추가
-def getSelectedUserPrefer(cursor, id):
+def getSelectedUserPrefer(cursor, selected_id):
     resoverall = cursor.execute(
     """
         SELECT prefer1, prefer2, prefer3
         FROM users
-        WHERE user_Id = :userid
+        WHERE id = :userid
     """
-    ,userid = id    
+    ,userid = selected_id    
     )
     return resoverall
-    
+
 def getUserStorage(cursor, id):
     resoverall = cursor.execute(
     """
@@ -84,9 +84,11 @@ def getUserLike(cursor, id):
 
 def getchimi(cursor, ctg):
     resoverall = cursor.execute(
-    # """
-    #     select * from chimi
-    #     where category like '%:selcategory%' and isstart = True;
+    # # """
+    # #     select * from chimi
+    # #     where category like '%:selcategory%' and isstart = True;
+    # select * from chimi
+    #     where category = :selected_ctg and isstart = True;
        
     # """
     """"

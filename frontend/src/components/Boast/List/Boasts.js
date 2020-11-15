@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Boast from './Boast';
 
 class Boasts extends Component {
-  state = {
-    boasts: this.props.boasts,
-  }
   render() {
     const mapToComponent = data => {
       return data.map((boast, i) => {
@@ -13,7 +10,7 @@ class Boasts extends Component {
     }
     return (
       <div className="row d-flex justify-content-center">
-        {mapToComponent(this.state.boasts)}
+        {mapToComponent(this.props.boasts)}
       </div>
     );
   }
