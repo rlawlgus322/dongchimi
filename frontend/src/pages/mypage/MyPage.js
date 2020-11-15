@@ -80,7 +80,11 @@ class MyPage extends Component {
             <MypageDiv>이름: {this.state.userInfo.username}</MypageDiv>
             <MypageDiv>성별: {this.state.userInfo.gender === 1 ? "여성" : "남성"}</MypageDiv>
             <MypageDiv>닉네임: {this.state.userInfo.nickname}</MypageDiv>
+<<<<<<< Updated upstream
             <MypageDiv>선호 카테고리<MypageDiv> &nbsp;&nbsp; 1순위 - {this.state.userInfo.prefer1}</MypageDiv><MypageDiv>&nbsp;&nbsp; 2순위 - {this.state.userInfo.prefer2}</MypageDiv><MypageDiv>&nbsp;&nbsp; 3순위 - {this.state.userInfo.prefer3}</MypageDiv></MypageDiv>
+=======
+            <MypageDiv>선호 카테고리: 1순위-{this.state.userInfo.prefer1}/<br />2순위-{this.state.userInfo.prefer2}/3순위-{this.state.userInfo.prefer3}</MypageDiv>
+>>>>>>> Stashed changes
           </Col>
 
         </Row>
