@@ -113,7 +113,7 @@ def itemRecommend():
     
     print("-------------------------------recommendlist------------------------------------")
     print(recommendList)
-    
+
     samplelist = []
     for ctg in recommendList:
         chimilist = connect.getchimi(cursor, ctg)
@@ -194,30 +194,40 @@ def userRecommend():
     print(user_based_collabor)
 
     maxval = 0
-    maxidx = 0
+    similar_user = 0
     # 가장 유사도 높은 사람 찾기
     for user in userlist:
         # print(user)
         if user == userid: continue
         # print(userid)
         if maxval < user_based_collabor.loc[userid, user]:
-            maxval = user_based_collabor.loc[userid, user]
-            maxidx = user
+            # maxval = user_based_collabor.loc[userid, user]
+            similar_user = user
+
+    print("------------------------maxidx-------------------------------------")
+    print(maxidx)
+
+    selected_prefer = connect.getSelectedUserPrefer(cursor, similar_user)
+    print("---------------------selected_prefer-----------------------")
+    print(selected_prefer, type(selected_prefer))
 
 
 
     #사용자의 선호도
-    chimiName = connect.getUserStorageName(cursor, maxidx + 1)
-    namedf = pd.DataFrame(chimiName)
-    if len(namedf) > 3:
-        namedf = namedf.sample(n = 3)
-    # 랜덤으로 3개 뽑아준다
-    print("--------------------------------namedf----------------------------------------")
-    print(namedf)
-    if len(namedf) != 0:
-        recommendList = list(np.array(namedf.iloc[:, 0]))
-    else:
-        recommendList = []
+    # chimiName = connect.getUserStorageName(cursor, maxidx + 1)
+    # chimiName = connect.getUserStorageName(cursor, maxidx)
+    # namedf = pd.DataFrame(chimiName)
+    # if len(namedf) > 3:
+    #     namedf = namedf.sample(n = 3)
+    # # 랜덤으로 3개 뽑아준다
+    # print("--------------------------------namedf----------------------------------------")
+    # print(namedf)
+    # if len(namedf) != 0:
+    #     recommendList = list(np.array(namedf.iloc[:, 0]))
+    # else:
+    #     recommendList = []
+
+    similar_user_ctg = connect.get
 
     # recommendList = list(np.array(namedf.iloc[:, 0]))
     # while len(recommendList) < 3:
