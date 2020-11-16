@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import api from '../../utils/api';
 import axios from 'axios';
 import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
+import './Register.css'
 
 const MypageDiv = styled.div`
   font-size: 1.5rem;
@@ -92,15 +92,14 @@ function MyPage(props) {
         </Col>
         <Col>
           <br />
-          <MypageDiv>이메일: {userInfo.email}</MypageDiv>
-          <MypageDiv>이름: {userInfo.username}</MypageDiv>
-          <MypageDiv>성별: {userInfo.gender === 1 ? "여성" : "남성"}</MypageDiv>
-          <MypageDiv>닉네임: {userInfo.nickname}</MypageDiv>
-          <MypageDiv>선호 카테고리
-            <MypageDiv> &nbsp;&nbsp; 1순위 - {userInfo.prefer1}</MypageDiv>
-            <MypageDiv>&nbsp;&nbsp; 2순위 - {userInfo.prefer2}</MypageDiv>
-            <MypageDiv>&nbsp;&nbsp; 3순위 - {userInfo.prefer3}</MypageDiv>
-          </MypageDiv>
+          <div className = "myInfo">이메일: {userInfo.email}</div>
+          <div className = "myInfo">이름: {userInfo.username}</div>
+          <div className = "myInfo">성별: {userInfo.gender === 1 ? "여성" : "남성"}</div>
+          <div className = "myInfo">닉네임: {userInfo.nickname}</div>
+          <div className = "myInfo">선호 카테고리</div>
+          <div className = "myInfo"> &nbsp;&nbsp; 1순위 - {userInfo.prefer1}</div>
+          <div className = "myInfo">&nbsp;&nbsp; 2순위 - {userInfo.prefer2}</div>
+          <div className = "myInfo">&nbsp;&nbsp; 3순위 - {userInfo.prefer3}</div>
         </Col>
       </Row>
       <MypageTab></MypageTab>
