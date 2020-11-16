@@ -46,9 +46,9 @@ class PartyApplicant extends Component {
     const applicants = this.state.userInfoList.map((userInfo, index) => {
       // console.log('map ', userInfo);
       return (
-        <div key={index}>
-          지원한 사람 : {userInfo.nickname}
-          별점 : {userInfo.star}
+        <div style={{marginLeft : "60px"}} key={index}>
+          <div className="badge" style={{marginRight : "70px"}}><div className = "ribbon">{userInfo.nickname}</div></div>
+          별점 : <span>{userInfo.star}</span>
           <button className="partybutton" onClick={() => {
             // console.log('accept', userInfo)
             api.post('/hobby/enrolment', {
