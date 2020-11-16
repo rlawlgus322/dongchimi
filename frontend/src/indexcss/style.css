@@ -1,4 +1,40 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+.nanumsquare {
+    font-family: 'NanumSquare', sans-serif !important;
+}
 
+@font-face {
+    font-family: 'HangeulNuri-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Ohsquare';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Oneprettynight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 /*---------------------
   Helper CSS
 -----------------------*/
@@ -559,20 +595,40 @@
 }
 
 .intro-warp {
+    
 	max-width: 1780px;
 	width: 100%;
 	margin: 0 auto;
 }
-
+.intro-text{
+    margin-left: 150px;
+}
 .intro-text h2 {
 	font-size: 48px;
-	margin-bottom: 25px;
+    margin-bottom: 25px;
+    
 }
 
 .intro-text p {
-	margin-bottom: 45px;
+    color: gray;
+    margin-bottom: 45px;
+    font-family: 'NanumSquare', sans-serif !important;
 }
 
+.footer-mas{
+    font-family: "InfinitySans-RegularA1";
+    font-size: 30px;
+    margin-top: 60px;
+    align-self: center;
+    font-weight: 800;
+}
+
+
+.countNum{
+    margin-top: 10px;
+    color: #d0e7ce;
+    font-size: 60px;
+}
 .sp-link {
 	display: inline-block;
 	font-weight: 500;
