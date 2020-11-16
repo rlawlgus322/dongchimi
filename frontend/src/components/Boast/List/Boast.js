@@ -6,6 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Sdiv = styled.div`
   margin-bottom: 30px;
 `;
+const Tdiv = styled.div`
+  
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
 
 const Bdiv = styled.div`
   cursor: pointer;
@@ -18,14 +23,19 @@ const Bdiv = styled.div`
   overflow: hidden;
   border-radius: 10px;
 `;
+const Round = styled.div`
+border-radius: 10px;
+border : 3px solid #d0e7ce;
+`
 
 const Mp = styled.p`
-  margin: 0px;
+  margin: 10px;
+  text-align :left;
 `;
 
 const ProfileImg = styled.img`
   height: 35px;
-  margin: 5px 5px;
+  margin: 5px 5px -5px;
   border-radius: 100%;
 `;
 
@@ -46,28 +56,32 @@ class Boast extends Component {
           <ProfileImg src={profileImage} />
           {this.props.boast.nickname}
         </Mp>
+            <Round>
         <Bdiv
           style={backgroundImage}
           onClick={() =>
             this.props.history.push(`/boast/${this.props.boast.boast.bid}`)
           }
         ></Bdiv>
+        <Tdiv>
         <div className="row">
-          <div className="col-4" style={{ padding: "0 20px" }}>
-            <FontAwesomeIcon icon={['far', 'eye']} />
+          <div className="col-4" style={{ padding: "5px 20px  5px 45px"}}>
+            <FontAwesomeIcon icon={['far', 'eye']} size='lg' />
             {this.props.boast.boast.views}
           </div>
-          <div className="col-4" style={{ padding: "0 20px" }}>
+          <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
             {
-              this.props.boast.liked === true ? <FontAwesomeIcon icon={['fas', 'heart']} color="crimson" /> : <FontAwesomeIcon icon={['far', 'heart']} />
+              this.props.boast.liked === true ? <FontAwesomeIcon icon={['fas', 'heart']} color="crimson"  size='lg' /> : <FontAwesomeIcon icon={['far', 'heart']}  size='lg' />
             }
             {this.props.boast.boast.likes}
           </div>
-          <div className="col-4" style={{ padding: "0 20px" }}>
-            <FontAwesomeIcon icon={['fas', 'comment-dots']} />
+          <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
+            <FontAwesomeIcon icon={['fas', 'comment-dots' ]} size='lg' />
           </div>
         </div>
+        </Tdiv>
         <Mp>{this.props.boast.boast.contents}</Mp>
+        </Round>
       </Sdiv>
     );
   }
