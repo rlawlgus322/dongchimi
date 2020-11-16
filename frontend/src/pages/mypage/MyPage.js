@@ -1,6 +1,6 @@
 
-import React, { useEffect, useState} from 'react';
-import {withRouter} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import MypageTab from '../../components/mypage/MypageTab';
 import { Container, Row, Col } from 'react-bootstrap';
 import api from '../../utils/api';
@@ -19,7 +19,7 @@ const MypageDiv = styled.div`
 const MypageBack = styled.span`
   background-color: #d0e7ce;
 `
-const Recomdiv = styled.div`
+const Recomdiv = styled.p`
 
 `
 
@@ -29,7 +29,7 @@ const Recomdivin = styled.div`
   margin-top : 30px;
 `
 
-function MyPage (props) {
+function MyPage(props) {
   const [image, setImage] = useState('');
   const [userInfo, setUserInfo] = useState([]);
   const [email, setEmail] = useState('');
@@ -53,7 +53,7 @@ function MyPage (props) {
         accessToken: this_token,
       }
     })
-      .then(({data}) => {
+      .then(({ data }) => {
         console.log('user info', data);
         console.log('email', data.email);
         // console.log('user info', res.data);
@@ -88,7 +88,6 @@ function MyPage (props) {
     <Container>
       <Row>
         <Col>
-         
           <img src={image} alt=""></img>
         </Col>
         <Col>
@@ -106,12 +105,12 @@ function MyPage (props) {
       </Row>
       <MypageTab></MypageTab>
       <Recomdivin>이런 취미는 어떠세요?</Recomdivin>
-      <Recomdiv>
+      <div className="row">
         {
           items.map((item, index) => (
-            <div key={index}>
-              <img src={"https://k3a409.p.ssafy.io"+item[5]}
-                style={{cursor:"pointer", height:"100px"}}
+            <div key={index} className="col-3">
+              <img src={"https://k3a409.p.ssafy.io" + item[5]}
+                style={{ cursor: "pointer", height: "100px" }}
                 onClick={() => {
                   props.history.push(`/party/${item[0]}`)
                 }}
@@ -119,7 +118,7 @@ function MyPage (props) {
             </div>
           ))
         }
-      </Recomdiv>
+      </div>
     </Container>
   );
 }
