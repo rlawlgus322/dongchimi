@@ -52,16 +52,13 @@ class PartyRead extends Component {
         ></PartyInfo>
         <div className='row'>
           <div className='col-6'>
+         
           <div className="detail">Detailed Description</div>
             {/* {
               this.state.data.chimi !== undefined &&
               <PartyOpener nickname={this.state.data.nickname} />
             } */}
-            {
-              this.state.data.chimi !== undefined &&
-              this.state.type === 3 &&
-              <PartyApplicant chimiId={this.props.match.params.id} />
-            }
+            
             {
               this.state.data.chimi !== undefined &&
               <div className="maindesc" dangerouslySetInnerHTML={{ __html: this.state.data.chimi.description }} />
@@ -72,6 +69,11 @@ class PartyRead extends Component {
               this.state.type === 1 &&
               this.state.data.chimi !== undefined &&
               <PartyComment hid={this.state.data.chimi.hid} userId={this.state.data.chimi.userId}></PartyComment>
+            }
+            {
+              this.state.data.chimi !== undefined &&
+              this.state.type === 3 &&
+              <PartyApplicant chimiId={this.props.match.params.id} />
             }
             {
               (this.state.type === 2 || this.state.type === 3) &&
@@ -85,6 +87,7 @@ class PartyRead extends Component {
               !this.state.data.chimi.isstart &&
               <div  className="isStart">파티 시작일까지 아직 기다려주세요!</div>
             }
+             
           </div>
         </div>
       </>
