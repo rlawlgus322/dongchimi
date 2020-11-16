@@ -89,7 +89,8 @@ class PartyApplicant extends Component {
 
     return (
       <>
-        { this.state.applicants.length === 0 ? <h2>신청자가 없습니다</h2> : applicants}
+        <div className="member">신청 대기자 목록</div>
+        { this.state.applicants.length === 0 ? <h2 className="memberlist" style={{marginLeft : "80px"}}>신청 대기자가 없습니다</h2> : applicants}
       </>
     )
   }
