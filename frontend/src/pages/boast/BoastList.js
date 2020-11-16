@@ -36,7 +36,7 @@ function BoastList({ history }) {
 
   return (
     <>
-      자랑하기
+      
       <div style={{ textAlign: "right" }}>
         {
           sessionStorage.getItem('token') !== null &&

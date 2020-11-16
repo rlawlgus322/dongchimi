@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+
+import React, { useEffect, useState} from 'react';
+import {withRouter} from 'react-router-dom';
 import MypageTab from '../../components/mypage/MypageTab';
 import { Container, Row, Col } from 'react-bootstrap';
 import api from '../../utils/api';
@@ -17,78 +19,110 @@ const MypageDiv = styled.div`
 const MypageBack = styled.span`
   background-color: #d0e7ce;
 `
+const Recomdiv = styled.div`
 
-class MyPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userInfo: '',
-      email: '',
-    }
-  }
-  componentDidMount() {
-    const fetchUserinfo = () => {
-      const this_token = sessionStorage.getItem('token')
-      api.get('/auth/userinfo/', {
-        headers: {
-          accessToken: this_token,
-        }
+`
+
+const Recomdivin = styled.div`
+  font-size : 30px;
+  margin-bottom : 30px;
+  margin-top : 30px;
+`
+
+function MyPage (props) {
+  const [image, setImage] = useState('');
+  const [userInfo, setUserInfo] = useState([]);
+  const [email, setEmail] = useState('');
+  const [items, setItems] = useState([]);
+  const [hid, setHid] = useState('');
+  const [partyImg, setPartyImg] = useState('');
+  const [partyName, setPartyName] = useState('');
+
+  useEffect(() => {
+    fetchUserinfo();
+  }, [])
+
+  useEffect(() => {
+    recommendChimi();
+  }, [email])
+
+  function fetchUserinfo() {
+    const this_token = sessionStorage.getItem('token')
+    api.get('/auth/userinfo/', {
+      headers: {
+        accessToken: this_token,
+      }
+    })
+      .then(({data}) => {
+        console.log('user info', data);
+        console.log('email', data.email);
+        // console.log('user info', res.data);
+        // this.setState({ userInfo: res.data });
+        setUserInfo(data);
+        const path = data.profileImage !== null ? data.profileImage : '/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png'
+        // this.setState({ image: 'https://k3a409.p.ssafy.io' + path });
+        setImage('https://k3a409.p.ssafy.io' + path);
+        // this.setState({ email: res.data.email });
+        setEmail(data.email);
       })
-        .then(res => {
-          // console.log('user info', res.data);
-          this.setState({ userInfo: res.data });
-          const path = res.data.profileImage !== null ? res.data.profileImage : '/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png'
-          this.setState({ image: 'https://k3a409.p.ssafy.io' + path });
-          this.setState({ email: res.data.email });
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-    fetchUserinfo()
+      .catch(err => {
+        console.log(err)
+      })
   }
 
-  componentDidUpdate() {
-    if (this.state.email !== '')
-      this.recommendChimi();
-  }
-
-  recommendChimi() {
+  function recommendChimi() {
+    if (email === '') return;
     axios.get('https://k3a409.p.ssafy.io:8090/item', {
       params: {
-        email: this.state.email
+        email: email
       }
     }).then(({ data }) => {
-      console.log('item', data);
+      console.log('item', data.recommendlist);
+      setItems(data.recommendlist);
     }).catch((err) => {
       console.log(err);
     })
   }
 
-  render() {
-    return (
-      <Container>
-        <Row>
-          <Col>
-            <div>프로필 사진</div>
-            <img src={this.state.image} alt=""></img>
-          </Col>
-
-          <Col>
-            <br />
-            <MypageDiv>이메일: {this.state.userInfo.email}</MypageDiv>
-            <MypageDiv>이름: {this.state.userInfo.username}</MypageDiv>
-            <MypageDiv>성별: {this.state.userInfo.gender === 1 ? "여성" : "남성"}</MypageDiv>
-            <MypageDiv>닉네임: {this.state.userInfo.nickname}</MypageDiv>
-            <MypageDiv>선호 카테고리<MypageDiv> &nbsp;&nbsp; 1순위 - {this.state.userInfo.prefer1}</MypageDiv><MypageDiv>&nbsp;&nbsp; 2순위 - {this.state.userInfo.prefer2}</MypageDiv><MypageDiv>&nbsp;&nbsp; 3순위 - {this.state.userInfo.prefer3}</MypageDiv></MypageDiv>
-          </Col>
-
-        </Row>
-        <MypageTab></MypageTab>
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <Row>
+        <Col>
+          <div>프로필 사진</div>
+          <img src={image} alt=""></img>
+        </Col>
+        <Col>
+          <br />
+          <MypageDiv>이메일: {userInfo.email}</MypageDiv>
+          <MypageDiv>이름: {userInfo.username}</MypageDiv>
+          <MypageDiv>성별: {userInfo.gender === 1 ? "여성" : "남성"}</MypageDiv>
+          <MypageDiv>닉네임: {userInfo.nickname}</MypageDiv>
+          <MypageDiv>선호 카테고리
+            <MypageDiv> &nbsp;&nbsp; 1순위 - {userInfo.prefer1}</MypageDiv>
+            <MypageDiv>&nbsp;&nbsp; 2순위 - {userInfo.prefer2}</MypageDiv>
+            <MypageDiv>&nbsp;&nbsp; 3순위 - {userInfo.prefer3}</MypageDiv>
+          </MypageDiv>
+        </Col>
+      </Row>
+      <MypageTab></MypageTab>
+      <Recomdivin>이런 취미는 어떠세요?</Recomdivin>
+      <Recomdiv>
+        {
+          items.map((item, index) => (
+            <div key={index}>
+              <img src={"https://k3a409.p.ssafy.io"+item[5]}
+                style={{cursor:"pointer", height:"100px"}}
+                onClick={() => {
+                  props.history.push(`/party/${item[0]}`)
+                }}
+              />
+            </div>
+          ))
+        }
+      </Recomdiv>
+    </Container>
+  );
 }
 
-export default MyPage;
+export default withRouter(MyPage);
 
