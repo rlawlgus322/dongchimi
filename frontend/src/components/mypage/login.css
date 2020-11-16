@@ -145,19 +145,23 @@ input[type="radio"] {
   margin-bottom: 10px;
 }
 .desc {
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: #8E9AAF;
+    text-align: center;
   margin-top: -8px;
 }
 .account {
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: #8E9AAF;
+    text-align: center;
   margin-top: 55%;
   font-size: 15px;
 }
-p {
-  font-family: 'NanumSquare', sans-serif;
-  font-size: 30px;
-  letter-spacing: 2px;
-  color: #8E9AAF;
-  text-align: center;
-}
+
 
 span {
   color: #d0e7ce;
@@ -300,20 +304,7 @@ input[type=checkbox] {
 
 /* select box css */
 /* ===== Resets and Housekeeping ===== */
-* {
-    padding: 0;
-    margin: 0;
-  }
-  
-  html {
-    font-size: 16px;
-  }
-  
-  body {
-    /* background: #eeebe7; */
-    padding: 100px 20px;
-    text-align: center;
-  }
+]
   
   /* ===== Actual Styles ===== */
   

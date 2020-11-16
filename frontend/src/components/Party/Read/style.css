@@ -192,7 +192,7 @@
   flex-direction: column;
 }
 
-p {
+.comment p {
   max-width: 295px;
   word-wrap: break-word;
   margin-bottom: 12px;
@@ -204,7 +204,7 @@ p {
   
 }
 
-p:before, p:after {
+.comment p:before, .comment p:after {
     content:"";
 		position:absolute;
     bottom:-2px;
