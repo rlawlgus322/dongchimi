@@ -20,6 +20,7 @@ import PartyUpdate from 'pages/party/PartyUpdate';
 import RecommendList from 'pages/recommend/RecommendList';
 import PartyRoom from 'pages/Room/PartyRoom';
 import Header from "components/Header";
+import Footer from "components/Footer";
 
 library.add(faEye, faHeart, fasHeart, faCommentDots);
 
@@ -55,6 +56,10 @@ class App extends Component {
           <Route exact path="/update" component={Update} />
           <Redirect from="*" to="/" />
         </Switch>
+        {
+          !window.location.pathname.includes("/party/room/") &&
+          < Footer />
+        }
       </>
     );
   }
