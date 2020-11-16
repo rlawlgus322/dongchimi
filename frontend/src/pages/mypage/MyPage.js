@@ -88,7 +88,7 @@ function MyPage (props) {
     <Container>
       <Row>
         <Col>
-          <div>프로필 사진</div>
+         
           <img src={image} alt=""></img>
         </Col>
         <Col>
