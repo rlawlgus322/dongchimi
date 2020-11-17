@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import Editor from '../../components/Party/Editor';
-import api from 'utils/api';
 import multipart from 'utils/multipart';
 
-function PartyUpdate(props, { history }) {
+function PartyUpdate(props) {
 
   const { preview, setPreview } = useState('');
-
-  useEffect(() => {
-  }, []);
-
-  function getPartyRead() {
-    // api.get(``)
-
-  }
 
   function getContents(text) {
     console.log('text', text);

@@ -22,7 +22,6 @@ class PartyWrite extends Component {
 
   submit(e) {
     e.preventDefault();
-    const startdate = e.target.startdate.value
     api.post('/hobby/chimi', {
       category: e.target.category.value,
       description: this.state.editorData,

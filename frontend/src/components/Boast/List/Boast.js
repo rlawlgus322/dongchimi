@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Sdiv = styled.div`
   margin-bottom: 30px;
 `;
+
 const Tdiv = styled.div`
-  
   margin-top: 10px;
   margin-bottom: 10px;
 `;
@@ -23,6 +23,7 @@ const Bdiv = styled.div`
   overflow: hidden;
   border-radius: 10px;
 `;
+
 const Round = styled.div`
 border-radius: 10px;
 border : 3px solid #d0e7ce;
@@ -42,7 +43,10 @@ const ProfileImg = styled.img`
 class Boast extends Component {
   render() {
     const path = JSON.parse(this.props.boast.boast.postImg)[0];
-    const image = "https://k3a409.p.ssafy.io" + path;
+    let image = "https://k3a409.p.ssafy.io/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png";
+    if (path !== undefined) {
+      image = "https://k3a409.p.ssafy.io" + path;
+    }
     const backgroundImage = {
       backgroundImage: `url(${image})`,
     };
@@ -56,31 +60,31 @@ class Boast extends Component {
           <ProfileImg src={profileImage} />
           {this.props.boast.nickname}
         </Mp>
-            <Round>
-        <Bdiv
-          style={backgroundImage}
-          onClick={() =>
-            this.props.history.push(`/boast/${this.props.boast.boast.bid}`)
-          }
-        ></Bdiv>
-        <Tdiv>
-        <div className="row">
-          <div className="col-4" style={{ padding: "5px 20px  5px 45px"}}>
-            <FontAwesomeIcon icon={['far', 'eye']} size='lg' />
-            {this.props.boast.boast.views}
-          </div>
-          <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
-            {
-              this.props.boast.liked === true ? <FontAwesomeIcon icon={['fas', 'heart']} color="crimson"  size='lg' /> : <FontAwesomeIcon icon={['far', 'heart']}  size='lg' />
+        <Round>
+          <Bdiv
+            style={backgroundImage}
+            onClick={() =>
+              this.props.history.push(`/boast/${this.props.boast.boast.bid}`)
             }
-            {this.props.boast.boast.likes}
-          </div>
-          <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
-            <FontAwesomeIcon icon={['fas', 'comment-dots' ]} size='lg' />
-          </div>
-        </div>
-        </Tdiv>
-        <Mp>{this.props.boast.boast.contents}</Mp>
+          ></Bdiv>
+          <Tdiv>
+            <div className="row">
+              <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
+                <FontAwesomeIcon icon={['far', 'eye']} size='lg' />
+                {this.props.boast.boast.views}
+              </div>
+              <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
+                {
+                  this.props.boast.liked === true ? <FontAwesomeIcon icon={['fas', 'heart']} color="crimson" size='lg' /> : <FontAwesomeIcon icon={['far', 'heart']} size='lg' />
+                }
+                {this.props.boast.boast.likes}
+              </div>
+              <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
+                <FontAwesomeIcon icon={['fas', 'comment-dots']} size='lg' />
+              </div>
+            </div>
+          </Tdiv>
+          <Mp>{this.props.boast.boast.contents}</Mp>
         </Round>
       </Sdiv>
     );

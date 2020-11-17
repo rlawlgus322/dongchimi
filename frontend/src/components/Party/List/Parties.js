@@ -5,11 +5,11 @@ import Party from './Party';
 const PartiesBody = styled.div`
   position: relative;
   display: flex;
-  width: 100vw;
-  height: 70vh;
+  width: 90vw;
+  height: 120vh;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin: 50px 5vw;
 `;
 
 const FlexBox = styled.div`

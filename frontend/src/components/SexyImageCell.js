@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SexyImageCellBody = styled.div`
@@ -40,7 +40,8 @@ const ContentOverlay = styled(Link)`
   padding-top: 200px;
   transition: all 0.35s ease-in-out;
   opacity: 0;
-  font-size: 2em;
+  font-size:1.5em;
+  font-family: 'NanumSquare', sans-serif;
   &:hover{
     opacity: 1;
     padding-top: 10px;
@@ -49,16 +50,16 @@ const ContentOverlay = styled(Link)`
 `
 
 function SexyImageCell(props) {
-  const {url, className, content, bid} = props;
+  const { url, className, content, bid } = props;
   return (
-  <SexyImageCellBody className={className}>
-    <Overlay>
-      <Image src={url}/>
-      <ContentOverlay to={`/boast/${bid}`}>
-        {content}
-      </ContentOverlay>
-    </Overlay>
-  </SexyImageCellBody>
+    <SexyImageCellBody className={className}>
+      <Overlay>
+        <Image src={url} />
+        <ContentOverlay to={`/boast/${bid}`}>
+          {content}
+        </ContentOverlay>
+      </Overlay>
+    </SexyImageCellBody>
   )
 }
 

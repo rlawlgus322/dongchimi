@@ -93,48 +93,56 @@ function PartyList({ history }) {
   const [keyword, setKeyword] = useState(null); // 검색어
   const [category, setCategory] = useState(null); // 카테고리
   const [isEven, setIsEven] = useState(true);
+  const [isFirst, setIsFirst] = useState(false);
   const logged = sessionStorage.getItem('token') === null ? false : true;
 
   useEffect(() => {
-    getLists();
-  }, [page, category]);
+    function getLists() {
+      api
+        .get('/hobby/chimi', {
+          params: {
+            page: page - 1,
+            size: 12,
+            name: keyword,
+            category: category,
+          },
+          headers: {
+            accessToken: sessionStorage.getItem('token'),
+          },
+        })
+        .then(({ data }) => {
+          setTotalItemsCount(data.cnt);
+          if (!isFirst) {
+            setParties1(data.chimiResponse);
+            setParties2(data.chimiResponse);
+            setIsFirst(true);
+            return;
+          }
+          if (isEven) {
+            setParties1(data.chimiResponse);
+          } else {
+            setParties2(data.chimiResponse);
+          }
+          setIsEven(!isEven);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
 
-  function getLists() {
-    api
-      .get('/hobby/chimi', {
-        params: {
-          page: page - 1,
-          size: 12,
-          name: keyword,
-          category: category,
-        },
-        headers: {
-          accessToken: sessionStorage.getItem('token'),
-        },
-      })
-      .then(({ data }) => {
-        if (isEven) {
-          setParties1(data.chimiResponse);
-        } else {
-          setParties2(data.chimiResponse);
-        }
-        setIsEven(!isEven);
-        setTotalItemsCount(data.cnt);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    getLists();
+  }, [page, category, keyword]);
 
   function handlePageChange(pageNumber) {
     setPage(pageNumber);
   }
 
-  function handleKeywordChange(e) {
-    if (e.target.value === '') {
+  function handleKeywordChange() {
+    const keyword = document.getElementById('keyword').value;
+    if (keyword === '') {
       setKeyword(null);
     } else {
-      setKeyword(e.target.value);
+      setKeyword(keyword);
     }
   }
 
@@ -185,14 +193,14 @@ function PartyList({ history }) {
           </CategoryList>
         </WholeCategoryList>
       </CategoryContainer>
-      <div style={{ textAlign: 'right' }}>
+      <div style={{ textAlign: 'right', width: '90vw', margin: '0 5vw' }}>
         {/** 검색창 */}
         <input
           type="text"
           placeholder="search"
-          onChange={handleKeywordChange}
+          id="keyword"
         />
-        <button onClick={getLists}>검색</button>
+        <button onClick={handleKeywordChange}>검색</button>
         <br></br>
         {logged && (
           <button onClick={() => history.push('/party/write')}>

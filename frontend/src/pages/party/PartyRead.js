@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PartyInfo from '../../components/Party/Read/PartyInfo';
-import PartyOpener from '../../components/Party/Read/PartyOpener';
 import PartyComment from '../../components/Party/Read/PartyComment';
 import PartyChat from '../../components/Party/Read/PartyChat';
 import PartyApplicant from '../../components/Party/Read/PartyApplicant';
@@ -52,13 +51,13 @@ class PartyRead extends Component {
         ></PartyInfo>
         <div className='row'>
           <div className='col-6'>
-         
-          <div className="detail">Detailed Description</div>
+
+            <div className="detail">Detailed Description</div>
             {/* {
               this.state.data.chimi !== undefined &&
               <PartyOpener nickname={this.state.data.nickname} />
             } */}
-            
+
             {
               this.state.data.chimi !== undefined &&
               <div className="maindesc" dangerouslySetInnerHTML={{ __html: this.state.data.chimi.description }} />
@@ -85,9 +84,9 @@ class PartyRead extends Component {
               (this.state.type === 2 || this.state.type === 3) &&
               this.state.data.chimi !== undefined &&
               !this.state.data.chimi.isstart &&
-              <div  className="isStart" style={{ width : "350px",marginLeft : "200px", paddingLeft : "25px"}}>파티 시작일까지 아직 기다려주세요!</div>
+              <div className="isStart" style={{ width: "350px", marginLeft: "200px", paddingLeft: "25px" }}>파티 시작일까지 아직 기다려주세요!</div>
             }
-             
+
           </div>
         </div>
       </>

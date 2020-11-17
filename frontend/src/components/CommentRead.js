@@ -48,11 +48,11 @@ function CommentRead(props) {
 
   return (
     <CommentReadBody>
-      {/* <UserInfoBar
+      <UserInfoBar
         thumbnail="https://avatars0.githubusercontent.com/u/33210021?s=60&v=4"
         id="hideOnBush"
         isMoreButton={false}
-      /> */}
+      />
       <CommentText>댓글</CommentText>
       <CommentReadFooter>
         <Date>2020-10-04</Date>
