@@ -93,7 +93,36 @@ function PartyList({ history }) {
   const [keyword, setKeyword] = useState(null); // 검색어
   const [category, setCategory] = useState(null); // 카테고리
   const [isEven, setIsEven] = useState(true);
+  const [isFirst, setIsFirst] = useState(false);
   const logged = sessionStorage.getItem('token') === null ? false : true;
+
+  // useEffect(() => {
+  //   function getLists() {
+  //     api
+  //       .get('/hobby/chimi', {
+  //         params: {
+  //           page: page - 1,
+  //           size: 12,
+  //           name: keyword,
+  //           category: category,
+  //         },
+  //         headers: {
+  //           accessToken: sessionStorage.getItem('token'),
+  //         },
+  //       })
+  //       .then(({ data }) => {
+  //         setParties1(data.chimiResponse);
+  //         setParties2(data.chimiResponse);
+  //         setIsEven(!isEven);
+  //         setTotalItemsCount(data.cnt);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   };
+
+  //   getLists();
+  // }, []);
 
   useEffect(() => {
     function getLists() {
@@ -110,6 +139,12 @@ function PartyList({ history }) {
           },
         })
         .then(({ data }) => {
+          if (!isFirst) {
+            setParties1(data.chimiResponse);
+            setParties2(data.chimiResponse);
+            setIsFirst(true);
+            return;
+          }
           if (isEven) {
             setParties1(data.chimiResponse);
           } else {
@@ -186,7 +221,7 @@ function PartyList({ history }) {
           </CategoryList>
         </WholeCategoryList>
       </CategoryContainer>
-      <div style={{ textAlign: 'right' }}>
+      <div style={{ textAlign: 'right', width: '90vw', margin: '0 5vw' }}>
         {/** 검색창 */}
         <input
           type="text"

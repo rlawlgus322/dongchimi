@@ -6,8 +6,8 @@
 /* $pink: darken($pale, 20%); */
 /* $pink: darken(#EAC7CC, 20%); */
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lora');
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lora');
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css'); */
 .nanumsquare {
     font-family: 'NanumSquare', sans-serif !important;
 }
@@ -313,7 +313,7 @@ input[type=checkbox] {
     margin: 10px 0;
     border: none;
     height: 1.5px;
-    background-image: linear-gradient(left, #f0f0f0, #c9bbae, #f0f0f0);
+    background-image: linear-gradient("to left", #f0f0f0, #c9bbae, #f0f0f0);
   }
   
   /* ===== Select Box ===== */
