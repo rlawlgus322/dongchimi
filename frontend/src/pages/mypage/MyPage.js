@@ -8,21 +8,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import './Register.css'
 
-const MypageDiv = styled.div`
-  font-size: 1.5rem;
-  padding-bottom: 0.5rem;
-  outline: none;
-  width: 100%;
-  margin-top : 30px;
-  border-bottom:2px solid #d0e7ce
-`
-const MypageBack = styled.span`
-  background-color: #d0e7ce;
-`
-const Recomdiv = styled.p`
-
-`
-
 const Recomdivin = styled.div`
   font-size : 30px;
   margin-bottom : 30px;
@@ -34,15 +19,26 @@ function MyPage(props) {
   const [userInfo, setUserInfo] = useState([]);
   const [email, setEmail] = useState('');
   const [items, setItems] = useState([]);
-  const [hid, setHid] = useState('');
-  const [partyImg, setPartyImg] = useState('');
-  const [partyName, setPartyName] = useState('');
 
   useEffect(() => {
     fetchUserinfo();
   }, [])
 
   useEffect(() => {
+    function recommendChimi() {
+      if (email === '') return;
+      axios.get('https://k3a409.p.ssafy.io:8090/item', {
+        params: {
+          email: email
+        }
+      }).then(({ data }) => {
+        // console.log('item', data.recommendlist);
+        setItems(data.recommendlist);
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+
     recommendChimi();
   }, [email])
 
@@ -54,34 +50,15 @@ function MyPage(props) {
       }
     })
       .then(({ data }) => {
-        console.log('user info', data);
-        console.log('email', data.email);
-        // console.log('user info', res.data);
-        // this.setState({ userInfo: res.data });
+        // console.log('user info', data);
         setUserInfo(data);
         const path = data.profileImage !== null ? data.profileImage : '/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png'
-        // this.setState({ image: 'https://k3a409.p.ssafy.io' + path });
         setImage('https://k3a409.p.ssafy.io' + path);
-        // this.setState({ email: res.data.email });
         setEmail(data.email);
       })
       .catch(err => {
         console.log(err)
       })
-  }
-
-  function recommendChimi() {
-    if (email === '') return;
-    axios.get('https://k3a409.p.ssafy.io:8090/item', {
-      params: {
-        email: email
-      }
-    }).then(({ data }) => {
-      console.log('item', data.recommendlist);
-      setItems(data.recommendlist);
-    }).catch((err) => {
-      console.log(err);
-    })
   }
 
   return (
@@ -92,14 +69,14 @@ function MyPage(props) {
         </Col>
         <Col>
           <br />
-          <div className = "myInfo">이메일: {userInfo.email}</div>
-          <div className = "myInfo">이름: {userInfo.username}</div>
-          <div className = "myInfo">성별: {userInfo.gender === 1 ? "여성" : "남성"}</div>
-          <div className = "myInfo">닉네임: {userInfo.nickname}</div>
-          <div className = "myInfo">선호 카테고리</div>
-          <div className = "myInfo"> &nbsp;&nbsp; 1순위 - {userInfo.prefer1}</div>
-          <div className = "myInfo">&nbsp;&nbsp; 2순위 - {userInfo.prefer2}</div>
-          <div className = "myInfo">&nbsp;&nbsp; 3순위 - {userInfo.prefer3}</div>
+          <div className="myInfo">이메일: {userInfo.email}</div>
+          <div className="myInfo">이름: {userInfo.username}</div>
+          <div className="myInfo">성별: {userInfo.gender === 1 ? "여성" : "남성"}</div>
+          <div className="myInfo">닉네임: {userInfo.nickname}</div>
+          <div className="myInfo">선호 카테고리</div>
+          <div className="myInfo"> &nbsp;&nbsp; 1순위 - {userInfo.prefer1}</div>
+          <div className="myInfo">&nbsp;&nbsp; 2순위 - {userInfo.prefer2}</div>
+          <div className="myInfo">&nbsp;&nbsp; 3순위 - {userInfo.prefer3}</div>
         </Col>
       </Row>
       <MypageTab></MypageTab>
@@ -113,6 +90,7 @@ function MyPage(props) {
                 onClick={() => {
                   props.history.push(`/party/${item[0]}`)
                 }}
+                alt="thumbnail"
               />
             </div>
           ))

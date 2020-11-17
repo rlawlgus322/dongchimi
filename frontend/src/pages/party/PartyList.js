@@ -96,45 +96,46 @@ function PartyList({ history }) {
   const logged = sessionStorage.getItem('token') === null ? false : true;
 
   useEffect(() => {
-    getLists();
-  }, [page, category]);
+    function getLists() {
+      api
+        .get('/hobby/chimi', {
+          params: {
+            page: page - 1,
+            size: 12,
+            name: keyword,
+            category: category,
+          },
+          headers: {
+            accessToken: sessionStorage.getItem('token'),
+          },
+        })
+        .then(({ data }) => {
+          if (isEven) {
+            setParties1(data.chimiResponse);
+          } else {
+            setParties2(data.chimiResponse);
+          }
+          setIsEven(!isEven);
+          setTotalItemsCount(data.cnt);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
 
-  function getLists() {
-    api
-      .get('/hobby/chimi', {
-        params: {
-          page: page - 1,
-          size: 12,
-          name: keyword,
-          category: category,
-        },
-        headers: {
-          accessToken: sessionStorage.getItem('token'),
-        },
-      })
-      .then(({ data }) => {
-        if (isEven) {
-          setParties1(data.chimiResponse);
-        } else {
-          setParties2(data.chimiResponse);
-        }
-        setIsEven(!isEven);
-        setTotalItemsCount(data.cnt);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    getLists();
+  }, [page, category, keyword]);
 
   function handlePageChange(pageNumber) {
     setPage(pageNumber);
   }
 
-  function handleKeywordChange(e) {
-    if (e.target.value === '') {
+  function handleKeywordChange() {
+    const keyword = document.getElementById('keyword').value;
+    if (keyword === '') {
       setKeyword(null);
     } else {
-      setKeyword(e.target.value);
+      setKeyword(keyword);
     }
   }
 
@@ -190,9 +191,9 @@ function PartyList({ history }) {
         <input
           type="text"
           placeholder="search"
-          onChange={handleKeywordChange}
+          id="keyword"
         />
-        <button onClick={getLists}>검색</button>
+        <button onClick={handleKeywordChange}>검색</button>
         <br></br>
         {logged && (
           <button onClick={() => history.push('/party/write')}>

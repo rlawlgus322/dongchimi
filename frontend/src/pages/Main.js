@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MovingImageList from 'components/MovingImageList';
 import api from "utils/api";
@@ -10,26 +10,30 @@ const MainBody = styled.div`
 function Main() {
   const [boastList, setBoastList] = useState([]);
 
-  useEffect(async () => {
-    try{
-      const {data} = await api.get("boast/all",  {
-        params: {
-          size: 30
-        },
-        headers: {
-          accessToken: sessionStorage.getItem("token")
-        }
-      })
-      setBoastList(data);
-    }catch(error){
-      console.error(error);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await api.get("boast/all", {
+          params: {
+            size: 30
+          },
+          headers: {
+            accessToken: sessionStorage.getItem("token")
+          }
+        })
+        setBoastList(data);
+      } catch (error) {
+        console.error(error);
+      }
     }
+
+    fetchData();
   }, [])
 
 
   return (
     <MainBody>
-      <MovingImageList boastList={boastList}/>
+      <MovingImageList boastList={boastList} />
       <IndexBottom></IndexBottom>
     </MainBody>
   )
