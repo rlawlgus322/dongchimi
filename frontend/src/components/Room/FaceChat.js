@@ -1,34 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import styled from "styled-components";
 import "./FaceChat.css";
-import { Container } from "@material-ui/core";
-
-// const Container = styled.div`
-// padding: 20px;
-// display: flex;
-// height: 100vh;
-// width: 90%;
-// margin: auto;
-// flex-wrap: wrap;
-// `;
-
-const StyledVideo = styled.video`
-height: 40%;
-width: 50%;
-`;
-
-const ActiveVideo = styled.video`
-height: 60%;
-width: 70%;
-border: solid;
-`;
-
-const InactiveVideo = styled.video`
-height: 40%;
-width: 50%;
-`;
 
 const Video = (props) => {
     const ref = useRef();
@@ -66,14 +39,15 @@ const videoConstraints = {
 const Room = (props) => {
     const [peers, setPeers] = useState([]);
     const [inactive, setInactive] = useState([]);
-    const [active, setActive] = useState();
+    // const [active, setActive] = useState();
     const [all, setAll] = useState([]);
     const socketRef = useRef();
     const userVideo = useRef();
     const peersRef = useRef([]);
     // const roomID = props.match.params.roomID;
-    const { roomID, name } = props;
-    const tempRef = useRef();
+    // const { roomID, name } = props;
+    const { roomID } = props;
+    // const tempRef = useRef();
 
     useEffect(() => {
         socketRef.current = io.connect("/", { transforts: ['websocket'] }, { path: "/socket.io/" });
@@ -160,14 +134,7 @@ const Room = (props) => {
         return peer;
     }
 
-    function changeActivePeer(e) {
-        // userVideo 에 현재 선택한 친구 넣어주고
-        // peers를 다시 업데이트 해주자!
-        console.log('changeActive', e);
-    }
-
     return (
-        // <Container>
         <div className="video-container">
             {/* <StyledVideo muted ref={userVideo} autoPlay playsInline /> */}
             {/* <ActiveVideo muted ref={userVideo} autoPlay playsInline /> */}
@@ -181,7 +148,6 @@ const Room = (props) => {
                 );
             })}
         </div>
-        // </Container>
     );
 };
 

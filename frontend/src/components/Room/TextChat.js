@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import io from "socket.io-client";
 
 import Messages from "./Messages";
-import RoomInfo from './RoomInfo';
 import Input from './Input';
 
 import Paper from "@material-ui/core/Paper";

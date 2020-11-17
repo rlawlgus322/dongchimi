@@ -6,28 +6,29 @@ import Pagination from 'react-js-pagination';
 function BoastList({ history }) {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalItemsCount, setTotalItemsCount] = useState(1); // 전체 데이터 개수
+  // const [totalItemsCount, setTotalItemsCount] = useState(1); // 전체 데이터 개수
 
   useEffect(() => {
+    function getBoastList() {
+      api.get('/boast/all', {
+        params: {
+          page: page - 1,
+          size: 12,
+        },
+        headers: {
+          accessToken: sessionStorage.getItem('token'),
+        }
+      }).then(({ data }) => {
+        // console.log('boast list', data);
+        setData(data);
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+
     getBoastList();
   }, [page]);
 
-  function getBoastList() {
-    api.get('/boast/all', {
-      params: {
-        page: page - 1,
-        size: 12,
-      },
-      headers: {
-        accessToken: sessionStorage.getItem('token'),
-      }
-    }).then(({ data }) => {
-      // console.log('boast list', data);
-      setData(data);
-    }).catch((err) => {
-      console.log(err);
-    })
-  }
 
   function handlePageChange(pageNumber) {
     // console.log('active page ', pageNumber);
@@ -36,7 +37,7 @@ function BoastList({ history }) {
 
   return (
     <>
-      
+
       <div style={{ textAlign: "right" }}>
         {
           sessionStorage.getItem('token') !== null &&

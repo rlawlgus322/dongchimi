@@ -25,11 +25,6 @@ const Logo = styled(Link)`
   font-family:Cafe24Ohsquare;
 
 `
-const ico = styled.image`
-  margin-top: 20px;
-  width:"50px"
-
-`
 
 const List = styled.ul`
   position: relative;
@@ -133,7 +128,7 @@ export default withRouter(({ location: { pathname } }) => {
             <SLink to="/mypage">마이페이지</SLink>
           </Item>
         }
-        {isLogin ? <SLink onClick={logout}>로그아웃</SLink> : <LoginModal />}
+        {isLogin ? <SLink to="/" onClick={logout}>로그아웃</SLink> : <LoginModal />}
         <Curtain isMenuOpened={isMenuOpened} />
       </List>
 

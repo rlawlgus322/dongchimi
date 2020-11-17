@@ -8,7 +8,6 @@ import dongchimi2 from 'lib/dongchimi2.png';
 import styled from 'styled-components';
 window.$ = window.jQuery = jQuery;
 
-
 const Li = styled.li`
   margin-left: 15px;
   cursor: pointer;
@@ -28,13 +27,13 @@ function LoginModal({ history }) {
     useEffect(() => {
         /* ===== Logic for creating fake Select Boxes ===== */
         window.$('.sel').each(function () {
-            console.log( window.$(this));
+            console.log(window.$(this));
             window.$(this).children('select').css('display', 'none');
 
             var $current = window.$(this);
             console.log($current);
             window.$(this).find('option').each(function (i) {
-                if (i == 0) {
+                if (i === 0) {
                     $current.prepend(window.$('<div>', {
                         class: $current.attr('class').replace(/sel/g, 'sel__box')
                     }));
@@ -63,8 +62,8 @@ function LoginModal({ history }) {
             window.$(this).toggleClass('active');
         });
 
-         // Toggling the `.selected` state on the options.
-         window.$('.sel__box__options').click(function () {
+        // Toggling the `.selected` state on the options.
+        window.$('.sel__box__options').click(function () {
             var txt = window.$(this).text();
             var index = window.$(this).index();
 
@@ -148,7 +147,7 @@ function LoginModal({ history }) {
         e.preventDefault();
         api.get(`auth/userinfo/isemail/${email.email}`)
             .then(({ data }) => {
-                { data ? alert("이미 존재하는 이메일입니다.") : alert("사용 가능한 이메일입니다.") }
+                data ? alert("이미 존재하는 이메일입니다.") : alert("사용 가능한 이메일입니다.")
             })
             .catch(err => {
                 console.log(err)
@@ -159,7 +158,7 @@ function LoginModal({ history }) {
         e.preventDefault();
         api.get(`auth/userinfo/isnick/${nickname.nickname}`)
             .then(({ data }) => {
-                { data ? alert("이미 존재하는 닉네임입니다.") : alert("사용 가능한 닉네임입니다.") }
+                data ? alert("이미 존재하는 닉네임입니다.") : alert("사용 가능한 닉네임입니다.")
                 console.log(data)
             })
             .catch(err => {
@@ -176,36 +175,30 @@ function LoginModal({ history }) {
         setNickname({ nickname: e.target.value })
     }
 
-
     return (
         <>
             <Li onClick={handleShow}>
                 로그인
             </Li>
-
             <Modal style show={show} onHide={handleClose} size="lg" centered >
-
                 <div className="welcome">
                     <div className="pinkbox">
                         <div className="signup nodisplay">
                             <h1 className="register">register</h1>
-                            <form  onSubmit={signin}>
-                                <div className="oneline"><input type="text"  name="email" placeholder="email" onChange={changeEmail} /><button onClick={eCheck}>중복확인</button></div>
+                            <form onSubmit={signin}>
+                                <div className="oneline"><input type="text" name="email" placeholder="email" onChange={changeEmail} /><button onClick={eCheck}>중복확인</button></div>
                                 <input type="password" name="password" placeholder="password"></input>
                                 <input type="password" name="passwordConfirm" placeholder="confirm password"></input>
                                 <input type="text" name="name" placeholder="username"></input>
                                 <div className="oneline"><input className="nick" name="nickname" type="text" placeholder="nickname" onChange={changeNickname} /> <button onClick={nCheck}>중복확인</button></div>
-
                                 <div className="radio">
                                     <label className="genderTitle" >성별</label>
                                     <input className="radiobutton" type="radio" name="gender" value="1" defaultChecked /> <label className="gender" >여자 </label>
                                     <input className="radiobutton" type="radio" name="gender" value="2" /> <label className="gender">남자 </label>
                                 </div>
-
                                 <label className="category" >선호 카테고리</label>
                                 <div>
                                     <div className="sel sel--black-panther">
-
                                         <select className="sel sel--black-panther" id="select-profession" name="category1">
                                             <option value="">1순위</option>
                                             <option value="유화">유화</option>
@@ -233,7 +226,6 @@ function LoginModal({ history }) {
                                             <option value="관악기">관악기</option>
                                             <option value="댄스">댄스</option>
                                         </select>
-
                                     </div>
                                     <div className="sel sel--black-panther">
                                         <select className="sel sel--black-panther" id="select-profession" name="category2">
@@ -263,10 +255,8 @@ function LoginModal({ history }) {
                                             <option value="관악기">관악기</option>
                                             <option value="댄스">댄스</option>
                                         </select>
-
                                     </div>
                                     <div className="sel sel--black-panther">
-
                                         <select className="sel sel--black-panther" id="select-profession" name="category3">
                                             <option value="">3순위</option>
                                             <option value="유화">유화</option>
@@ -307,11 +297,9 @@ function LoginModal({ history }) {
                                 <div className="checkbox">
                                     <input type="checkbox" id="remember" /><label htmlFor="remember">remember me</label>
                                 </div>
-
                                 <button className="button submit" type="submit" value="로그인">login</button>
                             </form>
                         </div>
-
                     </div>
                     <div className="leftbox">
                         <h2 className="title"><span>동</span>취미</h2>
@@ -323,13 +311,11 @@ function LoginModal({ history }) {
                     <div className="rightbox">
                         <h2 className="title"><span>동</span>취미</h2>
                         <p className="desc"> 동일한 <span>취미</span>를 찾다</p>
-                        <img className="flower" src={dongchimi2} />
+                        <img className="flower" src={dongchimi2} alt="chimi" />
                         <p className="account nanumsquare">계정이 없으신가요?</p>
                         <button className="button signbutton" id="signup">회원가입</button>
                     </div>
                 </div>
-
-
             </Modal>
         </>
     );

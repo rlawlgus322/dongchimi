@@ -1,14 +1,15 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import './party.css';
 
 function Party(props) {
-  const {isShow, party, delay} = props;
+  const { isShow, party, delay } = props;
 
   useEffect(() => {
     const thisDOM = document.getElementById(`partyItem${delay}${isShow}`);
     setTimeout(() => {
       thisDOM.style.opacity = isShow ? "1" : "0";
+      thisDOM.style.zIndex = isShow ? "5" : "0"
       thisDOM.style.padding = isShow ? "0px" : "110px";
     }, delay)
   }, [isShow, delay]);
