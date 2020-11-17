@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import Boast from './Boast';
+import styled from 'styled-components';
 
+const BoastsBody = styled.div`
+  position: relative;
+  display: flex;
+  width: 90vw;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 5vw;
+`;
 
 class Boasts extends Component {
 
@@ -11,9 +20,9 @@ class Boasts extends Component {
       });
     }
     return (
-      <div className="row d-flex justify-content-center">
+      <BoastsBody className="row d-flex justify-content-center">
         {mapToComponent(this.props.boasts)}
-      </div>
+      </BoastsBody>
     );
   }
 }
