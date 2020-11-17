@@ -28,11 +28,25 @@ const globalStyles = createGlobalStyle`
       outline: none;
     }
   }
+
   .pagination {
     display: inline-block !important;
   }
   .pagination > li {
     display: inline-block;
+  }
+  .page-link {
+    color: #7dbb77;
+  }
+  .page-item.active .page-link {
+    background-color: #7dbb77 !important;
+    border-color: #7dbb77 !important;
+  }
+
+  video {
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
   }
   .active-video {
     height: 75%;
@@ -42,11 +56,6 @@ const globalStyles = createGlobalStyle`
   .inactive-video {
     height: 25% !important;
   };
-  video {
-    transform: rotateY(180deg);
-    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
-    -moz-transform:rotateY(180deg); /* Firefox */
-  }
 `;
 
 export default globalStyles;

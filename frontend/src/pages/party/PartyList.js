@@ -96,34 +96,6 @@ function PartyList({ history }) {
   const [isFirst, setIsFirst] = useState(false);
   const logged = sessionStorage.getItem('token') === null ? false : true;
 
-  // useEffect(() => {
-  //   function getLists() {
-  //     api
-  //       .get('/hobby/chimi', {
-  //         params: {
-  //           page: page - 1,
-  //           size: 12,
-  //           name: keyword,
-  //           category: category,
-  //         },
-  //         headers: {
-  //           accessToken: sessionStorage.getItem('token'),
-  //         },
-  //       })
-  //       .then(({ data }) => {
-  //         setParties1(data.chimiResponse);
-  //         setParties2(data.chimiResponse);
-  //         setIsEven(!isEven);
-  //         setTotalItemsCount(data.cnt);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
-
-  //   getLists();
-  // }, []);
-
   useEffect(() => {
     function getLists() {
       api
@@ -139,6 +111,7 @@ function PartyList({ history }) {
           },
         })
         .then(({ data }) => {
+          setTotalItemsCount(data.cnt);
           if (!isFirst) {
             setParties1(data.chimiResponse);
             setParties2(data.chimiResponse);
@@ -151,7 +124,6 @@ function PartyList({ history }) {
             setParties2(data.chimiResponse);
           }
           setIsEven(!isEven);
-          setTotalItemsCount(data.cnt);
         })
         .catch((err) => {
           console.log(err);
