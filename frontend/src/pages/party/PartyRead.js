@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import PartyInfo from '../../components/Party/Read/PartyInfo';
-import PartyComment from '../../components/Party/Read/PartyComment';
-import PartyChat from '../../components/Party/Read/PartyChat';
-import PartyApplicant from '../../components/Party/Read/PartyApplicant';
-import api from '../../utils/api';
+import PartyInfo from 'components/Party/Read/PartyInfo';
+import PartyComment from 'components/Party/Read/PartyComment';
+import PartyChat from 'components/Party/Read/PartyChat';
+import PartyApplicant from 'components/Party/Read/PartyApplicant';
+import api from 'utils/api';
 import './mainParty.css'
 
 class PartyRead extends Component {

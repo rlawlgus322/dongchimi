@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Boast from './Boast';
+import Boast from 'components/Boast/List/Boast';
 import styled from 'styled-components';
 
 const BoastsBody = styled.div`

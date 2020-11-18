@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import Editor from '../../components/Party/Editor';
-import api from '../../utils/api';
-import multipart from '../../utils/multipart';
+import Editor from 'components/Party/Editor';
+import api from 'utils/api';
+import multipart from 'utils/multipart';
 
 class PartyWrite extends Component {
   constructor(props) {

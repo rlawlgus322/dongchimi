@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { NavLink, withRouter } from 'react-router-dom';
 import LoginModal from '../mypage/LoginModal';
 import _default from 'react-bootstrap/esm/CardColumns';
-import api from '../../utils/api';
+import api from 'utils/api';
 
 const Ul = styled.ul`
   list-style: none;
