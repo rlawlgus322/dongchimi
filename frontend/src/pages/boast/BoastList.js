@@ -37,8 +37,7 @@ function BoastList({ history }) {
 
   return (
     <>
-
-      <div style={{ textAlign: "right" }}>
+      <div style={{ textAlign: "right", width: '90vw', margin: '0 5vw' }}>
         {
           sessionStorage.getItem('token') !== null &&
           <button

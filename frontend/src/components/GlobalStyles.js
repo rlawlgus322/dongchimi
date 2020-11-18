@@ -29,6 +29,10 @@ const globalStyles = createGlobalStyle`
     }
   }
 
+  .category-selected {
+    background-color: #7dbb77;
+  }
+
   .pagination {
     display: inline-block !important;
   }
@@ -37,6 +41,9 @@ const globalStyles = createGlobalStyle`
   }
   .page-link {
     color: #7dbb77;
+    :hover {
+      color: #2e552b;
+    }
   }
   .page-item.active .page-link {
     background-color: #7dbb77 !important;
