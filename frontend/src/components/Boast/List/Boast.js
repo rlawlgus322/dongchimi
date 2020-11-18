@@ -27,6 +27,10 @@ const Bdiv = styled.div`
 const Round = styled.div`
 border-radius: 10px;
 border : 3px solid #d0e7ce;
+padding: 5px;
+  :hover {
+    border : 3px solid #7dbb77;
+  }
 `
 
 const Mp = styled.p`
@@ -38,6 +42,15 @@ const ProfileImg = styled.img`
   height: 35px;
   margin: 5px 5px -5px;
   border-radius: 100%;
+`;
+
+const IconBox = styled.div`
+  margin: 5px 10px;
+  text-align: center;
+`;
+
+const Icon = styled.div`
+  width: 33.3%;
 `;
 
 class Boast extends Component {
@@ -68,21 +81,22 @@ class Boast extends Component {
             }
           ></Bdiv>
           <Tdiv>
-            <div className="row">
-              <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
-                <FontAwesomeIcon icon={['far', 'eye']} size='lg' />
+            <IconBox className="row">
+              <Icon>
+                <FontAwesomeIcon icon={['far', 'eye']} size='lg' />&nbsp;&nbsp;
                 {this.props.boast.boast.views}
-              </div>
-              <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
+              </Icon>
+              <Icon>
                 {
                   this.props.boast.liked === true ? <FontAwesomeIcon icon={['fas', 'heart']} color="crimson" size='lg' /> : <FontAwesomeIcon icon={['far', 'heart']} size='lg' />
                 }
+                &nbsp;&nbsp;
                 {this.props.boast.boast.likes}
-              </div>
-              <div className="col-4" style={{ padding: "5px 20px  5px 45px" }}>
-                <FontAwesomeIcon icon={['fas', 'comment-dots']} size='lg' />
-              </div>
-            </div>
+              </Icon>
+              <Icon>
+                <FontAwesomeIcon icon={['fas', 'comment-dots']} size='lg' />&nbsp;&nbsp;
+              </Icon>
+            </IconBox>
           </Tdiv>
           <Mp>{this.props.boast.boast.contents}</Mp>
         </Round>

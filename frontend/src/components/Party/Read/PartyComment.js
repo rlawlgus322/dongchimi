@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import api from '../../../utils/api';
+import api from 'utils/api';
 import "./style.css"
+
 class PartyComment extends Component {
   constructor(props) {
     super(props);
@@ -59,25 +60,23 @@ class PartyComment extends Component {
       <div className="comment">
         {
           this.state.comments.map((comment, index) => {
-            //TODO : 댓글 디자인 다르게 주기!
             if (comment.chimiComment.userId === this.state.userId) { // 댓글쓴이가 글쓴이랑 같을 때
               return (
                 <div key={index}>
                   {comment.nickname} - 파티생성자
-                  <p class="from-me">{comment.chimiComment.content}</p>
+                  <p className="from-me">{comment.chimiComment.content}</p>
                 </div>
               )
             } else {
               return (
-                <div style={{float : "right"}} key={index}>
+                <div style={{ float: "right" }} key={index}>
                   {comment.nickname}
-                  <p class="from-them">{comment.chimiComment.content}</p>
+                  <p className="from-them">{comment.chimiComment.content}</p>
                 </div>
               )
             }
           })
         }
-
 
         <form className="commentForm" onSubmit={this.addComment.bind(this)}>
           <input type="text" name="comment" />

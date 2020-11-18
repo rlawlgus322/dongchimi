@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
 import UserInfoBar from 'components/UserInfoBar';
 import LikeButtonAndCount from 'components/LikeButtonAndCount';
@@ -7,6 +8,7 @@ const CommentReadBody = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin: 10px 0;
 `;
 
 const CommentText = styled.div`
@@ -20,7 +22,10 @@ const CommentReadFooter = styled.div`
   width: 100%;
 `;
 
-const Date = styled.span``;
+const Date = styled.p`
+  color: #7dbb77;
+`;
+
 const AddReplyButton = styled.button`
   border: none;
   background-color: rgba(0, 0, 0, 0);
@@ -40,23 +45,31 @@ const ReplyTextArea = styled.div`
 `;
 
 function CommentRead(props) {
+  const comment = props;
   const [isAddReplyShow, setIsAddReplyShow] = useState(false);
   const toggleReplyTextArea = () => {
     console.log('c');
+    console.log(props);
     setIsAddReplyShow(!isAddReplyShow);
   };
+
+  function getFormatDate(date) {
+    return moment(date).tz('Asia/Seoul').format('YYYY-MM-DD hh:mm');
+  }
 
   return (
     <CommentReadBody>
       <UserInfoBar
-        thumbnail="https://avatars0.githubusercontent.com/u/33210021?s=60&v=4"
-        id="hideOnBush"
+        thumbnail={comment.comment.profileImage === "null" ?
+          "https://k3a409.p.ssafy.io/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png" :
+          "https://k3a409.p.ssafy.io" + comment.comment.profileImage}
+        id={comment.comment.nickname}
         isMoreButton={false}
       />
-      <CommentText>댓글</CommentText>
+      <CommentText>{comment.comment.comment.content}</CommentText>
       <CommentReadFooter>
-        <Date>2020-10-04</Date>
-        <LikeButtonAndCount count={24} />
+        <Date>{getFormatDate(comment.comment.comment.createdate)}</Date>
+        <LikeButtonAndCount count={comment.comment.comment.likes} />
         <AddReplyButton onClick={toggleReplyTextArea}>답글 달기</AddReplyButton>
       </CommentReadFooter>
       <ReplyTextArea

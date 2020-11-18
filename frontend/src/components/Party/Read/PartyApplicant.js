@@ -1,6 +1,6 @@
 import { Component } from "react";
 import React from "react";
-import api from '../../../utils/api';
+import api from 'utils/api';
 
 class PartyApplicant extends Component {
   state = {
@@ -46,8 +46,8 @@ class PartyApplicant extends Component {
     const applicants = this.state.userInfoList.map((userInfo, index) => {
       // console.log('map ', userInfo);
       return (
-        <div style={{marginLeft : "60px"}} key={index}>
-          <div className="badge" style={{marginRight : "70px"}}><div className = "ribbon">{userInfo.nickname}</div></div>
+        <div style={{ marginLeft: "60px" }} key={index}>
+          <div className="badge" style={{ marginRight: "70px" }}><div className="ribbon">{userInfo.nickname}</div></div>
           별점 : <span>{userInfo.star}</span>
           <button className="partybutton" onClick={() => {
             // console.log('accept', userInfo)
@@ -90,7 +90,7 @@ class PartyApplicant extends Component {
     return (
       <>
         <div className="member">신청 대기자 목록</div>
-        { this.state.applicants.length === 0 ? <h2 className="memberlist" style={{marginLeft : "80px"}}>신청 대기자가 없습니다</h2> : applicants}
+        { this.state.applicants.length === 0 ? <h2 className="memberlist" style={{ marginLeft: "80px" }}>신청 대기자가 없습니다</h2> : applicants}
       </>
     )
   }

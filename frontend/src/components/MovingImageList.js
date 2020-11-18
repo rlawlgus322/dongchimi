@@ -6,31 +6,31 @@ const MovingImageListBody = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 500px;
+  height: 75vh;
 `
 
 function MovingImageList(props) {
-  const {boastList} = props;
+  const { boastList } = props;
   const row = 3;
   const col = parseInt(boastList.length / row);
 
   const boastList2D = [];
 
-  for(let i=0;i<row;i++){
+  for (let i = 0; i < row; i++) {
     const tempList = [];
-    for(let j=0;j<col;j++){
-      tempList.push(boastList[i*col + j]);
+    for (let j = 0; j < col; j++) {
+      tempList.push(boastList[i * col + j]);
     }
     boastList2D.push(tempList);
   }
 
   return (
-  <MovingImageListBody>
-    <FlexBoxImageList boastList={boastList2D[0]} size="203" top="0" timeInterval="2100"/>
-    <FlexBoxImageList boastList={boastList2D[1]} size="203" top="203" timeInterval="2300"/>
-    <FlexBoxImageList boastList={boastList2D[2]} size="203" top="406" timeInterval="2200"/>
-  </MovingImageListBody>
-  )  
+    <MovingImageListBody>
+      <FlexBoxImageList boastList={boastList2D[0]} size="203" top="0" timeInterval="2100" />
+      <FlexBoxImageList boastList={boastList2D[1]} size="203" top="203" timeInterval="2300" />
+      <FlexBoxImageList boastList={boastList2D[2]} size="203" top="406" timeInterval="2200" />
+    </MovingImageListBody>
+  )
 }
 
 export default MovingImageList;

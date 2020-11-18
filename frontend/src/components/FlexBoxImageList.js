@@ -44,7 +44,7 @@ function FlexBoxImageList(props) {
   useEffect(() => {
     setImageAndContent(boastList.map((elem) => {
       const { boast: { contents, postImg, bid } } = elem;
-      const url = postImg === "{}" ? "https://images.unsplash.com/photo-1519114563721-eb52c00b9129?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" : getServerImageUrl(JSON.parse(postImg)[0]);
+      const url = postImg === "{}" ? getServerImageUrl("/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png") : getServerImageUrl(JSON.parse(postImg)[0]);
       return {
         contents,
         url,

@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import MypageTab from '../../components/mypage/MypageTab';
+import MypageTab from 'components/mypage/MypageTab';
 import { Container, Row, Col } from 'react-bootstrap';
-import api from '../../utils/api';
+import api from 'utils/api';
 import axios from 'axios';
 import styled from 'styled-components';
 import './Register.css'

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import Parties from '../../components/Party/List/Parties';
+import Parties from 'components/Party/List/Parties';
 import Pagination from 'react-js-pagination';
-import api from '../../utils/api';
+import api from 'utils/api';
 import styled from 'styled-components';
 
 const PartyListBody = styled.div`
@@ -27,11 +27,15 @@ const CategoryList = styled.ul`
 `;
 
 const CategoryListItem = styled.li`
-  margin-right: 20px;
+  // margin-right: 20px;
   flex-shrink: 0;
   color: inherit;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
   cursor: pointer;
+  :hover {
+    background-color: #d0e7ce;
+  }
 `;
 
 const WholeCategoryList = styled.div`
@@ -42,13 +46,15 @@ const WholeCategoryList = styled.div`
   color: white;
   width: 0px;
   height: 0px;
-  transition: all 0.2s ease-in-out;
+  // transition: all 0.2s ease-in-out;
   font-size: 0px;
+  visibility: hidden;
   &.show {
     width: 650px;
     height: 110px;
     padding: 10px;
     font-size: 1em;
+    visibility: visible;
   }
 `;
 
@@ -147,10 +153,41 @@ function PartyList({ history }) {
   }
 
   function handleCategoryChange(e) {
-    if (e.target.textContent === '전체') {
+    if (e.target.textContent === '전체' || category === e.target.textContent) {
       setCategory(null);
+      removeSelectedClass();
     } else {
+      removeSelectedClass();
+      addSelectedClass(e.target.textContent);
       setCategory(e.target.textContent);
+    }
+  }
+
+  function removeSelectedClass() {
+    const categories1 = document.getElementsByTagName('ul')[1];
+    const categories2 = document.getElementsByTagName('ul')[2];
+    for (let i = 0; i < categories1.childElementCount; i++) {
+      categories1.childNodes[i].classList.remove('category-selected');
+    }
+    for (let i = 0; i < categories2.childElementCount; i++) {
+      categories2.childNodes[i].classList.remove('category-selected');
+    }
+  }
+
+  function addSelectedClass(targetText) {
+    const categories1 = document.getElementsByTagName('ul')[1];
+    const categories2 = document.getElementsByTagName('ul')[2];
+    for (let i = 0; i < categories1.childElementCount; i++) {
+      if (categories1.childNodes[i].textContent === targetText) {
+        categories1.childNodes[i].classList.add('category-selected');
+        break;
+      }
+    }
+    for (let i = 0; i < categories2.childElementCount; i++) {
+      if (categories2.childNodes[i].textContent === targetText) {
+        categories2.childNodes[i].classList.add('category-selected');
+        break;
+      }
     }
   }
 
