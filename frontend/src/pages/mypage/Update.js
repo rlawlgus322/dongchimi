@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
-import palette from '../../lib/styles/palette';
-import api from '../../utils/api';
-import multipart from '../../utils/multipart';
+import palette from 'lib/styles/palette';
+import api from 'utils/api';
+import multipart from 'utils/multipart';
 import { Button } from 'react-bootstrap'
 
 const AuthFormBlock = styled.div`

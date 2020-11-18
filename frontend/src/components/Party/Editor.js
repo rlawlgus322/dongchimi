@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 
 // #1 import quill-image-uploader
 import ImageUploader from "quill-image-uploader";
-import multipart from "../../utils/multipart";
+import multipart from "utils/multipart";
 
 // #2 register module
 Quill.register("modules/imageUploader", ImageUploader);

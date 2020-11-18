@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import Editor from '../../components/Party/Editor';
+import Editor from 'components/Party/Editor';
 import multipart from 'utils/multipart';
 
 function PartyUpdate(props) {

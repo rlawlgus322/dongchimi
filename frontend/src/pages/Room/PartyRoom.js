@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FaceChat from '../../components/Room/FaceChat';
-import TextChat from '../../components/Room/TextChat';
-import api from '../../utils/api';
+import FaceChat from 'components/Room/FaceChat';
+import TextChat from 'components/Room/TextChat';
+import api from 'utils/api';
 
 class PartyRoom extends Component {
   state = {

@@ -8,13 +8,6 @@ import JoinParty from './JoinParty';
 import LikeParty from './LikeParty';
 import WaitParty from './WaitParty';
 
-// const obj = {
-//   0: <OpenParty />,
-//   1: <JoinParty />,
-//   2: <JoinedParty />,
-//   3: <LikeParty />,
-// }
-
 class MypageTab extends Component {
   state = {
     activeTab: 0,

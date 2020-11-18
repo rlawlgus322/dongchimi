@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
-import api from '../../utils/api';
-import './login.css';
+import api from 'utils/api';
+import 'components/mypage/login.css';
 import jQuery from "jquery";
 import dongchimi2 from 'lib/dongchimi2.png';
 import styled from 'styled-components';

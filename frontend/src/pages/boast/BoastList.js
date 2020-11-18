@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Boasts from '../../components/Boast/List/Boasts';
+import Boasts from 'components/Boast/List/Boasts';
 import api from 'utils/api';
 import Pagination from 'react-js-pagination';
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
-import palette from '../../lib/styles/palette';
-import api from '../../utils/api';
+import palette from 'lib/styles/palette';
+import api from 'utils/api';
 import { Button } from 'react-bootstrap'
 // import * as EmailValidator from 'email-validator';
 

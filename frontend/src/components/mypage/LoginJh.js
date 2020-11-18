@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
-import api from '../../utils/api';
-import './login.css';
+import api from 'utils/api';
+import 'components/mypage/login.css';
 import jQuery from "jquery";
 import dongchimi2 from 'lib/dongchimi2.png';
 window.$ = window.jQuery = jQuery;
@@ -114,105 +114,105 @@ function LoginModal({ history }) {
                                 <input type="password" placeholder="confirm password"></input>
                                 <input type="text" placeholder="username"></input>
                                 <input className="nick" type="text" placeholder="nickname"></input>
-                                
+
                                 <div className="radio">
-                                <label className="category genderTitle" >성별</label>
+                                    <label className="category genderTitle" >성별</label>
                                     <input className="radiobutton" type="radio" name="gender" value="1" defaultChecked /> <label className="gender" >여자 </label>
                                     <input className="radiobutton" type="radio" name="gender" value="2" /> <label className="gender">남자 </label>
                                 </div>
                                 <label className="category" >선호 카테고리</label>
                                 <div>
-                                <div className="sel sel--black-panther">
+                                    <div className="sel sel--black-panther">
 
-                                    <select id="select-profession" name="category1">
-                                        <option value="">1순위</option>
-                                        <option value="유화">유화</option>
-                                        <option value="수채화">수채화</option>
-                                        <option value="파스텔">파스텔</option>
-                                        <option value="가죽">가죽</option>
-                                        <option value="뜨개질">뜨개질</option>
-                                        <option value="비즈">비즈</option>
-                                        <option value="일러스트">일러스트</option>
-                                        <option value="이모티콘">이모티콘</option>
-                                        <option value="편집">편집</option>
-                                        <option value="촬영">촬영</option>
-                                        <option value="한식">한식</option>
-                                        <option value="양식">양식</option>
-                                        <option value="일식">일식</option>
-                                        <option value="중식">중식</option>
-                                        <option value="세계음식">세계음식</option>
-                                        <option value="헬스">헬스</option>
-                                        <option value="홈트">홈트</option>
-                                        <option value="다이어트">다이어트</option>
-                                        <option value="작곡">작곡</option>
-                                        <option value="작사">작사</option>
-                                        <option value="타악기">타악기</option>
-                                        <option value="현악기">현악기</option>
-                                        <option value="관악기">관악기</option>
-                                        <option value="댄스">댄스</option>
-                                    </select>
-                                
-                                </div>
-                                <div className="sel sel--black-panther">
-                                    <select id="select-profession" name="category2">
-                                        <option value="">2순위</option>
-                                        <option value="유화">유화</option>
-                                        <option value="수채화">수채화</option>
-                                        <option value="파스텔">파스텔</option>
-                                        <option value="가죽">가죽</option>
-                                        <option value="뜨개질">뜨개질</option>
-                                        <option value="비즈">비즈</option>
-                                        <option value="일러스트">일러스트</option>
-                                        <option value="이모티콘">이모티콘</option>
-                                        <option value="편집">편집</option>
-                                        <option value="촬영">촬영</option>
-                                        <option value="한식">한식</option>
-                                        <option value="양식">양식</option>
-                                        <option value="일식">일식</option>
-                                        <option value="중식">중식</option>
-                                        <option value="세계음식">세계음식</option>
-                                        <option value="헬스">헬스</option>
-                                        <option value="홈트">홈트</option>
-                                        <option value="다이어트">다이어트</option>
-                                        <option value="작곡">작곡</option>
-                                        <option value="작사">작사</option>
-                                        <option value="타악기">타악기</option>
-                                        <option value="현악기">현악기</option>
-                                        <option value="관악기">관악기</option>
-                                        <option value="댄스">댄스</option>
-                                    </select>
+                                        <select id="select-profession" name="category1">
+                                            <option value="">1순위</option>
+                                            <option value="유화">유화</option>
+                                            <option value="수채화">수채화</option>
+                                            <option value="파스텔">파스텔</option>
+                                            <option value="가죽">가죽</option>
+                                            <option value="뜨개질">뜨개질</option>
+                                            <option value="비즈">비즈</option>
+                                            <option value="일러스트">일러스트</option>
+                                            <option value="이모티콘">이모티콘</option>
+                                            <option value="편집">편집</option>
+                                            <option value="촬영">촬영</option>
+                                            <option value="한식">한식</option>
+                                            <option value="양식">양식</option>
+                                            <option value="일식">일식</option>
+                                            <option value="중식">중식</option>
+                                            <option value="세계음식">세계음식</option>
+                                            <option value="헬스">헬스</option>
+                                            <option value="홈트">홈트</option>
+                                            <option value="다이어트">다이어트</option>
+                                            <option value="작곡">작곡</option>
+                                            <option value="작사">작사</option>
+                                            <option value="타악기">타악기</option>
+                                            <option value="현악기">현악기</option>
+                                            <option value="관악기">관악기</option>
+                                            <option value="댄스">댄스</option>
+                                        </select>
 
-                                </div>
-                                <div className="sel sel--black-panther">
+                                    </div>
+                                    <div className="sel sel--black-panther">
+                                        <select id="select-profession" name="category2">
+                                            <option value="">2순위</option>
+                                            <option value="유화">유화</option>
+                                            <option value="수채화">수채화</option>
+                                            <option value="파스텔">파스텔</option>
+                                            <option value="가죽">가죽</option>
+                                            <option value="뜨개질">뜨개질</option>
+                                            <option value="비즈">비즈</option>
+                                            <option value="일러스트">일러스트</option>
+                                            <option value="이모티콘">이모티콘</option>
+                                            <option value="편집">편집</option>
+                                            <option value="촬영">촬영</option>
+                                            <option value="한식">한식</option>
+                                            <option value="양식">양식</option>
+                                            <option value="일식">일식</option>
+                                            <option value="중식">중식</option>
+                                            <option value="세계음식">세계음식</option>
+                                            <option value="헬스">헬스</option>
+                                            <option value="홈트">홈트</option>
+                                            <option value="다이어트">다이어트</option>
+                                            <option value="작곡">작곡</option>
+                                            <option value="작사">작사</option>
+                                            <option value="타악기">타악기</option>
+                                            <option value="현악기">현악기</option>
+                                            <option value="관악기">관악기</option>
+                                            <option value="댄스">댄스</option>
+                                        </select>
 
-                                <select id="select-profession" name="category3">
-                                        <option value="">3순위</option>
-                                        <option value="유화">유화</option>
-                                        <option value="수채화">수채화</option>
-                                        <option value="파스텔">파스텔</option>
-                                        <option value="가죽">가죽</option>
-                                        <option value="뜨개질">뜨개질</option>
-                                        <option value="비즈">비즈</option>
-                                        <option value="일러스트">일러스트</option>
-                                        <option value="이모티콘">이모티콘</option>
-                                        <option value="편집">편집</option>
-                                        <option value="촬영">촬영</option>
-                                        <option value="한식">한식</option>
-                                        <option value="양식">양식</option>
-                                        <option value="일식">일식</option>
-                                        <option value="중식">중식</option>
-                                        <option value="세계음식">세계음식</option>
-                                        <option value="헬스">헬스</option>
-                                        <option value="홈트">홈트</option>
-                                        <option value="다이어트">다이어트</option>
-                                        <option value="작곡">작곡</option>
-                                        <option value="작사">작사</option>
-                                        <option value="타악기">타악기</option>
-                                        <option value="현악기">현악기</option>
-                                        <option value="관악기">관악기</option>
-                                        <option value="댄스">댄스</option>
-                                    </select>
-                                </div>
+                                    </div>
+                                    <div className="sel sel--black-panther">
+
+                                        <select id="select-profession" name="category3">
+                                            <option value="">3순위</option>
+                                            <option value="유화">유화</option>
+                                            <option value="수채화">수채화</option>
+                                            <option value="파스텔">파스텔</option>
+                                            <option value="가죽">가죽</option>
+                                            <option value="뜨개질">뜨개질</option>
+                                            <option value="비즈">비즈</option>
+                                            <option value="일러스트">일러스트</option>
+                                            <option value="이모티콘">이모티콘</option>
+                                            <option value="편집">편집</option>
+                                            <option value="촬영">촬영</option>
+                                            <option value="한식">한식</option>
+                                            <option value="양식">양식</option>
+                                            <option value="일식">일식</option>
+                                            <option value="중식">중식</option>
+                                            <option value="세계음식">세계음식</option>
+                                            <option value="헬스">헬스</option>
+                                            <option value="홈트">홈트</option>
+                                            <option value="다이어트">다이어트</option>
+                                            <option value="작곡">작곡</option>
+                                            <option value="작사">작사</option>
+                                            <option value="타악기">타악기</option>
+                                            <option value="현악기">현악기</option>
+                                            <option value="관악기">관악기</option>
+                                            <option value="댄스">댄스</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <button className="button submit">create account </button>
                             </form>

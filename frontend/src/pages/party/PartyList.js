@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import Parties from '../../components/Party/List/Parties';
+import Parties from 'components/Party/List/Parties';
 import Pagination from 'react-js-pagination';
-import api from '../../utils/api';
+import api from 'utils/api';
 import styled from 'styled-components';
 
 const PartyListBody = styled.div`
