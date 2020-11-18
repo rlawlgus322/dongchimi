@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import GlobalStyles from "components/GlobalStyles";
+require('moment-timezone');
 ReactDOM.render(
   <BrowserRouter>
     <App />

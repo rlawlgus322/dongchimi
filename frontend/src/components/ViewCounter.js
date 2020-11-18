@@ -17,7 +17,7 @@ function ViewCounter(props) {
   return (
     <ViewCounterBody>
       <ViewIcon>
-        <FontAwesomeIcon icon={['far', 'eye']} size="lg" />
+        <FontAwesomeIcon icon={['far', 'eye']} size="lg" color="#7dbb77" />
       </ViewIcon>
       {count}
     </ViewCounterBody>

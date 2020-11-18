@@ -35,6 +35,10 @@ function CommentWriting(props) {
             alert("로그인이 필요합니다");
             return;
           }
+          if (document.getElementById('textBox').innerText === '') {
+            alert('내용을 입력해주세요');
+            return;
+          }
           api.post('/boast/comment', {
             bid: bid,
             content: document.getElementById('textBox').innerText,

@@ -18,7 +18,9 @@ const LikeButton = styled.button`
   }
 `;
 
-const LikeCount = styled.span``;
+const LikeCount = styled.span`
+ color: #7dbb77; 
+`;
 
 function LikeButtonAndCount(props) {
   const { isLike, bid, count, getBoastRead } = props;
@@ -54,7 +56,7 @@ function LikeButtonAndCount(props) {
         {isLike ? (
           <FontAwesomeIcon icon={['fas', 'heart']} size="lg" color="crimson" />
         ) : (
-            <FontAwesomeIcon icon={['far', 'heart']} size="lg" />
+            <FontAwesomeIcon icon={['far', 'heart']} size="lg" color="#7dbb77" />
           )}
       </LikeButton>
       <LikeCount>{count}</LikeCount>

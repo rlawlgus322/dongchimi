@@ -6,11 +6,11 @@ import CommentConter from 'components/CommentCounter';
 
 const ArticleInfoIconsBody = styled.div`
   display: flex;
+  color: #7dbb77;
 `;
 
 function ArticleInfoIcons(props) {
   const { boast, isLike, getBoastRead } = props;
-  // console.log('article info icons', props);
   return (
     <ArticleInfoIconsBody>
       <ViewConter count={boast.views} />
