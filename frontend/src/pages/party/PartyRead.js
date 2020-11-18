@@ -31,7 +31,7 @@ class PartyRead extends Component {
       }
     })
       .then(({ data }) => {
-        console.log('party read', data);
+        // console.log('party read', data);
         this.setState({ data: data });
         if (data.chimi.userId === Number(sessionStorage.getItem('uid'))) {
           this.setState({ isWriter: true });

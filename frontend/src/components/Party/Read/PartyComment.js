@@ -64,14 +64,14 @@ class PartyComment extends Component {
               return (
                 <div key={index}>
                   {comment.nickname} - 파티생성자
-                  <p class="from-me">{comment.chimiComment.content}</p>
+                  <p className="from-me">{comment.chimiComment.content}</p>
                 </div>
               )
             } else {
               return (
-                <div style={{float : "right"}} key={index}>
+                <div style={{ float: "right" }} key={index}>
                   {comment.nickname}
-                  <p class="from-them">{comment.chimiComment.content}</p>
+                  <p className="from-them">{comment.chimiComment.content}</p>
                 </div>
               )
             }

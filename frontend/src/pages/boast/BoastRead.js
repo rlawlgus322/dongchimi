@@ -83,7 +83,7 @@ function BoastRead(props) {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log('comments', data);
+      // console.log('comments', data);
       setComments(data);
     }).catch((err) => {
       console.log(err);
@@ -97,7 +97,7 @@ function BoastRead(props) {
           <UserInfoBar
             thumbnail={profileImage}
             id={data.nicknname}
-            isMoreButton={true}
+            isMoreButton={boast.userId === Number(sessionStorage.getItem('uid'))}
           />
         </Width80Percent>
         <SliderableImage images={images} />
@@ -108,7 +108,11 @@ function BoastRead(props) {
           </FlexEnd>
           <HorizontalLine />
           <CommentWriting bid={boast.bid} />
-          <CommentRead />
+          {comments.map((comment, index) => {
+            return (
+              <CommentRead key={index} comment={comment} />
+            )
+          })}
         </Width80Percent>
       </InnerBody>
     </BoastReadBody>
