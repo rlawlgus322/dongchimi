@@ -67,7 +67,7 @@ class Editor extends Component {
   render() {
     return (
       <ReactQuill
-        style={{ height: "100%" }}
+        style={{ height: "80%" }}
         theme="snow"
         modules={this.modules}
         formats={this.formats}

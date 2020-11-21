@@ -17,16 +17,16 @@ const Li = styled.li`
 `
 
 const LoginInput = styled.input`
-    background: #d0e7ce;
-    width: 75%;
-    color: black;
-    border: none;
-    border-bottom: 1px solid #f6f6f6;
-    padding: 9px;
+  background: #d0e7ce;
+  width: 75%;
+  color: black;
+  border: none;
+  border-bottom: 1px solid #f6f6f6;
+  padding: 9px;
   ::placeholder {
-      color:  white;
-      letter-spacing: 2px;
-      font-size: 1.5em;
+    color:  white;
+    letter-spacing: 2px;
+    font-size: 1.5em;
       font-weight: 400;
   }
   :focus {
