@@ -9,15 +9,19 @@ const BoastWriteBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 80vw;
+  margin: 0 10vw;
   min-height: 90vh;
   padding-top: 20px;
   box-sizing:border-box;
+  text-align: center;
 `;
 
 const BoastContent = styled.div`
-  width: 100%;
-  height: 50px;
+  width: 50vw;
+  height: 20vh;
+  margin: 10px 0;
+  padding: 10px;
   border: 1px solid black;
 `;
 
@@ -30,7 +34,7 @@ function BoastWrite() {
   let category = "";
   let imageUrls = [];
   const submitBoast = async () => {
-    await uploadImages(); 
+    await uploadImages();
     const title = "title";
     const postImg = JSON.stringify(imageUrls);
     const contents = document.getElementById("BoastContent").innerText;
@@ -41,13 +45,13 @@ function BoastWrite() {
       contents,
     }
 
-    try{
+    try {
       api.post("boast/", payload, {
         headers: {
           accessToken: sessionStorage.getItem("token")
         }
       })
-    }catch(error){
+    } catch (error) {
       console.error(error);
     }
   }
@@ -61,33 +65,33 @@ function BoastWrite() {
   }
 
   const uploadImages = async () => {
-    if(!imageFiles){
+    if (!imageFiles) {
       return;
     }
 
     imageUrls = [];
 
-    for(let i=0;i<imageFiles.length;i++){
+    for (let i = 0; i < imageFiles.length; i++) {
       const formData = new FormData();
       formData.append("file", imageFiles[i]);
-      
-      try{
-        const {data} = await multipart.post('boast/image', formData);
+
+      try {
+        const { data } = await multipart.post('boast/image', formData);
         imageUrls.push(data);
-      }catch(error){
+      } catch (error) {
         console.error(error);
       }
     }
-    imageUrls = {...imageUrls};
+    imageUrls = { ...imageUrls };
   }
 
   return (
-  <BoastWriteBody>
-    <ImageUploader setImageFiles={setImageFiles}/>
-    <HobbyCategory setCategory={setCategory}/>
-    <BoastContent contentEditable={true} id="BoastContent"></BoastContent>
-    <SubmitButton onClick={submitBoast}>업로드</SubmitButton>
-  </BoastWriteBody>
+    <BoastWriteBody>
+      <ImageUploader setImageFiles={setImageFiles} />
+      <HobbyCategory setCategory={setCategory} />
+      <BoastContent contentEditable={true} id="BoastContent"></BoastContent>
+      <SubmitButton onClick={submitBoast}>업로드</SubmitButton>
+    </BoastWriteBody>
   )
 }
 

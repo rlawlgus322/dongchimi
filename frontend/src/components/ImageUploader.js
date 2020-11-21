@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ImageUploaderBody = styled.div`
@@ -47,19 +47,19 @@ const Image = styled.img`
   }
 `
 
-function  ImageUploader(props) {
+function ImageUploader(props) {
   const [imageList, setImageList] = useState([]);
-  const {setImageFiles} = props;
+  const { setImageFiles } = props;
 
   let files = {};
 
   const paintImages = () => {
-    if(!files){
+    if (!files) {
       return;
     }
 
     let arrayList = [];
-    for(let i=0;i<files.length;i++){
+    for (let i = 0; i < files.length; i++) {
       arrayList.push(URL.createObjectURL(files[i]));
     }
 
@@ -69,19 +69,19 @@ function  ImageUploader(props) {
   const onChnagehandler = (event) => {
     const preview = document.getElementById('preview');
     files = event.target.files;
-    if(files.length > 5){
+    if (files.length > 5) {
       alert("최대 5개의 이미지만 올릴 수 있습니다.")
       return;
     }
     preview.style.backgroundImage = files.length ? `url(${URL.createObjectURL(files[0])})` : "";
-    
+
     paintImages();
     setImageFiles(files);
   };
 
   return (
     <ImageUploaderBody>
-      <Label for="inputFile" id="preview">이미지 업로드 (최대 5개)</Label>
+      <Label htmlFor="inputFile" id="preview">이미지 업로드 (최대 5개)</Label>
       <Input
         type="file"
         accept=".jpg,.png,.gif,.jpeg"
@@ -90,7 +90,7 @@ function  ImageUploader(props) {
         onChange={(event) => onChnagehandler(event)}
       />
       <ImageList>
-        {imageList.map((elem, index) => elem && <Image key={index} src={elem}/>)}
+        {imageList.map((elem, index) => elem && <Image key={index} src={elem} />)}
       </ImageList>
     </ImageUploaderBody>
   );
