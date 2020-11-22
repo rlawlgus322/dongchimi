@@ -41,6 +41,10 @@ const LoginInput = styled.input`
   }
 `;
 
+const TextSpan = styled.span`
+  color: #d0e7ce;
+`;
+
 function LoginModal({ history }) {
     const [show, setShow] = useState(false);
     const [email, setEmail] = useState(null);
@@ -327,15 +331,15 @@ function LoginModal({ history }) {
                         </div>
                     </div>
                     <div className="leftbox">
-                        <h2 className="title"><span>동</span>취미</h2>
-                        <p className="desc">동일한 <span>취미</span>를 찾다</p>
+                        <h2 className="title"><TextSpan>동</TextSpan>취미</h2>
+                        <p className="desc">동일한 <TextSpan>취미</TextSpan>를 찾다</p>
                         <img className="flower" src="https://k3a409.p.ssafy.io/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png" alt="1357d638624297b" border="0" />
                         <p className="account nanumsquare">계정이 있으신가요?</p>
                         <button className="button signbutton" id="signin">로그인</button>
                     </div>
                     <div className="rightbox">
-                        <h2 className="title"><span>동</span>취미</h2>
-                        <p className="desc"> 동일한 <span>취미</span>를 찾다</p>
+                        <h2 className="title"><TextSpan>동</TextSpan>취미</h2>
+                        <p className="desc"> 동일한 <TextSpan>취미</TextSpan>를 찾다</p>
                         <img className="flower" src={dongchimi2} alt="chimi" />
                         <p className="account nanumsquare">계정이 없으신가요?</p>
                         <button className="button signbutton" id="signup">회원가입</button>
