@@ -64,6 +64,31 @@ const MoreCategoryButton = styled.button`
   margin-bottom: 20px;
 `;
 
+const SearchInput = styled.input`
+  background: #d0e7ce;
+  width: 30vw;
+  color: black;
+  border: none;
+  border-bottom: 1px solid #f6f6f6;
+  padding: 9px;
+  ::placeholder {
+    color:  white;
+    letter-spacing: 2px;
+    font-size: 1.3em;
+    font-weight: 400;
+  }
+  :focus {
+    color: #053101;
+    outline: none;
+    border-bottom: 1.2px solid #080591;
+    font-size: 1em;
+    transition: .8s all ease;
+  }
+  :focus::placeholder {
+    opacity: 0;
+  }
+`;
+
 function PartyList({ history }) {
   const categories = [
     '전체',
@@ -155,6 +180,8 @@ function PartyList({ history }) {
   function handleCategoryChange(e) {
     if (e.target.textContent === '전체' || category === e.target.textContent) {
       setCategory(null);
+      setKeyword(null);
+      document.getElementById('keyword').value = '';
       removeSelectedClass();
     } else {
       removeSelectedClass();
@@ -232,10 +259,11 @@ function PartyList({ history }) {
       </CategoryContainer>
       <div style={{ textAlign: 'right', width: '90vw', margin: '0 5vw' }}>
         {/** 검색창 */}
-        <input
+        <SearchInput
           type="text"
           placeholder="search"
           id="keyword"
+          onKeyPress={handleKeywordChange}
         />
         <button onClick={handleKeywordChange}>검색</button>
         <br></br>
