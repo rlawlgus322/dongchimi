@@ -163,9 +163,9 @@ input[type="radio"] {
 }
 
 
-span {
+/* span {
   color: #d0e7ce;
-}
+} */
 
 .flower {
   position: absolute;
@@ -236,9 +236,7 @@ background: #CBC0D3;
 border-color: #CBC0D3;
 }
 
-
-
-input {
+/* input {
   background: #d0e7ce;
   width: 75%;
   color: black;
@@ -262,7 +260,7 @@ input:focus {
 }
 input:focus::placeholder {
     opacity: 0;
-}
+} */
 
 
 label {
