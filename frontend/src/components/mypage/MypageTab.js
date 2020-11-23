@@ -21,7 +21,10 @@ class MypageTab extends Component {
     return (
       <>
         <TabContext value={this.state.value}>
-          <TabList onChange={this.clickHandler}>
+          <TabList
+            onChange={this.clickHandler}
+            indicatorColor="primary"
+          >
             <Tab label="내가 연 파티" value="1" />
             <Tab label="참가중인 파티" value="2" />
             <Tab label="신청한 파티" value="3" />
