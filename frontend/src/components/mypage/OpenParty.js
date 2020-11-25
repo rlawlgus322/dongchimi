@@ -22,10 +22,14 @@ class OpenParty extends Component {
 
   componentDidMount() {
     api.get('/hobby/chimi/myParty', {
+      params: {
+        size: 20,
+      },
       headers: {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
+      console.log(data.content);
       this.setState({ parties: data.content });
     }).catch((err) => {
       console.log(err);

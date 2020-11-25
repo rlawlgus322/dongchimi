@@ -101,7 +101,8 @@
     margin: 30px;
     margin-left:35%;
     padding : 10px;
-    padding-left: 80px;
+    text-align: center;
+    /* padding-left: 80px; */
 }
 
 .main-wrapper {

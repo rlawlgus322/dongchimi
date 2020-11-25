@@ -24,7 +24,7 @@ class PartyComment extends Component {
     // console.log('get comment');
     api.get(`/hobby/comment/${this.state.hid}`, {
       headers: {
-        accessToken: this.state.token,
+        accessToken: sessionStorage.getItem('token'),
       }
     })
       .then(({ data }) => {
