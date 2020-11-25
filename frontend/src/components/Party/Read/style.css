@@ -54,7 +54,6 @@
     /* border: #037c5e 1px solid; */
 }
 
-
 .label {
     font-family : "Poppins" !important;
     font-size : 24px!important;
@@ -97,37 +96,32 @@
     margin : 10px;
     border-radius: 10px;
     outline: none;
-  }
-  .partybutton:hover {
-  background: #037c5e;
-  color:  #f6f6f6;
-  transition: background-color 1s ease-out;
-  }
+}
+.partybutton:hover {
+    background: #037c5e;
+    color:  #f6f6f6;
+    transition: background-color 1s ease-out;
+}
 
-  .isStart{
+.isStart{
     font-family: 'Cafe24Ohsquare';
-      color: white;
-      background-color: red;
-      border: black 3px solid;
-      border-radius: 15px;
-      font-size: 20px;
-      width : 300px;
-      margin: 30px;
-      margin-left:35%;
-      padding : 10px;
-      padding-left: 80px;
-      
-  }
+    color: white;
+    background-color: red;
+    border: black 3px solid;
+    border-radius: 15px;
+    font-size: 20px;
+    width : 300px;
+    margin: 30px;
+    margin-left:35%;
+    padding : 10px;
+    padding-left: 80px;
+}
 
-  .commentForm {
-      margin : 0;
-      margin-top: 50px;
-      width: 100%;
-  }
-
-
-
-
+.commentForm {
+    margin : 0;
+    margin-top: 50px;
+    width: 100%;
+}
 
 .main-wrapper {
 	width: 90%;
@@ -145,15 +139,10 @@
 	display: inline-block;
 	top: 0;
 	transition: all 0.2s ease;
-	
-	
 }
-
-
 .badge:hover {
     top: -4px;
 }
-
 .badge .font {
     display: inline-block;
     margin-top: 1em;
@@ -179,37 +168,33 @@
 }
 
 /* comment */
-
-
 .comment {
     font-family: 'Cafe24Oneprettynight';
-	font-size: 20px;
-	font-weight: normal;
-  max-width: 90%;
+    font-size: 20px;
+    font-weight: normal;
+    max-width: 90%;
     margin: 50px auto;
     margin-left: 70px;
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .comment p {
-  max-width: 295px;
-  word-wrap: break-word;
-  margin-bottom: 12px;
-  line-height: 24px;
-  position:relative;
-	padding:10px 20px;
-  border-radius:25px;
-  
-  
+    max-width: 295px;
+    word-wrap: break-word;
+    margin-bottom: 12px;
+    line-height: 24px;
+    position:relative;
+    padding:10px 20px;
+    border-radius:25px;
 }
 
 .comment p:before, .comment p:after {
     content:"";
-		position:absolute;
+    position:absolute;
     bottom:-2px;
     height:20px;
-  }
+}
 
 .from-me {
 	color:white; 
@@ -237,7 +222,6 @@
 	background:#d0e7ce;
 	color:black;
 	padding : 10px;	
-	
 }
 
 .from-them:before {

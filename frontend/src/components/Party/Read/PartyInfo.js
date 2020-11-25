@@ -4,6 +4,17 @@ import PartyRegister from './PartyRegister';
 import PartyMembers from './PartyMembers';
 import { Row } from 'react-bootstrap';
 import './style.css'
+import styled from 'styled-components';
+
+const Thumbnail = styled.img`
+  min-width: 30vw;
+  min-height: 50vh;
+  width: 40%;
+  height: 40%;
+  margin-left: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
 
 function PartyInfo(props) {
   const { type, data, isWriter } = props;
@@ -14,13 +25,9 @@ function PartyInfo(props) {
       <Row>
         {
           data.chimi !== undefined &&
-          <img src={data.chimi.image !== null ? imgSrc + data.chimi.image : imgSrc + '/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png'}
+          <Thumbnail src={data.chimi.image !== null ? imgSrc + data.chimi.image : imgSrc + '/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png'}
             alt="thumbnail"
-            style={{
-              width: "50%",
-              marginLeft: "50px"
-            }}
-          ></img>
+          ></Thumbnail>
         }
         <div >
           {

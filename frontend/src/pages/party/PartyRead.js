@@ -5,6 +5,18 @@ import PartyChat from 'components/Party/Read/PartyChat';
 import PartyApplicant from 'components/Party/Read/PartyApplicant';
 import api from 'utils/api';
 import './mainParty.css'
+import styled from 'styled-components';
+
+const PartyReadBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80vw;
+  margin: 0 10vw;
+  min-height: 100vh;
+  padding-top: 20px;
+  box-sizing:border-box;
+`;
 
 class PartyRead extends Component {
   constructor(props) {
@@ -43,7 +55,7 @@ class PartyRead extends Component {
 
   render() {
     return (
-      <>
+      <PartyReadBody>
         <PartyInfo
           type={this.state.type}
           data={this.state.data}
@@ -51,13 +63,11 @@ class PartyRead extends Component {
         ></PartyInfo>
         <div className='row'>
           <div className='col-6'>
-
             <div className="detail">Detailed Description</div>
             {/* {
               this.state.data.chimi !== undefined &&
               <PartyOpener nickname={this.state.data.nickname} />
             } */}
-
             {
               this.state.data.chimi !== undefined &&
               <div className="maindesc" dangerouslySetInnerHTML={{ __html: this.state.data.chimi.description }} />
@@ -84,12 +94,11 @@ class PartyRead extends Component {
               (this.state.type === 2 || this.state.type === 3) &&
               this.state.data.chimi !== undefined &&
               !this.state.data.chimi.isstart &&
-              <div className="isStart" style={{ width: "350px", marginLeft: "200px", paddingLeft: "25px" }}>파티 시작일까지 아직 기다려주세요!</div>
+              <div className="isStart" style={{ width: "350px", marginLeft: "200px", paddingLeft: "25px", clear: "both" }}>파티 시작일까지 아직 기다려주세요!</div>
             }
-
           </div>
         </div>
-      </>
+      </PartyReadBody>
     )
   }
 }
