@@ -18,6 +18,14 @@ const PartyReadBody = styled.div`
   box-sizing:border-box;
 `;
 
+const PartyContent = styled.div`
+  margin : 20px 0;
+  padding : 20px;
+  width : 45vw;
+  min-height: 500px;
+  border: lightgray 1px solid;
+`;
+
 class PartyRead extends Component {
   constructor(props) {
     super(props);
@@ -62,40 +70,32 @@ class PartyRead extends Component {
           isWriter={this.state.isWriter}
         ></PartyInfo>
         <div className='row'>
-          <div className='col-6'>
+          <div className='col-7'>
             <div className="detail">Detailed Description</div>
-            {/* {
-              this.state.data.chimi !== undefined &&
-              <PartyOpener nickname={this.state.data.nickname} />
-            } */}
             {
               this.state.data.chimi !== undefined &&
-              <div className="maindesc" dangerouslySetInnerHTML={{ __html: this.state.data.chimi.description }} />
+              <PartyContent dangerouslySetInnerHTML={{ __html: this.state.data.chimi.description }} />
             }
           </div>
-          <div className='col-6'>
+          <div className='col-5'>
             {
-              this.state.type === 1 &&
+              (this.state.type === 2 || this.state.type === 3) &&
               this.state.data.chimi !== undefined &&
-              <PartyComment hid={this.state.data.chimi.hid} userId={this.state.data.chimi.userId}></PartyComment>
+              // this.state.data.chimi.isstart &&
+              <PartyChat rtcurl={this.state.data.chimi.rtcurl} isStarty={this.state.data.chimi.isstart}></PartyChat>
             }
             {
               this.state.data.chimi !== undefined &&
               this.state.type === 3 &&
               <PartyApplicant chimiId={this.props.match.params.id} />
             }
-            {
-              (this.state.type === 2 || this.state.type === 3) &&
-              this.state.data.chimi !== undefined &&
-              this.state.data.chimi.isstart &&
-              <PartyChat rtcurl={this.state.data.chimi.rtcurl}></PartyChat>
-            }
-            {
-              (this.state.type === 2 || this.state.type === 3) &&
-              this.state.data.chimi !== undefined &&
-              !this.state.data.chimi.isstart &&
-              <div className="isStart" style={{ width: "350px", marginLeft: "200px", paddingLeft: "25px", clear: "both" }}>파티 시작일까지 아직 기다려주세요!</div>
-            }
+            <div style={{ clear: "both" }}>
+              {
+                this.state.type !== 3 &&
+                this.state.data.chimi !== undefined &&
+                <PartyComment hid={this.state.data.chimi.hid} userId={this.state.data.chimi.userId}></PartyComment>
+              }
+            </div>
           </div>
         </div>
       </PartyReadBody>

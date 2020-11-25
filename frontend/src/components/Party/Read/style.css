@@ -40,19 +40,6 @@
     font-size: 20px;
     margin-bottom: 10px;
 }
-.partydesc{
-    margin-top: 20px;
-    margin-bottom: 40px;
-    margin-left: 10%;
-    padding : 25px;
-    font-size: 20px;
-    height: 200px;
-    width: 600px;
-    color: white;
-    font-weight: 600;
-    background-color:  #d0e7ce;
-    /* border: #037c5e 1px solid; */
-}
 
 .label {
     font-family : "Poppins" !important;
@@ -115,12 +102,6 @@
     margin-left:35%;
     padding : 10px;
     padding-left: 80px;
-}
-
-.commentForm {
-    margin : 0;
-    margin-top: 50px;
-    width: 100%;
 }
 
 .main-wrapper {
@@ -194,6 +175,12 @@
     position:absolute;
     bottom:-2px;
     height:20px;
+}
+
+.commentForm {
+    margin : 0;
+    margin-top: 50px;
+    width: 100%;
 }
 
 .from-me {

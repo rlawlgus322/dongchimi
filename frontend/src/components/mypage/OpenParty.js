@@ -6,6 +6,14 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 
+function mouseOverHandle(e) {
+  e.target.style.opacity = 0.5;
+}
+
+function mouseLeaveHandle(e) {
+  e.target.style.opacity = 1;
+}
+
 class OpenParty extends Component {
 
   state = {
@@ -32,8 +40,12 @@ class OpenParty extends Component {
             <GridList cellHeight={200} className="gridList" cols={4}>
               {this.state.parties.map((v, idx) => (
                 <GridListTile key={idx}
+                  style={{ cursor: "pointer" }}
                   onClick={() => this.props.history.push(`/party/open/${v.hid}`)}>
-                  <img src={"https://k3a409.p.ssafy.io" + v.image} alt="" />
+                  <img src={"https://k3a409.p.ssafy.io" + v.image} alt=""
+                    onMouseOver={mouseOverHandle}
+                    onMouseLeave={mouseLeaveHandle}
+                  />
                   <GridListTileBar
                     title={v.name} />
                 </GridListTile>

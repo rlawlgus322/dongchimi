@@ -17,6 +17,20 @@ const Thumbnail = styled.img`
   margin-bottom: auto;
 `;
 
+const PartySummary = styled.div`
+  margin-top: 20px;
+  margin-bottom: 40px;
+  margin-left: 10%;
+  padding : 25px;
+  font-size: 20px;
+  min-height: 10vh;
+  // height: 200px;
+  width: 600px;
+  color: white;
+  font-weight: 600;
+  background-color:  #9dcc99;
+`;
+
 const DescSpan = styled.span`
   font-family: Poppins;
   font-size: 24px;
@@ -38,6 +52,10 @@ function PartyInfo(props) {
 
   return (
     <>
+      {
+        data.chimi !== undefined &&
+        <div className="title" style={{ marginTop: "0" }}>{data.chimi.name}</div>
+      }
       <Row>
         {
           data.chimi !== undefined &&
@@ -50,9 +68,9 @@ function PartyInfo(props) {
             data.chimi !== undefined &&
             <h1>{data.chimi.name}</h1> &&
             <div>
-              <div className="title partytitle">{data.chimi.name}</div><br></br>
+              {/* <div className="title partytitle">{data.chimi.name}</div><br></br> */}
               <div className="writer"> 작성자 : {data.nickname}</div><br></br>
-              <div className="partydesc">{data.chimi.summary}</div> <br></br>
+              <PartySummary>{data.chimi.summary}</PartySummary> <br></br>
               <div>
                 <DescSpan>category</DescSpan>
                 <Content>{data.chimi.category}</Content>
@@ -71,13 +89,7 @@ function PartyInfo(props) {
               </div>
             </div>
           }
-          {
-            // type === 2 &&
-            data.chimi !== undefined &&
-            <PartyMembers
-              hid={data.chimi.hid}
-            />
-          }
+
           {
             data.chimi !== undefined && isWriter &&
             <div style={{ marginLeft: "45%", marginTop: "20px" }}>
@@ -96,6 +108,13 @@ function PartyInfo(props) {
             data.chimi !== undefined &&
             data.chimi.isstart &&
             <div className="isStart">시작된 파티입니다</div>
+          }
+          {
+            // type === 2 &&
+            data.chimi !== undefined &&
+            <PartyMembers
+              hid={data.chimi.hid}
+            />
           }
         </div>
       </Row>
