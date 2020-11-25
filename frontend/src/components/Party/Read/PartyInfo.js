@@ -5,6 +5,7 @@ import PartyMembers from './PartyMembers';
 import { Row } from 'react-bootstrap';
 import './style.css'
 import styled from 'styled-components';
+import moment from 'moment';
 
 const Thumbnail = styled.img`
   min-width: 30vw;
@@ -14,6 +15,21 @@ const Thumbnail = styled.img`
   margin-left: 50px;
   margin-top: auto;
   margin-bottom: auto;
+`;
+
+const DescSpan = styled.span`
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: italic;
+  margin-left: 25%;
+  font-weight: 800;
+  margin-bottom: 70px;
+`;
+
+const Content = styled.span`
+  margin-left: 5%;
+  color: black;
+  font-size: 20px;
 `;
 
 function PartyInfo(props) {
@@ -37,47 +53,22 @@ function PartyInfo(props) {
               <div className="title partytitle">{data.chimi.name}</div><br></br>
               <div className="writer"> 작성자 : {data.nickname}</div><br></br>
               <div className="partydesc">{data.chimi.summary}</div> <br></br>
-              <div><span style={{
-                fontFamily: "Poppins",
-                fontSize: "24px",
-                fontStyle: "italic",
-                marginLeft: "25%",
-                fontWeight: "800",
-                marginBottom: "70px"
-              }}>category</span>
-                <span style={{
-                  marginLeft: "5%",
-                  color: "black",
-                  fontSize: "20px",
-                  marginBottom: "70px"
-                }}>{data.chimi.category}</span></div> <br></br>
               <div>
-                <span style={{
-                  fontFamily: "Poppins",
-                  fontSize: "24px",
-                  fontStyle: "italic",
-                  marginLeft: "25%",
-                  fontWeight: "800",
-                  marginBottom: "70px"
-                }}>Recruitment&nbsp;number</span>
-                <span style={{
-                  marginLeft: "5%",
-                  color: "black",
-                  fontSize: "20px",
-                }}>{data.chimi.totalnum}</span></div> <br></br>
-
-              <span style={{
-                fontFamily: "Poppins",
-                fontSize: "24px",
-                fontStyle: "italic",
-                marginLeft: "25%",
-                fontWeight: "800"
-              }}>Current&nbsp;number&nbsp;of&nbsp;applicants</span>
-              <span style={{
-                marginLeft: "5%",
-                color: "black",
-                fontSize: "20px",
-              }}>{data.chimi.curnum}</span><br></br>
+                <DescSpan>category</DescSpan>
+                <Content>{data.chimi.category}</Content>
+              </div> <br></br>
+              <div>
+                <DescSpan>Recruitment&nbsp;number</DescSpan>
+                <Content>{data.chimi.totalnum}</Content>
+              </div> <br></br>
+              <div>
+                <DescSpan>Current&nbsp;number&nbsp;of&nbsp;applicants</DescSpan>
+                <Content>{data.chimi.curnum}</Content>
+              </div><br></br>
+              <div>
+                <DescSpan>Start Date</DescSpan>
+                <Content>{moment(data.chimi.startdate).format('YYYY-MM-DD dddd')}</Content>
+              </div>
             </div>
           }
           {
