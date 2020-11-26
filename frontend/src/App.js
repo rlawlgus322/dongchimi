@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faEye, faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faEye, faHeart, faStar } from '@fortawesome/free-regular-svg-icons';
 import {
   faHeart as fasHeart,
+  faStar as fasStar,
   faCommentDots,
 } from '@fortawesome/free-solid-svg-icons';
 import Main from './pages/Main';
@@ -22,7 +23,7 @@ import PartyRoom from 'pages/Room/PartyRoom';
 import Header from "components/Header";
 import Footer from "components/Footer";
 
-library.add(faEye, faHeart, fasHeart, faCommentDots);
+library.add(faEye, faHeart, faStar, fasHeart, fasStar, faCommentDots);
 
 class App extends Component {
   constructor(props) {
