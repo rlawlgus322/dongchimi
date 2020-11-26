@@ -51,7 +51,7 @@ class PartyRead extends Component {
       }
     })
       .then(({ data }) => {
-        // console.log('party read', data);
+        console.log('party read', data);
         this.setState({ data: data });
         if (data.chimi.userId === Number(sessionStorage.getItem('uid'))) {
           this.setState({ isWriter: true });
@@ -82,7 +82,7 @@ class PartyRead extends Component {
               (this.state.type === 2 || this.state.type === 3) &&
               this.state.data.chimi !== undefined &&
               // this.state.data.chimi.isstart &&
-              <PartyChat rtcurl={this.state.data.chimi.rtcurl} isStarty={this.state.data.chimi.isstart}></PartyChat>
+              <PartyChat rtcurl={this.state.data.chimi.rtcurl} isStart={this.state.data.chimi.isstart}></PartyChat>
             }
             {
               this.state.data.chimi !== undefined &&
