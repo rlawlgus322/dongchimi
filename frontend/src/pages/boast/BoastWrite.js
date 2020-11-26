@@ -4,6 +4,7 @@ import ImageUploader from 'components/ImageUploader';
 import multipart from 'utils/multipart';
 import HobbyCategory from "components/HobbyCategory";
 import api from "utils/api";
+import { toast } from 'react-toastify';
 
 const BoastWriteBody = styled.div`
   display: flex;
@@ -50,9 +51,18 @@ function BoastWrite() {
         headers: {
           accessToken: sessionStorage.getItem("token")
         }
+      }).then(() => {
+        toast.success('✅ 게시글 등록 완료', {
+          position: "bottom-right",
+          autoClose: 3000,
+        })
       })
     } catch (error) {
       console.error(error);
+      toast.error('😢 게시글 등록 실패', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
     }
   }
 

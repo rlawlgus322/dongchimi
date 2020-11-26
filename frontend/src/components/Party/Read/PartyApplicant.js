@@ -2,6 +2,7 @@ import { Component } from "react";
 import React from "react";
 import api from 'utils/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { toast } from 'react-toastify';
 
 class PartyApplicant extends Component {
   state = {
@@ -126,6 +127,10 @@ class PartyApplicant extends Component {
                 }
               }).then((res) => {
                 this.getApplicants();
+                toast('🥰 파티원 수락 완료', {
+                  position: "bottom-right",
+                  autoClose: 3000,
+                })
               }).catch((err) => {
                 console.log(err);
               })
@@ -141,6 +146,10 @@ class PartyApplicant extends Component {
                 }
               }).then((res) => {
                 this.getApplicants();
+                toast.dark('😞 파티원 수락 거절', {
+                  position: "bottom-right",
+                  autoClose: 3000,
+                })
               }).catch((err) => {
                 console.log(err);
               })

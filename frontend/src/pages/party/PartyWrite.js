@@ -4,6 +4,7 @@ import Editor from 'components/Party/Editor';
 import api from 'utils/api';
 import multipart from 'utils/multipart';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
 
 const PartyWriteBody = styled.div`
   display: flex;
@@ -150,8 +151,16 @@ class PartyWrite extends Component {
       }
     }).then((res) => {
       // console.log(res);
+      toast.success('✅ 파티 등록 완료', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       this.props.history.push('/party');
     }).catch((err) => {
+      toast.error('😢 파티 등록 실패', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       console.log(err);
     })
   }
