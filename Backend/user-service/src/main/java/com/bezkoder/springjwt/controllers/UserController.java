@@ -236,6 +236,7 @@ public class UserController {
         	float userStar = user.getStar();
         	int userNum = user.getNum();
         	float sum = userStar * userNum;
+        	if(sum == 0 ) sum = 1;
         	user.setNum(userNum+1);
         	user.setStar((sum+star)/userNum+1f);
 
