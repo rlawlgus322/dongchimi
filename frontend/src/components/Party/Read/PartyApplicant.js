@@ -44,13 +44,7 @@ class PartyApplicant extends Component {
 
   render() {
     const applicants = this.state.userInfoList.map((userInfo, index) => {
-      let rate = [];
-      for (let i = 0; i < userInfo.star; i++) {
-        rate.push(<FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" key={i} />)
-      }
-      for (let i = userInfo.star; i < 5; i++) {
-        rate.push(<FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" key={i} />)
-      }
+      console.log('user info', userInfo);
       return (
         <div style={{ clear: "both", marginBottom: "20px" }} key={index}>
           <div className="badge" style={{ float: "left", width: "auto", height: "auto", margin: "1em 1.5em" }}>
@@ -62,7 +56,66 @@ class PartyApplicant extends Component {
             <div className="ribbon">{userInfo.nickname}</div>
           </div>
           <div style={{ float: "left", marginTop: "30px" }}>
-            <span style={{ marginRight: "10px" }}>{rate}</span>
+            {
+              userInfo.star == 5 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star >= 4 && userInfo.star < 5 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star >= 3 && userInfo.star < 4 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star >= 2 && userInfo.star < 3 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star >= 1 && userInfo.star < 2 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star == 0 &&
+              <span>
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
             <button className="partybutton" onClick={() => {
               api.post('/hobby/enrolment', {
                 chimiId: this.state.applicants[index].applicationPK.chimiId,

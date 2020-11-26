@@ -53,7 +53,6 @@ function PartyMembers(props) {
   function handleUserRate(rate) {
     // console.log('members', rate);
     setRate(rate);
-
   }
 
   const memberList = members.map((member, index) => {

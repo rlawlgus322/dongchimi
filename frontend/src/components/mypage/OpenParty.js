@@ -29,7 +29,7 @@ class OpenParty extends Component {
         accessToken: sessionStorage.getItem('token'),
       }
     }).then(({ data }) => {
-      console.log(data.content);
+      // console.log(data.content);
       this.setState({ parties: data.content });
     }).catch((err) => {
       console.log(err);

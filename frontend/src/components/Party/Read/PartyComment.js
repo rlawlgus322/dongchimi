@@ -58,6 +58,7 @@ class PartyComment extends Component {
   render() {
     return (
       <div className="comment">
+        <div className="detail" style={{ marginBottom: "20px" }}>Comment</div>
         {
           this.state.comments.map((comment, index) => {
             if (comment.chimiComment.userId === this.state.userId) { // 댓글쓴이가 글쓴이랑 같을 때
@@ -80,7 +81,7 @@ class PartyComment extends Component {
 
         <form className="commentForm" onSubmit={this.addComment.bind(this)}>
           <input type="text" name="comment" />
-          <input type="submit" />
+          <input type="submit" value="등록" />
         </form>
       </div>
     )
