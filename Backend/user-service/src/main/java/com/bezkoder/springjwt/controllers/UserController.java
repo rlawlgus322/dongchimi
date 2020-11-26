@@ -234,7 +234,7 @@ public class UserController {
     		if(userEmail == null ) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         	User user = userService.findUserinfoByNickname(nickname);
         	float userStar = user.getStar();
-            if(userStar > 5 ) userStar = 5;
+            if(userStar > 5 ) userStar = 0;
             int userNum = user.getNum();
             float sum = userStar * userNum;
             if(sum == 0 ) sum = 1;
