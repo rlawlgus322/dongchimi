@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import api from 'utils/api';
+import { toast } from 'react-toastify';
 
 class PartyRegister extends Component {
   constructor(props) {
@@ -19,7 +20,10 @@ class PartyRegister extends Component {
 
   register() {
     if (this.state.token === null) {
-      alert('로그인이 필요합니다')
+      toast.warn('😫 로그인이 필요합니다', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       return;
     }
     api.post(`/hobby/apply/${this.state.data.chimi.hid}`, {}, {
@@ -29,6 +33,10 @@ class PartyRegister extends Component {
     }).then((res) => {
       // console.log(res)
       // console.log("레지스터 " + this.state.applicated)
+      toast.success('✅ 신청 완료', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       this.setState({ applicated: !this.state.applicated })
       // console.log("레지스터 " + this.state.applicated)
     }).catch((err) => {
@@ -43,6 +51,10 @@ class PartyRegister extends Component {
       }
     }).then((res) => {
       // console.log(res);
+      toast.success('✅ 신청 취소 완료', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       this.setState({ applicated: !this.state.applicated })
     }).catch((err) => {
       console.log(err);
@@ -52,7 +64,10 @@ class PartyRegister extends Component {
   save() {
     // console.log('보관함에 저장');
     if (this.state.token === null) {
-      alert('로그인이 필요합니다');
+      toast.warn('😫 로그인이 필요합니다', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       return;
     }
     api.post(`/hobby/storage/${this.state.data.chimi.hid}`, {}, {
@@ -61,6 +76,10 @@ class PartyRegister extends Component {
       }
     }).then((res) => {
       // console.log(res);
+      toast.success('✅ 보관함 저장 완료', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       this.setState({ stored: !this.state.stored })
     }).catch((err) => {
       console.log(err);
@@ -74,6 +93,10 @@ class PartyRegister extends Component {
       }
     }).then((res) => {
       // console.log(res);
+      toast.success('✅ 보관함 제거 완료', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       this.setState({ stored: !this.state.stored })
     }).catch((err) => {
       console.log(err);
@@ -82,7 +105,10 @@ class PartyRegister extends Component {
 
   recommend() {
     if (this.state.token === null) {
-      alert('로그인이 필요합니다');
+      toast.warn('😫 로그인이 필요합니다', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       return;
     }
     api.put(`/hobby/chimi/recommend/${this.state.data.chimi.hid}`, {}, {
@@ -91,6 +117,10 @@ class PartyRegister extends Component {
       }
     }).then((res) => {
       // console.log(res);
+      toast.success('✅ 추천 완료', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       this.setState({ recommend: !this.state.recommend })
     }).catch((err) => {
       console.log(err);
@@ -104,6 +134,10 @@ class PartyRegister extends Component {
       }
     }).then((res) => {
       // console.log(res);
+      toast.success('✅ 추천 취소 완료', {
+        position: "bottom-right",
+        autoClose: 3000,
+      })
       this.setState({ recommend: !this.state.recommend })
     }).catch((err) => {
       console.log(err);
