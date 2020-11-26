@@ -3,7 +3,9 @@ import { Link, withRouter } from "react-router-dom";
 import styled from 'styled-components';
 import SearchOverlay from 'components/SearchOverlay';
 import LoginModal from '../components/mypage/LoginModal';
+import { toast } from 'react-toastify';
 import './header.css';
+
 const Header = styled.header`
   display: flex;
   justify-content: flex-end;
@@ -107,6 +109,11 @@ export default withRouter(({ location: { pathname } }) => {
 
   const logout = () => {
     sessionStorage.clear();
+    toast.success("✅ 로그아웃", {
+      position: "bottom-right",
+      autoClose: 3000,
+    })
+    // history.push('/');
     window.location.href = "/";
   }
 

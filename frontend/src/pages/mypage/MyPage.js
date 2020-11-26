@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import api from 'utils/api';
 import axios from 'axios';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Register.css'
 
 const Recomdivin = styled.div`
@@ -50,7 +51,7 @@ function MyPage(props) {
       }
     })
       .then(({ data }) => {
-        // console.log('user info', data);
+        console.log('user info', data);
         setUserInfo(data);
         const path = data.profileImage !== null ? data.profileImage : '/file/ed3b2a58-3a53-4b92-987d-b6cd2cf5dcf1.png'
         setImage('https://k3a409.p.ssafy.io' + path);
@@ -77,6 +78,69 @@ function MyPage(props) {
           <div className="myInfo"> &nbsp;&nbsp; 1순위 - {userInfo.prefer1}</div>
           <div className="myInfo">&nbsp;&nbsp; 2순위 - {userInfo.prefer2}</div>
           <div className="myInfo">&nbsp;&nbsp; 3순위 - {userInfo.prefer3}</div>
+          <div className="myInfo">
+            평점&nbsp;&nbsp;
+            {
+              userInfo.star == 5 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star >= 4 && userInfo.star < 5 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star >= 3 && userInfo.star < 4 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star >= 2 && userInfo.star < 3 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star >= 1 && userInfo.star < 2 &&
+              <span>
+                <FontAwesomeIcon icon={['fas', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
+            {
+              userInfo.star == 0 &&
+              <span>
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+                <FontAwesomeIcon icon={['far', 'star']} size="lg" color="orange" />
+              </span>
+            }
+          </div>
         </Col>
       </Row>
       <MypageTab></MypageTab>

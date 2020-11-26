@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import api from 'utils/api';
+import { toast } from 'react-toastify';
 
 const LikeButtonAndCountBody = styled.span`
   display: flex;
@@ -35,9 +36,17 @@ function LikeButtonAndCount(props) {
               }
             }).then(({ data }) => {
               // console.log('like success', data);
+              toast.success("💖 게시물 좋아요 성공", {
+                position: "bottom-right",
+                autoClose: 3000,
+              })
               getBoastRead();
             }).catch((err) => {
               console.log(err)
+              toast.error("😢 게시물 좋아요 실패", {
+                position: "bottom-right",
+                autoClose: 3000,
+              })
             })
           } else {
             api.put(`/boast/dislike/${bid}`, {}, {
@@ -46,9 +55,17 @@ function LikeButtonAndCount(props) {
               }
             }).then(({ data }) => {
               // console.log('dislike success', data);
+              toast.success("💔 게시물 좋아요 취소 성공", {
+                position: "bottom-right",
+                autoClose: 3000,
+              })
               getBoastRead();
             }).catch((err) => {
               console.log(err);
+              toast.error("😢 게시물 좋아요 취소 실패", {
+                position: "bottom-right",
+                autoClose: 3000,
+              })
             })
           }
         }}

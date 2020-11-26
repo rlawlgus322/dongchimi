@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import api from 'utils/api';
 import 'components/mypage/login.css';
+import { toast } from 'react-toastify';
 import jQuery from "jquery";
 import dongchimi2 from 'lib/dongchimi2.png';
 import styled from 'styled-components';
@@ -144,10 +145,17 @@ function LoginModal({ history }) {
             const { accessToken } = res.data;
             sessionStorage.setItem('token', accessToken);
             sessionStorage.setItem('uid', res.data.uid)
-            alert("로그인되셨습니다")
+            toast.success("🚀 로그인 성공", {
+                position: "bottom-right",
+                autoClose: 3000,
+            })
             history.push("/")
         }).catch(err => {
             alert("아이디와 비밀번호를 확인해주세요.")
+            toast.error("😢 로그인 실패 - 아이디와 비밀번호를 확인해주세요", {
+                position: "bottom-right",
+                autoClose: 3000,
+            })
         })
     }
 
@@ -164,10 +172,17 @@ function LoginModal({ history }) {
             prefer2: e.target.category2.value,
             prefer3: e.target.category3.value,
         }).then((res) => {
-            alert("회원가입되었습니다.")
+            toast.success("🚀 회원가입 성공", {
+                position: "bottom-right",
+                autoClose: 3000,
+            })
             history.push("/")
             console.log(res);
         }).catch((err) => {
+            toast.error("😢 회원가입 실패", {
+                position: "bottom-right",
+                autoClose: 3000,
+            })
             console.log(err);
         })
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import api from 'utils/api';
+import { toast } from 'react-toastify';
 
 const CommentWritingBody = styled.div`
   display: flex;
@@ -33,11 +34,17 @@ function CommentWriting(props) {
       <SubmitButton
         onClick={() => {
           if (sessionStorage.getItem('token') === null) {
-            alert("로그인이 필요합니다");
+            toast.warn('😫 로그인이 필요합니다', {
+              position: "bottom-right",
+              autoClose: 3000,
+            })
             return;
           }
           if (document.getElementById('textBox').innerText === '') {
-            alert('내용을 입력해주세요');
+            toast.warn('😫 내용을 입력해주세요', {
+              position: "bottom-right",
+              autoClose: 3000,
+            })
             return;
           }
           api.post('/boast/comment', {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from 'utils/api';
 import "./style.css"
 import UserScore from './UserScoer';
+import { toast } from 'react-toastify';
 
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 
@@ -69,7 +70,7 @@ function PartyMembers(props) {
           <div className="ribbon">{member.nickname}</div>
         </div>
         <Dialog open={open} onClose={handleModalClose}>
-          <DialogTitle>별점</DialogTitle>
+          <DialogTitle>사용자 평가</DialogTitle>
           <DialogContent style={{ width: "30vw", height: "10vh" }}>
             <UserScore user={member} handleUserRate={handleUserRate}></UserScore>
           </DialogContent>
@@ -85,6 +86,10 @@ function PartyMembers(props) {
               }).then((res) => {
                 // console.log('rate', res);
                 handleModalClose();
+                toast('⭐ 사용자 평가 완료', {
+                  position: "bottom-right",
+                  autoClose: 3000,
+                })
               }).catch((err) => {
                 console.log(err);
               })
