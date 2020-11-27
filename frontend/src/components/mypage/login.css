@@ -1,0 +1,453 @@
+/* $gray: #8E9AAF; */
+/* $lavender: #CBC0D3; */
+/* $pale: #EAC7CC; */
+/* $white: #f6f6f6; */
+
+/* $pink: darken($pale, 20%); */
+/* $pink: darken(#EAC7CC, 20%); */
+
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lora');
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css'); */
+.nanumsquare {
+    font-family: 'NanumSquare', sans-serif !important;
+}
+
+/* $sans-serif: 'Open Sans', sans-serif;
+$serif: 'Lora', serif; */
+
+/* body {
+  background: #CBC0D3;
+} */
+
+/* div box styling */
+.contain {
+  margin: auto;
+  width: 650px;
+  height: 550px;
+  position: relative;
+}
+
+.welcome {
+  background:  #f6f6f6;
+  width: 915px;
+  height: 498px;
+  position: relative;
+  margin: auto 0;
+  top: 25%;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(0,0,0,.1);
+}
+
+.pinkbox {
+  position: absolute;
+  top: -10%;
+  left: 5%;
+  background: #d0e7ce;
+  width: 455px;
+  height: 600px;
+  border-radius: 5px;
+  box-shadow: 2px 0 10px rgba(0,0,0,.1);
+  transition: all .5s ease-in-out;
+  z-index: 2;
+}
+.oneline{
+    width: 75%;
+}
+.radio{
+    padding :9px;
+    width : 75%;
+    display: inline;
+    /* height : 50px; */
+    /* margin-top: 10px; */
+    border-bottom: solid 1px white;
+}
+.gender{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.radiobutton{
+    width : 10px;
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+input[type="radio"] {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.5);
+}
+.nodisplay {
+  display:none;
+  transition: all .5s ease;
+}
+
+.leftbox, .rightbox {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  transition: 1s all ease;
+}
+
+.leftbox {
+  left: -2%;
+}
+.rightbox {
+  right: -2%;
+}
+
+/* font & button styling */
+.register {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  font-weight: 800;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  color: #037c5e;
+  font-size: 2.5em;
+  letter-spacing: 8px;
+}
+
+.category{
+    padding: 10px;
+    color:  #d0e7ce;
+    letter-spacing: 2px;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 70px;
+    border: solid 1px white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color:white 
+}
+
+.login{
+    margin-top: 85px;
+}
+.signup input {
+    margin-bottom: 5px;
+}
+
+.signup h1 {
+    margin-bottom: 30px;
+}
+
+.title {
+  font-family: 'NanumSquare', sans-serif;
+  font-weight: 800;
+  color: #8E9AAF;
+  font-size: 60px;
+  line-height: 1.1em;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10px;
+}
+.desc {
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: #8E9AAF;
+    text-align: center;
+  margin-top: -8px;
+}
+.account {
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: #8E9AAF;
+    text-align: center;
+  margin-top: 55%;
+  font-size: 15px;
+}
+
+
+/* span {
+  color: #d0e7ce;
+} */
+
+.flower {
+  position: absolute;
+  width: center;
+  height:200px;
+  top: 30%;
+  left: 28%;
+  opacity: .7;
+}
+
+.smaller {
+  width: 90px;
+  height: 100px;
+  top: 48%;
+  left: 38%;
+  opacity: .9;
+}
+
+.button {
+  padding: 12px;
+  font-family: 'NanumSquare', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 21px;
+  border-radius: 10px;
+  margin: auto;
+  outline: none;
+  display: block;
+}
+.button:hover {
+background: #037c5e;
+color:  #f6f6f6;
+transition: background-color 1s ease-out;
+}
+
+.signbutton{
+    margin: auto;
+  margin-top: 3%;
+  background:  #f6f6f6;
+  color: #037c5e;
+  border: solid 1px #037c5e;
+}
+
+/* form styling */
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 7px;
+  height: 480px;
+}
+.more-padding{
+  padding-top: 35px;
+  height: 50%;
+}
+.signinput {
+padding: 12px;
+height: 50px;
+margin-top: 20px;
+}
+.more-padding .submit {
+margin-top: 20px;
+}
+
+.submit:hover {
+background: #CBC0D3;
+border-color: #CBC0D3;
+}
+
+/* input {
+  background: #d0e7ce;
+  width: 75%;
+  color: black;
+  border: none;
+  border-bottom: 1px solid #f6f6f6;
+  padding: 9px;
+  
+}
+input::placeholder {
+    color:  white;
+    letter-spacing: 2px;
+    font-size: 1.5em;
+    font-weight: 400;
+}
+input:focus {
+    color: #053101;
+    outline: none;
+    border-bottom: 1.2px solid #080591;
+    font-size: 1em;
+    transition: .8s all ease;
+}
+input:focus::placeholder {
+    opacity: 0;
+} */
+
+
+label {
+  font-family:'NanumSquare', sans-serif;
+  color: #037c5e;
+  font-size: 1.5em;
+  letter-spacing: 2px;
+}
+
+.checkbox {
+  display: inline;
+  white-space: nowrap;
+  position: relative;
+  left: -62px;
+  top: 5px;
+}
+
+input[type=checkbox] {
+  width: 27px;
+  background: #d0e7ce;
+  margin-top: 50px;
+}
+
+.checkbox input[type="checkbox"]:checked + label {
+  color: #d0e7ce;
+  transition: .5s all ease;
+}
+
+.submit {
+    font-size: 25px;
+  padding: 12px;
+  border-color: #d0e7ce;
+}
+
+.radio .genderTitle{
+    color: white;
+    font-size: 20px;
+}
+
+/* select box css */
+/* ===== Resets and Housekeeping ===== */
+
+  
+  /* ===== Actual Styles ===== */
+  
+  /* ===== Horizontal Rule ===== */
+  .rule {
+    margin: 10px 0;
+    border: none;
+    height: 1.5px;
+    background-image: linear-gradient("to left", #f0f0f0, #c9bbae, #f0f0f0);
+  }
+  
+  /* ===== Select Box ===== */
+  .sel {
+    font-size: 20px;
+    display: inline-block;
+    /* margin: 3em 2em; */
+    width: 120px;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .sel::before {
+    position: absolute;
+    content: '\f063';
+    font-family: 'FontAwesome';
+    font-size: 20px;
+    color: #FFF;
+    right: 20px;
+    top: calc(50% - 0.5em);
+  }
+  
+  .sel.active::before {
+    transform: rotateX(-180deg);
+  }
+  
+  .sel__placeholder {
+    display: block;
+    font-family: 'Quicksand';
+    font-size: 20px;
+    color: #838e95;
+    padding: 0.2em 0.5em;
+    text-align: left;
+    pointer-events: none;
+    user-select: none;
+    visibility: visible;
+  }
+  
+  .sel.active .sel__placeholder {
+    visibility: hidden;
+  }
+  
+  .sel__placeholder::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.2em 0.5em;
+    content: attr(data-placeholder);
+    visibility: hidden;
+  }
+  
+  .sel.active .sel__placeholder::before {
+    visibility: visible;
+  }
+  
+  .sel__box {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: -4px;
+    display: none;
+    list-style-type: none;
+    text-align: left;
+    font-size: 20px;
+    background-color: #FFF;
+    width: calc(100% + 8px);
+    box-sizing: border-box;
+  }
+  
+  .sel.active .sel__box {
+    display: block;
+    animation: fadeInUp 500ms;
+  }
+  
+  .sel__box__options {
+    display: list-item;
+    font-family: 'Quicksand';
+    font-size: 20px;
+    color: #838e95;
+    padding: 0.5em 1em;
+    user-select: none;
+  }
+  
+  .sel__box__options::after {
+    content: '\f00c';
+    font-family: 'FontAwesome';
+    font-size: 0.5em;
+    margin-left: 5px;
+    display: none;
+  }
+  
+  .sel__box__options.selected::after {
+    display: inline;
+  }
+  
+  .sel__box__options:hover {
+    background-color: #ebedef;
+  }
+  
+  /* ----- Select Box Black Panther ----- */
+  .sel {
+    border-bottom: 4px solid rgba(0, 0, 0, 0.3);
+  }
+  
+  .sel--black-panther {
+    z-index: 3;
+  }
+  
+  /* ----- Select Box Superman ----- */
+  .sel--superman {
+  /*   display: none; */
+    z-index: 2;
+  }
+  
+  /* ===== Keyframes ===== */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+  
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+    }
+  }

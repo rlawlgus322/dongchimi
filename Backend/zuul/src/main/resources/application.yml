@@ -1,0 +1,55 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 5555
+  ssl:
+    key-store: /etc/letsencrypt/live/k3a409.p.ssafy.io/keystore.p12
+    key-store-password: Ssafy1234
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+
+  #Setting logging levels
+logging:
+    level:
+      com.netflix: WARN
+      org.springframework.web: WARN
+      com.thoughtmechanix: DEBUG
+spring:
+  cloud:
+    client:
+      hostname: k3a409.p.ssafy.io
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+        defaultZone: https://k3a409.p.ssafy.io:8761/eureka/
+  instance:
+    secure-port: 5555
+    hostname: k3a409.p.ssafy.io
+    statusPageUrl: https://${eureka.instance.hostname}:${eureka.instance.secure-port}/info
+    healthCheckUrl: https://${eureka.instance.hostname}:${eureka.instance.secure-port}/health
+    homePageUrl: https://${eureka.instance.hostname}:${eureka.instance.secure-port}/
+
+
+#debug:
+#  request: true
+
+# 이곳에  bootstrap.yml에 지정한 service 이름 적고 주소 적기
+zuul:
+  prefix:  /api
+  routes:
+    boastservice:
+      path: /boast/**
+    userservice:
+      path: /auth/**
+    chimiservice:
+      path: /hobby/**
+#      url: http://localhost:7777 유레카 통해서 갈거면 필요없다.
+
+
+security:
+  require-ssl: true

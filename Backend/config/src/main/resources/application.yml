@@ -1,0 +1,30 @@
+server:
+  port: 8888
+  ssl:
+    key-store: /etc/letsencrypt/live/k3a409.p.ssafy.io/keystore.p12
+    key-store-password: Ssafy1234
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+
+spring:
+  cloud:
+    config:
+      label: video
+      server:
+        git:
+          uri: https://lab.ssafy.com/s03-final/s03p31a409.git
+          search-paths: configuration
+          password: SmAxtX21UnE173oVFdsD
+          username: kimjihyeon
+          
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    env:
+      enabled: true
+
+security:
+  require-ssl: true

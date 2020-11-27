@@ -1,0 +1,19 @@
+/* .maindesc{
+    margin : 20px 0;
+    padding : 20px;
+    width : 45vw;
+    min-height: 500px;
+    border: lightgray 1px solid;
+} */
+
+.detail{
+  margin-left:20px;
+  font-family: 'NanumSquare', sans-serif;
+  font-weight: 800;
+  color: #8E9AAF;
+  font-size: 60px;
+  line-height: 1.1em;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-top: 5%;
+}

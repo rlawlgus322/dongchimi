@@ -1,0 +1,228 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+@font-face {
+    font-family: 'HangeulNuri-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Ohsquare';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Oneprettynight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.nanumsquare {
+    font-family: 'NanumSquare', sans-serif !important;
+}
+
+.partytitle{
+    width : 100%;
+    margin-top: 20px;
+    margin-left: 10%;
+}
+.writer{
+    float: right;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.label {
+    font-family : "Poppins" !important;
+    font-size : 24px!important;
+    font-style : italic!important;
+    margin-left: 20%!important;
+}
+
+.category{
+    margin-left: 20px;
+}
+
+.member {
+    font-family: 'HangeulNuri-Bold';
+    margin-top: 50px;
+    /* margin-bottom: 10px; */
+    margin-left : 15% !important;
+    font-size : 24px !important;
+    font-weight : 800 !important;
+    color :  #037c5e !important;
+}
+
+.memberlist{
+    font-family: 'InfinitySans-RegularA1';
+    padding : 3px;
+    margin-top: 10px;
+    margin-left : 15%;
+    height: 40px;
+    font-size: 20px;
+    color: #037c5e;
+    border:  #d0e7ce  2px solid;
+    width: 80%;
+}
+
+.partybutton {
+    padding: 8px;
+    font-family: 'NanumSquare', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 20px;
+    margin : 10px;
+    border-radius: 10px;
+    outline: none;
+}
+.partybutton:hover {
+    background: #037c5e;
+    color:  #f6f6f6;
+    transition: background-color 1s ease-out;
+}
+
+.isStart{
+    font-family: 'Cafe24Ohsquare';
+    color: white;
+    background-color: red;
+    border: black 3px solid;
+    border-radius: 15px;
+    font-size: 20px;
+    width : 300px;
+    margin: 30px;
+    margin-left:35%;
+    padding : 10px;
+    text-align: center;
+    /* padding-left: 80px; */
+}
+
+.main-wrapper {
+	width: 90%;
+	max-width: 900px;
+	margin: 3em auto;
+	text-align: center;
+}
+
+.badge {
+	position: relative;
+	margin: 1.5em 3em;
+	width: 5em;
+	height: 6.2em;
+	border-radius: 10px;
+	display: inline-block;
+	top: 0;
+	transition: all 0.2s ease;
+}
+.badge:hover {
+    top: -4px;
+}
+.badge .font {
+    display: inline-block;
+    margin-top: 1em;
+}
+.badge .ribbon {
+     /* position: absolute; */
+    border-radius: 4px;
+    padding: 5px 5px 4px;
+    width: 100px;
+     /* margin-top:30px; */
+    z-index: 11;
+    color: #fff;
+    bottom: 12px;
+    left: 50%;
+     /* margin-left: -25px; */
+    height: 25px;
+    font-size: 14px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.27);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    background:  #037c5e;
+    cursor: default;
+}
+
+/* comment */
+.comment {
+    font-family: 'Cafe24Oneprettynight';
+    font-size: 20px;
+    font-weight: normal;
+    max-width: 90%;
+    margin: 50px auto;
+    margin-left: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment p {
+    max-width: 295px;
+    word-wrap: break-word;
+    margin-bottom: 12px;
+    line-height: 24px;
+    position:relative;
+    padding:10px 20px;
+    border-radius:25px;
+}
+
+.comment p:before, .comment p:after {
+    content:"";
+    position:absolute;
+    bottom:-2px;
+    height:20px;
+}
+
+.commentForm {
+    margin : 0;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.from-me {
+	color:white; 
+	background:#037c5e;
+	align-self: flex-end;
+    padding : 10px;
+	
+}
+
+.from-me:before {
+    right:-7px;
+    border-right:20px solid #037c5e;
+    border-bottom-left-radius: 16px 14px;
+    transform:translate(0, -2px);
+}
+
+.from-me:after {
+    right:-56px;
+    width:26px;
+    background:white;
+    border-bottom-left-radius: 10px;
+    transform:translate(-30px, -2px);
+}
+.from-them {
+	background:#d0e7ce;
+	color:black;
+	padding : 10px;	
+}
+
+.from-them:before {
+    left:-7px;
+    border-left:20px solid #d0e7ce;
+    border-bottom-right-radius: 16px 14px;
+    transform:translate(0, -2px);
+}
+
+.from-them:after {
+    left:4px;
+    width:26px;
+    background:white;
+    border-bottom-right-radius: 10px;
+    transform:translate(-30px, -2px);
+}
